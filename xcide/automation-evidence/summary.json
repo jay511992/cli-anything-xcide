@@ -1,0 +1,87 @@
+{
+  "tests": "191 passed in 86.94s",
+  "build": {
+    "desktop": "xcide-test-88293e564be547a4900a9174ccee2e97",
+    "foreground_input": false,
+    "observations": {
+      "before": {
+        "foreground_hwnd": 16386498,
+        "cursor": [
+          1584,
+          837
+        ]
+      },
+      "after": {
+        "foreground_hwnd": 16386498,
+        "cursor": [
+          1346,
+          344
+        ]
+      }
+    }
+  },
+  "runs": [
+    {
+      "source": "E:\\Data\\Temp\\pytest-of-xiaosile\\pytest-126\\test_native_xc_diagnostics_and0\\runs\\run-6c827eb891364d4cbc4c1b11ed2f53ba\\report.json",
+      "copy": "runtime-expected-failure.json",
+      "ok": false,
+      "automation": {
+        "desktop": "xcide-test-771dfaea8f0a450f99afdb9ae26810ac",
+        "input": "xcgui-ui-thread-message",
+        "foreground_input": false,
+        "screen_capture": false,
+        "before": {
+          "foreground_hwnd": 16386498,
+          "cursor": [
+            838,
+            514
+          ]
+        },
+        "after": {
+          "foreground_hwnd": 16386498,
+          "cursor": [
+            811,
+            577
+          ]
+        }
+      }
+    },
+    {
+      "source": "E:\\Data\\Temp\\pytest-of-xiaosile\\pytest-126\\test_native_xc_diagnostics_and0\\runs\\run-a3f9cf5f92194b25b0c843b7e100790b\\report.json",
+      "copy": "runtime-success.json",
+      "ok": true,
+      "automation": {
+        "desktop": "xcide-test-a353850212ea4863b52ee213226c0d0a",
+        "input": "xcgui-ui-thread-message",
+        "foreground_input": false,
+        "screen_capture": false,
+        "before": {
+          "foreground_hwnd": 16386498,
+          "cursor": [
+            739,
+            441
+          ]
+        },
+        "after": {
+          "foreground_hwnd": 16386498,
+          "cursor": [
+            912,
+            587
+          ]
+        }
+      }
+    }
+  ],
+  "config_sha256": "977e1d599024cb3a119cd1c6ebfa4cb64c0a5f87ce73e5c3b0600de234ed9d1c",
+  "source_sha256": {
+    "core\\build.py": "c891d2cbd8e52f7f458e3b8ec827eaad323924ac56fa2ac6db71b4f3d0bccf8e",
+    "core\\runtime.py": "b81b91ad1deaf7eabb67f25ab67e7d292d665b1b9d1345ccd82b2aed051a0308",
+    "utils\\win_debug.py": "20ecbf90e5facb6fdba5494c4b0995f281918ce8c5505176a83e93186f760302",
+    "utils\\win_desktop.py": "8789e794ff6b37b3005e32291621f6d0047cd1abad1abad9df9828f9826c917c",
+    "native\\automation_bridge.h": "9deb02e62ec4f2de6ba1373704348e72c4f0dd2e466f9dc754a4fd366952c913",
+    "native\\output_bridge.cpp": "b999ca8a1863dc8b85d37c3fc49604fc1efd7c830c44300ac069f2b4a2de9655",
+    "examples\\automation_counter.xc": "201365906cea136d3e7450f558ecfdba90c68e85a9b112aa848f3df24c953f67"
+  },
+  "stationary_cursor_report": "runtime-stationary-cursor.json",
+  "observation_note": "最终复测前台句柄保持一致，鼠标坐标在用户操作期间变化；不归因于 CLI，不恢复或锁定用户鼠标。此前静止鼠标验收保存在 runtime-stationary-cursor.json。"
+}

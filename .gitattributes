@@ -1,0 +1,5 @@
+# Preserve BOMs and line endings: recorded evidence hashes refer to exact bytes.
+* -text whitespace=cr-at-eol,-blank-at-eof
+# Markdown hard line breaks intentionally use trailing spaces.
+*.md whitespace=cr-at-eol,-blank-at-eol,-blank-at-eof
+*.png binary

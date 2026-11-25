@@ -1,0 +1,40 @@
+# Python environments and generated package metadata
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.egg
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Build products and local IDE/runtime workspaces
+build/
+dist/
+.tmp-*/
+.cli-anything/
+runs/
+*.exe
+*.dll
+*.pdb
+*.obj
+*.lib
+*.exp
+*.ilk
+*.whl
+*.log
+
+# Local credentials, editor settings and OS files
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+Desktop.ini

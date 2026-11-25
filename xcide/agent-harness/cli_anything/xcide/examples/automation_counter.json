@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "expected_exit_code": 0,
+  "steps": [
+    {"action": "wait_window", "title_contains": "XC Automation", "timeout": 10},
+    {"action": "assert_debug", "contains": "READY"},
+    {"action": "assert_title", "contains": "XC Automation - Ready"},
+    {"action": "wait", "seconds": 0.4},
+    {"action": "screenshot", "name": "initial"},
+    {"action": "click", "x": 150, "y": 68},
+    {"action": "text", "text": "中文Automation"},
+    {"action": "key", "key": "END"},
+    {"action": "click", "x": 110, "y": 140},
+    {"action": "assert_debug", "contains": "COUNT=, 1"},
+    {"action": "assert_debug", "contains": "TEXT=, 中文Automation"},
+    {"action": "wait", "seconds": 0.3},
+    {"action": "screenshot", "name": "clicked"},
+    {"action": "close", "timeout": 5}
+  ]
+}

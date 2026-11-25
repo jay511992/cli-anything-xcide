@@ -1,0 +1,19 @@
+CLI-Anything XCIDE harness
+
+This standalone repository was extracted from the XCIDE harness developed in a
+local checkout of https://github.com/HKUDS/CLI-Anything . The upstream checkout
+was based on commit 34f519533bc175d2fe287ab8316b0dd99bb9cc43.
+
+The CLI-Anything methodology and shared Python helpers (including repl_skin.py
+and preview_bundle.py) originate from CLI-Anything. The upstream Apache License
+2.0 is preserved in LICENSE. XCIDE-specific commands, background automation,
+tests, documentation and investigation reports were added in the local work.
+
+XCGUI / XCIDE and their SDK, compiler, modules and bundled assets are external
+dependencies. This repository does not distribute the IDE installation or the
+XC-MCP-Next source tree. The native bridges use the locally installed XCGUI API
+and XCIDE v3 plugin ABI; those dependencies remain subject to their own terms.
+
+The xcide/automation-evidence directory contains captured results from the
+included test application. Historical reports retain their original timestamps,
+absolute paths and hashes; they are not new runs performed on the reader's PC.

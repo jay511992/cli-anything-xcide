@@ -1,0 +1,93 @@
+{
+  "ok": false,
+  "backend": "\u672c\u673a\u70ab\u5f69IDE GUI + \u5b9a\u5411 F7 + Windows PE \u4ea7\u7269\u6838\u9a8c + \u79c1\u6709 IDE \u8f93\u51fa\u6865\u63a5",
+  "project": {
+    "name": "Automation Counter",
+    "project_file": "E:\\Data\\Temp\\pytest-of-xiaosile\\pytest-126\\test_native_xc_diagnostics_and0\\Automation Counter\\Automation Counter.xcproj",
+    "directory": "E:\\Data\\Temp\\pytest-of-xiaosile\\pytest-126\\test_native_xc_diagnostics_and0\\Automation Counter",
+    "configuration": "\u8c03\u8bd5\u7248",
+    "platform": "x64",
+    "module_library": "",
+    "platform_toolset": "vs2022",
+    "sdk": "Windows10",
+    "modules": [
+      {
+        "path": "module_base.h",
+        "name": "\u57fa\u7840\u6a21\u5757"
+      },
+      {
+        "path": "module_xcgui.h",
+        "name": "\u70ab\u5f69\u754c\u9762\u5e93"
+      },
+      {
+        "path": "module_xcgui_class.h",
+        "name": "\u70ab\u5f69\u754c\u9762\u5e93-\u7c7b"
+      }
+    ],
+    "files": [],
+    "entrypoints": [
+      "main.xc"
+    ]
+  },
+  "ide_executable": "I:\\xcide\\\u70ab\u5f69IDE.exe",
+  "command": [
+    "E:\\Data\\Temp\\cli-anything-xcide-10ukq3oe\\\u70ab\u5f69IDE.exe",
+    "E:\\Data\\Temp\\pytest-of-xiaosile\\pytest-126\\test_native_xc_diagnostics_and0\\Automation Counter\\Automation Counter.xcproj"
+  ],
+  "ide_pid": 16184,
+  "isolated_ide_root": "E:\\Data\\Temp\\cli-anything-xcide-10ukq3oe",
+  "isolated_data_dir": "E:\\Data\\Temp\\cli-anything-xcide-10ukq3oe\\data",
+  "isolated_plugins": [
+    "plug_cli_output.dll"
+  ],
+  "automation": {
+    "desktop": "xcide-test-bf81a3ec036744df93197eac5cb67195",
+    "foreground_input": false,
+    "observations": {
+      "before": {
+        "foreground_hwnd": 16386498,
+        "cursor": [
+          812,
+          576
+        ]
+      },
+      "after": {
+        "foreground_hwnd": 16386498,
+        "cursor": [
+          1047,
+          570
+        ]
+      }
+    }
+  },
+  "ide_dialogs": [],
+  "cleanup_error": null,
+  "terminated": false,
+  "started_at_ns": 1795616839603571600,
+  "expected_executable": "E:\\Data\\Temp\\pytest-of-xiaosile\\pytest-126\\test_native_xc_diagnostics_and0\\Automation Counter\\Debug64\\Automation Counter.exe",
+  "build_result": "failed",
+  "compiler": {
+    "compiled": false,
+    "skipped": false,
+    "failed": true,
+    "errorCount": 1,
+    "warningCount": 0,
+    "reportedTotal": 1,
+    "failCode": null,
+    "diagnostics_available": true
+  },
+  "diagnostics": [
+    {
+      "kind": "check",
+      "severity": "error",
+      "file": "E:\\Data\\Temp\\pytest-of-xiaosile\\pytest-126\\test_native_xc_diagnostics_and0\\Automation Counter\\main.xc",
+      "line": 2,
+      "column": 1,
+      "end_column": 9,
+      "message": "\u672a\u5b9a\u4e49:\u4e0d\u5b58\u5728\u7684\u51fd\u6570"
+    }
+  ],
+  "exe": null,
+  "compiler_output": "\ud83d\ude80*\u68c0\u67e5\u6587\u4ef6\u4f9d\u8d56->\n\ud83d\udca1\u6e05\u7406\u9879\u76ee\u5b8c\u6210, \u9879\u76ee\u540d\u79f0: Automation Counter\n\ud83d\ude80*\u6253\u5305UI\u8d44\u6e90 \u8df3\u8fc7, \u6ca1\u6709\u53ef\u6253\u5305\u7684UI\u5e03\u5c40\u6587\u4ef6->\n\ud83d\udcc4E:\\Data\\Temp\\cli-anything-xcide-10ukq3oe\\data\\VC\\VC2022\\14.41.34120\\bin\\Hostx64\\x64\\cl.exe\n\ud83d\udcc4E:\\Data\\Temp\\cli-anything-xcide-10ukq3oe\\data\\VC\\VC2022\\14.41.34120\\bin\\Hostx64\\x64\\lib.exe\n\ud83d\udcc4E:\\Data\\Temp\\cli-anything-xcide-10ukq3oe\\data\\VC\\VC2022\\14.41.34120\\bin\\Hostx64\\x64\\link.exe\n\ud83d\udcc4C:\\Program Files (x86)\\Windows Kits\\10\\bin\\10.0.26100.0\\x64\\mt.exe\n\ud83d\udcc4C:\\Program Files (x86)\\Windows Kits\\10\\bin\\10.0.26100.0\\x64\\rc.exe\n\ud83d\ude80*\u6253\u5370\u5305\u542b\u76ee\u5f55->\n\ud83d\udcc1C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\cppwinrt\n\ud83d\udcc1C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\n\ud83d\udcc1C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\ucrt\n\ud83d\udcc1C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\n\ud83d\udcc1C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\winrt\n\ud83d\udcc1E:\\Data\\Temp\\cli-anything-xcide-10ukq3oe\\data\\VC\\VC2022\\14.41.34120\\atlmfc\\include\n\ud83d\udcc1E:\\Data\\Temp\\cli-anything-xcide-10ukq3oe\\data\\VC\\VC2022\\14.41.34120\\include\n\ud83d\udcc1E:\\Data\\Temp\\cli-anything-xcide-10ukq3oe\\data\\XC-Module\\\u6838\u5fc3[\u5b98\u65b9]\\\u57fa\u7840\u6a21\u5757\n\ud83d\udcc1E:\\Data\\Temp\\cli-anything-xcide-10ukq3oe\\data\\XC-Module\\\u6838\u5fc3[\u5b98\u65b9]\\\u70ab\u5f69\u754c\u9762\u5e93\n\ud83d\ude80*\u6253\u5370\u5305\u542b\u5e93\u76ee\u5f55->\n\ud83d\udcc1C:\\Program Files (x86)\\Windows Kits\\10\\lib\\10.0.26100.0\\ucrt\\x64\n\ud83d\udcc1C:\\Program Files (x86)\\Windows Kits\\10\\lib\\10.0.26100.0\\um\\x64\n\ud83d\udcc1E:\\Data\\Temp\\cli-anything-xcide-10ukq3oe\\data\\VC\\VC2022\\14.41.34120\\atlmfc\\lib\\x64\n\ud83d\udcc1E:\\Data\\Temp\\cli-anything-xcide-10ukq3oe\\data\\VC\\VC2022\\14.41.34120\\lib\\x64\n\ud83d\udcc1E:\\Data\\Temp\\cli-anything-xcide-10ukq3oe\\data\\XC-Module\\\u6838\u5fc3[\u5b98\u65b9]\\\u57fa\u7840\u6a21\u5757\n\ud83d\udcc1E:\\Data\\Temp\\cli-anything-xcide-10ukq3oe\\data\\XC-Module\\\u6838\u5fc3[\u5b98\u65b9]\\\u70ab\u5f69\u754c\u9762\u5e93\n\ud83d\ude80*\u89e3\u6790\u4ee3\u7801->\n\ud83d\ude80*\u68c0\u67e5\u4ee3\u7801->\n\ud83d\udc1e*\u4ee3\u7801\u68c0\u67e5\u5931\u8d25, E:\\Data\\Temp\\pytest-of-xiaosile\\pytest-126\\test_native_xc_diagnostics_and0\\Automation Counter\\main.xc(3)\n----- \ud83d\udc1e\u9519\u8bef\u5217\u8868: -----\n\ud83d\udc1b\u68c0\u67e5\u9519\u8bef: E:\\Data\\Temp\\pytest-of-xiaosile\\pytest-126\\test_native_xc_diagnostics_and0\\Automation Counter\\main.xc(2), \u5217(1-9)\n\u672a\u5b9a\u4e49:\u4e0d\u5b58\u5728\u7684\u51fd\u6570\n----- \ud83d\udc1e\u9519\u8bef\u5217\u8868: \u5171\u6709(1)\u4e2a\u9519\u8bef -----\n",
+  "error": "\u7f16\u8bd1\u8bca\u65ad\u672a\u901a\u8fc7\u6216\u672a\u786e\u8ba4\u672c\u8f6e\u7a33\u5b9a\u4ea7\u7269\uff1b\u8bf7\u68c0\u67e5 compiler\u3001diagnostics \u548c compiler_output\u3002"
+}

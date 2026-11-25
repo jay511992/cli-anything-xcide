@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src data: file:; font-src 'none'; script-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="color-scheme" content="light dark"><title>炫彩 IDE CLI：AI 自动化调用手册｜炫彩 IDE</title>
+<meta name="description" content="离线阅读版：炫彩 IDE CLI：AI 自动化调用手册">
+<style>
+:root{color-scheme:light dark;--bg:#f3f5f9;--panel:#fff;--ink:#1f2937;--soft:#617086;--line:#e4e9f0;--accent:#145bce;--code:#eef2f8;--shadow:0 16px 46px #25385814;font:16px/1.76 "Microsoft YaHei UI","Microsoft YaHei",system-ui,sans-serif}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 85% -12%,#dbeafe 0,transparent 34rem),var(--bg);color:var(--ink)}
+.top{max-width:1380px;margin:auto;padding:30px 34px 12px;display:flex;align-items:center;justify-content:space-between;color:var(--soft);font-size:13px;letter-spacing:.04em}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;color:var(--accent)}.mark{display:grid;place-items:center;width:28px;height:28px;border-radius:8px;background:linear-gradient(140deg,#4e91ff,#1758c9);color:white;font-size:15px}
+.wrap{max-width:1380px;margin:0 auto 72px;padding:14px 28px;display:grid;grid-template-columns:minmax(0,1fr) 245px;gap:26px;align-items:start}
+main{min-width:0;background:var(--panel);border:1px solid var(--line);box-shadow:var(--shadow);border-radius:18px;padding:54px clamp(24px,6vw,86px) 66px}.eyebrow{color:var(--accent);font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:12px}h1{font-size:clamp(32px,5vw,47px);line-height:1.2;letter-spacing:-.04em;margin:12px 0 32px}h2{font-size:25px;line-height:1.35;letter-spacing:-.025em;margin:52px 0 18px;padding-bottom:10px;border-bottom:1px solid var(--line)}h3{font-size:20px;margin:34px 0 10px;line-height:1.4}h4,h5,h6{margin:28px 0 8px}p{margin:14px 0}a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}strong{font-weight:750}ul,ol{padding-left:1.55em;margin:12px 0 20px}li{padding-left:.18em;margin:6px 0}code{font-family:Consolas,"Cascadia Code","Microsoft YaHei",monospace;font-size:.91em;background:var(--code);border-radius:5px;padding:.13em .42em;overflow-wrap:anywhere}pre{margin:20px 0;padding:19px 22px;background:#111827;color:#e2e8f0;border:1px solid #334155;border-radius:11px;overflow:auto;line-height:1.65;white-space:pre}pre code{padding:0;background:none;border-radius:0;color:inherit;font-size:13px;overflow-wrap:normal}.table-wrap{overflow:auto;margin:19px 0 24px;border:1px solid var(--line);border-radius:10px}table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.55}th,td{padding:10px 13px;border-bottom:1px solid var(--line);vertical-align:top}th{background:var(--code);font-weight:700;white-space:nowrap}tr:last-child td{border-bottom:0}blockquote{margin:20px 0;padding:2px 20px;border-left:4px solid #86aaf1;background:var(--code);border-radius:0 8px 8px 0;color:var(--soft)}hr{border:0;border-top:1px solid var(--line);margin:32px 0}.meta{color:var(--soft);font-size:13px;margin-top:-20px;margin-bottom:36px}
+aside{position:sticky;top:16px;max-height:calc(100vh - 32px);overflow:auto;padding:20px 16px;background:color-mix(in srgb,var(--panel) 84%,transparent);border:1px solid var(--line);border-radius:14px}aside b{display:block;margin:0 8px 9px;font-size:13px}aside a{display:block;padding:4px 8px;color:var(--soft);font-size:12px;line-height:1.5;border-radius:5px}aside a:hover{background:var(--code);color:var(--accent);text-decoration:none}aside .depth-3{padding-left:18px}aside .depth-4{padding-left:29px}.foot{max-width:1380px;margin:-48px auto 30px;padding:0 34px;color:var(--soft);font-size:12px}
+@media(prefers-color-scheme:dark){:root{--bg:#12151c;--panel:#1b2029;--ink:#e3e9f2;--soft:#a6b1c2;--line:#303948;--accent:#7eaeff;--code:#252e3a;--shadow:0 20px 50px #0004}body{background:radial-gradient(ellipse at 85% -12%,#172b46 0,transparent 36rem),var(--bg)}aside{background:color-mix(in srgb,var(--panel) 87%,transparent)}}
+@media(max-width:940px){.wrap{grid-template-columns:minmax(0,1fr);padding:10px 16px}aside{position:relative;top:0;max-height:240px;order:-1;columns:2}main{padding:38px clamp(18px,5vw,48px) 48px}.top{padding:23px 20px 10px}}
+@media(max-width:560px){.wrap{padding:8px}main{border-radius:12px;padding:30px 20px 42px}aside{columns:1}.top{padding:18px 14px 8px}h2{font-size:22px}}
+@media print{:root{color-scheme:light;--bg:#fff;--panel:#fff;--ink:#171717;--soft:#444;--line:#ccc;--accent:#164f98;--code:#f1f1f1}body{background:#fff}.top,aside,.foot{display:none}.wrap{display:block;max-width:none;margin:0;padding:0}main{border:0;box-shadow:none;padding:0}h2{break-after:avoid}pre,table{break-inside:avoid}a{color:inherit;text-decoration:underline}}
+</style></head><body>
+<header class="top"><div class="brand"><span class="mark">炫</span><span>炫彩 IDE · 本地自动化文档</span></div><span>离线 HTML · 可直接浏览器打开 / 打印为 PDF</span></header>
+<div class="wrap"><main><div class="eyebrow">XCGUI / Xuan Language</div><h1>炫彩 IDE CLI：AI 自动化调用手册</h1><div class="meta">本页由本地 Markdown 生成；样式内嵌，无网络、MCP 或浏览器脚本依赖。</div><p>本手册供 Codex、其他 AI 代理和脚本调用 <code>cli-anything-xcide</code>。CLI 直接读取和更新 Windows 本地文件，不使用 MCP。<code>build --diagnostics</code> 自动在本轮隔离 IDE 副本中编译并加载输出桥接，无需向正式 IDE 安装插件。</p>
+<p>文档的离线预览版是 <a href="AI_CALLING.html">AI_CALLING.html</a>。前两批各 20 轮安装包功能挖掘见工作区根目录的 <code>AI_MINING_REPORT.md</code>、<code>AI_MINING_REPORT_02.md</code>；第三批 50 轮见 <code>AI_MINING_REPORT_03.md</code>。均有同名 HTML 阅读版，不依赖网络或脚本。</p>
+<h2 id="安装和调用原则">安装和调用原则</h2>
+<p>在 harness 目录安装：</p>
+<pre><code class="language-powershell">python -m pip install -e &#x27;.[test]&#x27;
+cli-anything-xcide --help</code></pre>
+<p>IDE 默认位置为 <code>I:\xcide</code>。其他位置通过 <code>--ide PATH</code> 或 <code>XC_IDE_ROOT</code> 指定。所有全局选项都必须放在命令之前：</p>
+<pre><code class="language-powershell">cli-anything-xcide --json --ide &#x27;I:\xcide&#x27; example list &#x27;按钮&#x27;
+cli-anything-xcide --json --project &#x27;E:\work\Demo\Demo.xcproj&#x27; project config list</code></pre>
+<p>自动化调用建议：</p>
+<ol><li>每次子进程调用都带 <code>--json</code>，并检查进程退出码。成功 JSON 写入 stdout；CLI 处理的错误 JSON 写入 stderr 并返回非零码。操作系统或 Python 启动错误也可能产生 traceback，应同时保留 stderr。</li><li>路径使用绝对路径并加引号。不要假定相对路径基于仓库、脚本或 IDE 安装目录。</li><li>新建、复制和配置修改前，先运行对应的 <code>info</code>、<code>list</code> 或 <code>doctor</code> 检查对象。支持 <code>--dry-run</code> 的修改命令可先确认操作计划。</li><li>解析 JSON 字段前检查 <code>ok</code>；报告数量时读取结果里的实际字段。需要编译诊断时使用 <code>build --diagnostics</code>；普通 <code>build</code> 的 <code>compiler.errorCount</code> 仍为 <code>null</code>，代表未知。</li><li>一条命令调用一次子进程。可以按 JSON 中返回的 <code>project_file</code>、示例 <code>id</code> 或模块 <code>file</code> 拼接下一条命令。</li></ol>
+<p><code>--help</code> 即使带 <code>--json</code> 仍是纯文本。Windows 下若以 UTF-8 捕获中文帮助，给子进程环境设置 <code>PYTHONUTF8=1</code>（PowerShell：<code>$env:PYTHONUTF8=&#x27;1&#x27;</code>）；父 Python 的 <code>-X utf8</code> 不会自动传给独立 CLI 进程。正常 <code>--json</code> 结果使用 ASCII 转义，不依赖中文控制台编码。</p>
+<p>若文件操作已经完成，但会话保存失败，JSON 会保留操作结果并包含 <code>session_saved=false</code>、<code>session_warning.operation_completed=true</code> 和 <code>session_warning.retry_operation=false</code>。此时不要重试文件操作；重新读取会话，并在后续命令中显式传入 <code>--project</code>。会话专用操作的保存失败仍返回非零码。同一工程的结构化 XML 更新由 CLI 文件锁串行化，提交前检测外部修改；IDE 不遵守该锁，应避免同时保存同一工程。</p>
+<p>Windows Python 子进程示例：</p>
+<pre><code class="language-python">import json
+import subprocess
+
+result = subprocess.run(
+    [&quot;cli-anything-xcide&quot;, &quot;--json&quot;, &quot;--ide&quot;, r&quot;I:\xcide&quot;,
+     &quot;example&quot;, &quot;list&quot;, &quot;按钮&quot;],
+    capture_output=True,
+    text=True,
+    encoding=&quot;utf-8&quot;,
+    check=False,
+)
+if result.returncode:
+    raise RuntimeError(result.stderr)
+data = json.loads(result.stdout)
+if not data[&quot;ok&quot;]:
+    raise RuntimeError(data)
+example_ids = [item[&quot;id&quot;] for item in data[&quot;examples&quot;] if item[&quot;valid&quot;]]</code></pre>
+<h2 id="自动化工作流">自动化工作流</h2>
+<h3 id="先查原生定义再生成代码或布局">先查原生定义，再生成代码或布局</h3>
+<p><code>reference</code> 不需要工程；读取所选 IDE 安装目录的已保存文件。先用 <code>sources</code> 检查可用目录，再搜索和读取准确条目：</p>
+<pre><code class="language-powershell">cli-anything-xcide --json --dry-run --ide &#x27;I:\xcide&#x27; reference sources
+cli-anything-xcide --json --dry-run --ide &#x27;I:\xcide&#x27; reference search snippets &#x27;如果&#x27;
+cli-anything-xcide --json --dry-run --ide &#x27;I:\xcide&#x27; reference show language &#x27;整型&#x27;
+cli-anything-xcide --json --dry-run --ide &#x27;I:\xcide&#x27; reference search controls &#x27;按钮&#x27;
+cli-anything-xcide --json --dry-run --ide &#x27;I:\xcide&#x27; reference search properties buttonType --scope &#x27;elementUI/buttonUI&#x27;
+cli-anything-xcide --json --dry-run --ide &#x27;I:\xcide&#x27; reference show property-help itemID
+cli-anything-xcide --json --dry-run --ide &#x27;I:\xcide&#x27; reference show events &#x27;elementUI/buttonUI/XE_BNCLICK&#x27;
+cli-anything-xcide --json --dry-run --ide &#x27;I:\xcide&#x27; reference search custom-objects &#x27;搜索编辑框&#x27;
+cli-anything-xcide --json --dry-run --ide &#x27;I:\xcide&#x27; reference show build-options runtimeLibrary
+cli-anything-xcide --json --dry-run --ide &#x27;I:\xcide&#x27; reference search functions XBtn_
+cli-anything-xcide --json --dry-run --ide &#x27;I:\xcide&#x27; reference search completion-tokens XC_WINDOW</code></pre>
+<div class="table-wrap"><table><tr><th style="text-align:left">KIND</th><th style="text-align:left">主要返回字段</th><th style="text-align:left">使用边界</th></tr><tr><td style="text-align:left"><code>snippets</code></td><td style="text-align:left"><code>name</code>、<code>comment</code>、<code>code</code></td><td style="text-align:left"><code>code</code> 保留换行、制表符与“占位”等原生内容。需要调用方填入实际语句。</td></tr><tr><td style="text-align:left"><code>language</code></td><td style="text-align:left"><code>name</code>、<code>text</code></td><td style="text-align:left">本机炫语言类型、关键字和指令帮助。</td></tr><tr><td style="text-align:left"><code>controls</code></td><td style="text-align:left"><code>tag</code>、<code>name</code></td><td style="text-align:left">原生控件标签及中文名称。</td></tr><tr><td style="text-align:left"><code>properties</code></td><td style="text-align:left"><code>scope</code>、<code>attribute</code>、<code>choices</code>、<code>help</code>、<code>editor_type</code>、<code>flags</code></td><td style="text-align:left"><code>choices</code> 是 <code>[值, 显示名]</code>；<code>flags</code> 是 IDE 属性编辑器标识，不是属性默认值。</td></tr><tr><td style="text-align:left"><code>property-help</code></td><td style="text-align:left"><code>name</code>、<code>text</code></td><td style="text-align:left">独立帮助条目，例如未列在属性行中的 <code>itemID</code>。</td></tr><tr><td style="text-align:left"><code>events</code></td><td style="text-align:left"><code>scope</code>、<code>class_name</code>、<code>declaration</code>、<code>remark</code></td><td style="text-align:left">保留 <code>$[UI对象名称]</code> 模板变量，未替换对象名或生成事件注册代码。</td></tr><tr><td style="text-align:left"><code>custom-objects</code></td><td style="text-align:left"><code>tag</code>、<code>attributes</code>、<code>node_count</code>、<code>xml</code></td><td style="text-align:left">序列化的组合控件片段，非完整窗口文件；复制前处理资源引用和 ID/name 冲突。</td></tr><tr><td style="text-align:left"><code>build-options</code></td><td style="text-align:left"><code>definition.xml_label/uiType/flag/list/default/default_debug</code>（可选字段按源文件）</td><td style="text-align:left">安装 UI 选项映射，不能据此断言项目启用了某选项。</td></tr><tr><td style="text-align:left"><code>functions</code></td><td style="text-align:left"><code>text</code>、<code>line_number</code></td><td style="text-align:left">函数自动补全原始行，API 可用性仍需模块/头文件和构建验证。</td></tr><tr><td style="text-align:left"><code>completion-tokens</code></td><td style="text-align:left"><code>text</code>、<code>line_number</code></td><td style="text-align:left">混有常量名称和代码词条；无数值，也不保证全是常量。</td></tr></table></div>
+<p><code>search</code> 返回 <code>items</code>、<code>count</code>、匹配总量 <code>total</code>、<code>offset</code>、<code>truncated</code> 和 <code>next_offset</code>。<code>limit</code> 为 1–2000，默认 50；<code>next_offset=null</code> 表示本次查询没有下一页。翻页时保持 KIND、QUERY、scope 一致，并比较 <code>source.sha256</code>；源文件变化应重新搜索。返回顺序保持原生文件顺序。未匹配到条目是成功的空列表；无效 scope、损坏源或不存在的准确 ID 返回非零退出码及错误 JSON。</p>
+<p><code>sources.ok=true</code> 代表目录检查完成；必须逐项检查 <code>sources[].available</code>。缺少某参考文件不会阻塞其他目录的查询。查询限制为预定义的安装文件，每文件最大 4 MiB，拒绝越过安装目录的链接以及含 DTD/实体声明的 XML。</p>
+<p><code>properties</code> 和 <code>events</code> 的 <code>scopes</code> 列出原生层级路径。<code>--scope elementUI/buttonUI</code> 只返回按钮节点直接定义的条目；需要基础元素信息时另查 <code>--scope elementUI</code>。空作用域可能表示未直接声明条目，不表示控件没有能力。保留原始大小写和名字，不把这套目录结构当作已验证的运行时继承规则。</p>
+<p><code>show</code> 的 ID 必须来自 <code>search.items[].id</code>，它是逻辑标识，不是文件路径。片段、组合控件及补全条目的数字 ID 与源文件顺序有关，不能跨安装版本硬编码。结构化 JSON/XML 条目附带 <code>pointer</code>，补全条目附带原始 <code>line_number</code>；所有结果附带 <code>source.path/relative_path/size/sha256</code>。</p>
+<p>下面的脚本只读取片段；后续可以把 <code>code</code> 写入 UTF-8 临时输入文件，再调用已有 <code>editor write</code> 写入选定工程。裸片段可能包含占位符，不能直接作为完整工程的编译验收依据。</p>
+<pre><code class="language-python">import json
+import subprocess
+
+base = [&quot;cli-anything-xcide&quot;, &quot;--json&quot;, &quot;--dry-run&quot;, &quot;--ide&quot;, r&quot;I:\xcide&quot;]
+result = subprocess.run(base + [&quot;reference&quot;, &quot;search&quot;, &quot;snippets&quot;, &quot;如果&quot;],
+                        capture_output=True, text=True, encoding=&quot;utf-8&quot;, check=True)
+page = json.loads(result.stdout)
+snippet = next(item for item in page[&quot;items&quot;] if item[&quot;name&quot;] == &quot;如果&quot;)
+result = subprocess.run(base + [&quot;reference&quot;, &quot;show&quot;, &quot;snippets&quot;, snippet[&quot;id&quot;]],
+                        capture_output=True, text=True, encoding=&quot;utf-8&quot;, check=True)
+selected = json.loads(result.stdout)
+if selected[&quot;source&quot;][&quot;sha256&quot;] != page[&quot;source&quot;][&quot;sha256&quot;]:
+    raise RuntimeError(&quot;参考源已变化，请重新搜索&quot;)
+code = selected[&quot;item&quot;][&quot;code&quot;]</code></pre>
+<p>查询不会改写参考源；未传 <code>--dry-run</code> 时，显式 <code>--ide</code> 仍可能保存 CLI 会话中的安装选择。上面的只读示例通过 <code>--dry-run</code> 禁止会话保存。</p>
+<h3 id="找到并派生-ide-示例">找到并派生 IDE 示例</h3>
+<p>先按功能关键字查询，再用返回的准确 <code>.xcproj</code> 相对 ID 查看资源，最后复制到一个新目录：</p>
+<pre><code class="language-powershell">cli-anything-xcide --json --ide &#x27;I:\xcide&#x27; example list &#x27;按钮&#x27;
+cli-anything-xcide --json --ide &#x27;I:\xcide&#x27; example info &#x27;炫彩界面库-示例/xc-Button-按钮/xc-demo.xcproj&#x27;
+cli-anything-xcide --json --ide &#x27;I:\xcide&#x27; example copy &#x27;E:\work\炫彩&#x27; &#x27;ButtonStudy&#x27; --id &#x27;炫彩界面库-示例/xc-Button-按钮/xc-demo.xcproj&#x27;</code></pre>
+<p><code>example list</code> 的 <code>examples[].id</code> 可直接传给 <code>info</code> 和 <code>copy --id</code>。派生会更新项目 XML 名称和文件名，保留原工程配置、模块、源码与资源，跳过 Debug/Release/obj、可执行文件和符号链接。它拒绝覆盖目标目录，也拒绝在原始示例目录内生成副本。</p>
+<h3 id="新建工程并切换配置">新建工程并切换配置</h3>
+<p>可以从空白窗口工程或本机安装的其他工程模板创建项目：</p>
+<pre><code class="language-powershell">cli-anything-xcide --json --ide &#x27;I:\xcide&#x27; project new &#x27;E:\work\炫彩&#x27; &#x27;Counter&#x27;
+cli-anything-xcide --json --project &#x27;E:\work\炫彩\Counter\Counter.xcproj&#x27; project config list
+cli-anything-xcide --json --project &#x27;E:\work\炫彩\Counter\Counter.xcproj&#x27; project config set --configuration 调试版 --platform x64</code></pre>
+<p>在调用 <code>config set</code> 前查看 <code>project config list</code> 的 <code>configurations</code>。只传 <code>--configuration</code> 或 <code>--platform</code> 时，另一个值保持当前值。无效配置或缺少的架构会报错且不改文件。<code>config set</code> 只更改 <code>.xcproj</code> 中活动设置，不启动 IDE、不编译。</p>
+<p>自选模板时先列出准确 ID：</p>
+<pre><code class="language-powershell">cli-anything-xcide --json --ide &#x27;I:\xcide&#x27; project template list &#x27;暗黑UI&#x27;
+cli-anything-xcide --json --ide &#x27;I:\xcide&#x27; project new &#x27;E:\work\炫彩&#x27; &#x27;Dark Counter&#x27; --template &#x27;用户模板/暗黑UI/project/OP测试&#x27;</code></pre>
+<h3 id="读取工程源码维护断点与书签">读取工程源码、维护断点与书签</h3>
+<p>以下命令直接读取或写入本地 <code>.xcproj</code> 元数据，不需要已打开的 IDE GUI：</p>
+<pre><code class="language-powershell">cli-anything-xcide --json --project &#x27;E:\work\炫彩\Counter\Counter.xcproj&#x27; project sources list
+cli-anything-xcide --json --project &#x27;E:\work\炫彩\Counter\Counter.xcproj&#x27; project sources add &#x27;src/helper.xc&#x27;
+cli-anything-xcide --json --project &#x27;E:\work\炫彩\Counter\Counter.xcproj&#x27; project breakpoints add &#x27;src/helper.xc&#x27; 12
+cli-anything-xcide --json --project &#x27;E:\work\炫彩\Counter\Counter.xcproj&#x27; project debug watch-add &#x27;count&#x27;
+cli-anything-xcide --json --project &#x27;E:\work\炫彩\Counter\Counter.xcproj&#x27; project debug bookmark-add &#x27;src/helper.xc&#x27; 12
+cli-anything-xcide --json --project &#x27;E:\work\炫彩\Counter\Counter.xcproj&#x27; project debug list</code></pre>
+<p><code>project sources list</code> 显示磁盘 <code>.xc/.xcs</code> 和 <code>&lt;codeExpand&gt;</code> 登记状态；<code>add</code> 要求文件已存在且在工程目录内，<code>remove</code> 只取消项目树登记，绝不删除源码。断点和书签使用工程内实际存在的源码路径及行号，并拒绝越界；删除书签/断点不写入源码。<code>watch-add</code> 仅把单行表达式放入 <code>.xcproj</code> 的 <code>&lt;watches&gt;</code> 作为 IDE 工程设置，不执行工程、不附加调试器，也不会求值。</p>
+<h3 id="检索并复制-ide-界面素材">检索并复制 IDE 界面素材</h3>
+<pre><code class="language-powershell">cli-anything-xcide --json --ide &#x27;I:\xcide&#x27; ui-template list --category 皮肤
+cli-anything-xcide --json --ide &#x27;I:\xcide&#x27; ui-template list &#x27;关闭按钮&#x27;
+cli-anything-xcide --json --ide &#x27;I:\xcide&#x27; ui-template info &#x27;皮肤/template-关闭按钮&#x27;
+cli-anything-xcide --json --ide &#x27;I:\xcide&#x27; ui-template copy &#x27;E:\work\炫彩&#x27; &#x27;关闭按钮素材&#x27; --id &#x27;皮肤/template-关闭按钮&#x27;
+cli-anything-xcide --json --ide &#x27;I:\xcide&#x27; theme list &#x27;黑色&#x27;
+cli-anything-xcide --json --ide &#x27;I:\xcide&#x27; theme info &#x27;黑色默认主题(暗+蓝+黄)/xctheme&#x27;</code></pre>
+<p>先从 <code>list</code> 取出准确相对 ID，再交给 <code>info</code> 或 <code>copy</code>。UI 素材复制会拒绝覆盖已存在目标并跳过 Debug/obj 等生成目录和符号链接；<code>theme</code> 只读取真实 <code>xctheme.config</code>，不切换正式 IDE 当前主题或写全局设置。</p>
+<h3 id="检查工程并构建">检查工程并构建</h3>
+<pre><code class="language-powershell">cli-anything-xcide --json project info &#x27;E:\work\炫彩\Counter\Counter.xcproj&#x27;
+cli-anything-xcide --json --ide &#x27;I:\xcide&#x27; --project &#x27;E:\work\炫彩\Counter\Counter.xcproj&#x27; project doctor
+cli-anything-xcide --json --project &#x27;E:\work\炫彩\Counter\Counter.xcproj&#x27; interface check
+cli-anything-xcide --json --project &#x27;E:\work\炫彩\Counter\Counter.xcproj&#x27; build</code></pre>
+<p><code>project doctor</code> 会检查登记源码、模块库引用和界面文件；存在错误时以非零码结束，诊断位于 stdout 的 JSON。警告不会被升级成错误。普通 <code>build.ok=true</code> 表示本轮目标 PE 更新、稳定且架构正确；需要真实诊断请使用下面的 <code>--diagnostics</code> 工作流。</p>
+<h3 id="让-agent-编写修复并验收一个炫语言程序">让 Agent 编写、修复并验收一个炫语言程序</h3>
+<p>给 Agent 的任务可以这样写：</p>
+<blockquote><p>在指定的新目录创建炫语言 x64 调试版计数器，使用本机模块和原生 API。先查询模板、模块依赖及相关事件签名，再写源码。接入随包提供的 automation_bridge.h，在窗口 UI 线程安装测试入口，采用 GDI 渲染以支持后台截图。用 <code>build --diagnostics</code> 后台编译，按 <code>diagnostics</code> 的文件/行号修复；每次修改都重新构建。为编辑框输入和按钮点击编写 JSON 场景，用 <code>runtime test</code> 在独立后台桌面执行；核对业务日志、截图及正常退出。整个流程不得切换前台、移动鼠标或回退到前台输入。交付源码、构建 JSON、测试 report.json 和截图。失败时保留真实错误，不用旧 EXE 代替。</p></blockquote>
+<p>仓库和 wheel 都带有已验收的计数器源码与场景，可作为最小起点。Windows 64 位 Python、交互桌面及本机炫彩 IDE 是前提；输出桥接还需要 Visual Studio 的 C++ 桌面工具和 Windows SDK，截图需要 Pillow：</p>
+<pre><code class="language-powershell">python -m pip install -e &#x27;.[automation]&#x27;
+$sample = python -c &#x27;from importlib.resources import files; print(files(&quot;cli_anything.xcide&quot;).joinpath(&quot;examples&quot;))&#x27;
+$adapter = python -c &#x27;from importlib.resources import files; print(files(&quot;cli_anything.xcide&quot;).joinpath(&quot;native/automation_bridge.h&quot;))&#x27;
+$new = cli-anything-xcide --json --ide &#x27;I:\xcide&#x27; project new &#x27;E:\work\xc&#x27; &#x27;Counter&#x27; --configuration &#x27;调试版&#x27; --platform x64 | ConvertFrom-Json
+$project = $new.project_file
+cli-anything-xcide --json --ide &#x27;I:\xcide&#x27; --project $project module add --file module_xcgui_class.h --with-dependencies
+cli-anything-xcide --json --project $project editor write (Join-Path $new.directory &#x27;main.xc&#x27;) (Join-Path $sample &#x27;automation_counter.xc&#x27;)
+Copy-Item -LiteralPath $adapter -Destination (Join-Path $new.directory &#x27;automation_bridge.h&#x27;)
+cli-anything-xcide --json --ide &#x27;I:\xcide&#x27; --project $project build --diagnostics --timeout 120</code></pre>
+<p>获取最后一条命令的 stdout JSON 后，只在退出码为 0、<code>ok=true</code>、<code>compiler.compiled=true</code>、<code>compiler.errorCount=0</code> 时使用其 <code>exe.path</code>。<code>build_result=compiled</code> 同时要求本轮预期 EXE 的时间、稳定性及架构核验通过。原生解析/检查错误包括 <code>file/line/column/end_column/message</code>；C++/链接诊断还有 <code>code</code>。<code>compiler_output</code> 保留输出窗格原文。C++ 失败时 IDE 汇总可能仍写“错误(0)”，CLI 会结合失败标记和原生诊断拒绝通过。缺少完成/零错误证据、桥接不可用或输出超限时不会降级成成功。</p>
+<p>桥接仅支持当前已实测的 AMD64 IDE v3 插件 ABI，通过 UI 线程定时读取输出控件；首次构建前等待工程解析完成，不清空输出、不加载正式安装的插件、不开网络端口。构建会生成/更新工程产物，IDE 也可能规范化目标 <code>.xcproj</code> 元数据；请操作自己的工程副本。普通 <code>build</code> 保留原有空插件目录行为。</p>
+<p>所有 <code>build</code>（含不带 diagnostics 的旧用法）在独立 Windows 桌面中启动隔离 IDE，编译器子进程继承该后台桌面。CLI 不切换桌面、不抢焦点、不移动光标，F7 只发给已核验 PID 的唯一 XCGUI 主窗口；输入法辅助窗口不会被当成 IDE 主窗口。<code>automation.desktop/foreground_input/observations</code> 记录执行方式及前后观测。用户同时移动鼠标或切换窗口会反映到观测中，观测差异本身不归因于 CLI。</p>
+<p><code>ide_dialogs</code> 保留发现的原生模态框标题/文字，<code>cleanup_error</code> 保留关闭错误；不会自动按确认按钮。关闭超时会回收本次 Job 中的私有 IDE 及其子进程，标记 <code>terminated=true/ok=false</code>，保留诊断而不让关闭异常覆盖主错误。工具不会结束用户已打开的 IDE。</p>
+<h3 id="捕获程序调试输出与异常">捕获程序调试输出与异常</h3>
+<pre><code class="language-powershell">cli-anything-xcide --json runtime run --exe &#x27;E:\work\xc\Tool\Debug64\Tool.exe&#x27; --arg=--self-test --output &#x27;E:\work\xc\runs&#x27; --timeout 30</code></pre>
+<p><code>runtime run</code> 在独立后台桌面启动给定 EXE，不要求测试适配器，默认工作目录为 EXE 所在目录，可用 <code>--cwd</code> 覆盖。重复 <code>--arg</code> 传递独立参数，带选项前缀的值可写 <code>--arg=--self-test</code>。命令等待退出，<code>--expected-exit-code</code> 默认 0。仅调试本次创建的主进程，不附加到已有进程，也不占用 IDE 的调试会话。x86/x64 程序可由 64 位 Python 运行。</p>
+<p>结果包含 <code>pid/exe.sha256/debug_output/debug_events/exceptions/exit_code/terminated</code>。调试字符串区分 Unicode/ANSI，按 Windows 事件的字节长度解码；stdout、stderr 是独立的原始二进制文件，不能混为调试输出。已被程序处理的首轮异常记录为 <code>first_chance=true</code>，通常不导致测试失败；未处理异常和非预期退出码导致 <code>ok=false</code>。不提供源级单步、断点求值、调用栈或变量监视。调试版的“调试输出”通常使用 OutputDebugString；发布版可能删除该调用，无输出不等于运行失败。</p>
+<p>每次在 <code>--output</code> 下创建唯一 <code>run-*</code> 目录，保存 <code>report.json</code>、<code>stdout.bin</code>、<code>stderr.bin</code> 及场景截图。程序自有文件仍按指定 <code>--cwd</code> 写入。超时或场景失败会终止本次创建的进程树并写明 <code>terminated=true</code>；其他进程不受影响。主进程正常退出后也清理其残留子进程；子进程的调试事件不在当前捕获范围。CLI 不是代码沙箱，只运行你准备测试的程序。</p>
+<h3 id="后台按钮点击输入及运行断言">后台按钮点击、输入及运行断言</h3>
+<p><code>runtime test</code> 要求被测程序显式接入随包的 <code>native/automation_bridge.h</code>，不向任意 EXE 注入 DLL。示例源码已包含接入：在嵌入 C++ 中包含头文件，窗口创建后、消息循环前调用 <code>xc_cli_test::install(主窗口.m_hWindow)</code>。默认 <code>Debug64/obj/cache</code> 编译缓存使用示例中的 <code>../../../automation_bridge.h</code>；更改原生输出/缓存目录时应按实际缓存目录调整 include 或使用准确绝对路径。</p>
+<p>适配器仅在运行环境含本次 token、目录且桌面名匹配时安装；普通启动没有测试入口，不开启网络端口。一次安装一个窗口。CLI 通过带 token 的 <code>WM_COPYDATA</code> 请求，让窗口自己的 UI 线程调用 <code>XC_SendMessage</code> 分派鼠标/字符/键盘消息，经过 XCGUI 的控件命中和事件处理；不直接调用业务回调。它验证原生消息路径，不能替代硬件鼠标、Raw Input、全局热键或 IME 候选交互的覆盖。</p>
+<p>将构建 JSON 的 <code>exe.path</code> 传给测试命令：</p>
+<pre><code class="language-powershell">cli-anything-xcide --json runtime test (Join-Path $sample &#x27;automation_counter.json&#x27;) --exe &#x27;E:\work\xc\Counter\Debug64\Counter.exe&#x27; --output &#x27;E:\work\xc\runs&#x27; --timeout 30</code></pre>
+<p>JSON 场景使用 <code>version:1</code>、<code>steps</code> 数组和可选 <code>expected_exit_code:0</code>。每步可有 <code>timeout</code>（默认 5 秒，最多 120 秒）；总超时优先。最多 200 步，必须至少有一个状态断言，并以 <code>close</code> 或 <code>wait_exit</code> 结束。未知字段、无效坐标、越界文件名及超限输入会在启动前拒绝。全局 <code>--dry-run</code> 会校验场景并返回计划，不启动程序、不创建报告和会话。</p>
+<div class="table-wrap"><table><tr><th style="text-align:left">action</th><th style="text-align:left">参数</th><th style="text-align:left">验证内容</th></tr><tr><td style="text-align:left"><code>wait_window</code></td><td style="text-align:left"><code>title_contains</code> 可选</td><td style="text-align:left">仅从本次 PID 的后台桌面选择唯一窗口，验证适配器握手。</td></tr><tr><td style="text-align:left"><code>click</code></td><td style="text-align:left">整数 <code>x/y</code></td><td style="text-align:left">后台窗口当前客户区物理像素，通过 XCGUI 分派移动/按下/抬起消息。</td></tr><tr><td style="text-align:left"><code>text</code></td><td style="text-align:left"><code>text</code></td><td style="text-align:left">向 XCGUI 焦点元素发送 Unicode 字符，先用 click 定位编辑框；最多 4096 个 UTF-16 码元。</td></tr><tr><td style="text-align:left"><code>key</code></td><td style="text-align:left"><code>key</code></td><td style="text-align:left">ENTER/TAB/ESC/SPACE/BACKSPACE/DELETE/LEFT/UP/RIGHT/DOWN/HOME/END。</td></tr><tr><td style="text-align:left"><code>wait</code></td><td style="text-align:left"><code>seconds</code>（0–30）</td><td style="text-align:left">持续处理调试事件并等待。</td></tr><tr><td style="text-align:left"><code>assert_debug</code></td><td style="text-align:left"><code>contains</code>，可选 <code>after_action</code></td><td style="text-align:left">默认只检查最近一次输入之后的新输出；设 false 可检查整个运行记录。</td></tr><tr><td style="text-align:left"><code>assert_title</code></td><td style="text-align:left"><code>contains</code></td><td style="text-align:left">检查 Win32 窗口标题；自绘标签/标题未必同步到该文本。</td></tr><tr><td style="text-align:left"><code>screenshot</code></td><td style="text-align:left">英文数字 <code>name</code>（支持 <code>-</code>、<code>_</code>）</td><td style="text-align:left">在 XCGUI 完整绘制后读取 GDI 缓冲，保存客户区 BMP/PNG，记录 DPI/尺寸/哈希，空白或黑帧失败。</td></tr><tr><td style="text-align:left"><code>close</code></td><td style="text-align:left">无</td><td style="text-align:left">向已核验窗口请求正常关闭并等待退出。</td></tr><tr><td style="text-align:left"><code>wait_exit</code></td><td style="text-align:left">无</td><td style="text-align:left">等待程序自行退出。</td></tr></table></div>
+<p>示例会输入 <code>中文Automation</code>，点击“增加计数”，断言真实输出 <code>COUNT=, 1</code> 和 <code>TEXT=, 中文Automation</code>；基础模块的多参数调试输出会插入逗号和空格。所有动作核验 PID、EXE 路径，坐标校验当前客户区边界。前台窗口和鼠标可继续供用户使用，后台测试不会调用全局输入或焦点切换 API。无适配器、窗口失效、协议拒绝或超时都返回失败，不回退前台操作。报告中的前后鼠标坐标只是观测，用户移动鼠标不会被自动恢复或覆盖。</p>
+<p>后台截图当前只支持 <code>炫彩_初始化(假)</code> 的 GDI 渲染；D2D 请求截图会明确失败，CLI 不更改程序的渲染配置。截图来自原生 <code>XWM_PAINT_END</code> 的完整绘制缓冲，不截取用户桌面，不模拟绘制控件。非黑帧只证明有画面，业务状态仍须由日志/标题断言和截图共同审核。没有 OCR、UIA 名称定位或视觉语义断言；静态布局节点不能直接等同于运行坐标。已验收本机 x86/x64、96 DPI；其他 DPI、DirectUI 框架或应用版本应另行验证。</p>
+<p>调试输出最多记录约 2 Mi 字符/10,000 事件，异常最多 10,000 条；超过上限会失败，避免截断后误判。stdout/stderr 各按 16 MiB 轮询上限控制，快速写入可能短暂超过该值。总超时主要覆盖启动后的运行与场景；MSVC 桥接编译、IDE 启动就绪和关闭有独立超时。</p>
+<p>自动化失败时可能已有完整 stdout JSON（<code>build/project doctor/runtime</code> 的失败报告），不能只读 stderr：</p>
+<pre><code class="language-python">process = subprocess.run(argv, capture_output=True, text=True, encoding=&quot;utf-8&quot;, check=False)
+data = json.loads(process.stdout or process.stderr)
+if process.returncode or not data.get(&quot;ok&quot;):
+    # 保存原始 stdout/stderr 和 data；读取 diagnostics 或 report，修复后重新构建。
+    raise RuntimeError(data)</code></pre>
+<h3 id="解析和添加模块依赖">解析和添加模块依赖</h3>
+<pre><code class="language-powershell">cli-anything-xcide --json --ide &#x27;I:\xcide&#x27; module search XCGUI
+cli-anything-xcide --json --ide &#x27;I:\xcide&#x27; module dependencies module_xcgui.h
+cli-anything-xcide --json --ide &#x27;I:\xcide&#x27; --project &#x27;E:\work\炫彩\Counter\Counter.xcproj&#x27; module add --file module_xcgui.h --with-dependencies
+cli-anything-xcide --json --project &#x27;E:\work\炫彩\Counter\Counter.xcproj&#x27; module list --project-only</code></pre>
+<p>依赖命令使用 <code>//@依赖</code> 头部元数据。<code>dependencies</code> 是只读计划；依赖缺失或同名歧义时返回失败。<code>add --with-dependencies</code> 只在所有模块引用可以唯一解析时一次性原子更新工程 XML。循环依赖会返回诊断，访问集合保证解析终止；外部头文件不加入 IDE 模块列表。没有 <code>--with-dependencies</code> 时，<code>add</code> 仍仅增加所选模块。更改 <code>&lt;modules&gt;</code> 后通常需要重新加载 GUI 工程，命令不会替用户操作当前 IDE 窗口。</p>
+<h3 id="读取或更新源码文件">读取或更新源码文件</h3>
+<pre><code class="language-powershell">cli-anything-xcide --json --project &#x27;E:\work\炫彩\Counter\Counter.xcproj&#x27; editor read &#x27;E:\work\炫彩\Counter\main.xc&#x27;
+cli-anything-xcide --json --project &#x27;E:\work\炫彩\Counter\Counter.xcproj&#x27; editor write &#x27;E:\work\炫彩\Counter\main.xc&#x27; &#x27;E:\work\new-main.xc&#x27;</code></pre>
+<p><code>editor write</code> 的输入参数是包含完整新文本的现有文件，CLI 会尝试保留目标文件编码、BOM 和换行并回读验证。目标必须在所选工程或 <code>--ide</code> 安装目录下；其他位置需明确传 <code>--allow-outside-project</code>。CLI 直接改磁盘，因此自动化代理应在写入前读取原文，并保留可恢复的副本或版本控制状态。<code>--dry-run</code> 会报告计划，但不会验证输入内容或写文件。</p>
+<h3 id="检查炫彩界面资源">检查炫彩界面资源</h3>
+<pre><code class="language-powershell">cli-anything-xcide --json --project &#x27;E:\work\炫彩\Counter\Counter.xcproj&#x27; interface list
+cli-anything-xcide --json --project &#x27;E:\work\炫彩\Counter\Counter.xcproj&#x27; interface check</code></pre>
+<p>检查包括多根布局 XML、<code>resource.res</code> 图片/字体文件、<code>UI_ZIP.zip</code> 的完整性、条目路径和布局结构。不能从项目文件确定的主题或资源引用会作为 warning 返回；检查命令只读，不自动修复布局。</p>
+<h3 id="读取-ui-zip-并导出单个原始文件">读取 UI ZIP 并导出单个原始文件</h3>
+<p>以下三组查询支持显式磁盘文件或 ZIP 成员；不必先选工程，但输入文件必须位于所选 <code>--project</code> 工程目录或 <code>--ide</code> 安装目录中。请使用绝对磁盘路径。只读查询加全局 <code>--dry-run</code> 会正常返回数据，同时禁止保存 CLI 会话。</p>
+<pre><code class="language-powershell">$zip = &#x27;I:\xcide\data\template\项目模板\炫语言\用户模板\暗黑UI\project\UI_ZIP.zip&#x27;
+cli-anything-xcide --json --dry-run --ide &#x27;I:\xcide&#x27; archive list $zip
+cli-anything-xcide --json --dry-run --ide &#x27;I:\xcide&#x27; archive read $zip &#x27;main.xml&#x27;
+cli-anything-xcide --json --dry-run --ide &#x27;I:\xcide&#x27; archive read $zip &#x27;WmUi/Dark/WmUi.css&#x27;</code></pre>
+<p>从 <code>archive list.items[].id</code> 取得准确成员 ID。它使用 <code>/</code> 分隔符，<code>original_name</code> 保留原始目录名字（本机 ZIP 中常用反斜杠）。必须原样传回 ID，不从模糊查询结果中自动取第一个。大小写或分隔符归一化后冲突的成员会被标为 <code>ambiguous-name</code>，不能读取或导出。</p>
+<p><code>list</code> 的 <code>ok=true</code> 只代表目录读取完成。检查 <code>problem_count</code>、<code>items[].problems</code> 和 <code>readable</code>；<code>readable</code> 仅表示没有发现目录级阻碍，未验证压缩流、CRC 或当前 Python 是否支持该压缩方法。目录返回 <code>crc_verified=false</code>。<code>read</code> 和 <code>export</code> 完整读取所选成员并核验 CRC，失败时返回非零码。<code>read</code> 返回 <code>content/encoding/bom/crlf</code>，二进制控制字符或无法解码的内容会被拒绝。</p>
+<p>导出需要一个已存在的父目录及尚不存在的目标文件；先检查计划，再移除全局 <code>--dry-run</code> 执行：</p>
+<pre><code class="language-powershell">cli-anything-xcide --json --dry-run --ide &#x27;I:\xcide&#x27; archive export $zip &#x27;main.xml&#x27; &#x27;E:\work\exported-main.xml&#x27;
+cli-anything-xcide --json --ide &#x27;I:\xcide&#x27; archive export $zip &#x27;main.xml&#x27; &#x27;E:\work\exported-main.xml&#x27;</code></pre>
+<p>导出保留原始字节，可用于 XML、CSS、字体等成员。先写同目录暂存文件、回读核验，再通过硬链接发布到新文件；目标文件系统需支持硬链接（本机 NTFS 已验证）。已有目标、并发创建的同名目标和正式 IDE 安装目录目标均拒绝写入。<code>--dry-run</code> 也读取并校验源成员，但不会创建输出。成功结果含 <code>created=true</code>、<code>verified=true</code>、<code>sha256</code>；暂存名清理失败会附 <code>cleanup_warning</code>，不应据此重试已完成的导出。CLI 不做整包解压，也不根据成员路径自动创建目录。</p>
+<h3 id="查询命名资源表和嵌套分类">查询命名资源表和嵌套分类</h3>
+<p>资源表不只叫 <code>resource.res</code>；暗黑模板中的 <code>WmUi.res</code> 和 <code>WmUi_Base.res</code> 也可显式查询：</p>
+<pre><code class="language-powershell">cli-anything-xcide --json --dry-run --ide &#x27;I:\xcide&#x27; resource list $zip --member &#x27;WmUi/Dark/WmUi.res&#x27; --kind type_bkInfo --limit 10
+cli-anything-xcide --json --dry-run --ide &#x27;I:\xcide&#x27; resource list $zip --member &#x27;WmUi/WmUi_Base.res&#x27; --kind type_font
+cli-anything-xcide --json --dry-run --ide &#x27;I:\xcide&#x27; resource list &#x27;I:\xcide\data\示例\炫彩界面库-高级示例\xc-QQ音乐\resource.res&#x27; --kind type_image</code></pre>
+<p><code>items</code> 返回资源记录：<code>id/kind/tag/name/attributes/xml/assets/parent/folder_ids</code>。<code>folder</code> 分类会递归展开，分类元数据另放在 <code>folders</code>；分类名不会被算作已注册资源名称。<code>sections[].count</code> 是该节的直接子节点数，<code>resource_count</code> 和 <code>folder_count</code> 分别是递归资源数与分类数。空节和未知资源类型均保留；<code>--kind</code> 必须是源文件中实际存在的节名。</p>
+<p><code>duplicate_names</code> 表示同一张表中重复出现的资源名字，可能跨类型；它不证明加载冲突。不同表的同名资源也不能合并，例如 Dark/Light 的同名背景可能有不同属性。准确 ID 是原生子节点位置，如 <code>0/1/2</code>；与源哈希一起使用，不跨文件或版本硬编码。由 <code>list.items[].id</code> 取得 ID 后调用 <code>resource show FILE ID [--member MEMBER]</code>。</p>
+<p><code>assets</code> 只解析图片的文件 <code>value</code> 和字体的 <code>fontFile</code>。磁盘相对路径基于资源表目录，ZIP 相对路径基于该成员的虚拟目录，嵌套分类不改变这个基准。<code>fontName</code>、旧版字体 <code>value</code> 不被当作物理文件。<code>status=present</code> 仅说明资产文件或无目录级问题的归档成员存在，不代表图片可解码、字体可安装或资产成员 CRC 已验证。缺失返回 <code>exists=false</code>；带命名空间的 <code>@...</code>、宏、限定路径或越界引用返回 <code>exists=null</code> 及原因，不借用磁盘同名文件来补齐 ZIP。查询 <code>ok=true</code> 不等同于所有资产完备。</p>
+<h3 id="定位布局节点原生属性和绑定">定位布局节点、原生属性和绑定</h3>
+<pre><code class="language-powershell">$layoutZip = &#x27;I:\xcide\例子\炫彩界面AI项目\UI_ZIP.zip&#x27;
+cli-anything-xcide --json --dry-run --ide &#x27;I:\xcide&#x27; interface nodes $layoutZip --member &#x27;布局文件/main.xml&#x27; --tag buttonUI
+cli-anything-xcide --json --dry-run --ide &#x27;I:\xcide&#x27; interface nodes $layoutZip --member &#x27;布局文件/main.xml&#x27; --attribute list.itemTemplate
+cli-anything-xcide --json --dry-run --ide &#x27;I:\xcide&#x27; interface nodes &#x27;I:\xcide\data\xml\item_template\ActionView_ListBox_Item.xml&#x27; --attribute content</code></pre>
+<p><code>nodes</code> 返回父子位置 <code>id/parent/depth</code>、<code>tag/name/attributes/child_count/text</code> 和含 <code>{binding...}</code> 的 <code>bindings</code>；<code>heads</code> 保留 <code>&lt;head&gt;</code> 内的类绑定。<code>--tag</code>、<code>--attribute</code> 和 <code>--value</code> 区分大小写，<code>--value</code> 必须与 <code>--attribute</code> 一起使用。可用 <code>--attribute name --value &#x27;准确名称&#x27;</code> 过滤，但可能有多项；按返回的准确位置 ID 调用 <code>interface node FILE ID [--member MEMBER]</code> 取得 <code>item</code> 和子树 <code>xml</code>。根节点 ID 为 <code>0</code>。</p>
+<p>XML 子树会重新序列化；若需要原始文件字节，请用 <code>archive export</code>。节点查询支持 <code>windowUI</code>、<code>layoutPanel</code>、五种 <code>xc_template_*</code> 根（list、listBox、listView、tree、object）；<code>heiyue</code> 是独立格式，当前返回不支持错误。<code>showT</code>、<code>show</code>、<code>id</code>、<code>uid</code>、<code>itemID</code> 分别保留；布局宽高可能是 <code>fill/auto/:1/%...</code>，CLI 不计算实际像素、运行时可见性或绑定值。原有 <code>interface list/check</code> 仍按工程进行整体检查，支持范围以其结果为准。</p>
+<h3 id="新查询的分页来源和错误处理">新查询的分页、来源和错误处理</h3>
+<p><code>archive list</code>、<code>resource list</code> 和 <code>interface nodes</code> 均支持可选 QUERY（记录内容不区分大小写的子串搜索）、<code>--limit 1..2000</code>（默认 100）和 <code>--offset</code>。下一页使用 <code>next_offset</code>；保持所有过滤参数一致，<code>next_offset=null</code> 表示没有下一页。未匹配是成功的空列表，无效 ID、未知资源节、坏 XML 或不可读 ZIP 成员返回非零码与 stderr JSON。<code>--help</code> 以及 Click 参数用法错误仍可能是纯文本。</p>
+<p>磁盘来源返回 <code>source.path/bytes/sha256</code>；ZIP 成员返回 <code>source.archive.path/bytes/sha256</code> 和成员自身的 <code>source.member/bytes/sha256/crc_verified</code>。先列表后读取、翻页或跨命令比较时，应核对源哈希；归档结果还应比较归档哈希。发生变化就重新获取列表和 ID。调用示例：</p>
+<pre><code class="language-python">import json
+import subprocess
+
+base = [&#x27;cli-anything-xcide&#x27;, &#x27;--json&#x27;, &#x27;--dry-run&#x27;, &#x27;--ide&#x27;, r&#x27;I:\xcide&#x27;]
+bundle = r&#x27;I:\xcide\例子\炫彩界面AI项目\UI_ZIP.zip&#x27;
+def call(*args):
+    process = subprocess.run(base + list(args), capture_output=True,
+                             text=True, encoding=&#x27;utf-8&#x27;, check=True)
+    data = json.loads(process.stdout)
+    if not data[&#x27;ok&#x27;]:
+        raise RuntimeError(data)
+    return data
+
+page = call(&#x27;interface&#x27;, &#x27;nodes&#x27;, bundle, &#x27;--member&#x27;, &#x27;布局文件/main.xml&#x27;, &#x27;--tag&#x27;, &#x27;buttonUI&#x27;)
+for entry in page[&#x27;items&#x27;]:
+    item = call(&#x27;interface&#x27;, &#x27;node&#x27;, bundle, entry[&#x27;id&#x27;], &#x27;--member&#x27;, &#x27;布局文件/main.xml&#x27;)
+    if item[&#x27;source&#x27;] != page[&#x27;source&#x27;]:
+        raise RuntimeError(&#x27;来源已变化，请重新查询&#x27;)
+    # 按业务需要使用 item[&#x27;item&#x27;] 和 item[&#x27;xml&#x27;]；此示例不写入工程。</code></pre>
+<p>读取上限为 ZIP 文件 64 MiB、10,000 个成员、单成员解压 8 MiB；XML 文件或成员 4 MiB、20,000 个节点、深度 128。XML 不接受 DTD/实体声明。路径穿越、大小写/分隔符冲突、Windows 保留文件名、符号链接及加密成员会被标记并禁止读取/导出。这些限制只应用于本轮新增显式查询命令，不代表旧工程检查器与它们共享全部策略。</p>
+<h3 id="浏览创建和定位项目">浏览、创建和定位项目</h3>
+<pre><code class="language-powershell">cli-anything-xcide --json --ide &#x27;I:\xcide&#x27; project list &#x27;E:\work\炫彩&#x27; --recursive
+cli-anything-xcide --json --ide &#x27;I:\xcide&#x27; project new &#x27;E:\work\炫彩&#x27; &#x27;ConsoleTool&#x27;
+cli-anything-xcide --json project open &#x27;E:\work\炫彩\ConsoleTool\ConsoleTool.xcproj&#x27;
+cli-anything-xcide --json --project &#x27;E:\work\炫彩\ConsoleTool\ConsoleTool.xcproj&#x27; status</code></pre>
+<p><code>project open</code> 只选择持久化 CLI 会话中的默认工程，并不会在 GUI 中打开窗口。会话提供 <code>session status/history/undo/redo</code> 管理工程选择记录；撤销不会恢复源码或 XML 文件。</p>
+<h2 id="命令速查">命令速查</h2>
+<div class="table-wrap"><table><tr><th style="text-align:left">命令</th><th style="text-align:left">主要用途</th><th style="text-align:left">文件修改</th></tr><tr><td style="text-align:left"><code>status</code>、<code>session status/history</code></td><td style="text-align:left">查看 CLI 会话、当前工程和安装路径。</td><td style="text-align:left">否</td></tr><tr><td style="text-align:left"><code>project info FILE</code>、<code>project list DIR [--recursive]</code></td><td style="text-align:left">检查、发现原生工程。</td><td style="text-align:left">否</td></tr><tr><td style="text-align:left"><code>project new DIR NAME [--template ID]</code></td><td style="text-align:left">从真实 IDE 模板创建工程。</td><td style="text-align:left">新建目标目录</td></tr><tr><td style="text-align:left"><code>project template list [QUERY]</code></td><td style="text-align:left">查询工程模板 ID。</td><td style="text-align:left">否</td></tr><tr><td style="text-align:left"><code>project config list/set</code></td><td style="text-align:left">查看或切换已定义的编译配置和架构。</td><td style="text-align:left"><code>set</code> 更新 <code>.xcproj</code></td></tr><tr><td style="text-align:left"><code>project sources list/add/remove</code></td><td style="text-align:left">检查 <code>.xc/.xcs</code> 与工程 <code>&lt;codeExpand&gt;</code> 登记；添加/移除仅变更工程 XML。</td><td style="text-align:left"><code>add/remove</code> 更新 <code>.xcproj</code>，不删除源码</td></tr><tr><td style="text-align:left"><code>project breakpoints list/add/remove</code></td><td style="text-align:left">按真实源码验证和更新工程断点元数据。</td><td style="text-align:left">更新 <code>.xcproj</code>，不连接调试器</td></tr><tr><td style="text-align:left"><code>project debug list/watch-add/watch-remove/bookmark-add/bookmark-remove</code></td><td style="text-align:left">读写监视式和源码书签工程记录。</td><td style="text-align:left">更新 <code>.xcproj</code>；监视只保存，不求值</td></tr><tr><td style="text-align:left"><code>ui-template list/info/copy</code>、<code>theme list/info</code></td><td style="text-align:left">检查/复制安装的布局皮肤素材，读取主题配置。</td><td style="text-align:left">只读或只新建显式目标</td></tr><tr><td style="text-align:left"><code>reference sources/search/show</code></td><td style="text-align:left">查询 10 类原生参考目录、准确 ID、来源哈希和分页。</td><td style="text-align:left">不改安装文件；<code>--dry-run</code> 还禁止保存 CLI 会话</td></tr><tr><td style="text-align:left"><code>project doctor</code>、<code>interface list/check</code></td><td style="text-align:left">验证工程与界面资源。</td><td style="text-align:left">否</td></tr><tr><td style="text-align:left"><code>archive list/read/export FILE [MEMBER] [OUTPUT]</code></td><td style="text-align:left">查询 ZIP、读取文本成员、按原始字节导出单个成员。</td><td style="text-align:left"><code>export</code> 仅创建显式新文件；禁止安装目录目标</td></tr><tr><td style="text-align:left"><code>resource list/show FILE [QUERY或ID] [--member MEMBER]</code></td><td style="text-align:left">查询命名资源表、嵌套分类、原生属性及相对资产。</td><td style="text-align:left">不修改源文件</td></tr><tr><td style="text-align:left"><code>interface nodes/node FILE [QUERY或ID] [--member MEMBER]</code></td><td style="text-align:left">定位布局节点、父子层级和绑定，返回子树 XML。</td><td style="text-align:left">不修改源文件</td></tr><tr><td style="text-align:left"><code>example list/info/copy</code></td><td style="text-align:left">查询或派生 IDE 示例工程。</td><td style="text-align:left"><code>copy</code> 新建目标目录</td></tr><tr><td style="text-align:left"><code>editor read/write</code></td><td style="text-align:left">读取或更新本机文本源码。</td><td style="text-align:left"><code>write</code> 更新一个目标文件</td></tr><tr><td style="text-align:left"><code>module list/search/dependencies</code></td><td style="text-align:left">搜索模块，解析模块依赖关系。</td><td style="text-align:left">否</td></tr><tr><td style="text-align:left"><code>module add/remove</code></td><td style="text-align:left">修改工程的模块引用。</td><td style="text-align:left">更新 <code>.xcproj</code></td></tr><tr><td style="text-align:left"><code>build</code></td><td style="text-align:left">在插件目录为空的临时 IDE 副本中发送 F7 并核验 PE。</td><td style="text-align:left">生成/更新工程构建产物</td></tr><tr><td style="text-align:left"><code>build --diagnostics</code></td><td style="text-align:left">私有输出桥接读取编译结果、错误行号、警告及原始输出。</td><td style="text-align:left">在临时 IDE 中编译/加载本地 DLL；生成工程产物</td></tr><tr><td style="text-align:left"><code>runtime run/test</code></td><td style="text-align:left">捕获运行输出、异常、退出码；后台消息交互、断言与 GDI 截图。</td><td style="text-align:left">在独立后台桌面启动/回收本次进程树，生成报告</td></tr><tr><td style="text-align:left"><code>preview recipes/capture/latest</code></td><td style="text-align:left">发布或读取本地工程/EXE 检查包。</td><td style="text-align:left"><code>capture</code> 在本机生成预览包</td></tr></table></div>
+<p>所有命令的具体参数以 <code>cli-anything-xcide &lt;命令&gt; --help</code> 为准。可对支持 dry-run 的创建、复制、写入、配置和模块修改命令加全局 <code>--dry-run</code>，但 dry-run 只确认操作计划，不保证目标文件格式或 IDE 后端工作正常。</p>
+<h2 id="ai-自动化边界">AI 自动化边界</h2>
+<p>工程查询读取磁盘状态，不能得知已有 IDE 的活动选项卡或未保存缓冲区；<code>project open</code> 不等同于 GUI 打开工程。<code>build --diagnostics</code> 只读取本次隔离 IDE 输出，<code>runtime</code> 只测试本次启动的程序。模块引用和配置切换修改后，当前已打开的 IDE 窗口可能仍保留旧设置。</p>
+<p>真实构建需要 Windows 登录会话、本机炫彩 IDE、配套编译工具与临时磁盘空间；运行和构建都需要创建私有桌面的权限。没有验证 Windows 服务会话、锁屏/RDP 断线、权限等级不同的外部窗口或高 DPI。独立桌面隔离窗口和输入，不是对被测程序文件/网络行为的安全沙箱。</p>
+<p><code>build</code> 按当前配置的输出名称/路径确定 <code>expected_executable</code>，只接受该 EXE 在本轮更新、超时前保持稳定且架构正确的结果。默认输出为工程文件名和原生 Debug/Release（x64 带 64 后缀）目录。DLL 工程或无法解析的输出变量会在启动 IDE 前报错；超时或未完成稳定性核验返回 <code>ok=false</code>，不能当作编译成功。</p></main>
+<aside><b>本页目录</b><a class="depth-2" href="#安装和调用原则">安装和调用原则</a><a class="depth-2" href="#自动化工作流">自动化工作流</a><a class="depth-3" href="#先查原生定义再生成代码或布局">先查原生定义，再生成代码或布局</a><a class="depth-3" href="#找到并派生-ide-示例">找到并派生 IDE 示例</a><a class="depth-3" href="#新建工程并切换配置">新建工程并切换配置</a><a class="depth-3" href="#读取工程源码维护断点与书签">读取工程源码、维护断点与书签</a><a class="depth-3" href="#检索并复制-ide-界面素材">检索并复制 IDE 界面素材</a><a class="depth-3" href="#检查工程并构建">检查工程并构建</a><a class="depth-3" href="#让-agent-编写修复并验收一个炫语言程序">让 Agent 编写、修复并验收一个炫语言程序</a><a class="depth-3" href="#捕获程序调试输出与异常">捕获程序调试输出与异常</a><a class="depth-3" href="#后台按钮点击输入及运行断言">后台按钮点击、输入及运行断言</a><a class="depth-3" href="#解析和添加模块依赖">解析和添加模块依赖</a><a class="depth-3" href="#读取或更新源码文件">读取或更新源码文件</a><a class="depth-3" href="#检查炫彩界面资源">检查炫彩界面资源</a><a class="depth-3" href="#读取-ui-zip-并导出单个原始文件">读取 UI ZIP 并导出单个原始文件</a><a class="depth-3" href="#查询命名资源表和嵌套分类">查询命名资源表和嵌套分类</a><a class="depth-3" href="#定位布局节点原生属性和绑定">定位布局节点、原生属性和绑定</a><a class="depth-3" href="#新查询的分页来源和错误处理">新查询的分页、来源和错误处理</a><a class="depth-3" href="#浏览创建和定位项目">浏览、创建和定位项目</a><a class="depth-2" href="#命令速查">命令速查</a><a class="depth-2" href="#ai-自动化边界">AI 自动化边界</a></aside></div>
+<footer class="foot">源 Markdown：AI_CALLING.md · 独立 HTML 副本：AI_CALLING.html</footer></body></html>

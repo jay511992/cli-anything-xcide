@@ -1,0 +1,94 @@
+{
+  "ok": true,
+  "backend": "\u672c\u673a\u70ab\u5f69IDE GUI + \u5b9a\u5411 F7 + Windows PE \u4ea7\u7269\u6838\u9a8c + \u79c1\u6709 IDE \u8f93\u51fa\u6865\u63a5",
+  "project": {
+    "name": "Automation Counter",
+    "project_file": "E:\\Data\\Temp\\pytest-of-xiaosile\\pytest-126\\test_native_xc_diagnostics_and0\\Automation Counter\\Automation Counter.xcproj",
+    "directory": "E:\\Data\\Temp\\pytest-of-xiaosile\\pytest-126\\test_native_xc_diagnostics_and0\\Automation Counter",
+    "configuration": "\u8c03\u8bd5\u7248",
+    "platform": "x64",
+    "module_library": "",
+    "platform_toolset": "vs2022",
+    "sdk": "Windows10",
+    "modules": [
+      {
+        "path": "module_base.h",
+        "name": "\u57fa\u7840\u6a21\u5757"
+      },
+      {
+        "path": "module_xcgui.h",
+        "name": "\u70ab\u5f69\u754c\u9762\u5e93"
+      },
+      {
+        "path": "module_xcgui_class.h",
+        "name": "\u70ab\u5f69\u754c\u9762\u5e93-\u7c7b"
+      }
+    ],
+    "files": [
+      {
+        "file": "main.xc",
+        "state": "1,"
+      }
+    ],
+    "entrypoints": [
+      "main.xc"
+    ]
+  },
+  "ide_executable": "I:\\xcide\\\u70ab\u5f69IDE.exe",
+  "command": [
+    "E:\\Data\\Temp\\cli-anything-xcide-e285u5xp\\\u70ab\u5f69IDE.exe",
+    "E:\\Data\\Temp\\pytest-of-xiaosile\\pytest-126\\test_native_xc_diagnostics_and0\\Automation Counter\\Automation Counter.xcproj"
+  ],
+  "ide_pid": 27944,
+  "isolated_ide_root": "E:\\Data\\Temp\\cli-anything-xcide-e285u5xp",
+  "isolated_data_dir": "E:\\Data\\Temp\\cli-anything-xcide-e285u5xp\\data",
+  "isolated_plugins": [
+    "plug_cli_output.dll"
+  ],
+  "automation": {
+    "desktop": "xcide-test-88293e564be547a4900a9174ccee2e97",
+    "foreground_input": false,
+    "observations": {
+      "before": {
+        "foreground_hwnd": 16386498,
+        "cursor": [
+          1584,
+          837
+        ]
+      },
+      "after": {
+        "foreground_hwnd": 16386498,
+        "cursor": [
+          1346,
+          344
+        ]
+      }
+    }
+  },
+  "ide_dialogs": [],
+  "cleanup_error": null,
+  "terminated": false,
+  "started_at_ns": 1795616823688465100,
+  "expected_executable": "E:\\Data\\Temp\\pytest-of-xiaosile\\pytest-126\\test_native_xc_diagnostics_and0\\Automation Counter\\Debug64\\Automation Counter.exe",
+  "build_result": "compiled",
+  "compiler": {
+    "compiled": true,
+    "skipped": false,
+    "failed": false,
+    "errorCount": 0,
+    "warningCount": 0,
+    "reportedTotal": 0,
+    "failCode": null,
+    "diagnostics_available": true
+  },
+  "diagnostics": [],
+  "exe": {
+    "path": "E:\\Data\\Temp\\pytest-of-xiaosile\\pytest-126\\test_native_xc_diagnostics_and0\\Automation Counter\\Debug64\\Automation Counter.exe",
+    "machine": "0x8664",
+    "architecture": "AMD64",
+    "bytes": 373248,
+    "modified_at": "2026-11-25T14:27:11.554567+00:00",
+    "sha256": "2ee360fcb94d0bfdc066d28ece84962eca3826a304fd6bfb3a9fe5c67f863d23"
+  },
+  "compiler_output": "\ud83d\ude80*\u68c0\u67e5\u6587\u4ef6\u4f9d\u8d56->\n\ud83d\udca1\u6e05\u7406\u9879\u76ee\u5b8c\u6210, \u9879\u76ee\u540d\u79f0: Automation Counter\n\ud83d\ude80*\u6253\u5305UI\u8d44\u6e90 \u8df3\u8fc7, \u6ca1\u6709\u53ef\u6253\u5305\u7684UI\u5e03\u5c40\u6587\u4ef6->\n\ud83d\udcc4E:\\Data\\Temp\\cli-anything-xcide-e285u5xp\\data\\VC\\VC2022\\14.41.34120\\bin\\Hostx64\\x64\\cl.exe\n\ud83d\udcc4E:\\Data\\Temp\\cli-anything-xcide-e285u5xp\\data\\VC\\VC2022\\14.41.34120\\bin\\Hostx64\\x64\\lib.exe\n\ud83d\udcc4E:\\Data\\Temp\\cli-anything-xcide-e285u5xp\\data\\VC\\VC2022\\14.41.34120\\bin\\Hostx64\\x64\\link.exe\n\ud83d\udcc4C:\\Program Files (x86)\\Windows Kits\\10\\bin\\10.0.26100.0\\x64\\mt.exe\n\ud83d\udcc4C:\\Program Files (x86)\\Windows Kits\\10\\bin\\10.0.26100.0\\x64\\rc.exe\n\ud83d\ude80*\u6253\u5370\u5305\u542b\u76ee\u5f55->\n\ud83d\udcc1C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\cppwinrt\n\ud83d\udcc1C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\shared\n\ud83d\udcc1C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\ucrt\n\ud83d\udcc1C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\um\n\ud83d\udcc1C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.26100.0\\winrt\n\ud83d\udcc1E:\\Data\\Temp\\cli-anything-xcide-e285u5xp\\data\\VC\\VC2022\\14.41.34120\\atlmfc\\include\n\ud83d\udcc1E:\\Data\\Temp\\cli-anything-xcide-e285u5xp\\data\\VC\\VC2022\\14.41.34120\\include\n\ud83d\udcc1E:\\Data\\Temp\\cli-anything-xcide-e285u5xp\\data\\XC-Module\\\u6838\u5fc3[\u5b98\u65b9]\\\u57fa\u7840\u6a21\u5757\n\ud83d\udcc1E:\\Data\\Temp\\cli-anything-xcide-e285u5xp\\data\\XC-Module\\\u6838\u5fc3[\u5b98\u65b9]\\\u70ab\u5f69\u754c\u9762\u5e93\n\ud83d\ude80*\u6253\u5370\u5305\u542b\u5e93\u76ee\u5f55->\n\ud83d\udcc1C:\\Program Files (x86)\\Windows Kits\\10\\lib\\10.0.26100.0\\ucrt\\x64\n\ud83d\udcc1C:\\Program Files (x86)\\Windows Kits\\10\\lib\\10.0.26100.0\\um\\x64\n\ud83d\udcc1E:\\Data\\Temp\\cli-anything-xcide-e285u5xp\\data\\VC\\VC2022\\14.41.34120\\atlmfc\\lib\\x64\n\ud83d\udcc1E:\\Data\\Temp\\cli-anything-xcide-e285u5xp\\data\\VC\\VC2022\\14.41.34120\\lib\\x64\n\ud83d\udcc1E:\\Data\\Temp\\cli-anything-xcide-e285u5xp\\data\\XC-Module\\\u6838\u5fc3[\u5b98\u65b9]\\\u57fa\u7840\u6a21\u5757\n\ud83d\udcc1E:\\Data\\Temp\\cli-anything-xcide-e285u5xp\\data\\XC-Module\\\u6838\u5fc3[\u5b98\u65b9]\\\u70ab\u5f69\u754c\u9762\u5e93\n\ud83d\ude80*\u89e3\u6790\u4ee3\u7801->\n\ud83d\ude80*\u68c0\u67e5\u4ee3\u7801->\n\ud83d\ude80*\u751f\u6210\u4ee3\u7801->\n\ud83d\udcc4E:\\Data\\Temp\\pytest-of-xiaosile\\pytest-126\\test_native_xc_diagnostics_and0\\Automation Counter\\common.xh\n\ud83d\udcc4E:\\Data\\Temp\\pytest-of-xiaosile\\pytest-126\\test_native_xc_diagnostics_and0\\Automation Counter\\main.xc\n\ud83c\udfc3-- \u5f00\u59cb\u7f16\u8bd1\u4ee3\u7801, \u9879\u76ee: Automation Counter, \u7c7b\u578b: exe, \u914d\u7f6e: \u8c03\u8bd5\u7248, \u5e73\u53f0: x64, SDK: Windows10, \u5e73\u53f0\u5de5\u5177\u96c6: vs2022, \u8fd0\u884c\u5e93: \u591a\u7ebf\u7a0b\u52a8\u6001\u5e93-\u8c03\u8bd5(MDd) --\n\ud83d\ude80*\u7f16\u8bd1\u8d44\u6e90\u6587\u4ef6->\n\ud83d\ude80*\u7f16\u8bd1\u9884\u7f16\u8bd1\u5934->\ncommon__.cpp\nmodule_base.cpp\nxc_mkStr.cpp\n\ud83d\ude80*\u7f16\u8bd1\u4ee3\u7801->\nmain__.cpp\n\ud83d\ude80*\u94fe\u63a5\u4ee3\u7801->\n\ud83d\udcc4E:\\Data\\Temp\\pytest-of-xiaosile\\pytest-126\\test_native_xc_diagnostics_and0\\Automation Counter\\Debug64\\Automation Counter.exe(\u53ef\u53cc\u51fb\u6253\u5f00\u76ee\u5f55)\n\u23f1*\u7f16\u8bd1\u5b8c\u6210, \u8017\u65f6: 2557.807200 \u6beb\u79d2\n\u26a1*\u751f\u6210\u540e\u4e8b\u4ef6 > \u590d\u5236\u8c03\u8bd5\u7248DLL\u5230exe\u76ee\u5f55: msvcp140d.dll, ucrtbased.dll, vcruntime140d.dll, vcruntime140_1d.dll\n\u26a1*\u751f\u6210\u540e\u4e8b\u4ef6 > \u590d\u5236\u6587\u4ef6\u5230exe\u76ee\u5f55: E:\\Data\\Temp\\cli-anything-xcide-e285u5xp\\data\\XC-Module\\\u6838\u5fc3[\u5b98\u65b9]\\\u70ab\u5f69\u754c\u9762\u5e93\\x64\\XCGUI.dll \u6210\u529f\n\ud83d\udca1*\u5173\u95ed\u6587\u4ef6\u590d\u5236: [\u7cfb\u7edf\u8bbe\u7f6e]->[\u70ab\u8bed\u8a00]\n----- \ud83d\udc1e\u9519\u8bef\u5217\u8868: \u9519\u8bef(0)-----\n"
+}

@@ -1,0 +1,11 @@
+........................................................................ [ 37%]
+........................................................................ [ 75%]
+............................................F..                          [100%]
+================================== FAILURES ===================================
+__ TestRuntimeAutomation.test_background_adapter_modes_and_input_state[x64] ___
+xcide\agent-harness\cli_anything\xcide\tests\test_full_e2e.py:713: in test_background_adapter_modes_and_input_state
+    assert result["cleanup_error"] is None
+E   assert "Command '31556' timed out after 1 seconds" is None
+=========================== short test summary info ===========================
+FAILED xcide\agent-harness\cli_anything\xcide\tests\test_full_e2e.py::TestRuntimeAutomation::test_background_adapter_modes_and_input_state[x64]
+1 failed, 190 passed in 105.43s (0:01:45)

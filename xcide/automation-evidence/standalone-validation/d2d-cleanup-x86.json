@@ -1,0 +1,183 @@
+{
+  "ok": false,
+  "run_id": "run-6b3394ec91784f76a150727282e62e87",
+  "directory": "E:\\Data\\Temp\\pytest-of-xiaosile\\pytest-128\\test_background_adapter_modes_1\\runs\\run-6b3394ec91784f76a150727282e62e87",
+  "started_at": "2026-11-25T14:47:07.452043+00:00",
+  "exe": {
+    "path": "E:\\Data\\Temp\\pytest-of-xiaosile\\pytest-128\\test_background_adapter_modes_1\\counter.exe",
+    "machine": "0x014c",
+    "architecture": "x86",
+    "bytes": 99328,
+    "modified_at": "2026-11-25T14:47:05.667607+00:00",
+    "sha256": "eeee8b9eb3dc928b28f89f183cac5411f15a56d3298e5abbe941f5cb82649d96"
+  },
+  "arguments": [
+    "d2d"
+  ],
+  "cwd": "E:\\Data\\Temp\\pytest-of-xiaosile\\pytest-128\\test_background_adapter_modes_1",
+  "steps": [
+    {
+      "index": 0,
+      "action": "wait_window",
+      "ok": true,
+      "desktop_before": {
+        "foreground_hwnd": 16386498,
+        "cursor": [
+          1249,
+          381
+        ]
+      },
+      "window": {
+        "size": [
+          480,
+          320
+        ],
+        "dpi": 96,
+        "hwnd": 10751892,
+        "title": "Background Fixture",
+        "desktop": "xcide-test-36f68a4f7f204106bd7023b90acf36a9"
+      },
+      "desktop_after": {
+        "foreground_hwnd": 16386498,
+        "cursor": [
+          1249,
+          381
+        ]
+      }
+    },
+    {
+      "index": 1,
+      "action": "assert_debug",
+      "ok": true,
+      "desktop_before": {
+        "foreground_hwnd": 16386498,
+        "cursor": [
+          1249,
+          381
+        ]
+      },
+      "matched": "READY",
+      "desktop_after": {
+        "foreground_hwnd": 16386498,
+        "cursor": [
+          1249,
+          381
+        ]
+      }
+    },
+    {
+      "index": 2,
+      "action": "screenshot",
+      "ok": false,
+      "desktop_before": {
+        "foreground_hwnd": 16386498,
+        "cursor": [
+          1249,
+          381
+        ]
+      }
+    }
+  ],
+  "expected_exit_code": 0,
+  "timed_out": false,
+  "scenario": {
+    "version": 1,
+    "steps": [
+      {
+        "action": "wait_window",
+        "title_contains": "Background Fixture"
+      },
+      {
+        "action": "assert_debug",
+        "contains": "READY"
+      },
+      {
+        "action": "screenshot",
+        "name": "initial"
+      },
+      {
+        "action": "click",
+        "x": 150,
+        "y": 68
+      },
+      {
+        "action": "text",
+        "text": "中文Automation!"
+      },
+      {
+        "action": "key",
+        "key": "BACKSPACE"
+      },
+      {
+        "action": "click",
+        "x": 110,
+        "y": 140
+      },
+      {
+        "action": "assert_debug",
+        "contains": "CLICK:中文Automation"
+      },
+      {
+        "action": "screenshot",
+        "name": "changed"
+      },
+      {
+        "action": "close"
+      }
+    ]
+  },
+  "report": "E:\\Data\\Temp\\pytest-of-xiaosile\\pytest-128\\test_background_adapter_modes_1\\runs\\run-6b3394ec91784f76a150727282e62e87\\report.json",
+  "automation": {
+    "desktop": "xcide-test-36f68a4f7f204106bd7023b90acf36a9",
+    "input": "xcgui-ui-thread-message",
+    "foreground_input": false,
+    "screen_capture": false,
+    "before": {
+      "foreground_hwnd": 16386498,
+      "cursor": [
+        1249,
+        381
+      ]
+    },
+    "after": {
+      "foreground_hwnd": 16386498,
+      "cursor": [
+        941,
+        417
+      ]
+    }
+  },
+  "pid": 23308,
+  "error": "后台 XCGUI 测试适配器未就绪或操作不受支持；请接入 automation_bridge.h。截图需要 GDI 渲染。",
+  "error_type": "RuntimeError",
+  "step_timed_out": false,
+  "exit_code": 3758096385,
+  "terminated": true,
+  "debug_output": "READYshell\\ext\\inputswitch\\switch\\ctfhandler.cpp(2275)\\InputSwitch.dll!65C20F8F: (caller: 65C1E12A) LogHr(1) tid(68c8) 80004005 未指定的错误\r\n    CallContext:[\\Startup] \n",
+  "debug_events": [
+    {
+      "time": 0.3398,
+      "channel": "OutputDebugString",
+      "unicode": true,
+      "text": "READY"
+    },
+    {
+      "time": 0.3625,
+      "channel": "OutputDebugString",
+      "unicode": true,
+      "text": "shell\\ext\\inputswitch\\switch\\ctfhandler.cpp(2275)\\InputSwitch.dll!65C20F8F: (caller: 65C1E12A) LogHr(1) tid(68c8) 80004005 未指定的错误\r\n    CallContext:[\\Startup] \n"
+    }
+  ],
+  "exceptions": [
+    {
+      "code": "0x4000001f",
+      "address": "0x77491b52",
+      "first_chance": true,
+      "thread": 21260
+    }
+  ],
+  "output_truncated": false,
+  "cleanup_error": "Command '23308' timed out after 1 seconds",
+  "stdout": "E:\\Data\\Temp\\pytest-of-xiaosile\\pytest-128\\test_background_adapter_modes_1\\runs\\run-6b3394ec91784f76a150727282e62e87\\stdout.bin",
+  "stderr": "E:\\Data\\Temp\\pytest-of-xiaosile\\pytest-128\\test_background_adapter_modes_1\\runs\\run-6b3394ec91784f76a150727282e62e87\\stderr.bin"
+}

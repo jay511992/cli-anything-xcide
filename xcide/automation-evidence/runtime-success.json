@@ -1,0 +1,583 @@
+{
+  "ok": true,
+  "run_id": "run-a3f9cf5f92194b25b0c843b7e100790b",
+  "directory": "E:\\Data\\Temp\\pytest-of-xiaosile\\pytest-126\\test_native_xc_diagnostics_and0\\runs\\run-a3f9cf5f92194b25b0c843b7e100790b",
+  "started_at": "2026-11-25T14:27:14.796608+00:00",
+  "exe": {
+    "path": "E:\\Data\\Temp\\pytest-of-xiaosile\\pytest-126\\test_native_xc_diagnostics_and0\\Automation Counter\\Debug64\\Automation Counter.exe",
+    "machine": "0x8664",
+    "architecture": "AMD64",
+    "bytes": 373248,
+    "modified_at": "2026-11-25T14:27:11.554567+00:00",
+    "sha256": "2ee360fcb94d0bfdc066d28ece84962eca3826a304fd6bfb3a9fe5c67f863d23"
+  },
+  "arguments": [],
+  "cwd": "E:\\Data\\Temp\\pytest-of-xiaosile\\pytest-126\\test_native_xc_diagnostics_and0\\Automation Counter\\Debug64",
+  "steps": [
+    {
+      "index": 0,
+      "action": "wait_window",
+      "ok": true,
+      "desktop_before": {
+        "foreground_hwnd": 16386498,
+        "cursor": [
+          739,
+          441
+        ]
+      },
+      "window": {
+        "size": [
+          480,
+          320
+        ],
+        "dpi": 96,
+        "hwnd": 7801280,
+        "title": "XC Automation - Ready",
+        "desktop": "xcide-test-a353850212ea4863b52ee213226c0d0a"
+      },
+      "desktop_after": {
+        "foreground_hwnd": 16386498,
+        "cursor": [
+          815,
+          426
+        ]
+      }
+    },
+    {
+      "index": 1,
+      "action": "assert_debug",
+      "ok": true,
+      "desktop_before": {
+        "foreground_hwnd": 16386498,
+        "cursor": [
+          815,
+          426
+        ]
+      },
+      "matched": "READY",
+      "desktop_after": {
+        "foreground_hwnd": 16386498,
+        "cursor": [
+          815,
+          426
+        ]
+      }
+    },
+    {
+      "index": 2,
+      "action": "assert_title",
+      "ok": true,
+      "desktop_before": {
+        "foreground_hwnd": 16386498,
+        "cursor": [
+          815,
+          426
+        ]
+      },
+      "title": "XC Automation - Ready",
+      "desktop_after": {
+        "foreground_hwnd": 16386498,
+        "cursor": [
+          815,
+          426
+        ]
+      }
+    },
+    {
+      "index": 3,
+      "action": "wait",
+      "ok": true,
+      "desktop_before": {
+        "foreground_hwnd": 16386498,
+        "cursor": [
+          815,
+          426
+        ]
+      },
+      "desktop_after": {
+        "foreground_hwnd": 16386498,
+        "cursor": [
+          830,
+          459
+        ]
+      }
+    },
+    {
+      "index": 4,
+      "action": "screenshot",
+      "ok": true,
+      "desktop_before": {
+        "foreground_hwnd": 16386498,
+        "cursor": [
+          830,
+          459
+        ]
+      },
+      "screenshot": {
+        "size": [
+          480,
+          320
+        ],
+        "dpi": 96,
+        "hwnd": 7801280,
+        "title": "XC Automation - Ready",
+        "desktop": "xcide-test-a353850212ea4863b52ee213226c0d0a",
+        "path": "E:\\Data\\Temp\\pytest-of-xiaosile\\pytest-126\\test_native_xc_diagnostics_and0\\runs\\run-a3f9cf5f92194b25b0c843b7e100790b\\004-initial.png",
+        "sha256": "92aa82f1f356b85887aee1ef5bc1362dfe679d10aecac4e9307360b3d73787ec",
+        "method": "xcgui-native-gdi-offscreen",
+        "mean": [
+          217.70208984375,
+          240.21783854166668,
+          250.34893229166667
+        ],
+        "variance": [
+          7921.087779486719,
+          1264.7079630364353,
+          191.55141031832744
+        ],
+        "nonblank": true
+      },
+      "desktop_after": {
+        "foreground_hwnd": 16386498,
+        "cursor": [
+          889,
+          477
+        ]
+      }
+    },
+    {
+      "index": 5,
+      "action": "click",
+      "ok": true,
+      "desktop_before": {
+        "foreground_hwnd": 16386498,
+        "cursor": [
+          889,
+          477
+        ]
+      },
+      "input": {
+        "size": [
+          480,
+          320
+        ],
+        "dpi": 96,
+        "hwnd": 7801280,
+        "title": "XC Automation - Ready",
+        "desktop": "xcide-test-a353850212ea4863b52ee213226c0d0a",
+        "client_point": [
+          150,
+          68
+        ],
+        "method": "xcgui-ui-thread-message"
+      },
+      "desktop_after": {
+        "foreground_hwnd": 16386498,
+        "cursor": [
+          999,
+          501
+        ]
+      }
+    },
+    {
+      "index": 6,
+      "action": "text",
+      "ok": true,
+      "desktop_before": {
+        "foreground_hwnd": 16386498,
+        "cursor": [
+          999,
+          501
+        ]
+      },
+      "desktop_after": {
+        "foreground_hwnd": 16386498,
+        "cursor": [
+          945,
+          598
+        ]
+      }
+    },
+    {
+      "index": 7,
+      "action": "key",
+      "ok": true,
+      "desktop_before": {
+        "foreground_hwnd": 16386498,
+        "cursor": [
+          945,
+          598
+        ]
+      },
+      "desktop_after": {
+        "foreground_hwnd": 16386498,
+        "cursor": [
+          919,
+          606
+        ]
+      }
+    },
+    {
+      "index": 8,
+      "action": "click",
+      "ok": true,
+      "desktop_before": {
+        "foreground_hwnd": 16386498,
+        "cursor": [
+          919,
+          606
+        ]
+      },
+      "input": {
+        "size": [
+          480,
+          320
+        ],
+        "dpi": 96,
+        "hwnd": 7801280,
+        "title": "XC Automation - Ready",
+        "desktop": "xcide-test-a353850212ea4863b52ee213226c0d0a",
+        "client_point": [
+          110,
+          140
+        ],
+        "method": "xcgui-ui-thread-message"
+      },
+      "desktop_after": {
+        "foreground_hwnd": 16386498,
+        "cursor": [
+          916,
+          607
+        ]
+      }
+    },
+    {
+      "index": 9,
+      "action": "assert_debug",
+      "ok": true,
+      "desktop_before": {
+        "foreground_hwnd": 16386498,
+        "cursor": [
+          916,
+          607
+        ]
+      },
+      "matched": "COUNT=, 1",
+      "desktop_after": {
+        "foreground_hwnd": 16386498,
+        "cursor": [
+          916,
+          601
+        ]
+      }
+    },
+    {
+      "index": 10,
+      "action": "assert_debug",
+      "ok": true,
+      "desktop_before": {
+        "foreground_hwnd": 16386498,
+        "cursor": [
+          916,
+          601
+        ]
+      },
+      "matched": "TEXT=, 中文Automation",
+      "desktop_after": {
+        "foreground_hwnd": 16386498,
+        "cursor": [
+          917,
+          598
+        ]
+      }
+    },
+    {
+      "index": 11,
+      "action": "wait",
+      "ok": true,
+      "desktop_before": {
+        "foreground_hwnd": 16386498,
+        "cursor": [
+          917,
+          598
+        ]
+      },
+      "desktop_after": {
+        "foreground_hwnd": 16386498,
+        "cursor": [
+          917,
+          597
+        ]
+      }
+    },
+    {
+      "index": 12,
+      "action": "screenshot",
+      "ok": true,
+      "desktop_before": {
+        "foreground_hwnd": 16386498,
+        "cursor": [
+          917,
+          597
+        ]
+      },
+      "screenshot": {
+        "size": [
+          480,
+          320
+        ],
+        "dpi": 96,
+        "hwnd": 7801280,
+        "title": "XC Automation - Ready",
+        "desktop": "xcide-test-a353850212ea4863b52ee213226c0d0a",
+        "path": "E:\\Data\\Temp\\pytest-of-xiaosile\\pytest-126\\test_native_xc_diagnostics_and0\\runs\\run-a3f9cf5f92194b25b0c843b7e100790b\\012-clicked.png",
+        "sha256": "9d8c63644b7992f0162eff52fc927aa3d1fba04c82dcb0a146daa36eb8dcde8a",
+        "method": "xcgui-native-gdi-offscreen",
+        "mean": [
+          217.12709635416667,
+          239.8890625,
+          250.23427083333334
+        ],
+        "variance": [
+          7979.764263183425,
+          1300.5423022460936,
+          220.612851551647
+        ],
+        "nonblank": true
+      },
+      "desktop_after": {
+        "foreground_hwnd": 16386498,
+        "cursor": [
+          917,
+          596
+        ]
+      }
+    },
+    {
+      "index": 13,
+      "action": "close",
+      "ok": true,
+      "desktop_before": {
+        "foreground_hwnd": 16386498,
+        "cursor": [
+          917,
+          596
+        ]
+      },
+      "desktop_after": {
+        "foreground_hwnd": 16386498,
+        "cursor": [
+          912,
+          587
+        ]
+      }
+    }
+  ],
+  "expected_exit_code": 0,
+  "timed_out": false,
+  "scenario": {
+    "version": 1,
+    "expected_exit_code": 0,
+    "steps": [
+      {
+        "action": "wait_window",
+        "title_contains": "XC Automation",
+        "timeout": 10
+      },
+      {
+        "action": "assert_debug",
+        "contains": "READY"
+      },
+      {
+        "action": "assert_title",
+        "contains": "XC Automation - Ready"
+      },
+      {
+        "action": "wait",
+        "seconds": 0.4
+      },
+      {
+        "action": "screenshot",
+        "name": "initial"
+      },
+      {
+        "action": "click",
+        "x": 150,
+        "y": 68
+      },
+      {
+        "action": "text",
+        "text": "中文Automation"
+      },
+      {
+        "action": "key",
+        "key": "END"
+      },
+      {
+        "action": "click",
+        "x": 110,
+        "y": 140
+      },
+      {
+        "action": "assert_debug",
+        "contains": "COUNT=, 1"
+      },
+      {
+        "action": "assert_debug",
+        "contains": "TEXT=, 中文Automation"
+      },
+      {
+        "action": "wait",
+        "seconds": 0.3
+      },
+      {
+        "action": "screenshot",
+        "name": "clicked"
+      },
+      {
+        "action": "close",
+        "timeout": 5
+      }
+    ]
+  },
+  "report": "E:\\Data\\Temp\\pytest-of-xiaosile\\pytest-126\\test_native_xc_diagnostics_and0\\runs\\run-a3f9cf5f92194b25b0c843b7e100790b\\report.json",
+  "automation": {
+    "desktop": "xcide-test-a353850212ea4863b52ee213226c0d0a",
+    "input": "xcgui-ui-thread-message",
+    "foreground_input": false,
+    "screen_capture": false,
+    "before": {
+      "foreground_hwnd": 16386498,
+      "cursor": [
+        739,
+        441
+      ]
+    },
+    "after": {
+      "foreground_hwnd": 16386498,
+      "cursor": [
+        912,
+        587
+      ]
+    }
+  },
+  "pid": 30900,
+  "exit_code": 0,
+  "terminated": false,
+  "debug_output": "READY\nshell\\ext\\inputswitch\\switch\\ctfhandler.cpp(2275)\\InputSwitch.dll!00007FFB611E55FE: (caller: 00007FFB6122C25B) LogHr(1) tid(6a7c) 80004005 未指定的错误\r\n    CallContext:[\\Startup] \nCOUNT=, 1\nTEXT=, 中文Automation\n===============炫彩未释放资源检查===============\n窗口(0)\nUI元素(0)\n形状对象(0)\n菜单(0)\n图形绘制(0)\n图片(0)\n字体(0)\n背景内容管理器(0)\n布局对象(0)\n数据适配器(0)\n其他(0)\n=====================end=====================\n程序退出\n",
+  "debug_events": [
+    {
+      "time": 0.3478,
+      "channel": "OutputDebugString",
+      "unicode": true,
+      "text": "READY\n"
+    },
+    {
+      "time": 0.3655,
+      "channel": "OutputDebugString",
+      "unicode": true,
+      "text": "shell\\ext\\inputswitch\\switch\\ctfhandler.cpp(2275)\\InputSwitch.dll!00007FFB611E55FE: (caller: 00007FFB6122C25B) LogHr(1) tid(6a7c) 80004005 未指定的错误\r\n    CallContext:[\\Startup] \n"
+    },
+    {
+      "time": 1.5559,
+      "channel": "OutputDebugString",
+      "unicode": true,
+      "text": "COUNT=, 1\n"
+    },
+    {
+      "time": 1.556,
+      "channel": "OutputDebugString",
+      "unicode": true,
+      "text": "TEXT=, 中文Automation\n"
+    },
+    {
+      "time": 2.3201,
+      "channel": "OutputDebugString",
+      "unicode": false,
+      "text": "===============炫彩未释放资源检查===============\n"
+    },
+    {
+      "time": 2.3201,
+      "channel": "OutputDebugString",
+      "unicode": false,
+      "text": "窗口(0)\n"
+    },
+    {
+      "time": 2.3202,
+      "channel": "OutputDebugString",
+      "unicode": false,
+      "text": "UI元素(0)\n"
+    },
+    {
+      "time": 2.3202,
+      "channel": "OutputDebugString",
+      "unicode": false,
+      "text": "形状对象(0)\n"
+    },
+    {
+      "time": 2.3203,
+      "channel": "OutputDebugString",
+      "unicode": false,
+      "text": "菜单(0)\n"
+    },
+    {
+      "time": 2.3203,
+      "channel": "OutputDebugString",
+      "unicode": false,
+      "text": "图形绘制(0)\n"
+    },
+    {
+      "time": 2.3203,
+      "channel": "OutputDebugString",
+      "unicode": false,
+      "text": "图片(0)\n"
+    },
+    {
+      "time": 2.3203,
+      "channel": "OutputDebugString",
+      "unicode": false,
+      "text": "字体(0)\n"
+    },
+    {
+      "time": 2.3204,
+      "channel": "OutputDebugString",
+      "unicode": false,
+      "text": "背景内容管理器(0)\n"
+    },
+    {
+      "time": 2.3204,
+      "channel": "OutputDebugString",
+      "unicode": false,
+      "text": "布局对象(0)\n"
+    },
+    {
+      "time": 2.3204,
+      "channel": "OutputDebugString",
+      "unicode": false,
+      "text": "数据适配器(0)\n"
+    },
+    {
+      "time": 2.3205,
+      "channel": "OutputDebugString",
+      "unicode": false,
+      "text": "其他(0)\n"
+    },
+    {
+      "time": 2.3205,
+      "channel": "OutputDebugString",
+      "unicode": false,
+      "text": "=====================end=====================\n"
+    },
+    {
+      "time": 2.3205,
+      "channel": "OutputDebugString",
+      "unicode": false,
+      "text": "程序退出\n"
+    }
+  ],
+  "exceptions": [],
+  "output_truncated": false,
+  "cleanup_error": null,
+  "stdout": "E:\\Data\\Temp\\pytest-of-xiaosile\\pytest-126\\test_native_xc_diagnostics_and0\\runs\\run-a3f9cf5f92194b25b0c843b7e100790b\\stdout.bin",
+  "stderr": "E:\\Data\\Temp\\pytest-of-xiaosile\\pytest-126\\test_native_xc_diagnostics_and0\\runs\\run-a3f9cf5f92194b25b0c843b7e100790b\\stderr.bin"
+}

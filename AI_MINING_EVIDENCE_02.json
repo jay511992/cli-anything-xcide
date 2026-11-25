@@ -1,0 +1,1028 @@
+{
+  "schema": "xcide-exploration/v1",
+  "captured_at": "2026-11-25T11:23:07.254492+00:00",
+  "ide_root": "I:\\xcide",
+  "cli": "C:\\Program Files\\Python314\\Scripts\\cli-anything-xcide.EXE",
+  "round_count": 20,
+  "source_files_checked": 64,
+  "sources_unchanged": true,
+  "source_hashes_before": {
+    "I:\\xcide\\data\\config\\config.config": "977e1d599024cb3a119cd1c6ebfa4cb64c0a5f87ce73e5c3b0600de234ed9d1c",
+    "I:\\xcide\\data\\config\\codeSnippet.json": "a34f098ee3fd9b8ece9660e1040ca9f9a45c055b3d5e8af2720cb0bb5de12daf",
+    "I:\\xcide\\data\\config\\help.json": "6815e238964cb844cf4a499220d8ca19f3848e9442ddc56616136f7b8478eafa",
+    "I:\\xcide\\data\\config\\sys\\objectName.config": "60091ac9b8171785bb77bece0b4f55c8ffd7b673e255efa0005155f253569607",
+    "I:\\xcide\\data\\config\\sys\\propertyList.json": "bcf6be3499f0511cb4faf5b327464846bcfb7ecebd2e127e9493569613d806cc",
+    "I:\\xcide\\data\\config\\sys\\events.xml": "d1916d38d58752a885297d36189f7ece00fd5f0538f3c398d5f70aa969470022",
+    "I:\\xcide\\data\\config\\customObject.config": "b13f7d2623ba28a847dc0820b327809df2ad3f3e9cd52b04a9a449243e96548b",
+    "I:\\xcide\\data\\config\\sys\\vc-set.json": "f1edbd3650b758d6ee0788c8f2e70d35908f49b9a7fc13381a88cd6bba953662",
+    "I:\\xcide\\data\\config\\sys\\autoMatch_function.txt": "6f7886fdee0cc5f9447532f7300297b23a17ef752a04c0ce8f3e26080588839d",
+    "I:\\xcide\\data\\config\\sys\\autoMatch_const.txt": "c71e24dcc65f045ee8475bb662cf06edd2e6787a966fce8df92e05ef7acc213c",
+    "I:\\xcide\\data\\config\\sys\\customPropertyName_ch.xml": "789876c9b59e1b27d15dea8d4422c26f93116a740896d3a2461113af58cabf7a",
+    "I:\\xcide\\data\\config\\sys\\customPropertyName_en.xml": "712cd99da08bf244fc80395b26343abe30237d251d8a130d07ce4c17229e269e",
+    "I:\\xcide\\data\\config\\favoriteColor.config": "f54c69f3dc23fcbc9e9f1ff3af4c4b39c4aaa1f9ee4b8d42cb5f03ae9dae2567",
+    "I:\\xcide\\data\\config\\customColor.config": "6fed8a9109861f65103a9d16e1b258bc761359598efdf9399dad1d61171ecf51",
+    "I:\\xcide\\data\\config\\sys\\vc.config": "f133000a0006042a7be8b5e8337d22e2235f92c16f556c3bca803e924d037f41",
+    "I:\\xcide\\data\\xml\\item_template\\ActionView_ListBox_Item.xml": "acc292449b3d7806663cbbb6ee8f7d07ca4973a16cadf935ada60ccbf7e8824d",
+    "I:\\xcide\\data\\xml\\item_template\\bkInfoEditor_ListBox_Item.xml": "489db8a1a604687192fb8da0aa9a0ebf1419a8017b24e992113ce9cf91ca15ef",
+    "I:\\xcide\\data\\xml\\item_template\\bkInfoEditor_ListBox_Item_sel.xml": "27e49714470bcc838c13fb52e67c244bc95e359f4f0a5b17576ad89e7194cb3a",
+    "I:\\xcide\\data\\xml\\item_template\\bkInfoEditor_ListBox_Item_stateGroup.xml": "340d3a30d372c8ed09029aaeab776bb06cce038593d6ff6e66b40fa466349151",
+    "I:\\xcide\\data\\xml\\item_template\\CppClass_Item.xml": "7617535ab3f66e3097263dea496a84633e8607adcb53d3f0b6382a975cf5caf7",
+    "I:\\xcide\\data\\xml\\item_template\\CustomPropertyName_ListBox_Item.xml": "2364fa3de1c956c168bcbb5b3a29a903291fe4b15f6ce31282248f8ae0e16aee",
+    "I:\\xcide\\data\\xml\\item_template\\eventManager_lua_ListBox_Item.xml": "051f4f6a097e85e30ebdb47dfd4c438eb61aea166fd1acbd8de5675ef7c0d8b9",
+    "I:\\xcide\\data\\xml\\item_template\\FileView_Item.xml": "f95226d9a656b20b398b50f5164549455e38aa72d303c2456b51ce3c98cc82fa",
+    "I:\\xcide\\data\\xml\\item_template\\FileView_Item_projects.xml": "b21a68ea5858c309181e1b3d1128f68aa34b55ec27f3b695f9a04b881494b4c7",
+    "I:\\xcide\\data\\xml\\item_template\\List_Item.xml": "51fbf343aceb6c6606af58413814553077144cf4bc32d40bf33dfce224b5d08d",
+    "I:\\xcide\\data\\xml\\item_template\\List_Item_css_res.xml": "baf578384183314776be19c15a231f96dc71aa17a33912af71626ee77ad083dd",
+    "I:\\xcide\\data\\xml\\item_template\\List_Item_res_font.xml": "2a9f14772f86555b24026ce81a78bf9bd909f99ec81463c83aa64a78a6317b04",
+    "I:\\xcide\\data\\xml\\item_template\\List_Item_res_image.xml": "86a5883646cbe160493d3463bc6a5f4a6a9ce7032f353283d3ba34def1e9b5c7",
+    "I:\\xcide\\data\\xml\\item_template\\List_item_watch.xml": "f517eae485fc167c8fefa4589458a4ae91aba7007c51e513a99dc12cbf9a7205",
+    "I:\\xcide\\data\\xml\\item_template\\ListBox_Item.xml": "df639100f6d0dfd4b77223e70c5d6bffa38797fbae086cfc3a0e5e0ee155c3b6",
+    "I:\\xcide\\data\\xml\\item_template\\ListBox_Item3.xml": "80c400fe901aa6ff8888faba4493571fee20550f757f61c071f80832725fd376",
+    "I:\\xcide\\data\\xml\\item_template\\ListBox_Item_breakpoint.xml": "ecb80456d5ef1cd14e2e1837e91ca2b0c34a20ff1770e644f6e6a740eb4941ec",
+    "I:\\xcide\\data\\xml\\item_template\\ListBox_Item_callStack.xml": "82bbb55324adc759ede5f2b436028f872fa00574dd9a9fbb41f388566ef7a6f9",
+    "I:\\xcide\\data\\xml\\item_template\\ListBox_Item_css.xml": "12d5e9bbcdc9ba27a93a82b16036ee14e5b1fac89c0af3aae11fa621af6c6c4d",
+    "I:\\xcide\\data\\xml\\item_template\\ListBox_Item_editor_autoMatchOption.xml": "cb61b3319e574999f808c3a3859021376ecae844f9e68d2742ec3f0d5a6e2ebe",
+    "I:\\xcide\\data\\xml\\item_template\\ListBox_Item_editor_nav.xml": "eeb919491e7480910ad35400c523bd067406da48fcaa67d2b7777ae557d9accb",
+    "I:\\xcide\\data\\xml\\item_template\\ListBox_Item_module_select.xml": "76f0c8c7ee773b8cff7e044ab9d3f85431b8f891bdffd1ff642a64707ccaad0c",
+    "I:\\xcide\\data\\xml\\item_template\\ListBox_Item_new_project.xml": "ae8b8af82f21a4ff54801f5524965fe51ccc553a3346798a00459e0b6fcb2fc4",
+    "I:\\xcide\\data\\xml\\item_template\\ListBox_Item_vc_config.xml": "2e1514622673914bbf0d9c1c8d77e1be6d6a61130f226cf057ee8e4d6852d5a3",
+    "I:\\xcide\\data\\xml\\item_template\\ListBox_Item_vc_mgr.xml": "70487798afcdaae19658d4df47e7fdd9e396d86f6490edaa166782d824590278",
+    "I:\\xcide\\data\\xml\\item_template\\ListBox_Item_watch.xml": "66a0fee8669508fefcfa648a2d3dc6bc09f536b1d1c8c126cd64a8a44910d62f",
+    "I:\\xcide\\data\\xml\\item_template\\ListBox_Item_watch_vc.xml": "79ede3bb32c7f6786355f1badf9decfce8e9c2f85fa2d02d9d84705959908c3d",
+    "I:\\xcide\\data\\xml\\item_template\\ListView_Item_color.xml": "e965bff20d32d25063124c9af2828953e936ffab4811d8dc9af292be917475de",
+    "I:\\xcide\\data\\xml\\item_template\\ModuleView_Item.xml": "9bd22ef6bfb38b414db57cc9d31f6ab70ea42fa7c2a049e0150502725d2e7e42",
+    "I:\\xcide\\data\\xml\\item_template\\ObjectView_Item.xml": "4a35b46624f59a48d6a97b1303eb3a7b28bd6e10ca85a718e7743030576b6aae",
+    "I:\\xcide\\data\\xml\\item_template\\QuickPane_TreeItem.xml": "f3454f046ba012f3b9225a250268360935a9c4f835105f2e77cb30e7f03f9750",
+    "I:\\xcide\\data\\xml\\item_template\\QuickPane_TreeItemGroup.xml": "f7e3b16480b677573a2d6e593d667035ae95f3ccb2e7f33656210fda6cb80fc3",
+    "I:\\xcide\\data\\xml\\item_template\\StyleView_Tree_Item.xml": "d60364c2ae961275d420ce571b8c60976fd6cd789120d806e1ed2ca00d546796",
+    "I:\\xcide\\data\\xml\\item_template\\SyncListBox_Item.xml": "7e63f907cc0d7c5a3a89e34716891a40e84be50f4504a573cb15f7d5cb4c13c5",
+    "I:\\xcide\\data\\xml\\item_template\\SyncTree_Item.xml": "a23ad0aee28f8e9e99809ac209bedc9d75a4dc65ba2b94dfca526ff78663cdb0",
+    "I:\\xcide\\data\\xml\\item_template\\SyncTree_Item_check.xml": "7164d1a4f3e3be792e007fd59692b1629fdaf9ba802127fcd51e234619627eb3",
+    "I:\\xcide\\data\\xml\\item_template\\templateLib_ListBox_Item.xml": "639c4056def091bd26472dddf16472994ff76c806e1cb218be9451bb761ae7b4",
+    "I:\\xcide\\data\\xml\\item_template\\toolBox_ListView_Item.xml": "81ad99235be2bf678114094a39b8e7d04d9e2d2bd8ecc61afb05836b7ac1058b",
+    "I:\\xcide\\data\\xml\\item_template\\toolBox_ListView_Item_simple.xml": "b3d879f6f30076404d5bfacb9326b60414ef3692ff5c25c56844d255842cc5ee",
+    "I:\\xcide\\data\\xml\\item_template\\Tree_Item_functionTree.xml": "87ed8056c12a13de2b26d86c6478d7e82870ce05fb5560c2790b816d3d17f90b",
+    "I:\\xcide\\data\\xml\\item_template\\Tree_Item_scope.xml": "87ed8056c12a13de2b26d86c6478d7e82870ce05fb5560c2790b816d3d17f90b",
+    "I:\\xcide\\data\\xml\\layout_projectSetting_config.xml": "0e1cf5a3e0a7ca55b4302acf554640be443054eef6ece7fa16a9f5d224b7392c",
+    "I:\\xcide\\data\\xml\\layout_projectSetting_dir.xml": "f45ca8c89358aa9c523b98516210745087af75f1ac2beabe569472b652ec3613",
+    "I:\\xcide\\data\\xml\\layout_projectSetting_exclude.xml": "9af8b6c925b5bfc81bdacd06bfdd60a3b496215d34f9cae747f9354a97c82d8d",
+    "I:\\xcide\\data\\xml\\layout_projectSetting_link.xml": "aaa31474094dc20a6fe31cdebc973203128d40ce3b23ead3d41ce57832fcc0cd",
+    "I:\\xcide\\例子\\炫彩界面AI项目\\资源文件\\resource.res": "5bb18e04eb345873b2c4166ad89333286e32c5160ac3cb894a09b09d464cf9c7",
+    "I:\\xcide\\例子\\炫彩界面AI项目\\UI_ZIP.zip": "9cbe9e1605c863b63698a9f6324a922755d46921a57426ca409e22cbfebb321b",
+    "I:\\xcide\\data\\XC-Module\\01_基础与综合\\bestkakkoii-炫扩展模块\\module_sub_cxxastar.h": "809a0d80f6166e9ca733ad32278d52240795690fc3cf3497c3afef75fc6b5b7b",
+    "I:\\xcide\\data\\tool\\DbgView使用说明.txt": "bce5282ef871ac239dbfc8f5a5d569c7ed826d8cc089f89e7f1d0620372139a8"
+  },
+  "source_hashes_after": {
+    "I:\\xcide\\data\\config\\config.config": "977e1d599024cb3a119cd1c6ebfa4cb64c0a5f87ce73e5c3b0600de234ed9d1c",
+    "I:\\xcide\\data\\config\\codeSnippet.json": "a34f098ee3fd9b8ece9660e1040ca9f9a45c055b3d5e8af2720cb0bb5de12daf",
+    "I:\\xcide\\data\\config\\help.json": "6815e238964cb844cf4a499220d8ca19f3848e9442ddc56616136f7b8478eafa",
+    "I:\\xcide\\data\\config\\sys\\objectName.config": "60091ac9b8171785bb77bece0b4f55c8ffd7b673e255efa0005155f253569607",
+    "I:\\xcide\\data\\config\\sys\\propertyList.json": "bcf6be3499f0511cb4faf5b327464846bcfb7ecebd2e127e9493569613d806cc",
+    "I:\\xcide\\data\\config\\sys\\events.xml": "d1916d38d58752a885297d36189f7ece00fd5f0538f3c398d5f70aa969470022",
+    "I:\\xcide\\data\\config\\customObject.config": "b13f7d2623ba28a847dc0820b327809df2ad3f3e9cd52b04a9a449243e96548b",
+    "I:\\xcide\\data\\config\\sys\\vc-set.json": "f1edbd3650b758d6ee0788c8f2e70d35908f49b9a7fc13381a88cd6bba953662",
+    "I:\\xcide\\data\\config\\sys\\autoMatch_function.txt": "6f7886fdee0cc5f9447532f7300297b23a17ef752a04c0ce8f3e26080588839d",
+    "I:\\xcide\\data\\config\\sys\\autoMatch_const.txt": "c71e24dcc65f045ee8475bb662cf06edd2e6787a966fce8df92e05ef7acc213c",
+    "I:\\xcide\\data\\config\\sys\\customPropertyName_ch.xml": "789876c9b59e1b27d15dea8d4422c26f93116a740896d3a2461113af58cabf7a",
+    "I:\\xcide\\data\\config\\sys\\customPropertyName_en.xml": "712cd99da08bf244fc80395b26343abe30237d251d8a130d07ce4c17229e269e",
+    "I:\\xcide\\data\\config\\favoriteColor.config": "f54c69f3dc23fcbc9e9f1ff3af4c4b39c4aaa1f9ee4b8d42cb5f03ae9dae2567",
+    "I:\\xcide\\data\\config\\customColor.config": "6fed8a9109861f65103a9d16e1b258bc761359598efdf9399dad1d61171ecf51",
+    "I:\\xcide\\data\\config\\sys\\vc.config": "f133000a0006042a7be8b5e8337d22e2235f92c16f556c3bca803e924d037f41",
+    "I:\\xcide\\data\\xml\\item_template\\ActionView_ListBox_Item.xml": "acc292449b3d7806663cbbb6ee8f7d07ca4973a16cadf935ada60ccbf7e8824d",
+    "I:\\xcide\\data\\xml\\item_template\\bkInfoEditor_ListBox_Item.xml": "489db8a1a604687192fb8da0aa9a0ebf1419a8017b24e992113ce9cf91ca15ef",
+    "I:\\xcide\\data\\xml\\item_template\\bkInfoEditor_ListBox_Item_sel.xml": "27e49714470bcc838c13fb52e67c244bc95e359f4f0a5b17576ad89e7194cb3a",
+    "I:\\xcide\\data\\xml\\item_template\\bkInfoEditor_ListBox_Item_stateGroup.xml": "340d3a30d372c8ed09029aaeab776bb06cce038593d6ff6e66b40fa466349151",
+    "I:\\xcide\\data\\xml\\item_template\\CppClass_Item.xml": "7617535ab3f66e3097263dea496a84633e8607adcb53d3f0b6382a975cf5caf7",
+    "I:\\xcide\\data\\xml\\item_template\\CustomPropertyName_ListBox_Item.xml": "2364fa3de1c956c168bcbb5b3a29a903291fe4b15f6ce31282248f8ae0e16aee",
+    "I:\\xcide\\data\\xml\\item_template\\eventManager_lua_ListBox_Item.xml": "051f4f6a097e85e30ebdb47dfd4c438eb61aea166fd1acbd8de5675ef7c0d8b9",
+    "I:\\xcide\\data\\xml\\item_template\\FileView_Item.xml": "f95226d9a656b20b398b50f5164549455e38aa72d303c2456b51ce3c98cc82fa",
+    "I:\\xcide\\data\\xml\\item_template\\FileView_Item_projects.xml": "b21a68ea5858c309181e1b3d1128f68aa34b55ec27f3b695f9a04b881494b4c7",
+    "I:\\xcide\\data\\xml\\item_template\\List_Item.xml": "51fbf343aceb6c6606af58413814553077144cf4bc32d40bf33dfce224b5d08d",
+    "I:\\xcide\\data\\xml\\item_template\\List_Item_css_res.xml": "baf578384183314776be19c15a231f96dc71aa17a33912af71626ee77ad083dd",
+    "I:\\xcide\\data\\xml\\item_template\\List_Item_res_font.xml": "2a9f14772f86555b24026ce81a78bf9bd909f99ec81463c83aa64a78a6317b04",
+    "I:\\xcide\\data\\xml\\item_template\\List_Item_res_image.xml": "86a5883646cbe160493d3463bc6a5f4a6a9ce7032f353283d3ba34def1e9b5c7",
+    "I:\\xcide\\data\\xml\\item_template\\List_item_watch.xml": "f517eae485fc167c8fefa4589458a4ae91aba7007c51e513a99dc12cbf9a7205",
+    "I:\\xcide\\data\\xml\\item_template\\ListBox_Item.xml": "df639100f6d0dfd4b77223e70c5d6bffa38797fbae086cfc3a0e5e0ee155c3b6",
+    "I:\\xcide\\data\\xml\\item_template\\ListBox_Item3.xml": "80c400fe901aa6ff8888faba4493571fee20550f757f61c071f80832725fd376",
+    "I:\\xcide\\data\\xml\\item_template\\ListBox_Item_breakpoint.xml": "ecb80456d5ef1cd14e2e1837e91ca2b0c34a20ff1770e644f6e6a740eb4941ec",
+    "I:\\xcide\\data\\xml\\item_template\\ListBox_Item_callStack.xml": "82bbb55324adc759ede5f2b436028f872fa00574dd9a9fbb41f388566ef7a6f9",
+    "I:\\xcide\\data\\xml\\item_template\\ListBox_Item_css.xml": "12d5e9bbcdc9ba27a93a82b16036ee14e5b1fac89c0af3aae11fa621af6c6c4d",
+    "I:\\xcide\\data\\xml\\item_template\\ListBox_Item_editor_autoMatchOption.xml": "cb61b3319e574999f808c3a3859021376ecae844f9e68d2742ec3f0d5a6e2ebe",
+    "I:\\xcide\\data\\xml\\item_template\\ListBox_Item_editor_nav.xml": "eeb919491e7480910ad35400c523bd067406da48fcaa67d2b7777ae557d9accb",
+    "I:\\xcide\\data\\xml\\item_template\\ListBox_Item_module_select.xml": "76f0c8c7ee773b8cff7e044ab9d3f85431b8f891bdffd1ff642a64707ccaad0c",
+    "I:\\xcide\\data\\xml\\item_template\\ListBox_Item_new_project.xml": "ae8b8af82f21a4ff54801f5524965fe51ccc553a3346798a00459e0b6fcb2fc4",
+    "I:\\xcide\\data\\xml\\item_template\\ListBox_Item_vc_config.xml": "2e1514622673914bbf0d9c1c8d77e1be6d6a61130f226cf057ee8e4d6852d5a3",
+    "I:\\xcide\\data\\xml\\item_template\\ListBox_Item_vc_mgr.xml": "70487798afcdaae19658d4df47e7fdd9e396d86f6490edaa166782d824590278",
+    "I:\\xcide\\data\\xml\\item_template\\ListBox_Item_watch.xml": "66a0fee8669508fefcfa648a2d3dc6bc09f536b1d1c8c126cd64a8a44910d62f",
+    "I:\\xcide\\data\\xml\\item_template\\ListBox_Item_watch_vc.xml": "79ede3bb32c7f6786355f1badf9decfce8e9c2f85fa2d02d9d84705959908c3d",
+    "I:\\xcide\\data\\xml\\item_template\\ListView_Item_color.xml": "e965bff20d32d25063124c9af2828953e936ffab4811d8dc9af292be917475de",
+    "I:\\xcide\\data\\xml\\item_template\\ModuleView_Item.xml": "9bd22ef6bfb38b414db57cc9d31f6ab70ea42fa7c2a049e0150502725d2e7e42",
+    "I:\\xcide\\data\\xml\\item_template\\ObjectView_Item.xml": "4a35b46624f59a48d6a97b1303eb3a7b28bd6e10ca85a718e7743030576b6aae",
+    "I:\\xcide\\data\\xml\\item_template\\QuickPane_TreeItem.xml": "f3454f046ba012f3b9225a250268360935a9c4f835105f2e77cb30e7f03f9750",
+    "I:\\xcide\\data\\xml\\item_template\\QuickPane_TreeItemGroup.xml": "f7e3b16480b677573a2d6e593d667035ae95f3ccb2e7f33656210fda6cb80fc3",
+    "I:\\xcide\\data\\xml\\item_template\\StyleView_Tree_Item.xml": "d60364c2ae961275d420ce571b8c60976fd6cd789120d806e1ed2ca00d546796",
+    "I:\\xcide\\data\\xml\\item_template\\SyncListBox_Item.xml": "7e63f907cc0d7c5a3a89e34716891a40e84be50f4504a573cb15f7d5cb4c13c5",
+    "I:\\xcide\\data\\xml\\item_template\\SyncTree_Item.xml": "a23ad0aee28f8e9e99809ac209bedc9d75a4dc65ba2b94dfca526ff78663cdb0",
+    "I:\\xcide\\data\\xml\\item_template\\SyncTree_Item_check.xml": "7164d1a4f3e3be792e007fd59692b1629fdaf9ba802127fcd51e234619627eb3",
+    "I:\\xcide\\data\\xml\\item_template\\templateLib_ListBox_Item.xml": "639c4056def091bd26472dddf16472994ff76c806e1cb218be9451bb761ae7b4",
+    "I:\\xcide\\data\\xml\\item_template\\toolBox_ListView_Item.xml": "81ad99235be2bf678114094a39b8e7d04d9e2d2bd8ecc61afb05836b7ac1058b",
+    "I:\\xcide\\data\\xml\\item_template\\toolBox_ListView_Item_simple.xml": "b3d879f6f30076404d5bfacb9326b60414ef3692ff5c25c56844d255842cc5ee",
+    "I:\\xcide\\data\\xml\\item_template\\Tree_Item_functionTree.xml": "87ed8056c12a13de2b26d86c6478d7e82870ce05fb5560c2790b816d3d17f90b",
+    "I:\\xcide\\data\\xml\\item_template\\Tree_Item_scope.xml": "87ed8056c12a13de2b26d86c6478d7e82870ce05fb5560c2790b816d3d17f90b",
+    "I:\\xcide\\data\\xml\\layout_projectSetting_config.xml": "0e1cf5a3e0a7ca55b4302acf554640be443054eef6ece7fa16a9f5d224b7392c",
+    "I:\\xcide\\data\\xml\\layout_projectSetting_dir.xml": "f45ca8c89358aa9c523b98516210745087af75f1ac2beabe569472b652ec3613",
+    "I:\\xcide\\data\\xml\\layout_projectSetting_exclude.xml": "9af8b6c925b5bfc81bdacd06bfdd60a3b496215d34f9cae747f9354a97c82d8d",
+    "I:\\xcide\\data\\xml\\layout_projectSetting_link.xml": "aaa31474094dc20a6fe31cdebc973203128d40ce3b23ead3d41ce57832fcc0cd",
+    "I:\\xcide\\例子\\炫彩界面AI项目\\资源文件\\resource.res": "5bb18e04eb345873b2c4166ad89333286e32c5160ac3cb894a09b09d464cf9c7",
+    "I:\\xcide\\例子\\炫彩界面AI项目\\UI_ZIP.zip": "9cbe9e1605c863b63698a9f6324a922755d46921a57426ca409e22cbfebb321b",
+    "I:\\xcide\\data\\XC-Module\\01_基础与综合\\bestkakkoii-炫扩展模块\\module_sub_cxxastar.h": "809a0d80f6166e9ca733ad32278d52240795690fc3cf3497c3afef75fc6b5b7b",
+    "I:\\xcide\\data\\tool\\DbgView使用说明.txt": "bce5282ef871ac239dbfc8f5a5d569c7ed826d8cc089f89e7f1d0620372139a8"
+  },
+  "rounds": [
+    {
+      "round": 1,
+      "topic": "snippets",
+      "status": "implemented",
+      "sources": [
+        "data/config/codeSnippet.json"
+      ],
+      "facts": {
+        "count": 29,
+        "sample": [
+          {
+            "id": "0",
+            "name": "如果",
+            "comment": "模板",
+            "code": "如果 (真)\n\t占位",
+            "pointer": "/0"
+          },
+          {
+            "id": "1",
+            "name": "if",
+            "comment": "模板",
+            "code": "如果 (真)\n\t占位",
+            "pointer": "/1"
+          }
+        ],
+        "scope_count": 0
+      },
+      "command": [
+        "C:\\Program Files\\Python314\\Scripts\\cli-anything-xcide.EXE",
+        "--json",
+        "--dry-run",
+        "--ide",
+        "I:\\xcide",
+        "--session-file",
+        "E:\\Data\\Temp\\xcide-discovery-5ffff00793b44345a5102b4faa569c6f.json",
+        "reference",
+        "search",
+        "snippets",
+        "--limit",
+        "2000"
+      ]
+    },
+    {
+      "round": 2,
+      "topic": "language",
+      "status": "implemented",
+      "sources": [
+        "data/config/help.json"
+      ],
+      "facts": {
+        "count": 57,
+        "sample": [
+          {
+            "id": "整型",
+            "name": "整型",
+            "text": "基础数据类型: 整型    英文名称: int\n本数据类型为基础类型，占用4字节。\n范围：-2147483648 到 2147483647",
+            "pointer": "/整型"
+          },
+          {
+            "id": "正整型",
+            "name": "正整型",
+            "text": "基础数据类型: 正整型  英文名称: uint\n本数据类型为基础类型，占用4字节。\n范围: 0 到 4294967295",
+            "pointer": "/正整型"
+          }
+        ],
+        "scope_count": 0
+      },
+      "command": [
+        "C:\\Program Files\\Python314\\Scripts\\cli-anything-xcide.EXE",
+        "--json",
+        "--dry-run",
+        "--ide",
+        "I:\\xcide",
+        "--session-file",
+        "E:\\Data\\Temp\\xcide-discovery-5ffff00793b44345a5102b4faa569c6f.json",
+        "reference",
+        "search",
+        "language",
+        "--limit",
+        "2000"
+      ]
+    },
+    {
+      "round": 3,
+      "topic": "controls",
+      "status": "implemented",
+      "sources": [
+        "data/config/sys/objectName.config"
+      ],
+      "facts": {
+        "count": 32,
+        "sample": [
+          {
+            "id": "elementUI",
+            "name": "基础元素",
+            "tag": "elementUI",
+            "pointer": "/elementUI"
+          },
+          {
+            "id": "buttonUI",
+            "name": "按钮",
+            "tag": "buttonUI",
+            "pointer": "/buttonUI"
+          }
+        ],
+        "scope_count": 0
+      },
+      "command": [
+        "C:\\Program Files\\Python314\\Scripts\\cli-anything-xcide.EXE",
+        "--json",
+        "--dry-run",
+        "--ide",
+        "I:\\xcide",
+        "--session-file",
+        "E:\\Data\\Temp\\xcide-discovery-5ffff00793b44345a5102b4faa569c6f.json",
+        "reference",
+        "search",
+        "controls",
+        "--limit",
+        "2000"
+      ]
+    },
+    {
+      "round": 4,
+      "topic": "properties",
+      "status": "implemented",
+      "sources": [
+        "data/config/sys/propertyList.json"
+      ],
+      "facts": {
+        "count": 300,
+        "sample": [
+          {
+            "id": "windowUI/rect/left",
+            "name": "左边(left)",
+            "attribute": "left",
+            "scope": "windowUI",
+            "group": "rect",
+            "editor_type": "edit",
+            "flags": "true",
+            "comment": "",
+            "help": "坐标, 相对与父X轴坐标",
+            "choices": [],
+            "pointer": "/windowUI/rect/0"
+          },
+          {
+            "id": "windowUI/rect/top",
+            "name": "上边(top)",
+            "attribute": "top",
+            "scope": "windowUI",
+            "group": "rect",
+            "editor_type": "edit",
+            "flags": "true",
+            "comment": "",
+            "help": "坐标, 相对与父Y轴坐标",
+            "choices": [],
+            "pointer": "/windowUI/rect/1"
+          }
+        ],
+        "scope_count": 50,
+        "choice_fields": 26,
+        "attribute_names": 218
+      },
+      "command": [
+        "C:\\Program Files\\Python314\\Scripts\\cli-anything-xcide.EXE",
+        "--json",
+        "--dry-run",
+        "--ide",
+        "I:\\xcide",
+        "--session-file",
+        "E:\\Data\\Temp\\xcide-discovery-5ffff00793b44345a5102b4faa569c6f.json",
+        "reference",
+        "search",
+        "properties",
+        "--limit",
+        "2000"
+      ]
+    },
+    {
+      "round": 5,
+      "topic": "property-help",
+      "status": "implemented",
+      "sources": [
+        "data/config/sys/propertyList.json"
+      ],
+      "facts": {
+        "count": 113,
+        "sample": [
+          {
+            "id": "id",
+            "name": "id",
+            "text": "ID,窗口内唯一标识符, 如值为0忽略, 代码可通过ID获取对象句柄",
+            "pointer": "/help/id"
+          },
+          {
+            "id": "uid",
+            "name": "uid",
+            "text": "UID,全局唯一标识符, 如值为0忽略, 代码可通过UID获取对象句柄",
+            "pointer": "/help/uid"
+          }
+        ],
+        "scope_count": 0,
+        "help_without_property_row": [
+          "drawBk",
+          "tempExtend.start",
+          "tempExtend.count",
+          "itemID"
+        ]
+      },
+      "command": [
+        "C:\\Program Files\\Python314\\Scripts\\cli-anything-xcide.EXE",
+        "--json",
+        "--dry-run",
+        "--ide",
+        "I:\\xcide",
+        "--session-file",
+        "E:\\Data\\Temp\\xcide-discovery-5ffff00793b44345a5102b4faa569c6f.json",
+        "reference",
+        "search",
+        "property-help",
+        "--limit",
+        "2000"
+      ]
+    },
+    {
+      "round": 6,
+      "topic": "events",
+      "status": "implemented",
+      "sources": [
+        "data/config/sys/events.xml"
+      ],
+      "facts": {
+        "count": 128,
+        "sample": [
+          {
+            "id": "windowUI/WM_PAINT",
+            "name": "WM_PAINT",
+            "scope": "windowUI",
+            "class_name": "窗口类",
+            "declaration": "$[UI对象名称]_开始绘制(绘图句柄 绘图,逻辑型 *是否拦截)",
+            "remark": "窗口绘制事件",
+            "pointer": "/events/windowUI/*[1]"
+          },
+          {
+            "id": "windowUI/XWM_PAINT_END",
+            "name": "XWM_PAINT_END",
+            "scope": "windowUI",
+            "class_name": "窗口类",
+            "declaration": "$[UI对象名称]_绘制完成(绘图句柄 绘图,逻辑型 *是否拦截)",
+            "remark": "窗口绘制完成消息",
+            "pointer": "/events/windowUI/*[2]"
+          }
+        ],
+        "scope_count": 20
+      },
+      "command": [
+        "C:\\Program Files\\Python314\\Scripts\\cli-anything-xcide.EXE",
+        "--json",
+        "--dry-run",
+        "--ide",
+        "I:\\xcide",
+        "--session-file",
+        "E:\\Data\\Temp\\xcide-discovery-5ffff00793b44345a5102b4faa569c6f.json",
+        "reference",
+        "search",
+        "events",
+        "--limit",
+        "2000"
+      ]
+    },
+    {
+      "round": 7,
+      "topic": "custom-objects",
+      "status": "implemented",
+      "sources": [
+        "data/config/customObject.config"
+      ],
+      "facts": {
+        "count": 14,
+        "sample": [
+          {
+            "id": "0",
+            "name": "布局组框",
+            "tag": "layoutEleUI",
+            "attributes": {
+              "customName": "布局组框",
+              "layout.height": "200",
+              "layout.width": "200",
+              "padding": "20,25,20,20",
+              "rect": "97,79,200,200",
+              "showT": "true"
+            },
+            "node_count": 2,
+            "xml": "<layoutEleUI customName=\"布局组框\" layout.height=\"200\" layout.width=\"200\" padding=\"20,25,20,20\" rect=\"97,79,200,200\" showT=\"true\">\n\t\t<shapeGroupBox content=\"GroupBox\" layout.position=\"-10,-20,-10,-10\" rect=\"44,41,100,100\" showT=\"true\" />\n\t</layoutEleUI>",
+            "pointer": "/customObject/*[1]"
+          },
+          {
+            "id": "1",
+            "name": "布局组框2",
+            "tag": "layoutEleUI",
+            "attributes": {
+              "customName": "布局组框2",
+              "layout.height": "200",
+              "layout.space": "5",
+              "layout.spaceRow": "5",
+              "layout.width": "200",
+              "padding": "20,25,20,20",
+              "rect": "52,68,200,200",
+              "showT": "true"
+            },
+            "node_count": 5,
+            "xml": "<layoutEleUI customName=\"布局组框2\" layout.height=\"200\" layout.space=\"5\" layout.spaceRow=\"5\" layout.width=\"200\" padding=\"20,25,20,20\" rect=\"52,68,200,200\" showT=\"true\">\n\t\t<shapeGroupBox content=\"GroupBox\" layout.position=\"-10,-20,-10,-10\" rect=\"44,41,100,100\" showT=\"true\" />\n\t\t<buttonUI content=\"Button\" rect=\"44,63,60,25\" showT=\"true\" />\n\t\t<buttonUI content=\"Button\" rect=\"133,66,60,25\" showT=\"true\" />\n\t\t<buttonUI content=\"Button\" rect=\"146,100,60,25\" showT=\"true\" />\n\t</layoutEleUI>",
+            "pointer": "/customObject/*[2]"
+          }
+        ],
+        "scope_count": 0
+      },
+      "command": [
+        "C:\\Program Files\\Python314\\Scripts\\cli-anything-xcide.EXE",
+        "--json",
+        "--dry-run",
+        "--ide",
+        "I:\\xcide",
+        "--session-file",
+        "E:\\Data\\Temp\\xcide-discovery-5ffff00793b44345a5102b4faa569c6f.json",
+        "reference",
+        "search",
+        "custom-objects",
+        "--limit",
+        "2000"
+      ]
+    },
+    {
+      "round": 8,
+      "topic": "build-options",
+      "status": "implemented",
+      "sources": [
+        "data/config/sys/vc-set.json"
+      ],
+      "facts": {
+        "count": 15,
+        "sample": [
+          {
+            "id": "type",
+            "name": "类型",
+            "definition": {
+              "xml_label": "type",
+              "uiType": "comboBox",
+              "flag": "sys",
+              "list": {
+                "应用程序(.exe)": "exe",
+                "动态库(.dll)": "dll",
+                "静态库(.lib)": "lib"
+              }
+            },
+            "pointer": "/类型"
+          },
+          {
+            "id": "sdk",
+            "name": "SDK",
+            "definition": {
+              "xml_label": "sdk",
+              "uiType": "comboBox",
+              "flag": "sys"
+            },
+            "pointer": "/SDK"
+          }
+        ],
+        "scope_count": 0
+      },
+      "command": [
+        "C:\\Program Files\\Python314\\Scripts\\cli-anything-xcide.EXE",
+        "--json",
+        "--dry-run",
+        "--ide",
+        "I:\\xcide",
+        "--session-file",
+        "E:\\Data\\Temp\\xcide-discovery-5ffff00793b44345a5102b4faa569c6f.json",
+        "reference",
+        "search",
+        "build-options",
+        "--limit",
+        "2000"
+      ]
+    },
+    {
+      "round": 9,
+      "topic": "functions",
+      "status": "implemented",
+      "sources": [
+        "data/config/sys/autoMatch_function.txt"
+      ],
+      "facts": {
+        "count": 1375,
+        "sample": [
+          {
+            "id": "1",
+            "name": "BOOL    XCloudUI_Init();",
+            "text": "BOOL    XCloudUI_Init();",
+            "line_number": 1
+          },
+          {
+            "id": "2",
+            "name": "BOOL    XCloudUI_OpenAppCmd(const wchar_t* pCmdLine);",
+            "text": "BOOL    XCloudUI_OpenAppCmd(const wchar_t* pCmdLine);",
+            "line_number": 2
+          }
+        ],
+        "scope_count": 0
+      },
+      "command": [
+        "C:\\Program Files\\Python314\\Scripts\\cli-anything-xcide.EXE",
+        "--json",
+        "--dry-run",
+        "--ide",
+        "I:\\xcide",
+        "--session-file",
+        "E:\\Data\\Temp\\xcide-discovery-5ffff00793b44345a5102b4faa569c6f.json",
+        "reference",
+        "search",
+        "functions",
+        "--limit",
+        "2000"
+      ]
+    },
+    {
+      "round": 10,
+      "topic": "completion-tokens",
+      "status": "implemented",
+      "sources": [
+        "data/config/sys/autoMatch_const.txt"
+      ],
+      "facts": {
+        "count": 1766,
+        "sample": [
+          {
+            "id": "1",
+            "name": "调试输出",
+            "text": "调试输出",
+            "line_number": 1
+          },
+          {
+            "id": "2",
+            "name": "调用函数",
+            "text": "调用函数",
+            "line_number": 2
+          }
+        ],
+        "scope_count": 0
+      },
+      "command": [
+        "C:\\Program Files\\Python314\\Scripts\\cli-anything-xcide.EXE",
+        "--json",
+        "--dry-run",
+        "--ide",
+        "I:\\xcide",
+        "--session-file",
+        "E:\\Data\\Temp\\xcide-discovery-5ffff00793b44345a5102b4faa569c6f.json",
+        "reference",
+        "search",
+        "completion-tokens",
+        "--limit",
+        "2000"
+      ]
+    },
+    {
+      "round": 11,
+      "topic": "属性中英文名称对照",
+      "status": "deferred",
+      "sources": [
+        "data/config/sys/customPropertyName_ch.xml",
+        "data/config/sys/customPropertyName_en.xml"
+      ],
+      "facts": {
+        "counts": {
+          "ch": 117,
+          "en": 118
+        },
+        "only_ch": [
+          "captionMargin",
+          "itemID",
+          "layout.align",
+          "layout.alignBaseline",
+          "layout.autoWrap",
+          "layout.margin",
+          "layout.minSize",
+          "layout.overflowHide",
+          "layout.position",
+          "layout.spaceRow",
+          "layout.swap",
+          "layoutControl",
+          "offsetIconXY",
+          "offsetXY",
+          "overlayBorder",
+          "padding",
+          "showButton",
+          "style",
+          "textOffsetXY",
+          "titleColor",
+          "topmost",
+          "windowStyle"
+        ],
+        "only_en": [
+          "border.bottom",
+          "border.left",
+          "border.right",
+          "border.top",
+          "buttonStyle",
+          "layout.padding.bottom",
+          "layout.padding.left",
+          "layout.padding.right",
+          "layout.padding.top",
+          "layoutBottom",
+          "layoutLeft",
+          "layoutRight",
+          "layoutStack.align",
+          "layoutStack.width",
+          "layoutTop",
+          "offsetIconX",
+          "offsetIconY",
+          "offsetX",
+          "offsetY",
+          "padding.bottom",
+          "padding.left",
+          "padding.right",
+          "padding.top"
+        ]
+      },
+      "command": null
+    },
+    {
+      "round": 12,
+      "topic": "收藏调色板与渐变",
+      "status": "deferred",
+      "sources": [
+        "data/config/favoriteColor.config"
+      ],
+      "facts": {
+        "groups": [
+          {
+            "name": "最近使用",
+            "solid": 7,
+            "gradient": 7
+          },
+          {
+            "name": "标准",
+            "solid": 5,
+            "gradient": 3
+          },
+          {
+            "name": "浅色",
+            "solid": 5,
+            "gradient": 3
+          },
+          {
+            "name": "紫色",
+            "solid": 6,
+            "gradient": 3
+          }
+        ]
+      },
+      "command": null
+    },
+    {
+      "round": 13,
+      "topic": "自定义颜色的原始编码",
+      "status": "deferred",
+      "sources": [
+        "data/config/customColor.config"
+      ],
+      "facts": {
+        "entries": [
+          {
+            "tag": "color",
+            "value": "-7839744"
+          },
+          {
+            "tag": "color",
+            "value": "-8727554"
+          },
+          {
+            "tag": "color",
+            "value": "-12271106"
+          },
+          {
+            "tag": "color",
+            "value": "-3873541"
+          },
+          {
+            "tag": "color",
+            "value": "-11318723"
+          },
+          {
+            "tag": "color",
+            "value": "-1"
+          },
+          {
+            "tag": "color",
+            "value": "-3618616"
+          },
+          {
+            "tag": "gradient",
+            "value": ""
+          },
+          {
+            "tag": "gradient",
+            "value": ""
+          },
+          {
+            "tag": "gradient",
+            "value": ""
+          },
+          {
+            "tag": "gradient",
+            "value": ""
+          },
+          {
+            "tag": "gradient",
+            "value": ""
+          },
+          {
+            "tag": "gradient",
+            "value": ""
+          },
+          {
+            "tag": "gradient",
+            "value": ""
+          }
+        ],
+        "encoding_verified": false
+      },
+      "command": null
+    },
+    {
+      "round": 14,
+      "topic": "SDK 与工具集的目录配置",
+      "status": "deferred",
+      "sources": [
+        "data/config/sys/vc.config"
+      ],
+      "facts": {
+        "sdks": [
+          {
+            "name": "Windows7",
+            "path": ""
+          },
+          {
+            "name": "Windows10",
+            "path": "C:\\Program Files (x86)\\Windows Kits\\10\\"
+          }
+        ],
+        "toolsets": [
+          {
+            "name": "vs2015",
+            "path": ""
+          },
+          {
+            "name": "vs2019",
+            "path": ""
+          },
+          {
+            "name": "vs2022",
+            "path": ""
+          }
+        ],
+        "path_count": 60,
+        "missing_paths": [
+          {
+            "path": "data\\VC\\XC-Module",
+            "exists": false
+          },
+          {
+            "path": "data\\VC\\XC-Module",
+            "exists": false
+          },
+          {
+            "path": "data\\VC\\XC-Module",
+            "exists": false
+          },
+          {
+            "path": "data\\VC\\XC-Module",
+            "exists": false
+          }
+        ],
+        "compiler_invoked": false
+      },
+      "command": null
+    },
+    {
+      "round": 15,
+      "topic": "IDE 自用列表项模板",
+      "status": "deferred",
+      "sources": [
+        "data/xml/item_template/ActionView_ListBox_Item.xml",
+        "data/xml/item_template/bkInfoEditor_ListBox_Item.xml",
+        "data/xml/item_template/bkInfoEditor_ListBox_Item_sel.xml",
+        "data/xml/item_template/bkInfoEditor_ListBox_Item_stateGroup.xml",
+        "data/xml/item_template/CppClass_Item.xml",
+        "data/xml/item_template/CustomPropertyName_ListBox_Item.xml",
+        "data/xml/item_template/eventManager_lua_ListBox_Item.xml",
+        "data/xml/item_template/FileView_Item.xml",
+        "data/xml/item_template/FileView_Item_projects.xml",
+        "data/xml/item_template/List_Item.xml",
+        "data/xml/item_template/List_Item_css_res.xml",
+        "data/xml/item_template/List_Item_res_font.xml",
+        "data/xml/item_template/List_Item_res_image.xml",
+        "data/xml/item_template/List_item_watch.xml",
+        "data/xml/item_template/ListBox_Item.xml",
+        "data/xml/item_template/ListBox_Item3.xml",
+        "data/xml/item_template/ListBox_Item_breakpoint.xml",
+        "data/xml/item_template/ListBox_Item_callStack.xml",
+        "data/xml/item_template/ListBox_Item_css.xml",
+        "data/xml/item_template/ListBox_Item_editor_autoMatchOption.xml",
+        "data/xml/item_template/ListBox_Item_editor_nav.xml",
+        "data/xml/item_template/ListBox_Item_module_select.xml",
+        "data/xml/item_template/ListBox_Item_new_project.xml",
+        "data/xml/item_template/ListBox_Item_vc_config.xml",
+        "data/xml/item_template/ListBox_Item_vc_mgr.xml",
+        "data/xml/item_template/ListBox_Item_watch.xml",
+        "data/xml/item_template/ListBox_Item_watch_vc.xml",
+        "data/xml/item_template/ListView_Item_color.xml",
+        "data/xml/item_template/ModuleView_Item.xml",
+        "data/xml/item_template/ObjectView_Item.xml",
+        "data/xml/item_template/QuickPane_TreeItem.xml",
+        "data/xml/item_template/QuickPane_TreeItemGroup.xml",
+        "data/xml/item_template/StyleView_Tree_Item.xml",
+        "data/xml/item_template/SyncListBox_Item.xml",
+        "data/xml/item_template/SyncTree_Item.xml",
+        "data/xml/item_template/SyncTree_Item_check.xml",
+        "data/xml/item_template/templateLib_ListBox_Item.xml",
+        "data/xml/item_template/toolBox_ListView_Item.xml",
+        "data/xml/item_template/toolBox_ListView_Item_simple.xml",
+        "data/xml/item_template/Tree_Item_functionTree.xml",
+        "data/xml/item_template/Tree_Item_scope.xml"
+      ],
+      "facts": {
+        "count": 41,
+        "roots": {
+          "xc_template_listBox": 21,
+          "xc_template_tree": 12,
+          "xc_template_list": 5,
+          "xc_template_listView": 3
+        },
+        "binding_file_count": 41,
+        "samples": [
+          "data/xml/item_template/ActionView_ListBox_Item.xml",
+          "data/xml/item_template/bkInfoEditor_ListBox_Item.xml",
+          "data/xml/item_template/bkInfoEditor_ListBox_Item_sel.xml"
+        ]
+      },
+      "command": null
+    },
+    {
+      "round": 16,
+      "topic": "工程设置页面中的未封装字段",
+      "status": "deferred",
+      "sources": [
+        "data/xml/layout_projectSetting_config.xml",
+        "data/xml/layout_projectSetting_dir.xml",
+        "data/xml/layout_projectSetting_exclude.xml",
+        "data/xml/layout_projectSetting_link.xml"
+      ],
+      "facts": {
+        "named_controls": {
+          "config": [
+            "配置",
+            "平台",
+            "新建"
+          ],
+          "dir": [
+            "配置",
+            "平台",
+            "新建",
+            "输出文件名",
+            "包含目录",
+            "库目录",
+            "包含目录(继承值)",
+            "库目录(继承值)",
+            "查看系统环境变量"
+          ],
+          "exclude": [
+            "排除列表"
+          ],
+          "link": [
+            "配置",
+            "平台",
+            "新建",
+            "附加依赖库",
+            "其他选项",
+            "忽略特定库",
+            "附加依赖库(继承值)",
+            "忽略特定库(继承值)",
+            "模块定义文件"
+          ]
+        },
+        "write_semantics_verified": false
+      },
+      "command": null
+    },
+    {
+      "round": 17,
+      "topic": "磁盘资源表的可导入对象",
+      "status": "deferred",
+      "sources": [
+        "例子/炫彩界面AI项目/资源文件/resource.res"
+      ],
+      "facts": {
+        "sections": {
+          "type_image": 20,
+          "type_font": 7,
+          "type_color": 16,
+          "type_bkInfo": 25
+        },
+        "duplicate_names": []
+      },
+      "command": null
+    },
+    {
+      "round": 18,
+      "topic": "UI ZIP 成员与资源表",
+      "status": "deferred",
+      "sources": [
+        "例子/炫彩界面AI项目/UI_ZIP.zip"
+      ],
+      "facts": {
+        "member_count": 24,
+        "xml_members": [
+          "布局文件/combobox_item.xml",
+          "布局文件/list_item.xml",
+          "布局文件/main.xml"
+        ],
+        "resource_members": [
+          "资源文件/resource.res"
+        ],
+        "encrypted_members": 0,
+        "duplicate_names": [],
+        "extracted": false
+      },
+      "command": null
+    },
+    {
+      "round": 19,
+      "topic": "模块声明转发与 API 提取边界",
+      "status": "deferred",
+      "sources": [
+        "data/XC-Module/01_基础与综合/bestkakkoii-炫扩展模块/module_sub_cxxastar.h"
+      ],
+      "facts": {
+        "alias_annotations": 0,
+        "forward_declarations": [
+          {
+            "line": 47,
+            "text": "//@解析头文件\n#include \"CXXCore-master\\include\\cxxastardevice.h\"\n\n#endif // MODULE_CXXASTAR_H_"
+          }
+        ],
+        "source_annotations": [
+          "//@src \"CXXCore-master\\src\\cxxastardevice.cpp\""
+        ]
+      },
+      "command": null
+    },
+    {
+      "round": 20,
+      "topic": "原生辅助工具的自动化入口",
+      "status": "deferred",
+      "sources": [
+        "data/tool",
+        "data/tool/DbgView使用说明.txt"
+      ],
+      "facts": {
+        "executables": [
+          "COM类型库查看器.exe",
+          "Dbgview.exe",
+          "errlook.exe",
+          "guidgen.exe",
+          "spyxx.exe",
+          "XCGUI-COM.exe",
+          "XCGUI-Spy.exe"
+        ],
+        "debugview_help": "https://learn.microsoft.com/zh-cn/sysinternals/downloads/debugview",
+        "executed": false,
+        "headless_protocol_verified": false
+      },
+      "command": null
+    }
+  ]
+}
