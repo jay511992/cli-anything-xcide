@@ -1902,3 +1902,78 @@ def test_output_bridge_rejects_wrong_identity_and_overflow(tmp_path):
     with pytest.raises(RuntimeError, match="limit"):
         read_snapshot(target, 42, project)
 
+
+@pytest.mark.parametrize("event_delay,signal_delay", [(0.1, 1.4), (5.2, 0.2)])
+def test_debug_cleanup_waits_for_event_and_process_signal(monkeypatch, event_delay, signal_delay):
+    """An exit debug event and a signaled process are separate lifecycle states."""
+    import subprocess
+    from types import SimpleNamespace
+    from cli_anything.xcide.utils import win_debug
+    clock = [0.0]
+    monkeypatch.setattr(win_debug.time, "monotonic", lambda: clock[0])
+    process = object.__new__(win_debug.DebugProcess)
+    process.job, process.exit_code, process.terminated = 7, None, False
+    process.cleanup_error, process.streams = None, []
+    closed, signals = [], []
+    process.api = SimpleNamespace(TerminateJobObject=lambda *args: True,
+                                  CloseHandle=lambda handle: closed.append(handle))
+
+    def poll(milliseconds):
+        clock[0] += milliseconds / 1000
+        if clock[0] >= event_delay:
+            process.exit_code = 0xE0000001
+
+    def wait(timeout):
+        remaining = max(0, event_delay + signal_delay - clock[0])
+        clock[0] += min(timeout, remaining)
+        if remaining > timeout:
+            raise subprocess.TimeoutExpired("owned", timeout)
+        signals.append(True)
+
+    process.poll = poll
+    process.process = SimpleNamespace(wait=wait, close=lambda: closed.append("process"))
+    process.close()
+    assert process.exit_code == 0xE0000001 and process.terminated
+    assert process.cleanup_error is None and signals == [True]
+    assert closed == [7, "process"] and clock[0] < 10.1
+
+
+def test_debug_cleanup_deadline_is_shared_and_errors_are_preserved(monkeypatch):
+    import subprocess
+    from types import SimpleNamespace
+    from cli_anything.xcide.utils import win_debug
+    clock = [0.0]
+    monkeypatch.setattr(win_debug.time, "monotonic", lambda: clock[0])
+    process = object.__new__(win_debug.DebugProcess)
+    process.job, process.exit_code, process.terminated = 7, None, False
+    process.cleanup_error, process.streams = "first cleanup failure", []
+    closed, waits = [], []
+    process.api = SimpleNamespace(TerminateJobObject=lambda *args: True,
+                                  CloseHandle=lambda handle: closed.append(handle))
+    process.poll = lambda milliseconds: clock.__setitem__(0, clock[0] + milliseconds / 1000)
+
+    def wait(timeout):
+        waits.append(timeout)
+        clock[0] += timeout
+        raise subprocess.TimeoutExpired("owned", timeout)
+
+    process.process = SimpleNamespace(wait=wait, close=lambda: closed.append("process"))
+    process.close()
+    assert 9.9 <= clock[0] <= 10.1 and waits[0] < 0.1
+    assert "first cleanup failure" in process.cleanup_error
+    assert "debug exit" in process.cleanup_error and "timed out" in process.cleanup_error
+    assert closed == [7, "process"] and process.exit_code is None
+
+
+def test_owned_process_wait_preserves_api_failures(monkeypatch):
+    import _winapi
+    import subprocess
+    from cli_anything.xcide.utils.win_debug import _OwnedProcess
+    process = _OwnedProcess(7, 42)
+    monkeypatch.setattr(_winapi, "WaitForSingleObject", lambda *args: 258)
+    with pytest.raises(subprocess.TimeoutExpired):
+        process.wait(0.1)
+    monkeypatch.setattr(_winapi, "WaitForSingleObject", lambda *args: 0xFFFFFFFF)
+    with pytest.raises(OSError):
+        process.wait(0.1)
+

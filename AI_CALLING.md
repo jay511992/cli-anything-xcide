@@ -2,6 +2,8 @@
 
 本手册供 Codex、其他 AI 代理和脚本调用 `cli-anything-xcide`。CLI 直接读取和更新 Windows 本地文件，不使用 MCP。`build --diagnostics` 自动在本轮隔离 IDE 副本中编译并加载输出桥接，无需向正式 IDE 安装插件。
 
+独立 Git 仓库同时提供 `skills/cli-anything-xcide`（调用规则）和 `skills/xc-suite`（炫语言、模块及 UI 开发资料）。写业务程序时建议一并读取；XC 模块索引按当前安装重建。wheel 包含 CLI 技能及原生桥接，XC 开发资料随仓库单独提供。XC-MCP-Next 与 `mcp-cli` 为可选外部工具，当前编译、读错误及后台测试不依赖它们；迁移方法见仓库根目录 `DEPENDENCIES.md`。
+
 文档的离线预览版是 [AI_CALLING.html](AI_CALLING.html)。前两批各 20 轮安装包功能挖掘见工作区根目录的 `AI_MINING_REPORT.md`、`AI_MINING_REPORT_02.md`；第三批 50 轮见 `AI_MINING_REPORT_03.md`。均有同名 HTML 阅读版，不依赖网络或脚本。
 
 ## 安装和调用原则
@@ -225,6 +227,8 @@ cli-anything-xcide --json runtime run --exe 'E:\work\xc\Tool\Debug64\Tool.exe' -
 结果包含 `pid/exe.sha256/debug_output/debug_events/exceptions/exit_code/terminated`。调试字符串区分 Unicode/ANSI，按 Windows 事件的字节长度解码；stdout、stderr 是独立的原始二进制文件，不能混为调试输出。已被程序处理的首轮异常记录为 `first_chance=true`，通常不导致测试失败；未处理异常和非预期退出码导致 `ok=false`。不提供源级单步、断点求值、调用栈或变量监视。调试版的“调试输出”通常使用 OutputDebugString；发布版可能删除该调用，无输出不等于运行失败。
 
 每次在 `--output` 下创建唯一 `run-*` 目录，保存 `report.json`、`stdout.bin`、`stderr.bin` 及场景截图。程序自有文件仍按指定 `--cwd` 写入。超时或场景失败会终止本次创建的进程树并写明 `terminated=true`；其他进程不受影响。主进程正常退出后也清理其残留子进程；子进程的调试事件不在当前捕获范围。CLI 不是代码沙箱，只运行你准备测试的程序。
+
+运行结束后的清理单独使用约 10 秒的共同预算处理调试退出事件并等待进程句柄结束；正常结束会立即返回。调用方应在 `--timeout` 之外留出清理和写报告时间。`cleanup_error` 非空仍表示失败，可能包含多个清理原因，不会因收到退出事件而省略句柄结束核验。
 
 ### 后台按钮点击、输入及运行断言
 

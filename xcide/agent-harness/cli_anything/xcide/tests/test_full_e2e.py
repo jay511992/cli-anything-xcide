@@ -711,6 +711,15 @@ int main(int argc,char**argv){
             result = json.loads(completed.stdout)
             assert result["automation"]["foreground_input"] is False
             assert result["cleanup_error"] is None
+            assert result["exit_code"] == (0 if mode == "gdi" else 0xE0000001)
+            from cli_anything.xcide.core.build import _windows_api
+            _, api = _windows_api()
+            handle = api.OpenProcess(0x00100000, False, result["pid"])
+            if handle:
+                try:
+                    assert api.WaitForSingleObject(handle, 0) == 0
+                finally:
+                    api.CloseHandle(handle)
             if mode == "gdi":
                 assert completed.returncode == 0, result
                 assert "CLICK:中文Automation!" not in result["debug_output"]

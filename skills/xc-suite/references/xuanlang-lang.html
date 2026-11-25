@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src data: file:; font-src 'none'; script-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="color-scheme" content="light dark"><title>xuanlang-lang — 炫语言语法 / 类型 / 容器 / 入口 / 预处理 / 基础模块｜炫彩 IDE</title>
+<meta name="description" content="离线阅读版：xuanlang-lang — 炫语言语法 / 类型 / 容器 / 入口 / 预处理 / 基础模块">
+<style>
+:root{color-scheme:light dark;--bg:#f3f5f9;--panel:#fff;--ink:#1f2937;--soft:#617086;--line:#e4e9f0;--accent:#145bce;--code:#eef2f8;--shadow:0 16px 46px #25385814;font:16px/1.76 "Microsoft YaHei UI","Microsoft YaHei",system-ui,sans-serif}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 85% -12%,#dbeafe 0,transparent 34rem),var(--bg);color:var(--ink)}
+.top{max-width:1380px;margin:auto;padding:30px 34px 12px;display:flex;align-items:center;justify-content:space-between;color:var(--soft);font-size:13px;letter-spacing:.04em}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;color:var(--accent)}.mark{display:grid;place-items:center;width:28px;height:28px;border-radius:8px;background:linear-gradient(140deg,#4e91ff,#1758c9);color:white;font-size:15px}
+.wrap{max-width:1380px;margin:0 auto 72px;padding:14px 28px;display:grid;grid-template-columns:minmax(0,1fr) 245px;gap:26px;align-items:start}
+main{min-width:0;background:var(--panel);border:1px solid var(--line);box-shadow:var(--shadow);border-radius:18px;padding:54px clamp(24px,6vw,86px) 66px}.eyebrow{color:var(--accent);font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:12px}h1{font-size:clamp(32px,5vw,47px);line-height:1.2;letter-spacing:-.04em;margin:12px 0 32px}h2{font-size:25px;line-height:1.35;letter-spacing:-.025em;margin:52px 0 18px;padding-bottom:10px;border-bottom:1px solid var(--line)}h3{font-size:20px;margin:34px 0 10px;line-height:1.4}h4,h5,h6{margin:28px 0 8px}p{margin:14px 0}a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}strong{font-weight:750}ul,ol{padding-left:1.55em;margin:12px 0 20px}li{padding-left:.18em;margin:6px 0}code{font-family:Consolas,"Cascadia Code","Microsoft YaHei",monospace;font-size:.91em;background:var(--code);border-radius:5px;padding:.13em .42em;overflow-wrap:anywhere}pre{margin:20px 0;padding:19px 22px;background:#111827;color:#e2e8f0;border:1px solid #334155;border-radius:11px;overflow:auto;line-height:1.65;white-space:pre}pre code{padding:0;background:none;border-radius:0;color:inherit;font-size:13px;overflow-wrap:normal}.table-wrap{overflow:auto;margin:19px 0 24px;border:1px solid var(--line);border-radius:10px}table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.55}th,td{padding:10px 13px;border-bottom:1px solid var(--line);vertical-align:top}th{background:var(--code);font-weight:700;white-space:nowrap}tr:last-child td{border-bottom:0}blockquote{margin:20px 0;padding:2px 20px;border-left:4px solid #86aaf1;background:var(--code);border-radius:0 8px 8px 0;color:var(--soft)}hr{border:0;border-top:1px solid var(--line);margin:32px 0}.meta{color:var(--soft);font-size:13px;margin-top:-20px;margin-bottom:36px}
+aside{position:sticky;top:16px;max-height:calc(100vh - 32px);overflow:auto;padding:20px 16px;background:color-mix(in srgb,var(--panel) 84%,transparent);border:1px solid var(--line);border-radius:14px}aside b{display:block;margin:0 8px 9px;font-size:13px}aside a{display:block;padding:4px 8px;color:var(--soft);font-size:12px;line-height:1.5;border-radius:5px}aside a:hover{background:var(--code);color:var(--accent);text-decoration:none}aside .depth-3{padding-left:18px}aside .depth-4{padding-left:29px}.foot{max-width:1380px;margin:-48px auto 30px;padding:0 34px;color:var(--soft);font-size:12px}
+@media(prefers-color-scheme:dark){:root{--bg:#12151c;--panel:#1b2029;--ink:#e3e9f2;--soft:#a6b1c2;--line:#303948;--accent:#7eaeff;--code:#252e3a;--shadow:0 20px 50px #0004}body{background:radial-gradient(ellipse at 85% -12%,#172b46 0,transparent 36rem),var(--bg)}aside{background:color-mix(in srgb,var(--panel) 87%,transparent)}}
+@media(max-width:940px){.wrap{grid-template-columns:minmax(0,1fr);padding:10px 16px}aside{position:relative;top:0;max-height:240px;order:-1;columns:2}main{padding:38px clamp(18px,5vw,48px) 48px}.top{padding:23px 20px 10px}}
+@media(max-width:560px){.wrap{padding:8px}main{border-radius:12px;padding:30px 20px 42px}aside{columns:1}.top{padding:18px 14px 8px}h2{font-size:22px}}
+@media print{:root{color-scheme:light;--bg:#fff;--panel:#fff;--ink:#171717;--soft:#444;--line:#ccc;--accent:#164f98;--code:#f1f1f1}body{background:#fff}.top,aside,.foot{display:none}.wrap{display:block;max-width:none;margin:0;padding:0}main{border:0;box-shadow:none;padding:0}h2{break-after:avoid}pre,table{break-inside:avoid}a{color:inherit;text-decoration:underline}}
+</style></head><body>
+<header class="top"><div class="brand"><span class="mark">炫</span><span>炫彩 IDE · 本地自动化文档</span></div><span>离线 HTML · 可直接浏览器打开 / 打印为 PDF</span></header>
+<div class="wrap"><main><div class="eyebrow">XCGUI / Xuan Language</div><h1>xuanlang-lang — 炫语言语法 / 类型 / 容器 / 入口 / 预处理 / 基础模块</h1><div class="meta">本页由本地 Markdown 生成；样式内嵌，无网络、MCP 或浏览器脚本依赖。</div><blockquote><p>来源：<code>xc-代码\炫语言手册总结.mdc</code>（§1–§24）、<code>xc-代码\基础模块.mdc</code>（§1–§7）。</p></blockquote>
+<blockquote><p>类型名/函数名/宏名/前缀名逐字保留；示例代码保持源材料的可编译形态，未改写任何签名。</p></blockquote>
+<blockquote><p><strong>范围边界</strong>：<code>炫彩界面库.mdc</code> 中属于界面/皮肤侧的 CSS 属性与选择器内容（<code>css.name</code>、<code>bkInfoM</code>、<code>buttonUI</code>/<code>editUI</code>、<code>transparent</code>/<code>padding</code>/<code>border</code>/<code>textColor</code>/<code>caretColor</code>、<code>bkColor</code>/<code>borderColor</code>/<code>radius</code>、<code>type_bkInfo</code>/<code>type_color</code>、<code>.res</code>/<code>.css</code> 资源链）不在此展开，见 <code>bkinfom-res.md</code> / <code>interface-xml.md</code>；本文件只保留其在代码侧的调用入口（<code>EnableCSS</code>/<code>EnableCssEx</code>/<code>SetCssName</code>、<code>可视对象_启用CSS</code>/<code>可视对象_置CSS名称</code>）。XCGUI 代码侧与线程池见 <code>xcgui-code.md</code>。</p></blockquote>
+<h2 id="1-语言语法与类型">1. 语言语法与类型</h2>
+<h3 id="11-数据类型对照炫语言-c-易语言-火山pc">1.1 数据类型对照（炫语言 / C++ / 易语言 / 火山PC）</h3>
+<div class="table-wrap"><table><tr><th style="text-align:left">炫语言</th><th style="text-align:left">C++ 对应</th><th style="text-align:left">大小</th></tr><tr><td style="text-align:left">字节型(无符号)</td><td style="text-align:left"><code>BYTE</code></td><td style="text-align:left">1</td></tr><tr><td style="text-align:left">字符型A(有符号)</td><td style="text-align:left"><code>char</code></td><td style="text-align:left">1</td></tr><tr><td style="text-align:left">字符型</td><td style="text-align:left"><code>wchar_t</code></td><td style="text-align:left">2</td></tr><tr><td style="text-align:left">短整型 / 正短整型</td><td style="text-align:left"><code>short</code></td><td style="text-align:left">2</td></tr><tr><td style="text-align:left">整型 / 正整型</td><td style="text-align:left"><code>int</code></td><td style="text-align:left">4</td></tr><tr><td style="text-align:left">长整型 / 正长整型</td><td style="text-align:left"><code>int64</code></td><td style="text-align:left">8</td></tr><tr><td style="text-align:left">变整型</td><td style="text-align:left"><code>vint(int32,int64)</code></td><td style="text-align:left">4/8</td></tr><tr><td style="text-align:left">浮点型</td><td style="text-align:left"><code>float</code></td><td style="text-align:left">4</td></tr><tr><td style="text-align:left">双浮点型</td><td style="text-align:left"><code>double</code></td><td style="text-align:left">8</td></tr><tr><td style="text-align:left">逻辑型</td><td style="text-align:left"><code>BOOL</code></td><td style="text-align:left">4</td></tr><tr><td style="text-align:left">逻辑型c</td><td style="text-align:left"><code>bool</code></td><td style="text-align:left">1</td></tr><tr><td style="text-align:left">文本型</td><td style="text-align:left"><code>wstring</code></td><td style="text-align:left">—</td></tr><tr><td style="text-align:left">文本型A / 单文本型</td><td style="text-align:left"><code>string</code></td><td style="text-align:left">—</td></tr><tr><td style="text-align:left">字节集</td><td style="text-align:left">二进制/内存容器</td><td style="text-align:left">—</td></tr><tr><td style="text-align:left">指针 <code>*</code></td><td style="text-align:left">指针</td><td style="text-align:left">4/8（随平台）</td></tr></table></div>
+<p>字面量：<strong>字符</strong>用单引号 <code>&#x27;a&#x27;</code> / <code>A&#x27;a&#x27;</code>；<strong>文本</strong>用双引号 <code>&quot;abc&quot;</code> / <code>A&quot;abc&quot;</code>。类型别名宏：<code>单文本型-&gt;文本型A</code>、<code>单字符型-&gt;字符型A</code>。</p>
+<h3 id="12-系统关键字对照炫语言中文英文-c">1.2 系统关键字对照（炫语言中文/英文 ↔ C++）</h3>
+<ul><li>流程/控制：<code>如果/否则</code>(<code>if/else</code>)、<code>循环</code>(<code>while</code>)、<code>变量循环</code>(<code>for</code>)、<code>分支判断</code>(<code>switch</code>)、<code>跳出</code>(<code>break</code>)、<code>到循环尾</code>(<code>continue</code>)</li></ul>
+<ul><li>结构/面向对象：<code>结构体</code>(<code>struct</code>)、<code>类</code>(<code>class</code>)、<code>公开/私有/保护</code>(<code>public/private/protected</code>)、<code>继承</code>(<code>inherit</code>)、<code>虚函数</code>(<code>virtual</code>)、<code>重写</code>(<code>override</code>)</li></ul>
+<ul><li>函数：<code>函数</code>(<code>def</code>)、<code>返回</code>(<code>return</code>)、<code>WINAPI</code>(<code>__stdcall</code>)</li></ul>
+<ul><li>内存：<code>new</code> / <code>delete</code></li></ul>
+<ul><li>预处理/声明：<code>#头文件</code> / <code>#库文件</code> / <code>#宏定义</code> / <code>#外部类型</code> / <code>#外部变量</code> / <code>#函数类型</code></li></ul>
+<ul><li>特殊常量：<code>空</code>(<code>NULL</code>)、<code>本类</code>(<code>this</code>)、<code>真/假</code>(<code>TRUE/FALSE</code>)、<code>逻辑真/逻辑假</code>(<code>true/false</code>)</li></ul>
+<ul><li>入口：<code>入口函数</code>(<code>main</code>)、<code>入口函数_窗口</code>(<code>WinMain</code>)</li></ul>
+<h3 id="13-运算符">1.3 运算符</h3>
+<p>算术 <code>+ - * / %</code>；赋值 <code>= += -=</code>；比较 <code>== != &lt; &gt; &lt;= &gt;=</code>；逻辑 <code>&amp;&amp; || !</code>；位运算 <code>&amp; | ^ &lt;&lt; &gt;&gt;</code>；自增自减 <code>++ --</code>；取地址与指针 <code>&amp;变量</code>（取地址）、<code>*p</code>（解引用，修改指向内容）、<code>对象指针-&gt;成员</code>。</p>
+<p><strong>条件表达式兼容（当前工具链实测）</strong>：遇到 <code>条件 ? 值1 : 值2</code> 在“解析遇到错误”处失败，不要继续堆 C/C++ 表达式或反复猜类型；改为明确的 <code>如果／否则</code>。这是一项版本兼容经验，不据此宣称所有版本都禁用该语法。即便某些位置支持，也应优先使用当前工程已有且实际编译通过的写法：</p>
+<pre><code class="language-xc">文本型 状态 = &quot;未连接&quot;
+如果 (已连接)
+	状态 = &quot;已连接&quot;
+否则
+	状态 = &quot;未连接&quot;</code></pre>
+<p>普通取文本、布尔同步、数值格式化都可能触发同类问题；按 IDE 报告的文件／行号最小修复，再以真实构建确认，不能只修 C++ 缓存文件。</p>
+<h3 id="14-流程控制">1.4 流程控制</h3>
+<ul><li><code>如果(条件)</code> → <code>否则(条件)</code> → <code>否则</code></li></ul>
+<ul><li><code>循环(条件)</code>：条件真继续执行</li></ul>
+<ul><li><code>循环判断首/尾</code>(do-while)：先执行再判断</li></ul>
+<ul><li><code>变量循环(初始化; 条件; 递增)</code>(for)</li></ul>
+<ul><li><code>变量循环扩展</code>(for_ex)：支持起始/目标/递增，并可忽略某些参数</li></ul>
+<ul><li><code>计次循环</code>(for_count)：指定循环次数</li></ul>
+<ul><li><code>列表循环</code>(for_list)：静态数组/动态数组遍历；字典遍历用 <code>迭代器 迭代器项; 字典</code>，通过 <code>迭代器项.键/.值</code> 访问</li></ul>
+<ul><li><code>分支判断</code>(switch)：需要手动 <code>跳出</code>；<code>分支判断跳出</code> 自动跳出分支</li></ul>
+<ul><li><code>跳出</code>(break) / <code>到循环尾</code>(continue)</li></ul>
+<ul><li><strong>字符串前缀匹配不是动作分类</strong>：<code>名称.find(&quot;主程序__页签_&quot;) == 0</code> 才表示名称以此前缀开头；不要写成整个 <code>名称.find(&quot;页签&quot;) != -1</code> 后把所有动作 100–106 当页签。普通辅助窗口按钮可以恰好使用相同动作号，错误分流会把“返回工作台”误判成普通页签。动态页签名也允许存在，故不能只穷举固定名称。</li></ul>
+<h3 id="15-字符串前缀a-r-u">1.5 字符串前缀（A / R / U）</h3>
+<ul><li><strong>A</strong>：多字节字符串（<code>char</code>）；否则为宽字符串（<code>wchar_t</code>）</li></ul>
+<ul><li><strong>R</strong>：原始字符串，不转义（路径推荐）：<code>R&quot;(D:\Client\xx.pdf)&quot;</code>、<code>AR&quot;(D:\Client\xx.pdf)&quot;</code>；不用 R 时路径要写双斜杠 <code>&quot;D:\\Client\\xx.pdf&quot;</code></li></ul>
+<ul><li><strong>U</strong>：UTF-8 字符串，如 <code>U&quot;我是UTF8字符串&quot;</code></li></ul>
+<h3 id="16-折行与换行">1.6 折行与换行</h3>
+<ul><li>一行多语句用分号 <code>;</code>；子集块同行用冒号 <code>:</code>（如 <code>如果 条件 : 语句; 语句</code>）</li></ul>
+<ul><li>多段字符串拼接 <code>&quot;123&quot;&quot;456&quot;</code>（文档注明后续可能不支持）</li></ul>
+<ul><li><strong>折行符 <code>\</code></strong>：必须在行末，后面不能有任何内容（含空格）；折行内容需与作用域对齐（TAB 缩进）</li></ul>
+<ul><li><strong>逗号换行 <code>,</code></strong>：用于连续定义变量、函数定义参数列表、函数调用参数列表</li></ul>
+<h3 id="17-易错点">1.7 易错点</h3>
+<ul><li><strong>少用裸指针</strong>：指针使用不当容易内存泄漏、越界/野指针、崩溃。优先用对象封装——文本用字符串封装类（优先 <code>文本型 字符串=&quot;123&quot;</code>，少用 <code>字符型*</code>）；字节集用内存/二进制封装类，尽量避免直接指针内存操作。</li></ul>
+<ul><li><strong>函数「传指针接收返回值」改为「传引用」</strong>：不推荐 <code>结构_矩形* 对象</code> + <code>对象-&gt;成员=...</code>；推荐 <code>结构_矩形&amp; 对象</code> + <code>对象.成员=...</code></li></ul>
+<ul><li><strong>类型互相引用冲突（A 引 B，B 引 A）</strong>：编译识别失败时的常用思路——把成员变量改成指针成员（减少完整类型依赖）；把类型定义拆到单独文件（集中声明）；调整代码顺序（先声明/后使用）</li></ul>
+<ul><li><strong><code>new</code>/<code>delete</code> 与 <code>malloc</code>/<code>free</code> 语义不同</strong>：<code>new</code> 分配对象并调用 <code>构造()</code>，返回对象指针（数组 <code>new 整型[100]</code>）；<code>delete</code> 释放 <code>new</code> 的对象并触发 <code>析构()</code>；<code>内存分配()</code> ↔ <code>malloc()</code>、<code>内存释放()</code> ↔ <code>free()</code>，不调用构造函数，需要对象生命周期则优先 <code>new</code>。手册示例里包含 <code>delete 数组1</code>（注意：在 C++ 里数组需要 <code>delete[]</code>；这里以炫语言/封装规则为准，按手册用法执行）</li></ul>
+<ul><li><strong>源码编码与缩进按工程约定统一</strong>：<code>.xc</code>／<code>.xh</code> 使用 UTF-8 BOM，语句块使用 Tab 缩进；旁路布局 XML 与 <code>resource.res</code> 使用 UTF-8 无 BOM。批量格式化、编辑器自动转空格或整文件重写后必须检查前三字节与实际缩进，不能仅凭 IDE 能打开就认定编码正确。</li><li><strong>以真实编译器标准为准</strong>：若当前 IDE 强制 C++14，就不要因嵌入代码在本机其他编译器可过而使用 <code>std::filesystem</code>、结构化绑定等 C++17 特性，也不要假定炫语言支持函数重载。将实际标准写回 <code>.xcproj</code> 构建选项，避免文档、磁盘工程与 IDE 缓存各说一套。</li><li><strong>避免类型名被成员名遮蔽</strong>：成员字段与其类型同名时，后续再写该类型可能解析成成员而非类型并引发难以理解的编译错误。让类型名表达结构含义，例如把统计类型命名为 <code>XxxSummary</code>／<code>XxxHistogram</code>，与成员 <code>XxxCount</code> 区分；不要靠调整调用处偶然通过来掩盖命名冲突。</li></ul>
+<h2 id="2-容器与类">2. 容器与类</h2>
+<h3 id="21-数据容器">2.1 数据容器</h3>
+<ul><li><strong>数组（静态数组）</strong>：定义时固定类型与大小，不可变更，如 <code>整型 数组[10]={0}</code></li></ul>
+<ul><li><strong>动态数组（std::vector）</strong>：<code>动态数组&lt;类型&gt; 变量</code>；添加/删除/插入 <code>添加(...)</code>、<code>取大小()</code>；遍历 <code>列表循环(整型 i=0; 数组A) ...</code></li></ul>
+<ul><li><strong>字典（std::map）</strong>：<code>字典&lt;键,值&gt; 变量</code>；通过 <code>[键]</code> 取值；<code>查找()</code> 得到迭代器；与 <code>空值()</code> 比较判断是否找到；遍历 <code>列表循环(迭代器 迭代器项; 字典A) ...</code></li></ul>
+<ul><li><strong>字节集（内存/二进制容器）</strong>：对内存的安全包装，便于添加不同类型、取文本指针、切片、按偏移读取等；常见操作 <code>置数据/取地址/置大小/取文本指针/添加整型/添加文本/取整型/取文本指针扩展</code></li></ul>
+<h3 id="22-函数functiondef">2.2 函数（function/def）</h3>
+<ul><li>定义 <code>函数 返回值 函数名(参数...)</code>；无返回值可省略返回类型；<code>...</code> 表示 IDE 不检查参数（任意参数/不定参）</li></ul>
+<ul><li>调用约定 <code>WINAPI</code> 等同 <code>__stdcall</code></li></ul>
+<ul><li>函数别名：在函数末尾加 <code>: 别名xxx</code></li></ul>
+<ul><li><strong>对象参数自动引用</strong>：炫语言定义的函数，当参数是类/结构体且非指针/非引用时，IDE 可能自动加 <code>&amp;</code>（减少拷贝）；若担心被改动可加 <code>常量(const)</code> 语义；若不希望自动引用使用 <strong>[禁引用]</strong></li></ul>
+<h3 id="23-函数类型函数地址函数指针">2.3 <code>#函数类型</code>（函数地址/函数指针）</h3>
+<p>用于「只知道函数地址也能调用」的场景（动态调用 DLL、函数变量等）。需要声明返回类型、调用约定、参数类型/数量。</p>
+<ul><li>示例形态：<code>#函数类型  整型 (*函数指针_)(整型, 整型)</code></li></ul>
+<ul><li>将函数地址赋值给变量，再用 <code>函数指针_(...)</code> 调用</li></ul>
+<ul><li>也可 <code>编译C</code> 声明为 <code>extern &quot;C&quot;</code> 风格</li></ul>
+<h3 id="24-类与结构体">2.4 类与结构体</h3>
+<ul><li><code>构造()</code> / <code>析构()</code> 无返回值；实例化触发构造；出作用域触发析构；成员访问控制 <code>公开/私有/保护</code></li></ul>
+<ul><li>继承与虚函数：子类继承父类后可使用父类成员；<strong>虚函数</strong>通过基类指针调用时优先调用子类覆盖版本；析构也可设为虚函数，以保证通过基类指针释放时调用到子类析构；重写要求返回值/函数名/参数类型数量一致</li></ul>
+<ul><li>定义「数据结构」时建议用 <code>结构体</code>，语义更清晰</li></ul>
+<h4 id="241-标识符命名空间与批量改名改名前必读">2.4.1 标识符命名空间与批量改名（改名前必读）</h4>
+<ul><li><strong>类型名、函数名、全局变量共用一个命名空间</strong>：<code>结构体 合成内存区域</code> 与函数 <code>合成内存区域</code> 不能并存，编译期直接判为重复定义。中文命名时同音近义很容易撞名，实测一轮结构体改名有 9 个候选名与既有函数冲突（<code>合成内存区域</code> <code>合成写入</code> <code>统计汇总</code> <code>界面快照上下文</code> <code>OCR配置</code> <code>视觉命令</code> <code>视觉点</code> <code>视觉矩形</code> <code>视觉文本</code>），必须逐个避让后重编。</li><li><strong>不支持重载</strong>：同名只能有一个签名；需要多个版本时用 <code>xxx</code> / <code>xxx2</code> / <code>xxxEx</code> 等后缀，中文名同理（如 <code>初始化</code> / <code>初始化合成</code> / <code>离线初始化</code>）。</li><li><strong>改名要先查重再动手</strong>：把「目标名」与「仓库里已有的全部标识符（类型/函数/全局变量）」比对，冲突就换名；只查旧名是否还存在是不够的。</li><li><strong>按名字的所有声明文件同批改</strong>：同名方法可能被多个结构体/多个文件各自声明（如 <code>try_read</code> 在三个内存类型上）；只改其中一处，非 owner 文件里的 <code>x.名字(...)</code> 会被错误替换到另一个类型上，编译通过但语义错位。稳妥做法是「该名字的全部声明文件同批处理」，否则跳过。</li><li><strong>结构体改名会连带生成 C++ 头</strong>：<code>app/include/host_forward.h</code> 这类前向声明头（常被 <code>common.xh</code> 预编译头包含）必须同步改成新名，并按 <code>.h</code> 编码规则保存为 <strong>UTF-8-BOM</strong>；实测 MSVC 接受中文标识符（<code>struct 桌面状态;</code> 正常编译）。</li><li><strong>成员遮蔽自由函数</strong>：成员函数与同名的自由函数并存时，成员优先。把 <code>Vision_begin_queue</code> 这类自由函数改成 <code>开始排队</code>，而某个结构体又恰好有 <code>开始排队</code> 成员，成员体内的调用会变成自调用（离线回归不触发，实机才炸）。给底层自由函数加技术前缀（<code>视觉…</code> / <code>地图仓库…</code> / <code>进程…</code>）比抢短名安全。</li></ul>
+<p>批量替换工具实现要点（踩过的坑）：</p>
+<ul><li>每行先切成 <code>{代码, 字符串, 注释}</code> 三段，只对代码段做整词替换（<code>(?&lt;![A-Za-z0-9_\u4e00-\u9fff])名字(?![A-Za-z0-9_\u4e00-\u9fff])</code>），避免改到 <code>&quot;…&quot;</code> 里的 JSON 键、日志文案和 <code>gOcrConfig</code> 这类含子串的变量名。</li><li><strong>切到字符串起始引号时必须清空代码缓冲</strong>，否则代码段会进缓冲区第二遍，写回后变成 <code>如果 (argument == 如果 (argument == &quot;--data&quot; …)</code>。实测一次污染 56 个文件 3540 行；修复靠「反向改名让两份副本一致 → 折半还原 → 再正向改名」。</li><li>改名脚本要<strong>幂等</strong>（重复执行不叠加）并<strong>先 dry-run</strong>：输出「改名条目数 / 替换处数 / 零命中名单」，零命中通常意味着名字拼错或该名字其实属于别的声明。</li><li>一次只改一个子系统（core / runtime / ui / vision 分批评），每批立刻 <code>build.ps1</code>（<code>错误(0)</code>）+ <code>test-integration.ps1</code>（<code>cases=4368 failed=0</code>），失败就只回滚这一批。</li></ul>
+<h3 id="25-内置函数ide-特殊功能">2.5 内置函数（IDE 特殊功能）</h3>
+<ul><li><code>取成员地址偏移(类名::成员变量名)</code></li></ul>
+<ul><li><code>取类型大小(类型)</code>，或对变量/成员取大小</li></ul>
+<ul><li><code>调用函数()</code> / <code>调用函数扩展()</code>：动态调用函数地址；<code>调用函数()</code> 目标函数返回整型、调用约定 <code>__cdecl</code>，<code>调用函数扩展()</code> 可指定返回类型</li></ul>
+<ul><li>stdcall 版本：<code>调用函数stdcall()</code> / <code>调用函数扩展stdcall()</code>，目标调用约定 <code>__stdcall</code>（<code>WINAPI</code>）</li></ul>
+<h3 id="26-内置宏占位与调试输出">2.6 内置宏、占位与调试输出</h3>
+<ul><li>内置宏示例：<code>TRUE/FALSE</code>、<code>__FILE__/__LINE__</code></li></ul>
+<ul><li>平台/配置：<code>_WIN64</code>、<code>_DEBUG</code>、<code>NDEBUG</code></li></ul>
+<ul><li>模块链接偏好：<code>XCL_MODULE_USE_DLL</code>、<code>XCL_MODULE_USE_LIB</code></li></ul>
+<ul><li>工具集：<code>XCL_VS2015</code>、<code>XCL_VS2019</code></li></ul>
+<ul><li>类型别名宏：<code>单文本型-&gt;文本型A</code>、<code>单字符型-&gt;字符型A</code></li></ul>
+<ul><li>事件：<code>EVENT</code>、<code>EVENT_DEF</code></li></ul>
+<ul><li>调试定位内置宏：<code>#当前文件</code>、<code>#当前行号</code>、<code>#当前函数</code>、<code>#当前类</code></li></ul>
+<ul><li><strong>占位</strong>：<code>占位</code> / <code>[占位]</code> 代表一行空代码占位，类似 C++ 的 <code>{}</code>，用于避免「空函数体/空分支体」引发语法错误</li></ul>
+<ul><li><strong>调试输出</strong>：<code>调试输出(&quot;...&quot;)</code> 为宽字符（Unicode / <code>wchar_t*</code>）；<code>调试输出A(A&quot;...&quot;)</code> 为多字节（<code>char*</code>），字符串前加 <code>A</code></li></ul>
+<h2 id="3-预处理-commonxh-嵌入-c">3. 预处理 / common.xh / 嵌入 C++</h2>
+<ul><li><strong><code>#头文件</code> / <code>#库文件</code></strong>：<code>&lt;...&gt;</code> 系统头文件（不解析内容）；<code>&quot;...&quot;</code> 普通头文件（解析内容），支持子目录 <code>&quot;include\xcgui.h&quot;</code>；可用隐藏命令隐藏不需解析的代码以提高解析速度（见 <code>module-packaging.md</code>）。</li></ul>
+<ul><li><strong>条件编译</strong>：<code>#宏定义 宏名 值</code>；<code>#if 宏名</code> → <code>#else</code> → <code>#endif</code></li></ul>
+<ul><li><strong><code>#外部变量</code> / <code>#外部类型</code> / <code>#外部宏</code></strong>：声明外部已有符号便于 IDE 识别；支持中文别名（<code>:</code>）</li></ul>
+<ul><li><strong>common.xh（外部函数/类型声明）</strong>：当函数/类型存在于外部库或嵌入代码中，需要在 <code>common.xh</code> 里声明让 IDE 识别。外部函数可用 <code>...</code> 表示不检查参数；外部类可只声明类型名，或写完整成员以支持成员访问</li></ul>
+<ul><li>落地做法：<code>common.xh</code> 集中写 <code>#外部类型 / 外部函数</code>、结构体声明等，减少每个 <code>.xc</code> 重复声明</li></ul>
+<ul><li>外部类型示例 <code>#外部类型 DWORD / DWORDLONG / SM_CXSCREEN / SM_CYSCREEN</code>；结构体声明示例 <code>MEMORYSTATUSEX</code>；外部函数示例 <code>GlobalMemoryStatusEx</code>、<code>GetSystemMetrics</code>、<code>GetSystemTimes</code></li></ul>
+<ul><li>目的：减少每个源文件重复声明，且能作为「预编译头」提升修改时的编译速度</li></ul>
+<ul><li><strong>嵌入 C++</strong>：<code>#嵌入代码 ... #嵌入代码结束</code> 嵌入 C++ 片段，与函数对齐时通常作用域为函数内（缩进一级）；访问嵌入代码变量需先 <code>#外部变量</code> 声明，再在炫语言代码里读写</li></ul>
+<ul><li><strong>与 C++ 源文件混合</strong>：头文件声明函数，cpp 实现并包含预编译头（示例里包含 <code>common__.h</code>）</li></ul>
+<ul><li>⚠ <strong><code>common.xh</code> 不能 <code>#include</code> 模块头</strong> —— 见 <code>module-packaging.md</code> §10「示例工程 common.xh / xcproj 约定」。</li></ul>
+<h2 id="4-xc-入口与工程结构">4. <code>.xc</code> 入口与工程结构</h2>
+<h3 id="41-程序入口">4.1 程序入口</h3>
+<ul><li><strong>控制台入口</strong>：常见流程 置中文编码 → 输出 → 暂停 → 返回</li></ul>
+<ul><li><strong>窗口入口（纯代码）</strong>：<code>炫彩_初始化()</code> → <code>窗口_创建(...)</code> → <code>按钮_创建(...)</code> → 注册事件 <code>元素_注册事件C(..., XE_BNCLICK, 回调)</code> → <code>窗口_显示扩展(...)</code> → <code>炫彩_运行()</code> → <code>炫彩_退出()</code></li></ul>
+<ul><li><strong>IDE 生成 UI 代码要点</strong>：类继承 <code>窗口类</code>；通过 <strong>[绑定信息]</strong> 维护 UI 变量与事件；<code>_布局文件=&quot;main.xml&quot;</code> 关联布局文件，便于加载/跳转/绑定；<code>运行()</code> 是 IDE 特殊处理的启动函数，负责加载布局与绑定</li></ul>
+<h3 id="42-界面运行函数与资源加载">4.2 界面运行函数与资源加载</h3>
+<ul><li><code>运行()</code>：界面类启动函数（IDE 做特殊处理）；<code>_布局文件</code> 为成员变量，关联 UI 布局文件</li></ul>
+<ul><li><code>运行(...)</code> 支持可选参数（顺序不敏感），典型项：<strong>禁用加载布局</strong>、<strong>名称前缀</strong>、<strong>父句柄 / 父句柄HWND / 附加HWND</strong></li></ul>
+<h3 id="43-rc-资源文件exerc与资源查找">4.3 RC 资源文件（exe.rc）与资源查找</h3>
+<p>默认 RC <code>exe.rc</code>；UI 打包资源 <code>IDR_UI_ZIP</code>（与「UI 从资源」项目属性有关）；常见资源含版本信息、程序图标、文件、图标、光标、位图、字符串等。典型接口（按资源名或纯数字 ID）：<code>RC资源查找文件()</code> / <code>RC资源查找文件从ID()</code>；<code>RC资源查找文件到字节集()</code> / <code>...从ID()</code>；<code>RC资源查找文件到文本()</code> / <code>到文本A()</code>（及从ID）；<code>RC资源查找图标()</code> / <code>查找光标()</code> / <code>查找位图()</code> / <code>查找字符串()</code>。</p>
+<h3 id="44-推荐目录结构适合中型项目">4.4 推荐目录结构（适合中型项目）</h3>
+<ul><li><code>源文件\main.xc</code>：初始化/资源/运行/循环</li></ul>
+<ul><li><code>源文件\login.xc</code>、<code>源文件\index.xc</code>：窗口/页面拆分</li></ul>
+<ul><li><code>布局文件\main.xml</code>、<code>布局文件\msg.xml</code>：布局复用（简单例子可直接放工程根目录，如 <code>main.xml</code>）</li></ul>
+<ul><li><code>WmUi\WmUi_Base.res</code>、<code>WmUi\Light\*</code>、<code>WmUi\Dark\*</code>：Base→主题资源链</li></ul>
+<ul><li><code>common.xh</code>：外部声明集中化</li></ul>
+<ul><li>列表类控件项模板建议拆成独立 xml（如 <code>列表框项模板.xml</code>、<code>列表项模板.xml</code>、<code>列表树项模板.xml</code>、<code>列表视图项模板.xml</code>）</li></ul>
+<h3 id="45-最小运行顺序强烈建议固定">4.5 最小运行顺序（强烈建议固定）</h3>
+<p><code>炫彩_初始化(真)</code> →（可选）自动重绘/非客户区 → Base→主题资源 → 窗口类 <code>运行()</code> 初始化 → <code>炫彩_运行()</code> / <code>炫彩_退出()</code>。</p>
+<ul><li>入口函数 <code>入口函数_窗口()</code> 只做「初始化 + 运行窗口 + 消息循环」</li></ul>
+<ul><li>可选特性 <code>炫彩_启用自动重绘UI(真)</code>（修改 UI 后自动触发 <code>重绘()</code>）、（可选）<code>炫彩_启用窗口系统非客户区(真)</code></li></ul>
+<ul><li>加载资源通过 <code>#加载资源文件</code>（由项目属性决定从文件/从内存加载）</li></ul>
+<ul><li>窗口类的 <code>运行()</code> 是「窗口创建完成后」做 UI 初始化的地方；用户初始化写这里</li></ul>
+<h3 id="46-ide-绑定信息不要手改的区域">4.6 IDE 绑定信息（不要手改的区域）</h3>
+<p><code>[绑定信息]</code> 段由 IDE 生成：变量绑定 + 事件绑定，尽量在设计器里改。包含 <strong>UI 变量绑定</strong> <code>[类型, 变量, &quot;name&quot;]</code> 与 <strong>事件绑定</strong> <code>[元素事件_xxx, 回调函数, 1]</code>。除非清楚 IDE 的生成逻辑，尽量不要手改。</p>
+<ul><li><strong>解析与编译分层排错</strong>：IDE 报“解析遇到错误”是 <code>.xc</code> 前端问题，不是 MSVC 链接器问题；先按源文件行号修复。生成目录中的 <code>main__.cpp</code> 等可用于核对事件签名和实际语义，但属于编译缓存，不作为源码修改落点。资源加载、布局绑定、列表模板加载和动作路由各自检查返回值，不因一个页面能显示就推定所有引用都成功。</li></ul>
+<h3 id="47-调用已安装的官方扩展模块">4.7 调用已安装的官方/扩展模块</h3>
+<p>本机完整模块位于 <code>I:\xcide\data\XC-Module</code>。涉及 JSON/XML、压缩、HTTP/Socket、浏览器、数据库、线程池、绘图、多媒体、OCR、加密、脚本、办公或综合模块时，先读 <a href="xc-modules.html">本地模块调用</a>，用 <code>scripts/xc_modules.py</code> 查选定包的完整入口、原始别名/签名、依赖与真实 <code>.xc</code> 调用示例；全部模块包见 <code>xc-modules/catalog.md</code>。</p>
+<p>选定入口后通过 <code>*.xcproj</code> 的 <code>&lt;modules&gt;&lt;item path=&quot;module_xxx.h&quot; /&gt;&lt;/modules&gt;</code> 引用，纯炫语言模块引用其真实 <code>.xc</code> 入口。按已有工程合并条目，不替换整个模块列表；不要把模块头写进 <code>common.xh</code>。同名入口及架构条件须按源码确认，索引收录不表示已经编译验收。</p>
+<h2 id="5-基础模块cxtext-cxbytes-cxfile-日志">5. 基础模块（CXText / CXBytes / CXFile / 日志）</h2>
+<blockquote><p>来源：<code>基础模块.mdc</code>（§1–§7 全文归并）</p></blockquote>
+<p>定位：Windows 平台下的 C++ 通用基础功能库，为上层模块提供字符串、字节数组、文件/目录、时间日期、环境变量、注册表、资源、对话框等常用封装。同时支持宽字符 <code>CXText</code> 与窄字符 <code>CXTextA</code>，提供 <code>CXBytes</code> 二进制缓冲区类，深度封装 Win32 API，并提供统一的「任意类型转字符串」接口 <code>xcl_mkStr / xcl_mkStrA / xcl_mkStr2</code> 及调试日志接口 <code>xcl_log</code>。</p>
+<h3 id="51-目录结构">5.1 目录结构</h3>
+<ul><li><code>module_base.h</code> / <code>module_base.cpp</code>：基础类型与工具函数主实现，含 <code>CXBytes</code> / <code>CXText</code> / <code>CXTextA</code>、<code>CXFile</code>、时间日期封装 <code>CDateTimeTM</code> 及一系列 <code>xcl_*time*</code> 函数、文本处理/编码转换/Base64/URL 编解码、环境与进程、文件与目录、剪贴板、资源、注册表等</li></ul>
+<ul><li><code>xc_mkStr.h</code> / <code>xc_mkStr.cpp</code>：宽字符日志与格式化字符串模板与实现（<code>CXText</code> 版本）</li></ul>
+<ul><li><code>xc_mkStrA.h</code> / <code>xc_mkStrA.cpp</code>：窄字符日志与格式化字符串模板与实现（<code>CXTextA</code> 版本）</li></ul>
+<ul><li><code>md5.txt</code>：版本或完整性校验信息（MD5 记录）</li></ul>
+<ul><li><code>doc</code> 目录（对封装的类/函数与依赖的系统/CRT API 做文字说明或用法示例）：<code>xcl_urlEncodeUtf8.txt</code> / <code>xcl_urlEncodeA.txt</code> / <code>xcl_urlEncode.txt</code>、<code>xcl_setSrand.txt</code> / <code>xcl_getTimeTM.txt</code>、<code>vector_class.txt</code> / <code>queue_class.txt</code> / <code>queueEx_class.txt</code> / <code>map_class.txt</code> / <code>map_find.txt</code>、<code>file_class.txt</code> / <code>file_seekPos.txt</code> / <code>FILETIME.txt</code>、<code>bytes_class.txt</code>、<code>fputs.txt</code> / <code>LoadLibrary.txt</code> / <code>FindFirstFile.txt</code> / <code>GetSystemTime.txt</code> / <code>QueryPerformanceFrequency.txt</code>、<code>sin.txt</code> / <code>cos.txt</code> / <code>tan.txt</code> / <code>asin.txt</code> / <code>acos.txt</code> / <code>atan.txt</code> / <code>atan2.txt</code></li></ul>
+<h3 id="52-cxbytes字节数组类">5.2 <code>CXBytes</code>（字节数组类）</h3>
+<p>管理任意二进制缓冲区（分配、扩容、插入、追加、替换）；支持从 <code>CXText</code> / <code>CXTextA</code> / C 字符串 / 整型 / <code>initializer_list</code> / <code>std::vector&lt;BYTE&gt;</code> 等构造。</p>
+<pre><code class="language-text">add* 系列（把 int/__int64/float/double/wchar_t/BYTE 以原始字节写入缓冲）
+addHex | toHex / toHexA / toHexBytes / toHexBytesA
+getLeft / getRight / getMid
+getInt / getInt64 / getUInt / getUInt64 / getShort / getUShort / getFloat / getDouble / getWchar / getByte
+findBytes（在当前字节数组内查找子字节序列）</code></pre>
+<h3 id="53-cxtext-cxtexta-与-text_-工具函数">5.3 <code>CXText</code> / <code>CXTextA</code> 与 <code>text_*</code> 工具函数</h3>
+<ul><li><strong><code>CXText</code>（宽字符）</strong>：封装 <code>std::wstring</code>；支持从 <code>std::string</code> / <code>CXTextA</code> / <code>CXBytes</code> / C 字符串 / 数字类型构造与赋值；提供 <code>substr</code> / <code>replaceSub</code></li></ul>
+<ul><li><strong><code>CXTextA</code>（窄字符）</strong>：封装 <code>std::string</code>；支持从 <code>std::wstring</code> / <code>CXText</code> / <code>CXBytes</code> / C 字符串 / 数字类型构造与赋值</li></ul>
+<ul><li><strong>文本工具函数（前缀 <code>text_</code>）</strong>：<code>text_*</code> 绝大多数都有窄字符 <code>A</code> 版本，即 <code>text_xxx</code> 与 <code>text_xxxA</code> 成对存在（例如 <code>text_split</code> / <code>text_splitA</code>、<code>text_split2</code> / <code>text_split2A</code>、<code>text_getRandChar</code> / <code>text_getRandCharA</code>、<code>text_getRandNumber</code> / <code>text_getRandNumberA</code>、<code>text_getReText</code> / <code>text_getReTextA</code>）。下列均含对应 <code>A</code> 版本（除已标注）：</li></ul>
+<pre><code class="language-text">截取: text_getLeft / text_getRight / text_getSub / text_getSub2 / text_getSub3
+查找: text_getSubPos / text_getSubPosRight
+分割: text_split / text_split2 / text_splitChar / text_splitChar2 / text_splitRow / text_splitRow2
+裁剪: text_trim / text_trimLeft / text_trimRight / text_trim2 / text_trimRight2
+删空行: text_trimEmptyRow / text_trimEmptyRowA
+大小写: text_upper / text_lower / text_upper2 / text_lower2
+随机/重复: text_getRandChar / text_getRandNumber / text_getReText</code></pre>
+<h3 id="54-文件与路径cxfile-与-xcl_file">5.4 文件与路径：<code>CXFile</code> 与 <code>xcl_*file*</code></h3>
+<p><code>CXFile</code> 封装 <code>FILE*</code>：</p>
+<pre><code class="language-text">打开: open / openRead / openWrite / openEx
+位置与长度: getLength / getCurPos / seekBegin / seekEnd / seekPos
+读写: readData / readDataRow / readDataBytes / readTextA / readChar / readWChar /
+      writeData / writeText / writeTextA / writeText2 / writeText2A
+状态: isEnd / isEof</code></pre>
+<p>快捷函数与目录路径：<code>xcl_writeFile</code> / <code>xcl_readFile</code> / <code>xcl_readFileTextA</code>；创建目录 <code>xcl_createFolder</code> / <code>xcl_createFolderA</code> / 递归创建 <code>xcl_createFolder2</code>；判断存在 <code>xcl_isFolderExist</code> / <code>xcl_isFileExist</code> / <code>xcl_isFileExist2</code> / <code>xcl_isPathExist</code>；拷贝与删除 <code>xcl_copyFile</code> / 递归删除目录 <code>xcl_deleteFolder</code>。</p>
+<h3 id="55-时间日期cdatetimetm-与-xcl_time">5.5 时间日期：<code>CDateTimeTM</code> 与 <code>xcl_*time*</code></h3>
+<ul><li><code>CDateTimeTM</code> 封装 <code>struct tm</code>：<code>getYear</code> / <code>getMonth</code> / <code>getDay</code> / <code>getHour</code> / <code>getMinute</code> / <code>getSecond</code> / <code>getDayOfWeek</code></li></ul>
+<ul><li>当前时间与格式化：<code>xcl_getTimeTM</code> / <code>xcl_getTimeToText</code> / <code>xcl_getDate</code> / <code>xcl_formatTimeTM</code> / <code>xcl_formatTime</code></li></ul>
+<ul><li>转换：<code>xcl_getDayInMonth</code>；<code>xcl_timeToTM</code> / <code>xcl_timeToLocalTM</code>；<code>xcl_timeToSystemTime</code> / <code>xcl_systemTimeToTime</code>；<code>xcl_timeToFileTime</code> / <code>xcl_fileTimeToTime</code></li></ul>
+<ul><li>文本 &lt;-&gt; 数值：<code>xcl_wtof</code> 与一系列 <code>xcl_textToInt/Uint/Int64/Uint64/Float/Double</code></li></ul>
+<h3 id="56-编码进制与二进制文本">5.6 编码、进制与二进制文本</h3>
+<ul><li>二进制转文本 <code>xcl_dataToBinTextA</code> / <code>xcl_dataToBinText</code>（按 bit 输出、可配置对齐与是否补零）；底层十六进制格式化 <code>_dataToHexStrA</code> / <code>_dataToHexStrW</code></li></ul>
+<ul><li>进制转换 <code>xcl_hexTextToInt</code> / <code>xcl_hexTextToInt64</code>、<code>xcl_binTextToInt</code> / <code>xcl_binTextToInt64</code>、<code>xcl_intToHexText</code> / <code>xcl_int64ToHexText</code>、<code>xcl_intToBinText</code> / <code>xcl_int64ToBinText</code></li></ul>
+<ul><li>字符编码 宽/窄 <code>W2A</code> / <code>A2W</code>（含 <code>CXText</code> / <code>CXTextA</code> 重载）；UTF-8 与 Unicode <code>W2U</code> / <code>U2W</code>；本地多字节之间 <code>A2U</code> / <code>U2A</code></li></ul>
+<ul><li>Base64 <code>xcl_base64EncodeA</code> / <code>xcl_base64DecodeA</code></li></ul>
+<ul><li>URL 编解码 内核 <code>xcl_urlEncodeUtf8</code> / <code>xcl_urlDecodeUtf8</code>；对外宽字符 <code>xcl_urlEncode</code> / <code>xcl_urlDecode</code>，窄字符 <code>xcl_urlEncodeA</code> / <code>xcl_urlDecodeA</code></li></ul>
+<h3 id="57-环境进程与系统信息">5.7 环境、进程与系统信息</h3>
+<ul><li>命令行和路径：<code>xcl_getCommandLine</code>、<code>xcl_getRunDir</code>、<code>xcl_getCurrentDir</code>、<code>xcl_getRunFileFullPath</code>、<code>xcl_getRunFileName</code>、<code>xcl_GetModuleFileName</code></li></ul>
+<ul><li>执行外部程序：<code>xcl_runConsoleProgram</code>（启动无窗口控制台进程，重定向标准输出/错误并获取退出码）</li></ul>
+<ul><li>环境变量：<code>xcl_getEnvironmentVariable</code>（单个）、<code>xcl_getEnvironmentStringsToMap</code>（全部导出到 <code>CXMap&lt;CXText, CXText&gt;</code>）</li></ul>
+<ul><li>系统信息：<code>xcl_is64</code>（判断当前环境 32/64 位）；屏幕 <code>xcl_getScreenWidth</code> / <code>xcl_getScreenHeight</code>；消息循环与延时 <code>xcl_doMessage</code> / <code>xcl_delay</code></li></ul>
+<h3 id="58-剪贴板消息框与对话框">5.8 剪贴板、消息框与对话框</h3>
+<p>剪贴板 <code>xcl_setClipboardText</code> / <code>xcl_getClipboardText</code>；消息框 <code>xcl_msgBox</code>（简单封装 <code>MessageBox</code>）；文件夹选择 <code>xcl_openFolderDlg</code>；打开文件 <code>xcl_openFileDlg</code>（单选）/ <code>xcl_openFilesDlg</code>（多选）；保存文件 <code>xcl_saveFileDlg</code>。</p>
+<h3 id="59-资源访问-rc_">5.9 资源访问 <code>rc_*</code></h3>
+<pre><code class="language-text">二进制资源: rc_findFile / rc_findFileByID
+           rc_findFileToBytes / rc_findFileToBytesByID
+           rc_findFileToText / rc_findFileToTextByID / rc_findFileToTextA / rc_findFileToTextAByID
+图标: rc_findIcon / rc_findIconByID / rc_findIcon2 / rc_findIcon2ByID
+光标: rc_findCursor / rc_findCursorByID
+位图: rc_findBitmap / rc_findBitmapByID
+字符串: rc_findString</code></pre>
+<h3 id="510-注册表-reg_">5.10 注册表 <code>reg_*</code></h3>
+<ul><li>打开/创建/删除：<code>reg_openKey</code> / <code>reg_createKey</code> / <code>reg_deleteKey</code> / <code>reg_deleteValue</code></li></ul>
+<ul><li>枚举与查询：<code>reg_enumValue</code>（枚举键值和数据）；原始数据 <code>reg_queryValueData</code>（到 <code>CXBytes</code>）；便捷查询 <code>reg_queryValueText</code> / <code>reg_queryValueInt</code> / <code>reg_queryValueInt64</code> / <code>reg_isExist</code></li></ul>
+<ul><li>设置：文本 <code>reg_setValueText</code>；整数 <code>reg_setValueInt</code> / <code>reg_setValueInt64</code>；二进制 <code>reg_setValueData</code></li></ul>
+<h3 id="511-日志与字符串构造">5.11 日志与字符串构造</h3>
+<ul><li><strong><code>xcl_mkStr</code> / <code>xcl_mkStrA</code> / <code>xcl_mkStr2</code></strong>：通过一组 <code>xcl_mkValue(CXText&amp; / CXTextA&amp;, T)</code> 模板和重载把各种类型安全地追加到字符串；不支持的类型统一输出「<code>?不支持类型?</code>」，避免静默失败。固定参数版本 <code>xcl_mkStr(...)</code> / <code>xcl_mkStrA(...)</code>（1～12 参数）；可变参数版本 <code>xcl_mkStr2(...)</code> / <code>xcl_mkStr2A(...)</code>，通过递归模板 <code>_xcl_mkStr2T</code> / <code>_xcl_mkStr2AT</code> 实现</li></ul>
+<ul><li><strong><code>xcl_log</code> / <code>xcl_log2</code> / <code>xcl_xtrace</code></strong>（<code>DEBUG</code> 模式下启用）：<code>xcl_log(...)</code> 自动在参数之间插入逗号与空格、末尾加换行，通过 <code>OutputDebugStringW</code> 输出；<code>xcl_log2(...)</code> 无分隔符直接拼接；<code>xcl_xtrace</code> / <code>xcl_xtracew</code> 为 <code>printf</code> 风格格式化输出到调试器。非 <code>DEBUG</code> 模式下宏为空实现，不引入运行期开销</li></ul>
+<h3 id="512-依赖与运行环境">5.12 依赖与运行环境</h3>
+<ul><li>平台：依赖 Windows 与 Win32 API，如 <code>GetModuleFileName</code>、<code>GetEnvironmentStrings</code>、<code>GetPrivateProfileString</code>、<code>CreateProcess</code>、<code>MessageBox</code>、<code>SHBrowseForFolder</code>、<code>GetOpenFileName</code>、<code>RegOpenKeyEx</code>、<code>LoadIcon</code> 等</li></ul>
+<ul><li>运行库：C 运行库函数进行文件、字符串、时间与内存管理，如 <code>fopen/fread/fwrite</code>、<code>_ftelli64/_fseeki64</code>、<code>wcslen/strlen</code>、<code>sprintf_s/swprintf_s</code>、<code>_time64/localtime_s</code> 等</li></ul>
+<ul><li>字符编码：使用系统代码页 <code>CP_ACP</code> 和 UTF-8 <code>CP_UTF8</code> 进行多字节与宽字符转换，统一对外封装为 <code>CXText</code> / <code>CXTextA</code> 接口</li></ul>
+<h3 id="513-使用建议与最佳实践">5.13 使用建议与最佳实践</h3>
+<ul><li><strong>优先使用封装类型</strong>：文本在库内外统一用 <code>CXText</code> / <code>CXTextA</code>，避免混用原始 <code>std::string</code> / <code>std::wstring</code> + 原始 API；二进制（数据流、文件内容、网络帧）统一用 <code>CXBytes</code>，结合 <code>add*</code> / <code>get*</code> / <code>toHex</code></li></ul>
+<ul><li><strong>统一字符串拼装</strong>：调试和日志统一用 <code>xcl_mkStr</code> / <code>xcl_mkStrA</code> / <code>xcl_mkStr2</code> + <code>xcl_log</code>，避免手写 <code>swprintf_s/sprintf_s</code>，降低格式错误风险</li></ul>
+<ul><li><strong>Win32 API 封装优先</strong>：文件、时间、对话框、注册表、资源等优先用 <code>xcl_*</code> / <code>CX*</code> 封装，封装不满足需求时再直接调用 WinAPI</li></ul>
+<ul><li><strong>跨编码约定</strong>：内部逻辑以宽字符为主（<code>CXText</code>），与外部接口交互（网络/协议/配置文件）再通过 <code>W2U/A2W/U2A</code> 转换</li></ul>
+<ul><li><strong>调试与发布差异</strong>：调试信息统一接入 <code>xcl_log</code> / <code>xcl_log2</code> / <code>xcl_xtrace</code>，发布版本相关宏自动为空，不需手工移除</li></ul>
+<h3 id="514-易错点项目里真实踩过">5.14 易错点（项目里真实踩过）</h3>
+<ul><li><strong><code>文本组合(...)</code> 参数数量上限</strong>：<code>文本组合</code> 只有固定重载（通常<strong>最多 12 个参数</strong>），超过会直接编译失败（<code>C2672</code>）。推荐参数多时改用 <code>xcl_mkStr2(...)</code> / <code>xcl_mkStr2A(...)</code>，或拆成两段拼接。</li></ul>
+<ul><li><strong><code>字节集.取地址()</code> 是只读指针</strong>：官方基础模块中 <code>字节集.取地址()</code> / <code>CXBytes::getPtr()</code> 返回 <strong><code>const BYTE*</code></strong>（常量指针）。要写入字节集内容，不要把 <code>取地址()</code> 当作写入指针传给 <code>内存复制</code>；正确方式是用 <code>置大小(n)</code> / <code>调整大小(n)</code> 的返回值拿可写地址。</li></ul>
+<ul><li><strong><code>内存拷贝</code> 不是官方函数名</strong>：官方基础模块提供的是 <code>内存复制(...)</code> / <code>内存复制2(...)</code> 等（见 <code>module_base.h</code> → 「内存操作」分组）。</li></ul>
+<h3 id="515-典型使用场景保持源材料可编译形态">5.15 典型使用场景（保持源材料可编译形态）</h3>
+<p><strong>内存复制（字节集写入）</strong>：把原始缓冲区 <code>src</code> 的前 <code>n</code> 字节复制到 <code>字节集 dstBytes</code>。</p>
+<pre><code class="language-text">字节集 dstBytes
+正整型 n = 32
+字节型* dst = (字节型*)dstBytes.置大小(n)   // 置大小返回可写地址
+内存复制(dst, src, (size_t)n)               // 注意：第1参必须是可写指针</code></pre>
+<p><strong>日志拼接（超过 12 参数）</strong>：<code>文本组合</code> 参数过多会编译失败，此时改用 <code>xcl_mkStr2/xcl_mkStr2A</code> 或拆两段。</p>
+<pre><code class="language-text">文本型 前缀 = 文本组合(&quot;[&quot;, id, &quot;] flags=&quot;, flags, &quot; len=&quot;, len)
+写日志(前缀 + 文本组合(&quot; type=&quot;, type, &quot; body=&quot;, body))</code></pre>
+<p>其余场景（思路级）：<strong>配置文件读取</strong> <code>xcl_readFileTextA</code> 读 INI/文本 → <code>text_splitRow</code> / <code>text_trim</code> 解析行 → <code>xcl_textToInt</code> 转类型；<strong>二进制协议封包/解包</strong> 发送用 <code>CXBytes</code> 的 <code>addInt/addShort/addBytes</code> 顺序写入，接收用 <code>getInt/getShort/getMid</code> 按偏移读取，并用 <code>toHex</code> 生成调试日志；<strong>URL 与 HTTP 参数</strong> 先转 UTF-8（<code>W2U/A2U</code>）再用 <code>xcl_urlEncodeUtf8</code> 编码，或用 <code>xcl_urlDecodeUtf8</code> 解析查询串；<strong>注册表配置读写</strong> <code>reg_setValueText/reg_setValueInt</code> 落盘，<code>reg_queryValueText/reg_queryValueInt</code> 恢复，<code>reg_isExist</code> 判断存在；<strong>工具/脚本型程序</strong> <code>xcl_getCommandLine</code> 解析命令行，<code>xcl_runConsoleProgram</code> 调度外部命令并把标准输出/错误收集到 <code>CXText</code>。</p>
+<h3 id="516-斗鱼55-关联点文件读取-文本拆分">5.16 @斗鱼55 关联点（文件读取 + 文本拆分）</h3>
+<p><code>斗鱼55/index.xc</code> 的「拖入文件 → 解析 → 填表」流程依赖「读文件得到字节集/文本，然后分割成行与字段」：</p>
+<ul><li>文件读取 <code>文件读取(文件路径)</code> 得到 <code>字节集</code></li></ul>
+<ul><li>转文本 <code>字节集.取文本A(0, size)</code>（按需限制 size，避免大文件）</li></ul>
+<ul><li>按行拆分 <code>文本分割A(内容, A&quot;\n&quot;)</code>，并把 <code>\r</code> 替换掉</li></ul>
+<ul><li>按分隔符拆字段：对 <code>\t</code> / <code>,</code> / <code>|</code> / 空格做优先级拆分</li></ul></main>
+<aside><b>本页目录</b><a class="depth-2" href="#1-语言语法与类型">1. 语言语法与类型</a><a class="depth-3" href="#11-数据类型对照炫语言-c-易语言-火山pc">1.1 数据类型对照（炫语言 / C++ / 易语言 / 火山PC）</a><a class="depth-3" href="#12-系统关键字对照炫语言中文英文-c">1.2 系统关键字对照（炫语言中文/英文 ↔ C++）</a><a class="depth-3" href="#13-运算符">1.3 运算符</a><a class="depth-3" href="#14-流程控制">1.4 流程控制</a><a class="depth-3" href="#15-字符串前缀a-r-u">1.5 字符串前缀（A / R / U）</a><a class="depth-3" href="#16-折行与换行">1.6 折行与换行</a><a class="depth-3" href="#17-易错点">1.7 易错点</a><a class="depth-2" href="#2-容器与类">2. 容器与类</a><a class="depth-3" href="#21-数据容器">2.1 数据容器</a><a class="depth-3" href="#22-函数functiondef">2.2 函数（function/def）</a><a class="depth-3" href="#23-函数类型函数地址函数指针">2.3 `#函数类型`（函数地址/函数指针）</a><a class="depth-3" href="#24-类与结构体">2.4 类与结构体</a><a class="depth-4" href="#241-标识符命名空间与批量改名改名前必读">2.4.1 标识符命名空间与批量改名（改名前必读）</a><a class="depth-3" href="#25-内置函数ide-特殊功能">2.5 内置函数（IDE 特殊功能）</a><a class="depth-3" href="#26-内置宏占位与调试输出">2.6 内置宏、占位与调试输出</a><a class="depth-2" href="#3-预处理-commonxh-嵌入-c">3. 预处理 / common.xh / 嵌入 C++</a><a class="depth-2" href="#4-xc-入口与工程结构">4. `.xc` 入口与工程结构</a><a class="depth-3" href="#41-程序入口">4.1 程序入口</a><a class="depth-3" href="#42-界面运行函数与资源加载">4.2 界面运行函数与资源加载</a><a class="depth-3" href="#43-rc-资源文件exerc与资源查找">4.3 RC 资源文件（exe.rc）与资源查找</a><a class="depth-3" href="#44-推荐目录结构适合中型项目">4.4 推荐目录结构（适合中型项目）</a><a class="depth-3" href="#45-最小运行顺序强烈建议固定">4.5 最小运行顺序（强烈建议固定）</a><a class="depth-3" href="#46-ide-绑定信息不要手改的区域">4.6 IDE 绑定信息（不要手改的区域）</a><a class="depth-3" href="#47-调用已安装的官方扩展模块">4.7 调用已安装的官方/扩展模块</a><a class="depth-2" href="#5-基础模块cxtext-cxbytes-cxfile-日志">5. 基础模块（CXText / CXBytes / CXFile / 日志）</a><a class="depth-3" href="#51-目录结构">5.1 目录结构</a><a class="depth-3" href="#52-cxbytes字节数组类">5.2 `CXBytes`（字节数组类）</a><a class="depth-3" href="#53-cxtext-cxtexta-与-text_-工具函数">5.3 `CXText` / `CXTextA` 与 `text_*` 工具函数</a><a class="depth-3" href="#54-文件与路径cxfile-与-xcl_file">5.4 文件与路径：`CXFile` 与 `xcl_*file*`</a><a class="depth-3" href="#55-时间日期cdatetimetm-与-xcl_time">5.5 时间日期：`CDateTimeTM` 与 `xcl_*time*`</a><a class="depth-3" href="#56-编码进制与二进制文本">5.6 编码、进制与二进制文本</a><a class="depth-3" href="#57-环境进程与系统信息">5.7 环境、进程与系统信息</a><a class="depth-3" href="#58-剪贴板消息框与对话框">5.8 剪贴板、消息框与对话框</a><a class="depth-3" href="#59-资源访问-rc_">5.9 资源访问 `rc_*`</a><a class="depth-3" href="#510-注册表-reg_">5.10 注册表 `reg_*`</a><a class="depth-3" href="#511-日志与字符串构造">5.11 日志与字符串构造</a><a class="depth-3" href="#512-依赖与运行环境">5.12 依赖与运行环境</a><a class="depth-3" href="#513-使用建议与最佳实践">5.13 使用建议与最佳实践</a><a class="depth-3" href="#514-易错点项目里真实踩过">5.14 易错点（项目里真实踩过）</a><a class="depth-3" href="#515-典型使用场景保持源材料可编译形态">5.15 典型使用场景（保持源材料可编译形态）</a><a class="depth-3" href="#516-斗鱼55-关联点文件读取-文本拆分">5.16 @斗鱼55 关联点（文件读取 + 文本拆分）</a></aside></div>
+<footer class="foot">源 Markdown：xuanlang-lang.md · 独立 HTML 副本：xuanlang-lang.html</footer></body></html>

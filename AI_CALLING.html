@@ -18,6 +18,7 @@ aside{position:sticky;top:16px;max-height:calc(100vh - 32px);overflow:auto;paddi
 </style></head><body>
 <header class="top"><div class="brand"><span class="mark">炫</span><span>炫彩 IDE · 本地自动化文档</span></div><span>离线 HTML · 可直接浏览器打开 / 打印为 PDF</span></header>
 <div class="wrap"><main><div class="eyebrow">XCGUI / Xuan Language</div><h1>炫彩 IDE CLI：AI 自动化调用手册</h1><div class="meta">本页由本地 Markdown 生成；样式内嵌，无网络、MCP 或浏览器脚本依赖。</div><p class="doc-home"><a href="DOCS.html">← 返回文档总览</a></p><p>本手册供 Codex、其他 AI 代理和脚本调用 <code>cli-anything-xcide</code>。CLI 直接读取和更新 Windows 本地文件，不使用 MCP。<code>build --diagnostics</code> 自动在本轮隔离 IDE 副本中编译并加载输出桥接，无需向正式 IDE 安装插件。</p>
+<p>独立 Git 仓库同时提供 <code>skills/cli-anything-xcide</code>（调用规则）和 <code>skills/xc-suite</code>（炫语言、模块及 UI 开发资料）。写业务程序时建议一并读取；XC 模块索引按当前安装重建。wheel 包含 CLI 技能及原生桥接，XC 开发资料随仓库单独提供。XC-MCP-Next 与 <code>mcp-cli</code> 为可选外部工具，当前编译、读错误及后台测试不依赖它们；迁移方法见仓库根目录 <code>DEPENDENCIES.md</code>。</p>
 <p>文档的离线预览版是 <a href="AI_CALLING.html">AI_CALLING.html</a>。前两批各 20 轮安装包功能挖掘见工作区根目录的 <code>AI_MINING_REPORT.md</code>、<code>AI_MINING_REPORT_02.md</code>；第三批 50 轮见 <code>AI_MINING_REPORT_03.md</code>。均有同名 HTML 阅读版，不依赖网络或脚本。</p>
 <h2 id="安装和调用原则">安装和调用原则</h2>
 <p>在 harness 目录安装：</p>
@@ -143,6 +144,7 @@ cli-anything-xcide --json --ide &#x27;I:\xcide&#x27; --project $project build --
 <p><code>runtime run</code> 在独立后台桌面启动给定 EXE，不要求测试适配器，默认工作目录为 EXE 所在目录，可用 <code>--cwd</code> 覆盖。重复 <code>--arg</code> 传递独立参数，带选项前缀的值可写 <code>--arg=--self-test</code>。命令等待退出，<code>--expected-exit-code</code> 默认 0。仅调试本次创建的主进程，不附加到已有进程，也不占用 IDE 的调试会话。x86/x64 程序可由 64 位 Python 运行。</p>
 <p>结果包含 <code>pid/exe.sha256/debug_output/debug_events/exceptions/exit_code/terminated</code>。调试字符串区分 Unicode/ANSI，按 Windows 事件的字节长度解码；stdout、stderr 是独立的原始二进制文件，不能混为调试输出。已被程序处理的首轮异常记录为 <code>first_chance=true</code>，通常不导致测试失败；未处理异常和非预期退出码导致 <code>ok=false</code>。不提供源级单步、断点求值、调用栈或变量监视。调试版的“调试输出”通常使用 OutputDebugString；发布版可能删除该调用，无输出不等于运行失败。</p>
 <p>每次在 <code>--output</code> 下创建唯一 <code>run-*</code> 目录，保存 <code>report.json</code>、<code>stdout.bin</code>、<code>stderr.bin</code> 及场景截图。程序自有文件仍按指定 <code>--cwd</code> 写入。超时或场景失败会终止本次创建的进程树并写明 <code>terminated=true</code>；其他进程不受影响。主进程正常退出后也清理其残留子进程；子进程的调试事件不在当前捕获范围。CLI 不是代码沙箱，只运行你准备测试的程序。</p>
+<p>运行结束后的清理单独使用约 10 秒的共同预算处理调试退出事件并等待进程句柄结束；正常结束会立即返回。调用方应在 <code>--timeout</code> 之外留出清理和写报告时间。<code>cleanup_error</code> 非空仍表示失败，可能包含多个清理原因，不会因收到退出事件而省略句柄结束核验。</p>
 <h3 id="后台按钮点击输入及运行断言">后台按钮点击、输入及运行断言</h3>
 <p><code>runtime test</code> 要求被测程序显式接入随包的 <code>native/automation_bridge.h</code>，不向任意 EXE 注入 DLL。示例源码已包含接入：在嵌入 C++ 中包含头文件，窗口创建后、消息循环前调用 <code>xc_cli_test::install(主窗口.m_hWindow)</code>。默认 <code>Debug64/obj/cache</code> 编译缓存使用示例中的 <code>../../../automation_bridge.h</code>；更改原生输出/缓存目录时应按实际缓存目录调整 include 或使用准确绝对路径。</p>
 <p>适配器仅在运行环境含本次 token、目录且桌面名匹配时安装；普通启动没有测试入口，不开启网络端口。一次安装一个窗口。CLI 通过带 token 的 <code>WM_COPYDATA</code> 请求，让窗口自己的 UI 线程调用 <code>XC_SendMessage</code> 分派鼠标/字符/键盘消息，经过 XCGUI 的控件命中和事件处理；不直接调用业务回调。它验证原生消息路径，不能替代硬件鼠标、Raw Input、全局热键或 IME 候选交互的覆盖。</p>

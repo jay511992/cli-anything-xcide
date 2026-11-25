@@ -1,0 +1,3813 @@
+{
+  "ok": false,
+  "run_id": "run-b6b3259bae4d41bbb0a9942efbccf3c0",
+  "directory": "E:\\AIWork\\Codex\\cli-anything-xcide\\dist\\cleanup-traces\\x64-d2d\\run-b6b3259bae4d41bbb0a9942efbccf3c0",
+  "started_at": "2026-11-25T15:13:51.343401+00:00",
+  "exe": {
+    "path": "E:\\Data\\Temp\\pytest-of-xiaosile\\pytest-128\\test_background_adapter_modes_0\\counter.exe",
+    "machine": "0x8664",
+    "architecture": "AMD64",
+    "bytes": 131584,
+    "modified_at": "2026-11-25T14:46:59.044683+00:00",
+    "sha256": "bcf6fcd2daed37555d1aae16a669842c71eb7e5c426f82d8722c5196e3a6f791"
+  },
+  "arguments": [
+    "d2d"
+  ],
+  "cwd": "E:\\Data\\Temp\\pytest-of-xiaosile\\pytest-128\\test_background_adapter_modes_0",
+  "steps": [
+    {
+      "index": 0,
+      "action": "wait_window",
+      "ok": true,
+      "desktop_before": {
+        "foreground_hwnd": 67114,
+        "cursor": [
+          -1053,
+          768
+        ]
+      },
+      "window": {
+        "size": [
+          480,
+          320
+        ],
+        "dpi": 96,
+        "hwnd": 591114,
+        "title": "Background Fixture",
+        "desktop": "xcide-test-807bd514bcab4997bd2ab9a0c48eff83"
+      },
+      "desktop_after": {
+        "foreground_hwnd": 67114,
+        "cursor": [
+          -1738,
+          1050
+        ]
+      }
+    },
+    {
+      "index": 1,
+      "action": "assert_debug",
+      "ok": true,
+      "desktop_before": {
+        "foreground_hwnd": 67114,
+        "cursor": [
+          -1738,
+          1050
+        ]
+      },
+      "matched": "READY",
+      "desktop_after": {
+        "foreground_hwnd": 67114,
+        "cursor": [
+          -1738,
+          1050
+        ]
+      }
+    },
+    {
+      "index": 2,
+      "action": "screenshot",
+      "ok": false,
+      "desktop_before": {
+        "foreground_hwnd": 67114,
+        "cursor": [
+          -1738,
+          1050
+        ]
+      }
+    }
+  ],
+  "expected_exit_code": 0,
+  "timed_out": false,
+  "scenario": {
+    "version": 1,
+    "steps": [
+      {
+        "action": "wait_window",
+        "title_contains": "Background Fixture"
+      },
+      {
+        "action": "assert_debug",
+        "contains": "READY"
+      },
+      {
+        "action": "screenshot",
+        "name": "initial"
+      },
+      {
+        "action": "click",
+        "x": 150,
+        "y": 68
+      },
+      {
+        "action": "text",
+        "text": "中文Automation!"
+      },
+      {
+        "action": "key",
+        "key": "BACKSPACE"
+      },
+      {
+        "action": "click",
+        "x": 110,
+        "y": 140
+      },
+      {
+        "action": "assert_debug",
+        "contains": "CLICK:中文Automation"
+      },
+      {
+        "action": "screenshot",
+        "name": "changed"
+      },
+      {
+        "action": "close"
+      }
+    ]
+  },
+  "report": "E:\\AIWork\\Codex\\cli-anything-xcide\\dist\\cleanup-traces\\x64-d2d\\run-b6b3259bae4d41bbb0a9942efbccf3c0\\report.json",
+  "automation": {
+    "desktop": "xcide-test-807bd514bcab4997bd2ab9a0c48eff83",
+    "input": "xcgui-ui-thread-message",
+    "foreground_input": false,
+    "screen_capture": false,
+    "before": {
+      "foreground_hwnd": 67114,
+      "cursor": [
+        -1014,
+        758
+      ]
+    },
+    "after": {
+      "foreground_hwnd": 23726004,
+      "cursor": [
+        -1652,
+        1057
+      ]
+    }
+  },
+  "pid": 17668,
+  "error": "后台 XCGUI 测试适配器未就绪或操作不受支持；请接入 automation_bridge.h。截图需要 GDI 渲染。",
+  "error_type": "RuntimeError",
+  "step_timed_out": false,
+  "exit_code": 3758096385,
+  "terminated": true,
+  "debug_output": "READYshell\\ext\\inputswitch\\switch\\ctfhandler.cpp(2275)\\InputSwitch.dll!00007FFB611E55FE: (caller: 00007FFB6122C25B) LogHr(1) tid(648c) 80004005 未指定的错误\r\n    CallContext:[\\Startup] \n",
+  "debug_events": [
+    {
+      "time": 0.5549,
+      "channel": "OutputDebugString",
+      "unicode": true,
+      "text": "READY"
+    },
+    {
+      "time": 0.5752,
+      "channel": "OutputDebugString",
+      "unicode": true,
+      "text": "shell\\ext\\inputswitch\\switch\\ctfhandler.cpp(2275)\\InputSwitch.dll!00007FFB611E55FE: (caller: 00007FFB6122C25B) LogHr(1) tid(648c) 80004005 未指定的错误\r\n    CallContext:[\\Startup] \n"
+    }
+  ],
+  "exceptions": [],
+  "output_truncated": false,
+  "cleanup_error": null,
+  "stdout": "E:\\AIWork\\Codex\\cli-anything-xcide\\dist\\cleanup-traces\\x64-d2d\\run-b6b3259bae4d41bbb0a9942efbccf3c0\\stdout.bin",
+  "stderr": "E:\\AIWork\\Codex\\cli-anything-xcide\\dist\\cleanup-traces\\x64-d2d\\run-b6b3259bae4d41bbb0a9942efbccf3c0\\stderr.bin",
+  "native_trace": [
+    {
+      "time": 0.025588,
+      "kind": "CreateProcessW",
+      "result": 1,
+      "process_handle": 488,
+      "thread_handle": 476,
+      "pid": 17668
+    },
+    {
+      "time": 0.025656,
+      "kind": "CloseHandle",
+      "handle": 476,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.026912,
+      "kind": "WaitForDebugEventEx",
+      "event": 3,
+      "pid": 17668,
+      "tid": 24032,
+      "process_handle": 540,
+      "thread_handle": 536
+    },
+    {
+      "time": 0.026948,
+      "kind": "CloseHandle",
+      "handle": 544,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.026961,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.02725,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.027282,
+      "kind": "CloseHandle",
+      "handle": 544,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.02729,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.027685,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.027724,
+      "kind": "CloseHandle",
+      "handle": 544,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.027733,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.027852,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.027883,
+      "kind": "CloseHandle",
+      "handle": 476,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.027888,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.044917,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.044965,
+      "kind": "CloseHandle",
+      "handle": 452,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.044973,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.045091,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.045115,
+      "kind": "CloseHandle",
+      "handle": 452,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.045119,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.045232,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.045257,
+      "kind": "CloseHandle",
+      "handle": 452,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.045259,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.045344,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.045364,
+      "kind": "CloseHandle",
+      "handle": 452,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.045367,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.045604,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.045631,
+      "kind": "CloseHandle",
+      "handle": 452,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.045634,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.045818,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.045863,
+      "kind": "CloseHandle",
+      "handle": 548,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.04587,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.045971,
+      "kind": "WaitForDebugEventEx",
+      "event": 2,
+      "pid": 17668,
+      "tid": 30916
+    },
+    {
+      "time": 0.045978,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 30916
+    },
+    {
+      "time": 0.046036,
+      "kind": "WaitForDebugEventEx",
+      "event": 2,
+      "pid": 17668,
+      "tid": 8616
+    },
+    {
+      "time": 0.046041,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 8616
+    },
+    {
+      "time": 0.046113,
+      "kind": "WaitForDebugEventEx",
+      "event": 2,
+      "pid": 17668,
+      "tid": 22964
+    },
+    {
+      "time": 0.046116,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 22964
+    },
+    {
+      "time": 0.04653,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.046546,
+      "kind": "CloseHandle",
+      "handle": 560,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.04655,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.047451,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.047499,
+      "kind": "CloseHandle",
+      "handle": 476,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.047508,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.047626,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.047665,
+      "kind": "CloseHandle",
+      "handle": 476,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.047673,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.04783,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.047872,
+      "kind": "CloseHandle",
+      "handle": 560,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.047881,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.048018,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.0481,
+      "kind": "CloseHandle",
+      "handle": 452,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.04811,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.04828,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.048319,
+      "kind": "CloseHandle",
+      "handle": 452,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.048326,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.048517,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.048543,
+      "kind": "CloseHandle",
+      "handle": 544,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.048549,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.048771,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.048839,
+      "kind": "CloseHandle",
+      "handle": 452,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.048848,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.048999,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.049031,
+      "kind": "CloseHandle",
+      "handle": 564,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.049037,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.049147,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 8616
+    },
+    {
+      "time": 0.049203,
+      "kind": "CloseHandle",
+      "handle": 568,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.049207,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 8616
+    },
+    {
+      "time": 0.049411,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 8616
+    },
+    {
+      "time": 0.049435,
+      "kind": "CloseHandle",
+      "handle": 564,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.049438,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 8616
+    },
+    {
+      "time": 0.049557,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.049602,
+      "kind": "CloseHandle",
+      "handle": 564,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.049605,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.049698,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 8616
+    },
+    {
+      "time": 0.049721,
+      "kind": "CloseHandle",
+      "handle": 564,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.049724,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 8616
+    },
+    {
+      "time": 0.049762,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 22964
+    },
+    {
+      "time": 0.049824,
+      "kind": "CloseHandle",
+      "handle": 452,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.049835,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 22964
+    },
+    {
+      "time": 0.049913,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 30916
+    },
+    {
+      "time": 0.049957,
+      "kind": "CloseHandle",
+      "handle": 568,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.049968,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 30916
+    },
+    {
+      "time": 0.050133,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 8616
+    },
+    {
+      "time": 0.050192,
+      "kind": "CloseHandle",
+      "handle": 560,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.050202,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 8616
+    },
+    {
+      "time": 0.050287,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.050319,
+      "kind": "CloseHandle",
+      "handle": 544,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.050325,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.050549,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.050596,
+      "kind": "CloseHandle",
+      "handle": 572,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.050605,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.050783,
+      "kind": "WaitForDebugEventEx",
+      "event": 1,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.050806,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.053953,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.054015,
+      "kind": "CloseHandle",
+      "handle": 476,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.054029,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.054326,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.054387,
+      "kind": "CloseHandle",
+      "handle": 452,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.054398,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.05502,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.055063,
+      "kind": "CloseHandle",
+      "handle": 568,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.055073,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.056611,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.056666,
+      "kind": "CloseHandle",
+      "handle": 460,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.056676,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.057928,
+      "kind": "WaitForDebugEventEx",
+      "event": 7,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.057951,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.064532,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.064586,
+      "kind": "CloseHandle",
+      "handle": 564,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.064594,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.064983,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 30916
+    },
+    {
+      "time": 0.065031,
+      "kind": "CloseHandle",
+      "handle": 560,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.065037,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 30916
+    },
+    {
+      "time": 0.066491,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.066521,
+      "kind": "CloseHandle",
+      "handle": 568,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.066528,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.066743,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.066796,
+      "kind": "CloseHandle",
+      "handle": 544,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.066803,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.06693,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.066967,
+      "kind": "CloseHandle",
+      "handle": 568,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.066973,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.067475,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.067511,
+      "kind": "CloseHandle",
+      "handle": 460,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.067519,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.067845,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.06789,
+      "kind": "CloseHandle",
+      "handle": 560,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.067903,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.068127,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.068196,
+      "kind": "CloseHandle",
+      "handle": 568,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.068205,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.068815,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.068858,
+      "kind": "CloseHandle",
+      "handle": 544,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.068866,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.069258,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.069307,
+      "kind": "CloseHandle",
+      "handle": 572,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.069317,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.069473,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.069512,
+      "kind": "CloseHandle",
+      "handle": 572,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.06952,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.069806,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.069853,
+      "kind": "CloseHandle",
+      "handle": 572,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.069863,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.07099,
+      "kind": "WaitForDebugEventEx",
+      "event": 2,
+      "pid": 17668,
+      "tid": 25276
+    },
+    {
+      "time": 0.071013,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 25276
+    },
+    {
+      "time": 0.071935,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.071972,
+      "kind": "CloseHandle",
+      "handle": 568,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.071978,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.112536,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.112594,
+      "kind": "CloseHandle",
+      "handle": 560,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.112606,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.11294,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.112983,
+      "kind": "CloseHandle",
+      "handle": 560,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.112993,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.118561,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.11862,
+      "kind": "CloseHandle",
+      "handle": 576,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.118632,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.165028,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.16509,
+      "kind": "CloseHandle",
+      "handle": 576,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.165109,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.165699,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.165745,
+      "kind": "CloseHandle",
+      "handle": 564,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.165754,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.165824,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 8616
+    },
+    {
+      "time": 0.165854,
+      "kind": "CloseHandle",
+      "handle": 576,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.16586,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 8616
+    },
+    {
+      "time": 0.166731,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.166759,
+      "kind": "CloseHandle",
+      "handle": 564,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.166764,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.169892,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.16996,
+      "kind": "CloseHandle",
+      "handle": 580,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.169976,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.211446,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.2115,
+      "kind": "CloseHandle",
+      "handle": 544,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.211509,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.405314,
+      "kind": "WaitForDebugEventEx",
+      "event": 2,
+      "pid": 17668,
+      "tid": 26484
+    },
+    {
+      "time": 0.405349,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 26484
+    },
+    {
+      "time": 0.460132,
+      "kind": "WaitForDebugEventEx",
+      "event": 4,
+      "pid": 17668,
+      "tid": 26484
+    },
+    {
+      "time": 0.460158,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 26484
+    },
+    {
+      "time": 0.477647,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.477691,
+      "kind": "CloseHandle",
+      "handle": 544,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.477699,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.480097,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.480134,
+      "kind": "CloseHandle",
+      "handle": 576,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.48014,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.481843,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.481871,
+      "kind": "CloseHandle",
+      "handle": 544,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.481876,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.493635,
+      "kind": "WaitForDebugEventEx",
+      "event": 2,
+      "pid": 17668,
+      "tid": 7964
+    },
+    {
+      "time": 0.493657,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 7964
+    },
+    {
+      "time": 0.495072,
+      "kind": "WaitForDebugEventEx",
+      "event": 2,
+      "pid": 17668,
+      "tid": 24716
+    },
+    {
+      "time": 0.495082,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24716
+    },
+    {
+      "time": 0.496187,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.496226,
+      "kind": "CloseHandle",
+      "handle": 512,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.496233,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.503895,
+      "kind": "WaitForDebugEventEx",
+      "event": 2,
+      "pid": 17668,
+      "tid": 33412
+    },
+    {
+      "time": 0.503917,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 33412
+    },
+    {
+      "time": 0.52207,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.522121,
+      "kind": "CloseHandle",
+      "handle": 512,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.522129,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.529572,
+      "kind": "WaitForDebugEventEx",
+      "event": 2,
+      "pid": 17668,
+      "tid": 5256
+    },
+    {
+      "time": 0.52959,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 5256
+    },
+    {
+      "time": 0.529721,
+      "kind": "WaitForDebugEventEx",
+      "event": 2,
+      "pid": 17668,
+      "tid": 32484
+    },
+    {
+      "time": 0.529734,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 32484
+    },
+    {
+      "time": 0.530475,
+      "kind": "WaitForDebugEventEx",
+      "event": 4,
+      "pid": 17668,
+      "tid": 5256
+    },
+    {
+      "time": 0.530481,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 5256
+    },
+    {
+      "time": 0.530675,
+      "kind": "WaitForDebugEventEx",
+      "event": 2,
+      "pid": 17668,
+      "tid": 26748
+    },
+    {
+      "time": 0.530686,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 26748
+    },
+    {
+      "time": 0.530762,
+      "kind": "WaitForDebugEventEx",
+      "event": 2,
+      "pid": 17668,
+      "tid": 5524
+    },
+    {
+      "time": 0.530766,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 5524
+    },
+    {
+      "time": 0.53078,
+      "kind": "WaitForDebugEventEx",
+      "event": 2,
+      "pid": 17668,
+      "tid": 23744
+    },
+    {
+      "time": 0.530783,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 23744
+    },
+    {
+      "time": 0.530792,
+      "kind": "WaitForDebugEventEx",
+      "event": 2,
+      "pid": 17668,
+      "tid": 11452
+    },
+    {
+      "time": 0.530795,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 11452
+    },
+    {
+      "time": 0.530805,
+      "kind": "WaitForDebugEventEx",
+      "event": 2,
+      "pid": 17668,
+      "tid": 19124
+    },
+    {
+      "time": 0.530807,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 19124
+    },
+    {
+      "time": 0.530816,
+      "kind": "WaitForDebugEventEx",
+      "event": 2,
+      "pid": 17668,
+      "tid": 2832
+    },
+    {
+      "time": 0.530819,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 2832
+    },
+    {
+      "time": 0.530848,
+      "kind": "WaitForDebugEventEx",
+      "event": 2,
+      "pid": 17668,
+      "tid": 25004
+    },
+    {
+      "time": 0.530859,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 25004
+    },
+    {
+      "time": 0.530881,
+      "kind": "WaitForDebugEventEx",
+      "event": 2,
+      "pid": 17668,
+      "tid": 1260
+    },
+    {
+      "time": 0.530885,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 1260
+    },
+    {
+      "time": 0.530896,
+      "kind": "WaitForDebugEventEx",
+      "event": 2,
+      "pid": 17668,
+      "tid": 348
+    },
+    {
+      "time": 0.530899,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 348
+    },
+    {
+      "time": 0.530948,
+      "kind": "WaitForDebugEventEx",
+      "event": 2,
+      "pid": 17668,
+      "tid": 20160
+    },
+    {
+      "time": 0.530952,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 20160
+    },
+    {
+      "time": 0.531488,
+      "kind": "WaitForDebugEventEx",
+      "event": 4,
+      "pid": 17668,
+      "tid": 19124
+    },
+    {
+      "time": 0.531493,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 19124
+    },
+    {
+      "time": 0.531523,
+      "kind": "WaitForDebugEventEx",
+      "event": 4,
+      "pid": 17668,
+      "tid": 2832
+    },
+    {
+      "time": 0.531528,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 2832
+    },
+    {
+      "time": 0.53156,
+      "kind": "WaitForDebugEventEx",
+      "event": 4,
+      "pid": 17668,
+      "tid": 5524
+    },
+    {
+      "time": 0.531573,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 5524
+    },
+    {
+      "time": 0.531596,
+      "kind": "WaitForDebugEventEx",
+      "event": 4,
+      "pid": 17668,
+      "tid": 26748
+    },
+    {
+      "time": 0.5316,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 26748
+    },
+    {
+      "time": 0.531631,
+      "kind": "WaitForDebugEventEx",
+      "event": 4,
+      "pid": 17668,
+      "tid": 11452
+    },
+    {
+      "time": 0.531639,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 11452
+    },
+    {
+      "time": 0.531657,
+      "kind": "WaitForDebugEventEx",
+      "event": 4,
+      "pid": 17668,
+      "tid": 23744
+    },
+    {
+      "time": 0.53166,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 23744
+    },
+    {
+      "time": 0.531681,
+      "kind": "WaitForDebugEventEx",
+      "event": 4,
+      "pid": 17668,
+      "tid": 25004
+    },
+    {
+      "time": 0.531685,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 25004
+    },
+    {
+      "time": 0.531708,
+      "kind": "WaitForDebugEventEx",
+      "event": 4,
+      "pid": 17668,
+      "tid": 348
+    },
+    {
+      "time": 0.531712,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 348
+    },
+    {
+      "time": 0.531738,
+      "kind": "WaitForDebugEventEx",
+      "event": 4,
+      "pid": 17668,
+      "tid": 1260
+    },
+    {
+      "time": 0.531742,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 1260
+    },
+    {
+      "time": 0.531763,
+      "kind": "WaitForDebugEventEx",
+      "event": 4,
+      "pid": 17668,
+      "tid": 20160
+    },
+    {
+      "time": 0.531767,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 20160
+    },
+    {
+      "time": 0.532151,
+      "kind": "WaitForDebugEventEx",
+      "event": 4,
+      "pid": 17668,
+      "tid": 24716
+    },
+    {
+      "time": 0.532156,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24716
+    },
+    {
+      "time": 0.532891,
+      "kind": "WaitForDebugEventEx",
+      "event": 4,
+      "pid": 17668,
+      "tid": 33412
+    },
+    {
+      "time": 0.532895,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 33412
+    },
+    {
+      "time": 0.533238,
+      "kind": "WaitForDebugEventEx",
+      "event": 4,
+      "pid": 17668,
+      "tid": 7964
+    },
+    {
+      "time": 0.533241,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 7964
+    },
+    {
+      "time": 0.538691,
+      "kind": "WaitForDebugEventEx",
+      "event": 4,
+      "pid": 17668,
+      "tid": 32484
+    },
+    {
+      "time": 0.538714,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 32484
+    },
+    {
+      "time": 0.545442,
+      "kind": "WaitForDebugEventEx",
+      "event": 7,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.545453,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.546167,
+      "kind": "WaitForDebugEventEx",
+      "event": 7,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.546171,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.548979,
+      "kind": "WaitForDebugEventEx",
+      "event": 7,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.548982,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.549009,
+      "kind": "WaitForDebugEventEx",
+      "event": 7,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.549012,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.549035,
+      "kind": "WaitForDebugEventEx",
+      "event": 7,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.549038,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.549085,
+      "kind": "WaitForDebugEventEx",
+      "event": 7,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.549088,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.549404,
+      "kind": "WaitForDebugEventEx",
+      "event": 7,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.549407,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.549721,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.549755,
+      "kind": "CloseHandle",
+      "handle": 452,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.549758,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.550125,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.550147,
+      "kind": "CloseHandle",
+      "handle": 452,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.550151,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.550728,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.550773,
+      "kind": "CloseHandle",
+      "handle": 532,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.55078,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.55183,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.551886,
+      "kind": "CloseHandle",
+      "handle": 600,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.551895,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.559388,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.559432,
+      "kind": "CloseHandle",
+      "handle": 452,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.559439,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.56318,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.56321,
+      "kind": "CloseHandle",
+      "handle": 452,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.563215,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.564389,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 30916
+    },
+    {
+      "time": 0.564422,
+      "kind": "CloseHandle",
+      "handle": 568,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.564427,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 30916
+    },
+    {
+      "time": 0.564499,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 8616
+    },
+    {
+      "time": 0.564516,
+      "kind": "CloseHandle",
+      "handle": 568,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.564519,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 8616
+    },
+    {
+      "time": 0.564677,
+      "kind": "WaitForDebugEventEx",
+      "event": 2,
+      "pid": 17668,
+      "tid": 25740
+    },
+    {
+      "time": 0.564683,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 25740
+    },
+    {
+      "time": 0.565237,
+      "kind": "WaitForDebugEventEx",
+      "event": 2,
+      "pid": 17668,
+      "tid": 32992
+    },
+    {
+      "time": 0.565249,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 32992
+    },
+    {
+      "time": 0.56562,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.565656,
+      "kind": "CloseHandle",
+      "handle": 604,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.565661,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.565935,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 30916
+    },
+    {
+      "time": 0.565962,
+      "kind": "CloseHandle",
+      "handle": 560,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.565967,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 30916
+    },
+    {
+      "time": 0.566036,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 8616
+    },
+    {
+      "time": 0.56607,
+      "kind": "CloseHandle",
+      "handle": 580,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.566076,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 8616
+    },
+    {
+      "time": 0.566238,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 8616
+    },
+    {
+      "time": 0.566262,
+      "kind": "CloseHandle",
+      "handle": 560,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.566265,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 8616
+    },
+    {
+      "time": 0.566378,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 30916
+    },
+    {
+      "time": 0.56641,
+      "kind": "CloseHandle",
+      "handle": 532,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.566416,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 30916
+    },
+    {
+      "time": 0.566463,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 22964
+    },
+    {
+      "time": 0.566486,
+      "kind": "CloseHandle",
+      "handle": 604,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.566491,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 22964
+    },
+    {
+      "time": 0.566519,
+      "kind": "WaitForDebugEventEx",
+      "event": 7,
+      "pid": 17668,
+      "tid": 22964
+    },
+    {
+      "time": 0.566524,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 22964
+    },
+    {
+      "time": 0.567642,
+      "kind": "WaitForDebugEventEx",
+      "event": 8,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.567738,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.568682,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 25740
+    },
+    {
+      "time": 0.568724,
+      "kind": "CloseHandle",
+      "handle": 560,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.56873,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 25740
+    },
+    {
+      "time": 0.569024,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.569049,
+      "kind": "CloseHandle",
+      "handle": 452,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.569053,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.570138,
+      "kind": "WaitForDebugEventEx",
+      "event": 7,
+      "pid": 17668,
+      "tid": 25740
+    },
+    {
+      "time": 0.570151,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 25740
+    },
+    {
+      "time": 0.575095,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 25740
+    },
+    {
+      "time": 0.575138,
+      "kind": "CloseHandle",
+      "handle": 604,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.575147,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 25740
+    },
+    {
+      "time": 0.576507,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 8616
+    },
+    {
+      "time": 0.576538,
+      "kind": "CloseHandle",
+      "handle": 608,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.576543,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 8616
+    },
+    {
+      "time": 0.576624,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 22964
+    },
+    {
+      "time": 0.576649,
+      "kind": "CloseHandle",
+      "handle": 608,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.576652,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 22964
+    },
+    {
+      "time": 0.576667,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 30916
+    },
+    {
+      "time": 0.576681,
+      "kind": "CloseHandle",
+      "handle": 608,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.576683,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 30916
+    },
+    {
+      "time": 0.577219,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 25740
+    },
+    {
+      "time": 0.57725,
+      "kind": "CloseHandle",
+      "handle": 608,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.577255,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 25740
+    },
+    {
+      "time": 0.577944,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 25740
+    },
+    {
+      "time": 0.577966,
+      "kind": "CloseHandle",
+      "handle": 608,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.577969,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 25740
+    },
+    {
+      "time": 0.579792,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 25740
+    },
+    {
+      "time": 0.579838,
+      "kind": "CloseHandle",
+      "handle": 612,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.579846,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 25740
+    },
+    {
+      "time": 0.580375,
+      "kind": "WaitForDebugEventEx",
+      "event": 2,
+      "pid": 17668,
+      "tid": 5556
+    },
+    {
+      "time": 0.580388,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 5556
+    },
+    {
+      "time": 0.583368,
+      "kind": "WaitForDebugEventEx",
+      "event": 2,
+      "pid": 17668,
+      "tid": 29800
+    },
+    {
+      "time": 0.583384,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 29800
+    },
+    {
+      "time": 0.584241,
+      "kind": "WaitForDebugEventEx",
+      "event": 2,
+      "pid": 17668,
+      "tid": 23932
+    },
+    {
+      "time": 0.584271,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 23932
+    },
+    {
+      "time": 0.584701,
+      "kind": "WaitForDebugEventEx",
+      "event": 2,
+      "pid": 17668,
+      "tid": 18832
+    },
+    {
+      "time": 0.584705,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 18832
+    },
+    {
+      "time": 0.585131,
+      "kind": "WaitForDebugEventEx",
+      "event": 2,
+      "pid": 17668,
+      "tid": 27016
+    },
+    {
+      "time": 0.585146,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 27016
+    },
+    {
+      "time": 0.587972,
+      "kind": "WaitForDebugEventEx",
+      "event": 8,
+      "pid": 17668,
+      "tid": 25740
+    },
+    {
+      "time": 0.588055,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 25740
+    },
+    {
+      "time": 0.58846,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 25740
+    },
+    {
+      "time": 0.588497,
+      "kind": "CloseHandle",
+      "handle": 616,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.588503,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 25740
+    },
+    {
+      "time": 0.597765,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 25740
+    },
+    {
+      "time": 0.597794,
+      "kind": "CloseHandle",
+      "handle": 616,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.597799,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 25740
+    },
+    {
+      "time": 0.613945,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.613989,
+      "kind": "CloseHandle",
+      "handle": 620,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.613997,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.620018,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.620068,
+      "kind": "CloseHandle",
+      "handle": 624,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.620075,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.620287,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.620319,
+      "kind": "CloseHandle",
+      "handle": 620,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.620326,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.620361,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 30916
+    },
+    {
+      "time": 0.620401,
+      "kind": "CloseHandle",
+      "handle": 476,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.620407,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 30916
+    },
+    {
+      "time": 0.62081,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.620845,
+      "kind": "CloseHandle",
+      "handle": 452,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.620851,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.662999,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.663047,
+      "kind": "CloseHandle",
+      "handle": 616,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 0.663055,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 0.748321,
+      "kind": "WaitForDebugEventEx",
+      "event": 2,
+      "pid": 17668,
+      "tid": 7600
+    },
+    {
+      "time": 0.74834,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 7600
+    },
+    {
+      "time": 0.78348,
+      "kind": "WaitForDebugEventEx",
+      "event": 4,
+      "pid": 17668,
+      "tid": 7600
+    },
+    {
+      "time": 0.783495,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 7600
+    },
+    {
+      "time": 0.805646,
+      "kind": "WaitForDebugEventEx",
+      "event": 2,
+      "pid": 17668,
+      "tid": 31532
+    },
+    {
+      "time": 0.805669,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 31532
+    },
+    {
+      "time": 0.806623,
+      "kind": "WaitForDebugEventEx",
+      "event": 2,
+      "pid": 17668,
+      "tid": 24836
+    },
+    {
+      "time": 0.80664,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24836
+    },
+    {
+      "time": 0.82815,
+      "kind": "WaitForDebugEventEx",
+      "event": 2,
+      "pid": 17668,
+      "tid": 10840
+    },
+    {
+      "time": 0.828174,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 10840
+    },
+    {
+      "time": 1.113069,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 25740
+    },
+    {
+      "time": 1.113118,
+      "kind": "CloseHandle",
+      "handle": 648,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 1.113126,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 25740
+    },
+    {
+      "time": 1.116298,
+      "kind": "WaitForDebugEventEx",
+      "event": 2,
+      "pid": 17668,
+      "tid": 19784
+    },
+    {
+      "time": 1.116318,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 19784
+    },
+    {
+      "time": 1.116916,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 25740
+    },
+    {
+      "time": 1.116975,
+      "kind": "CloseHandle",
+      "handle": 476,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 1.116986,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 25740
+    },
+    {
+      "time": 1.122147,
+      "kind": "WaitForDebugEventEx",
+      "event": 7,
+      "pid": 17668,
+      "tid": 25740
+    },
+    {
+      "time": 1.122179,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 25740
+    },
+    {
+      "time": 1.122768,
+      "kind": "WaitForDebugEventEx",
+      "event": 6,
+      "pid": 17668,
+      "tid": 25740
+    },
+    {
+      "time": 1.122824,
+      "kind": "CloseHandle",
+      "handle": 452,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 1.122834,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 25740
+    },
+    {
+      "time": 1.126207,
+      "kind": "WaitForDebugEventEx",
+      "event": 2,
+      "pid": 17668,
+      "tid": 12440
+    },
+    {
+      "time": 1.126223,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 12440
+    },
+    {
+      "time": 1.128773,
+      "kind": "WaitForDebugEventEx",
+      "event": 2,
+      "pid": 17668,
+      "tid": 22708
+    },
+    {
+      "time": 1.128788,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 22708
+    },
+    {
+      "time": 1.183148,
+      "kind": "TerminateJobObject",
+      "handle": 500,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 1.183171,
+      "kind": "WaitForDebugEventEx",
+      "event": 4,
+      "pid": 17668,
+      "tid": 19784
+    },
+    {
+      "time": 1.183179,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 19784
+    },
+    {
+      "time": 1.183185,
+      "kind": "WaitForDebugEventEx",
+      "event": 4,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 1.183211,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24032
+    },
+    {
+      "time": 1.183224,
+      "kind": "WaitForDebugEventEx",
+      "event": 4,
+      "pid": 17668,
+      "tid": 25276
+    },
+    {
+      "time": 1.183229,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 25276
+    },
+    {
+      "time": 1.183232,
+      "kind": "WaitForDebugEventEx",
+      "event": 4,
+      "pid": 17668,
+      "tid": 5556
+    },
+    {
+      "time": 1.183236,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 5556
+    },
+    {
+      "time": 1.183242,
+      "kind": "WaitForDebugEventEx",
+      "event": 4,
+      "pid": 17668,
+      "tid": 29800
+    },
+    {
+      "time": 1.183245,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 29800
+    },
+    {
+      "time": 1.183247,
+      "kind": "WaitForDebugEventEx",
+      "event": 4,
+      "pid": 17668,
+      "tid": 32992
+    },
+    {
+      "time": 1.18325,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 32992
+    },
+    {
+      "time": 1.183253,
+      "kind": "WaitForDebugEventEx",
+      "event": 4,
+      "pid": 17668,
+      "tid": 8616
+    },
+    {
+      "time": 1.183256,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 8616
+    },
+    {
+      "time": 1.183263,
+      "kind": "WaitForDebugEventEx",
+      "event": 4,
+      "pid": 17668,
+      "tid": 10840
+    },
+    {
+      "time": 1.183268,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 10840
+    },
+    {
+      "time": 1.183271,
+      "kind": "WaitForDebugEventEx",
+      "event": 4,
+      "pid": 17668,
+      "tid": 22964
+    },
+    {
+      "time": 1.183274,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 22964
+    },
+    {
+      "time": 1.183277,
+      "kind": "WaitForDebugEventEx",
+      "event": 4,
+      "pid": 17668,
+      "tid": 12440
+    },
+    {
+      "time": 1.18328,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 12440
+    },
+    {
+      "time": 1.183283,
+      "kind": "WaitForDebugEventEx",
+      "event": 4,
+      "pid": 17668,
+      "tid": 30916
+    },
+    {
+      "time": 1.183286,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 30916
+    },
+    {
+      "time": 1.183297,
+      "kind": "WaitForDebugEventEx",
+      "event": 4,
+      "pid": 17668,
+      "tid": 25740
+    },
+    {
+      "time": 1.183312,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 25740
+    },
+    {
+      "time": 1.183319,
+      "kind": "WaitForDebugEventEx",
+      "event": 4,
+      "pid": 17668,
+      "tid": 24836
+    },
+    {
+      "time": 1.183323,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 24836
+    },
+    {
+      "time": 1.183326,
+      "kind": "WaitForDebugEventEx",
+      "event": 4,
+      "pid": 17668,
+      "tid": 22708
+    },
+    {
+      "time": 1.183329,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 22708
+    },
+    {
+      "time": 1.183339,
+      "kind": "WaitForDebugEventEx",
+      "event": 4,
+      "pid": 17668,
+      "tid": 31532
+    },
+    {
+      "time": 1.183343,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 31532
+    },
+    {
+      "time": 1.183349,
+      "kind": "WaitForDebugEventEx",
+      "event": 4,
+      "pid": 17668,
+      "tid": 27016
+    },
+    {
+      "time": 1.183354,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 27016
+    },
+    {
+      "time": 1.183357,
+      "kind": "WaitForDebugEventEx",
+      "event": 4,
+      "pid": 17668,
+      "tid": 18832
+    },
+    {
+      "time": 1.18336,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 18832
+    },
+    {
+      "time": 1.183367,
+      "kind": "WaitForDebugEventEx",
+      "event": 4,
+      "pid": 17668,
+      "tid": 23932
+    },
+    {
+      "time": 1.183371,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 23932
+    },
+    {
+      "time": 1.222056,
+      "kind": "WaitForDebugEventEx",
+      "event": 2,
+      "pid": 17668,
+      "tid": 16756
+    },
+    {
+      "time": 1.222091,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 16756
+    },
+    {
+      "time": 1.222107,
+      "kind": "WaitForDebugEventEx",
+      "event": 2,
+      "pid": 17668,
+      "tid": 32636
+    },
+    {
+      "time": 1.222111,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 32636
+    },
+    {
+      "time": 1.222115,
+      "kind": "WaitForDebugEventEx",
+      "event": 2,
+      "pid": 17668,
+      "tid": 29808
+    },
+    {
+      "time": 1.222118,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 29808
+    },
+    {
+      "time": 1.222122,
+      "kind": "WaitForDebugEventEx",
+      "event": 2,
+      "pid": 17668,
+      "tid": 31676
+    },
+    {
+      "time": 1.222125,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 31676
+    },
+    {
+      "time": 1.222129,
+      "kind": "WaitForDebugEventEx",
+      "event": 2,
+      "pid": 17668,
+      "tid": 2408
+    },
+    {
+      "time": 1.222135,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 2408
+    },
+    {
+      "time": 1.222139,
+      "kind": "WaitForDebugEventEx",
+      "event": 2,
+      "pid": 17668,
+      "tid": 8684
+    },
+    {
+      "time": 1.222142,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 8684
+    },
+    {
+      "time": 1.222147,
+      "kind": "WaitForDebugEventEx",
+      "event": 2,
+      "pid": 17668,
+      "tid": 22060
+    },
+    {
+      "time": 1.22215,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 22060
+    },
+    {
+      "time": 1.222155,
+      "kind": "WaitForDebugEventEx",
+      "event": 2,
+      "pid": 17668,
+      "tid": 9752
+    },
+    {
+      "time": 1.222158,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 9752
+    },
+    {
+      "time": 1.222161,
+      "kind": "WaitForDebugEventEx",
+      "event": 2,
+      "pid": 17668,
+      "tid": 31460
+    },
+    {
+      "time": 1.222164,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 31460
+    },
+    {
+      "time": 1.222168,
+      "kind": "WaitForDebugEventEx",
+      "event": 2,
+      "pid": 17668,
+      "tid": 32180
+    },
+    {
+      "time": 1.22217,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 32180
+    },
+    {
+      "time": 1.222173,
+      "kind": "WaitForDebugEventEx",
+      "event": 4,
+      "pid": 17668,
+      "tid": 16756
+    },
+    {
+      "time": 1.222177,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 16756
+    },
+    {
+      "time": 1.22218,
+      "kind": "WaitForDebugEventEx",
+      "event": 4,
+      "pid": 17668,
+      "tid": 32636
+    },
+    {
+      "time": 1.222183,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 32636
+    },
+    {
+      "time": 1.222185,
+      "kind": "WaitForDebugEventEx",
+      "event": 4,
+      "pid": 17668,
+      "tid": 29808
+    },
+    {
+      "time": 1.222188,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 29808
+    },
+    {
+      "time": 1.22219,
+      "kind": "WaitForDebugEventEx",
+      "event": 4,
+      "pid": 17668,
+      "tid": 31676
+    },
+    {
+      "time": 1.222193,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 31676
+    },
+    {
+      "time": 1.222195,
+      "kind": "WaitForDebugEventEx",
+      "event": 4,
+      "pid": 17668,
+      "tid": 2408
+    },
+    {
+      "time": 1.222198,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 2408
+    },
+    {
+      "time": 1.2222,
+      "kind": "WaitForDebugEventEx",
+      "event": 4,
+      "pid": 17668,
+      "tid": 8684
+    },
+    {
+      "time": 1.222203,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 8684
+    },
+    {
+      "time": 1.222205,
+      "kind": "WaitForDebugEventEx",
+      "event": 4,
+      "pid": 17668,
+      "tid": 22060
+    },
+    {
+      "time": 1.222207,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 22060
+    },
+    {
+      "time": 1.22221,
+      "kind": "WaitForDebugEventEx",
+      "event": 4,
+      "pid": 17668,
+      "tid": 9752
+    },
+    {
+      "time": 1.222212,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 9752
+    },
+    {
+      "time": 1.222215,
+      "kind": "WaitForDebugEventEx",
+      "event": 4,
+      "pid": 17668,
+      "tid": 31460
+    },
+    {
+      "time": 1.222217,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 31460
+    },
+    {
+      "time": 1.223672,
+      "kind": "WaitForDebugEventEx",
+      "event": 5,
+      "pid": 17668,
+      "tid": 32180,
+      "exit_code": 3758096385
+    },
+    {
+      "time": 1.223691,
+      "kind": "ContinueDebugEvent",
+      "result": 1,
+      "error": 0,
+      "pid": 17668,
+      "tid": 32180
+    },
+    {
+      "time": 1.223707,
+      "kind": "CloseHandle",
+      "handle": 500,
+      "result": 1,
+      "error": 0
+    },
+    {
+      "time": 1.223782,
+      "kind": "process_wait_start",
+      "handle": 488,
+      "timeout": 9.958550699993793
+    },
+    {
+      "time": 1.519846,
+      "kind": "process_wait_return",
+      "wait_code": 0,
+      "exit_code": 3758096385
+    }
+  ]
+}

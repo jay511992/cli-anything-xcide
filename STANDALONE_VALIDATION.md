@@ -2,6 +2,8 @@
 
 验收日期：2026-11-25。目录：`E:\AIWork\Codex\cli-anything-xcide`。本次工作把原本分散的 XCIDE harness、技能文档、探索报告和自动化证据整理到独立仓库。
 
+本文保留搬迁当时的检查与失败结果。后续已定位并修复清理等待缺陷，完整回归 **195 项通过**；最新原因、改动及证据见 [CLEANUP_FIX.md](CLEANUP_FIX.md)。
+
 ## 整理范围
 
 - 保留 `xcide/agent-harness`、`skills/cli-anything-xcide` 的相对结构，已有命令、模块、测试和原生桥接内容与原目录一致。
@@ -33,7 +35,7 @@ $env:PYTHONUTF8 = '1'
 
 对 x64/x86 的同组用例做了一次定向复测，结果：**1 passed, 1 failed, 34 deselected in 12.36s**。这次 x64 通过，x86 在相同清理阶段超时。原始日志：[targeted-retry.txt](xcide/automation-evidence/standalone-validation/targeted-retry.txt)。
 
-## 已知未解决问题
+## 搬迁时发现的问题（已在后续修复）
 
 - 严重程度：中。
 - 文件位置：`xcide/agent-harness/cli_anything/xcide/utils/win_debug.py`，`DebugProcess.close`；对应断言在 `tests/test_full_e2e.py` 的后台适配器模式测试。

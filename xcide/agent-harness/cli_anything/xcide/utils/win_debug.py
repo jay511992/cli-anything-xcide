@@ -265,18 +265,25 @@ class DebugProcess:
             raise RuntimeError("程序 stdout/stderr 超过单通道 16 MiB 限制。")
 
     def close(self) -> None:
+        # EXIT_PROCESS_DEBUG_EVENT (even after ContinueDebugEvent) can precede
+        # the process handle becoming signaled. Share one bounded budget across
+        # debug-event draining and the final OS teardown wait, including D2D.
+        deadline = time.monotonic() + 10
+
+        def failed(message: str) -> None:
+            self.cleanup_error = f"{self.cleanup_error}; {message}" if self.cleanup_error else message
+
         if self.job and self.process and self.exit_code is None:
             self.terminated = True
             if not self.api.TerminateJobObject(self.job, 0xE0000001):
-                self.cleanup_error = str(C.WinError(C.get_last_error()))
-            deadline = time.monotonic() + 5
+                failed(str(C.WinError(C.get_last_error())))
             try:
                 while self.exit_code is None and time.monotonic() < deadline:
                     self.poll(50)
             except (OSError, RuntimeError) as exc:
-                self.cleanup_error = str(exc)
+                failed(str(exc))
             if self.exit_code is None:
-                self.cleanup_error = self.cleanup_error or "Owned debug process did not exit within cleanup deadline."
+                failed("Owned process debug exit was not observed before cleanup stopped.")
         if self.job:
             self.api.CloseHandle(self.job)
             self.job = None
@@ -285,9 +292,9 @@ class DebugProcess:
         self.streams = []
         if self.process:
             try:
-                self.process.wait(timeout=1)
+                self.process.wait(timeout=max(0.0, deadline - time.monotonic()))
             except (OSError, subprocess.TimeoutExpired) as exc:
-                self.cleanup_error = str(exc)
+                failed(str(exc))
             finally:
                 self.process.close()
 
@@ -303,8 +310,11 @@ class _OwnedProcess:
 
     def wait(self, timeout: float) -> None:
         import _winapi
-        if _winapi.WaitForSingleObject(self._handle, int(timeout * 1000)) != 0:
+        result = _winapi.WaitForSingleObject(self._handle, int(timeout * 1000))
+        if result == 258:  # WAIT_TIMEOUT; _winapi raises OSError on WAIT_FAILED.
             raise subprocess.TimeoutExpired(str(self.pid), timeout)
+        if result != 0:
+            raise OSError(f"Unexpected process wait result: {result}")
 
     def close(self) -> None:
         import _winapi

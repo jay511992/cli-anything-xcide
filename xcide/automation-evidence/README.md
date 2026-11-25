@@ -12,8 +12,10 @@
 | [004-initial.png](004-initial.png) | 输入前的 GDI 绘制截图 |
 | [012-clicked.png](012-clicked.png) | 输入和按钮点击后的 GDI 绘制截图 |
 
-JSON 是原始结果副本，保留当时绝对路径、进程 ID、时间与 SHA-256。临时目录可能已经清理，阅读截图时使用本目录中的副本；这些记录不会因克隆仓库而自动重放。`summary.json` 的 `source_sha256` 对应 `../agent-harness/cli_anything/xcide/` 下同名文件。
+JSON 是原始结果副本，保留当时绝对路径、进程 ID、时间与 SHA-256。临时目录可能已经清理，阅读截图时使用本目录中的副本；这些记录不会因克隆仓库而自动重放。`summary.json` 的 `source_sha256` 对应当时 `../agent-harness/cli_anything/xcide/` 下同名文件，后续修复的当前源码哈希另存，不改写历史证据。
 
 最终一次运行期间用户正在移动鼠标，因此前后坐标可能不同；前台句柄保持一致。另附的静止鼠标对照用于核对不移动光标的行为，工具不会锁定或恢复用户鼠标。
 
 搬迁后的独立安装复测另存于 `standalone-validation/`，包含全量测试、定向重试和两次清理超时的原始报告；结果说明见 [独立仓库验收](../../STANDALONE_VALIDATION.md)。本页上表保留的是搬迁之前的历史验收。
+
+清理缺陷修复后的证据位于 `cleanup-fix/`：包含两次修复前原生时序、修复后进程结束追踪、24 次真实回收汇总及完整 195 项通过的测试输出。入口见 [修复报告](../../CLEANUP_FIX.md) 和 [本轮汇总](cleanup-fix/summary.json)。

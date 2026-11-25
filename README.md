@@ -40,7 +40,7 @@ cli-anything-xcide --json --ide 'I:\xcide' example list '按钮'
 
 ## 让 Agent 编写一个 XC 程序
 
-把 [技能文件](skills/cli-anything-xcide/SKILL.md) 和 [调用手册](AI_CALLING.md) 提供给 Agent，并给出工程目标目录、IDE 路径、功能要求及验收标准。例如：
+把 [CLI 调用技能](skills/cli-anything-xcide/SKILL.md)、[XC 开发技能](skills/xc-suite/SKILL.md) 和 [调用手册](AI_CALLING.md) 提供给 Agent，并给出工程目标目录、IDE 路径、功能要求及验收标准。两套技能的迁移方法及可选 MCP 工具的区别见 [依赖说明](DEPENDENCIES.md)。例如：
 
 > 在指定新目录创建 x64 调试版计数器。先查本机模板、模块依赖和事件签名，再写炫语言源码；接入 automation_bridge.h 并使用 GDI 渲染。用 build --diagnostics 后台编译，依据真实错误修复。编写 runtime test JSON 场景，验证中文输入、按钮点击、业务日志、截图和正常退出。全程不得抢占前台或移动鼠标。交付源码、构建 JSON、测试报告和截图。
 
@@ -52,6 +52,7 @@ cli-anything-xcide --json --ide 'I:\xcide' example list '按钮'
 | --- | --- |
 | `xcide/agent-harness/` | 可安装的 Python harness、测试、原生桥接、示例及辅助工具 |
 | `skills/cli-anything-xcide/` | AI Agent 技能说明及离线阅读版 |
+| `skills/xc-suite/` | 炫语言开发资料、模块检索脚本及来源清单；索引在目标机器重建 |
 | `xcide/automation-evidence/` | 编译成功/失败、后台交互及截图的历史验收证据 |
 | `AI_CALLING.md`、`DOCS.md` | AI 调用手册和文档导航 |
 | `AI_MINING_REPORT*.md`、`AI_MINING_EVIDENCE_*.json` | 三批 20/20/50 轮探索记录和原始取证 |
@@ -71,7 +72,7 @@ python -m pip wheel ./xcide/agent-harness --no-deps -w ./dist
 
 完整测试包含真实 IDE 构建、诊断和后台交互测试，要求上述本机依赖齐全；部分验收样本目前固定读取 `I:\xcide`。测试不会因为缺少真实后端而假装通过。
 
-2026-11-25 独立目录复测为 **190 项通过、1 项失败**。失败发生在拒绝 D2D 截图后的后台进程清理；定向复测中 x64 通过、x86 出现同类超时。普通 GDI 交互测试通过，超时原因仍未确认。原开发目录中曾完成 191 项全通过的记录保留作历史依据，本次未通过反复重跑掩盖失败，也未为搬迁修改运行代码。详见验收报告。
+2026-11-25 独立目录修复后完整测试为 **195 项通过**。此前 D2D 失败后的清理超时已定位到调试退出事件与进程句柄结束之间的等待预算；已改为共用 10 秒清理期限并保留多个清理错误。4 项确定性回归和 24 次真实 D2D 失败回收检查通过，D2D 截图仍按设计拒绝。详见 [原因、最小修复与证据](CLEANUP_FIX.md)；此前 190 通过、1 失败的原始记录继续保留在搬迁验收报告中。
 
 Markdown 为文档源文件，修改后可使用渲染器更新对应 HTML：
 

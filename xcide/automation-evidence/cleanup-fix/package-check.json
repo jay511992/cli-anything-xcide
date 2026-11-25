@@ -1,0 +1,10 @@
+{
+  "wheel": "cli_anything_xcide-1.0.0-py3-none-any.whl",
+  "wheel_sha256": "ed24d2ad4242b09ed361da7746d87877a0f0c59b754a92926a449150487e3b00",
+  "package_files_byte_matched": 42,
+  "license_notice_match": true,
+  "native_bom_preserved": true,
+  "isolated_wheel_import_and_help": true,
+  "canonical_copies_match": true,
+  "skill_input_files_hash_matched": 19
+}

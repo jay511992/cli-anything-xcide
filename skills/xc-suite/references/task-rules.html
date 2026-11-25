@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src data: file:; font-src 'none'; script-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="color-scheme" content="light dark"><title>专项规则：按任务读取｜炫彩 IDE</title>
+<meta name="description" content="离线阅读版：专项规则：按任务读取">
+<style>
+:root{color-scheme:light dark;--bg:#f3f5f9;--panel:#fff;--ink:#1f2937;--soft:#617086;--line:#e4e9f0;--accent:#145bce;--code:#eef2f8;--shadow:0 16px 46px #25385814;font:16px/1.76 "Microsoft YaHei UI","Microsoft YaHei",system-ui,sans-serif}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 85% -12%,#dbeafe 0,transparent 34rem),var(--bg);color:var(--ink)}
+.top{max-width:1380px;margin:auto;padding:30px 34px 12px;display:flex;align-items:center;justify-content:space-between;color:var(--soft);font-size:13px;letter-spacing:.04em}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;color:var(--accent)}.mark{display:grid;place-items:center;width:28px;height:28px;border-radius:8px;background:linear-gradient(140deg,#4e91ff,#1758c9);color:white;font-size:15px}
+.wrap{max-width:1380px;margin:0 auto 72px;padding:14px 28px;display:grid;grid-template-columns:minmax(0,1fr) 245px;gap:26px;align-items:start}
+main{min-width:0;background:var(--panel);border:1px solid var(--line);box-shadow:var(--shadow);border-radius:18px;padding:54px clamp(24px,6vw,86px) 66px}.eyebrow{color:var(--accent);font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:12px}h1{font-size:clamp(32px,5vw,47px);line-height:1.2;letter-spacing:-.04em;margin:12px 0 32px}h2{font-size:25px;line-height:1.35;letter-spacing:-.025em;margin:52px 0 18px;padding-bottom:10px;border-bottom:1px solid var(--line)}h3{font-size:20px;margin:34px 0 10px;line-height:1.4}h4,h5,h6{margin:28px 0 8px}p{margin:14px 0}a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}strong{font-weight:750}ul,ol{padding-left:1.55em;margin:12px 0 20px}li{padding-left:.18em;margin:6px 0}code{font-family:Consolas,"Cascadia Code","Microsoft YaHei",monospace;font-size:.91em;background:var(--code);border-radius:5px;padding:.13em .42em;overflow-wrap:anywhere}pre{margin:20px 0;padding:19px 22px;background:#111827;color:#e2e8f0;border:1px solid #334155;border-radius:11px;overflow:auto;line-height:1.65;white-space:pre}pre code{padding:0;background:none;border-radius:0;color:inherit;font-size:13px;overflow-wrap:normal}.table-wrap{overflow:auto;margin:19px 0 24px;border:1px solid var(--line);border-radius:10px}table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.55}th,td{padding:10px 13px;border-bottom:1px solid var(--line);vertical-align:top}th{background:var(--code);font-weight:700;white-space:nowrap}tr:last-child td{border-bottom:0}blockquote{margin:20px 0;padding:2px 20px;border-left:4px solid #86aaf1;background:var(--code);border-radius:0 8px 8px 0;color:var(--soft)}hr{border:0;border-top:1px solid var(--line);margin:32px 0}.meta{color:var(--soft);font-size:13px;margin-top:-20px;margin-bottom:36px}
+aside{position:sticky;top:16px;max-height:calc(100vh - 32px);overflow:auto;padding:20px 16px;background:color-mix(in srgb,var(--panel) 84%,transparent);border:1px solid var(--line);border-radius:14px}aside b{display:block;margin:0 8px 9px;font-size:13px}aside a{display:block;padding:4px 8px;color:var(--soft);font-size:12px;line-height:1.5;border-radius:5px}aside a:hover{background:var(--code);color:var(--accent);text-decoration:none}aside .depth-3{padding-left:18px}aside .depth-4{padding-left:29px}.foot{max-width:1380px;margin:-48px auto 30px;padding:0 34px;color:var(--soft);font-size:12px}
+@media(prefers-color-scheme:dark){:root{--bg:#12151c;--panel:#1b2029;--ink:#e3e9f2;--soft:#a6b1c2;--line:#303948;--accent:#7eaeff;--code:#252e3a;--shadow:0 20px 50px #0004}body{background:radial-gradient(ellipse at 85% -12%,#172b46 0,transparent 36rem),var(--bg)}aside{background:color-mix(in srgb,var(--panel) 87%,transparent)}}
+@media(max-width:940px){.wrap{grid-template-columns:minmax(0,1fr);padding:10px 16px}aside{position:relative;top:0;max-height:240px;order:-1;columns:2}main{padding:38px clamp(18px,5vw,48px) 48px}.top{padding:23px 20px 10px}}
+@media(max-width:560px){.wrap{padding:8px}main{border-radius:12px;padding:30px 20px 42px}aside{columns:1}.top{padding:18px 14px 8px}h2{font-size:22px}}
+@media print{:root{color-scheme:light;--bg:#fff;--panel:#fff;--ink:#171717;--soft:#444;--line:#ccc;--accent:#164f98;--code:#f1f1f1}body{background:#fff}.top,aside,.foot{display:none}.wrap{display:block;max-width:none;margin:0;padding:0}main{border:0;box-shadow:none;padding:0}h2{break-after:avoid}pre,table{break-inside:avoid}a{color:inherit;text-decoration:underline}}
+</style></head><body>
+<header class="top"><div class="brand"><span class="mark">炫</span><span>炫彩 IDE · 本地自动化文档</span></div><span>离线 HTML · 可直接浏览器打开 / 打印为 PDF</span></header>
+<div class="wrap"><main><div class="eyebrow">XCGUI / Xuan Language</div><h1>专项规则：按任务读取</h1><div class="meta">本页由本地 Markdown 生成；样式内嵌，无网络、MCP 或浏览器脚本依赖。</div><p>这是原入口的完整约束与检查项，按场景拆分。修改前只读相关小节；查询接口无需加载全部规则。单个参考文件名相对本目录，<code>absorbed/</code> 相对 skill 根目录；检查项仅适用于本次改动涉及的场景。</p>
+<h2 id="1-布局资源与-bkinfom">1. 布局、资源与 bkInfoM</h2>
+<p><strong>改布局前</strong>：① 定位文件（<code>skin-platforms.md</code> §2.7 依赖图）② 读目标文件与上下游（容器/模板）③ 涉及 bkInfoM → 先读 <code>bkinfom-res.md</code> §1–§5；涉及 <code>layout.*</code> → 读 <code>interface-xml.md</code> §2 ④ 改动最小：抄现有配方改参数，不发明新模式 ⑤ 完成后全文搜被改的 <code>@资源名</code>/<code>@ID</code>/<code>name</code>，确认无遗漏引用。</p>
+<ul><li><strong>三层引用</strong>：布局 XML 写 <code>@名称</code> → <code>resource.res</code> 注册表 → <code>资源文件/</code> 实际文件。<strong>未注册即静默失效</strong>（不报错，只是不显示）。</li></ul>
+<ul><li><strong>XML 不是单根</strong>：<code>&lt;head /&gt;</code> 与 <code>&lt;windowUI&gt;</code>/<code>&lt;layoutPanel&gt;</code> 并列；注释决定文件类型。标准 XML 单根校验会误判 —— <strong>以炫彩 IDE 为准</strong>。</li></ul>
+<ul><li><strong>布局盒子才排布</strong>：只有 <code>windowUI</code>（<code>enableLayout=&quot;true&quot;</code>）、<code>layoutEleUI</code>、<code>layoutFrameUI</code> 是布局盒子；<code>layoutPanel</code> 不是，里面要再放 <code>layoutEleUI</code>。</li></ul>
+<ul><li><strong>默认水平</strong>：<code>layout.horizon</code> 默认 <code>true</code>（横排）。竖排必须显式写 <code>layout.horizon=&quot;false&quot;</code>。</li></ul>
+<ul><li><strong>bkInfoM 是分段序列</strong>：<code>{99:版本;98:状态映射;段0;段1;…}</code>。<strong>增删段会移动索引，<code>98:</code> 必须同步改。</strong></li></ul>
+<ul><li><strong><code>@名</code> 必须已注册</strong>：写 <code>@xxx</code> 前确认 <code>resource.res</code> 有对应条目（<code>type_image</code> / <code>type_font</code> / <code>type_id</code> / <code>type_bkInfo</code>）。</li></ul>
+<ul><li><strong><code>98:</code> 状态索引联动</strong>：bkInfoM 增删绘制段后必须同步改 <code>98:</code> 映射里的索引；<code>bkInfoM_nameT</code> 同步。</li></ul>
+<ul><li><strong><code>name</code> 不可随手改</strong>：宿主代码按 <code>name</code> 找元素（<code>main_body</code>、<code>_up_*</code> 槽、<code>皮肤_..._编辑框</code> 等语义名）。</li></ul>
+<ul><li><strong>状态码 <code>2</code> = 禁用（disable）</strong>，不是选中态；radio/check 已选态用 <code>128/144/160/192</code>，未选中用 <code>272/288/320</code>（依据与源冲突见 <code>bkinfom-res.md</code> §2.1/§2.2）。</li></ul>
+<ul><li><strong>会 <code>.启用(假)</code> 的按钮必须在 <code>98</code> 里写 <code>2(n)</code> 禁用层</strong>，否则空闲时回退系统方角 chrome。</li></ul>
+<ul><li><strong>属性禁止写在自闭合 <code>/</code> 后面</strong>（如 <code>&lt;x a=&quot;1&quot; / b=&quot;2&quot;&gt;</code>）—— IDE 直接解析失败。</li></ul>
+<ul><li><strong>列宽一致</strong>：<code>添加列文本(宽,…)</code> 必须与项模板里每列 <code>layout.width</code> 一致，否则表头错位。</li></ul>
+<ul><li><strong>项模板三条死命令</strong>：根 <code>enableCanvas=&quot;false&quot;</code>、<code>mouseThrough=&quot;true&quot;</code>、<code>drawBorder=&quot;false&quot;</code>。</li></ul>
+<ul><li><strong><code>Test.xml</code> 不是规范</strong>：设计器草稿，正式风格以其他布局文件为准。</li></ul>
+<ul><li>[ ] SVG：<code>resource.res</code> 已登记全部用到的 svg；运行目录 <code>svg\</code> 文件齐全；黑底用浅色图标、浅底用深色/粉色图标</li></ul>
+<ul><li>[ ] XML：IDE 能打开主布局（无 <code> / attr</code> 类语法错误）；所有 <code>name</code> 与 <code>.xc</code> 绑定一致；<code>itemTemplate</code> 文件存在且已部署</li></ul>
+<ul><li>[ ] 布局：竖排容器已写 <code>layout.horizon=&quot;false&quot;</code> + <code>layout.spaceRow</code>；吃满高度用了 <code>:n</code> / 外层包列表；列宽一致；项模板三条死命令齐备</li></ul>
+<h2 id="2-皮肤平台工具窗与-wmui">2. 皮肤平台、工具窗与 WmUi</h2>
+<ul><li><strong>窗壳决定透明模式</strong>：<code>shaped</code> 必须有窗口级不透明底（工具窗 <code>@面板_窗壳</code>、hum 产品 <code>@wnd_bg.png</code>）；humbox 主窗是 <code>shadow</code>。子控件 <code>bkColor</code> 救不了。</li></ul>
+<ul><li><strong>两套平台严格分离</strong>：hum = 左竖栏 180 浅色工具台；humbox = 顶栏 80 深色玻璃客户端。<strong>禁止混搭。</strong></li></ul>
+<ul><li><strong>WmUi 是现成样式库，类名即样式</strong>：按钮用 <code>三态按钮_{色系}_{变体}_R{4|8|16}</code>，容器用 <code>{基础元素|布局元素|布局框架|基础窗口|模态窗口}_{填充1..7|渐变_色组}_R{4|8|16|24}</code>；Dark/Light 类名通用，切主题只换 <code>WmUi.res</code>+<code>WmUi.css</code>，<strong>布局零修改</strong>（详见 <code>wmui-styles.md</code>）。</li></ul>
+<ul><li><strong>禁止 hum 与 humbox 的导航和配色混搭。文案、ID、窗口属性以源材料为准，不臆造。</strong>（源 <code>xc-代码/skill.md</code> 原文）</li></ul>
+<ul><li><strong><code>@ID_</code> 编号唯一且不复用</strong>：humbox 已占用 110–124，<strong>新 ID 从 125 顺延</strong>。</li></ul>
+<ul><li>[ ] 壳：工具窗 <code>shaped</code> + <code>@面板_窗壳</code>；hum 产品 <code>@wnd_bg</code>；humbox 主窗 <code>shadow</code>；未空 <code>shaped</code>；未代码整窗实心填充盖壳</li></ul>
+<ul><li>[ ] 样式：主/次/危险按钮圆角一致；会禁用的按钮 <code>98</code> 含 <code>2(n)</code>；未混用 humbox 黄绿或顶栏结构</li></ul>
+<ul><li>[ ] 组合框：触发器已套命名样式 + 箭头 SVG；启动时已 <code>创建数据适配器()</code>；弹出回调未 <code>窗口_置坐标</code>、未加圆角壳</li></ul>
+<h2 id="3-炫语言模块调用与封装">3. 炫语言、模块调用与封装</h2>
+<ul><li><strong>模块封装是「注解驱动」</strong>：<code>module_*.h</code> 的 <code>//@</code> 注解供 IDE 解析；C++ 侧标识符必须英文，中文只出现在 <code>//@别名</code>。</li></ul>
+<ul><li><strong>UTF-8</strong>：布局/资源文件 UTF-8 无 BOM；模块 <code>.h</code>/<code>.cpp</code> 必须 <strong>UTF-8-BOM</strong>。混用编码会导致中文乱码。</li></ul>
+<ul><li><strong><code>common.xh</code> 不能 <code>#include</code> 模块头</strong>：模块由 <code>*.xcproj</code> 的 <code>&lt;modules&gt;</code> 注入。</li></ul>
+<ul><li><strong>调用索引不是编译证明</strong>：现成模块的实际别名、签名、隐藏区、架构条件和初始化/释放顺序以当前头文件及 <code>.xc</code> 示例为准；<code>show</code> 的未解析依赖或同名入口冲突先定位清楚，不能自动挑第一个。源码哈希变化时先重建索引（<code>xc-modules.md</code>）。</li></ul>
+<ul><li><strong>路径含中文或 <code>[</code> <code>]</code> 必须用 <code>-LiteralPath</code></strong>：如 <code>核心[官方]</code>、<code>系统API(前缀分类法)</code>、<code>炫易模块(MD5)</code>。PowerShell 会把 <code>[</code> <code>]</code> 当通配符，静默匹配失败。</li></ul>
+<ul><li><strong><code>CXBytes</code> 没有 <code>.data()</code></strong>：读用 <code>get()</code>（返回 <code>const BYTE*</code>），写用 <code>resize()</code>/<code>alloc()</code> 的返回值。</li></ul>
+<ul><li><strong>炫语言不支持重载</strong>：用 <code>func()</code> / <code>func2()</code> / <code>func3()</code>，禁止同名重载暴露给 IDE。</li></ul>
+<ul><li><strong><code>@示例</code> 不支持缩进</strong>，用 <code>--</code> 代替缩进。</li></ul>
+<ul><li><strong><code>//@别名</code> 可变参括号内不要写 <code>...</code></strong>；无参保留空括号 <code>()</code>；参数列表逐个写出参数名。</li></ul>
+<ul><li><strong>类型名与函数名同命名空间，改名必须先查重</strong>：结构体与同名函数不能并存；改名要按「该名字的全部声明文件」同批处理，结构体改名还要同步 <code>host_forward.h</code> 之类前向声明头（UTF-8-BOM）；批量替换工具切字符串时必须清空代码缓冲，否则代码段会被写两遍，详见 <code>xuanlang-lang.md</code> §2.4.1。</li></ul>
+<ul><li><strong>不使用 <code>sessions/</code>、<code>.codegraph/</code></strong>：源 <code>xc-代码/skill.md</code> 第 35 行原文：「<code>sessions/</code> 与 <code>.codegraph/</code> 不是技能材料。」</li></ul>
+<ul><li><strong>不臆造</strong>：类名、属性、API、注解、色值必须可溯源；不确定的写「源材料未确证」，不猜。</li></ul>
+<ul><li>[ ] 模块：<code>.h</code>/<code>.cpp</code> 为 UTF-8-BOM；无同名重载暴露；字符串返回 CX 类型；模板已 <code>//@隐藏</code>；<code>CXBytes</code> 不用 <code>.data()</code></li></ul>
+<h2 id="4-构建迁移与部署">4. 构建、迁移与部署</h2>
+<p>本仓库使用 <code>cli-anything-xcide build --diagnostics</code> 在新建的私有 IDE 中构建；下述旧 MCP 流程仅适用于明确选择那个外部工作流时。无需安装 MCP，后台编译和测试以本技能入口和 CLI 手册为准。</p>
+<ul><li><strong>构建证据不可偷换</strong>：静态扫描、<code>xc_build</code> 的 F7 已投递、旧 EXE／旧报告都不是“最新源码编译成功”；须核对当前工程、实际错误列表、新 EXE 与 AMD64 架构，详见 <code>module-packaging.md</code> §13。</li></ul>
+<ul><li><strong>续做按本轮取证</strong>：每轮唯一 RunId／独立 before，原指纹基线与旧 before 冻结；绑定真实命令退出码、源码／资源／EXE 与报告哈希，文档修改后重算指纹；历史差异不得用 -Create 消除，详见 <code>module-packaging.md</code> §13.4。</li></ul>
+<ul><li><strong>磁盘 <code>.xc</code> 改动不等于 IDE 已重新解析</strong>：逐个打开改动文件并同步编辑缓冲后再构建；打开 <code>.xcproj</code> 标签也不等于激活构建工程，必须另查当前工程。构建配置在 IDE 缓存与磁盘不一致时分别核实，详见 <code>module-packaging.md</code> §13.3。</li></ul>
+<ul><li><strong>版本经验要标注范围</strong>：端口、工具数、IDE 首次 F7 行为和表达式兼容以当前安装实测为准；修改前先查实际 schema／头文件／构建器源码，不写成跨版本定律。</li></ul>
+<ul><li>[ ] 构建：构建结果的工程路径与目标一致；实际编译错误 0；新产物架构正确；源码快照与构建时一致；没有用旧产物或静态检查代替真实构建</li></ul>
+<ul><li>[ ] 验证：测试数据根与本轮 RunId／before 独立；真实／预期退出码及新报告指纹齐全；<code>not_run</code> 与历史证据单列；原文件路径／长度／哈希及历史差异前后一致，未覆盖冻结基线或未知输出</li></ul>
+<ul><li>[ ] 部署：先区分磁盘／内嵌 UI；磁盘部署同步 XML/res/svg/模板/WmUi/字体和匹配 DLL，内嵌部署重建并核对 PE 资源；仅携带实测必需运行文件，链接中间件完整留存；改 <code>.xc</code> 或内嵌 XML 必须重建（§13.4）</li></ul>
+<h2 id="5-ui-验证与实机联调">5. UI 验证与实机联调</h2>
+<ul><li><strong>UI 三层证据不可混用</strong>：后台数据／适配器计数、实际可见单元格、真实鼠标动作结果分别观察；模态文件对话框关闭后才能检查回填和业务结果，立即读取可能拿到旧状态，详见 <code>xcgui-code.md</code> §6.7。</li></ul>
+<ul><li><strong>三类句柄不可想当然混用</strong>：<code>HWINDOW</code>、系统 <code>HWND</code>、<code>HELE</code> 分别走对应 API；窗口可见性通过本进程系统 HWND 检查。C/C1 回调是否包含来源元素句柄以当前头文件为准，详见 <code>xcgui-code.md</code> §6.5。</li></ul>
+<ul><li><strong>check 的业务状态优先于默认翻转</strong>：对由业务结果决定选中的按钮，定向设 <code>是否拦截=真</code> 并同步实际状态，失败不能呈现假成功。普通配置复选框不要一并拦截。</li></ul>
+<ul><li><strong>WmUi 控件尺寸不等于绘制范围</strong>：24px checkbox 仍须检查实际 bkInfoM/CSS 宏和像素 bbox；若宏按 20px 设计，先修绘制区并让 CSS 实际指向新宏，详见 <code>ui-verification.md</code> §2。</li></ul>
+<ul><li><strong>同组 radio 状态按顺序写入</strong>：先对组内全部成员 <code>SetCheck(false)</code>，最后只对目标 <code>SetCheck(true)</code>；不要用目标真与其他成员假混排循环，详见 <code>ui-verification.md</code> §3。</li></ul>
+<ul><li><strong>截图和启动结果必须证明已绘制</strong>：<code>PrintWindow</code>/<code>WaitForInputIdle</code>/工具成功返回不能代替非黑帧、标题和唯一选态核验；真实游戏及其他 DPI 未测时必须保留范围声明，详见 <code>ui-verification.md</code> §4、§6。</li></ul>
+<ul><li><strong>实机联调要在一次命令内跑完</strong>：工具调用结束会回收同作业的子进程，GUI 句柄随之失效；点击基准按当次截图换算、输入前校验前台与 <code>WindowFromPoint</code> 归属、<code>PostMessage</code> 驱动不了 XCGUI、OCR 需放大并归一化，详见 <code>ui-verification.md</code> §8。</li></ul>
+<ul><li>[ ] 交互：真实 radio／按钮事件已测；失败后的 check 与实际状态一致；辅助窗关闭／重开、主窗正常退出和线程／hook 清理有实际断言</li></ul>
+<ul><li>[ ] 渲染：当前 EXE 被动冷启动得到非黑帧，初始标题和唯一选态正确；每个页签实际点击后核对标题与唯一选态，不用文件名或工具返回值代替</li></ul>
+<ul><li>[ ] 像素：WmUi checkbox 的 CSS 实际指向正确宏，像素 bbox/留白在声明的 DPI 下通过；控件尺寸本身不算证据</li></ul>
+<ul><li>[ ] 输入范围：后台消息只发给隔离私有 sink，发布配置未被覆盖；真实游戏、其他 DPI 和未执行外部目标单列为未测</li></ul>
+<ul><li>[ ] 切页：同组代码同步先全部 <code>置选中(假)</code>，最后只对目标 <code>置选中(真)</code>；确认实际唯一高亮；隐藏面板注意首次布局 0×0（先全部可见 → 显示 → 再切页）</li></ul>
+<h2 id="6-原文兜底与平台原实现">6. 原文兜底与平台原实现</h2>
+<ul><li><strong>不要生成 <code>界面md/README.md</code> 链接</strong>：源材料已声明该文件不存在。</li></ul>
+<p>原 8 份 references 是<strong>蒸馏稿</strong>（约源语料的 48%），个别细粒度内容未逐字收录：基础模块的逐函数原型细节、module_ 封装 examples 里的具体示例模块、界面md 的逐页字段全表等。现有本地模块的逐接口查找先走新增的 <code>xc-modules.md</code> 与源码索引；其余需要时读原文（原文里的过期计数与已知源冲突<strong>以 references 为准</strong>）：</p>
+<div class="table-wrap"><table><tr><th style="text-align:left">原文</th><th style="text-align:left">位置</th></tr><tr><td style="text-align:left">界面 XML / 皮肤文档 10 份（<code>00-xc-xml-schema.md</code> … <code>09-tool-window-tokens.md</code>）</td><td style="text-align:left"><code>J:\AItools\skills\炫彩\xc-代码\界面md\</code></td></tr><tr><td style="text-align:left">语言与代码侧 6 份 <code>.mdc</code>（炫语言手册总结 / 基础模块 / 炫彩界面库 / 系统API(前缀分类法) / 线程池 / 模块封装）</td><td style="text-align:left"><code>J:\AItools\skills\炫彩\xc-代码\</code></td></tr><tr><td style="text-align:left">humbox 平台原始 skill（architecture / bkinfom-grammar / file-map / layout-widgets）</td><td style="text-align:left"><code>absorbed/xcgui-humbox/</code></td></tr><tr><td style="text-align:left">module_ 封装原始 skill（SKILL.md / reference.md / examples.md）</td><td style="text-align:left"><code>J:\AItools\skills\炫彩\xc-模块封装\</code></td></tr><tr><td style="text-align:left">WmUi 样式库原始工程（WmUi.css / WmUi.res / WmUi_Code.xc / 演示工程）</td><td style="text-align:left"><code>I:\炫彩ide\UI样式\wmui\</code></td></tr></table></div>
+<p>读原文时同样受本文件「硬约束」约束；<code>路径含中文或 [ ] 必须用 -LiteralPath</code>。</p>
+<h3 id="已并入的入口2026-11-02-融合b-级">已并入的入口（2026-11-02 融合·B 级）</h3>
+<p>原 <code>xcgui-humbox</code> 已并入本技能，原文逐字保留在 <code>absorbed/xcgui-humbox/</code> （不参与加载，可回滚）。</p>
+<p>分工：本文件是路由 + 硬约束 + 已提炼参考；<code>absorbed/xcgui-humbox/</code> 是未闻花名 UI 平台 皮肤包的原实现视角，改皮肤包本体时以它为准。</p>
+<h4 id="皮肤包原实现原-xcgui-humbox">皮肤包原实现（原 xcgui-humbox）</h4>
+<p>四份 references：<code>absorbed/xcgui-humbox/references/architecture.md</code>（面板注入与列表模板架构）、 <code>bkinfom-grammar.md</code>（bkInfoM 样式宏语法全集）、<code>file-map.md</code>（<code>布局文件/</code> 57 个 XML = 17 窗口 + 18 面板 + 21 列表项模板；<code>资源文件/</code> resource.res + 230 图片 + 6 字体）、 <code>layout-widgets.md</code>（layoutPanel 与 windowUI 控件对照）。</p>
+<p>三层引用铁律：<code>@名称 → resource.res → 实际文件</code>。改任何 <code>@</code> 引用都要同时确认资源登记与 实际文件两侧，缺一即断。</p></main>
+<aside><b>本页目录</b><a class="depth-2" href="#1-布局资源与-bkinfom">1. 布局、资源与 bkInfoM</a><a class="depth-2" href="#2-皮肤平台工具窗与-wmui">2. 皮肤平台、工具窗与 WmUi</a><a class="depth-2" href="#3-炫语言模块调用与封装">3. 炫语言、模块调用与封装</a><a class="depth-2" href="#4-构建迁移与部署">4. 构建、迁移与部署</a><a class="depth-2" href="#5-ui-验证与实机联调">5. UI 验证与实机联调</a><a class="depth-2" href="#6-原文兜底与平台原实现">6. 原文兜底与平台原实现</a><a class="depth-3" href="#已并入的入口2026-11-02-融合b-级">已并入的入口（2026-11-02 融合·B 级）</a><a class="depth-4" href="#皮肤包原实现原-xcgui-humbox">皮肤包原实现（原 xcgui-humbox）</a></aside></div>
+<footer class="foot">源 Markdown：task-rules.md · 独立 HTML 副本：task-rules.html</footer></body></html>

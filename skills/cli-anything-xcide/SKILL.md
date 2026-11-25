@@ -7,6 +7,8 @@ description: 无需 MCP 的 XCGUI 与炫语言 IDE 本地命令行工具，可�
 
 `cli-anything-xcide` 直接读写炫彩 IDE 安装目录和 `.xcproj` 文件，不需要 MCP。可创建、检查和派生工程，维护源码/调试元数据，搜索模块、检查界面素材，并在独立后台桌面编译和测试程序。可选编译输出桥接只安装在本次私有 IDE，不修改正式安装。
 
+编写炫语言业务代码时，可一并读取仓库的 `skills/xc-suite/SKILL.md`，按需查语法、模块、事件和布局资料。它随 Git 仓库单独提供，模块索引在目标机器重建；CLI wheel 自带本调用技能及两种原生桥接，不要求安装 XC-MCP-Next 或 `mcp-cli`。
+
 ## 环境和安装
 
 - Windows 10/11，Python 3.10 或更新版本。

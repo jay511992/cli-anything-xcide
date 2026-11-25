@@ -18,6 +18,7 @@ aside{position:sticky;top:16px;max-height:calc(100vh - 32px);overflow:auto;paddi
 </style></head><body>
 <header class="top"><div class="brand"><span class="mark">炫</span><span>炫彩 IDE · 本地自动化文档</span></div><span>离线 HTML · 可直接浏览器打开 / 打印为 PDF</span></header>
 <div class="wrap"><main><div class="eyebrow">XCGUI / Xuan Language</div><h1>独立仓库整理与验收</h1><div class="meta">本页由本地 Markdown 生成；样式内嵌，无网络、MCP 或浏览器脚本依赖。</div><p class="doc-home"><a href="DOCS.html">← 返回文档总览</a></p><p>验收日期：2026-11-25。目录：<code>E:\AIWork\Codex\cli-anything-xcide</code>。本次工作把原本分散的 XCIDE harness、技能文档、探索报告和自动化证据整理到独立仓库。</p>
+<p>本文保留搬迁当时的检查与失败结果。后续已定位并修复清理等待缺陷，完整回归 <strong>195 项通过</strong>；最新原因、改动及证据见 <a href="CLEANUP_FIX.html">CLEANUP_FIX.md</a>。</p>
 <h2 id="整理范围">整理范围</h2>
 <ul><li>保留 <code>xcide/agent-harness</code>、<code>skills/cli-anything-xcide</code> 的相对结构，已有命令、模块、测试和原生桥接内容与原目录一致。</li><li>汇集 AI 调用手册、三批探索报告、JSON 取证、审查记录、编译/运行证据和截图。</li><li>增加仓库首页、Git 忽略规则、来源说明及许可证副本；修正文档中的仓库目录写法和示例脚本的一条旧注释。</li><li><code>.gitattributes</code> 保留原始 BOM 和换行字节，避免 Git 转换导致既有证据哈希失效。</li><li>虚拟环境、构建目录、wheel、IDE 可执行文件、SDK、模块二进制和临时工程均不提交。</li></ul>
 <h2 id="完成的检查">完成的检查</h2>
@@ -29,8 +30,8 @@ $env:PYTHONUTF8 = &#x27;1&#x27;
 &amp; .\.venv\Scripts\python.exe -X utf8 -B -m pytest xcide/agent-harness/cli_anything/xcide/tests -q --tb=short -p no:cacheprovider</code></pre>
 <p>结果：<strong>190 passed, 1 failed in 105.43s</strong>。失败用例为 <code>TestRuntimeAutomation.test_background_adapter_modes_and_input_state[x64]</code>。原始日志：<a href="xcide/automation-evidence/standalone-validation/full-suite.txt">full-suite.txt</a>。</p>
 <p>对 x64/x86 的同组用例做了一次定向复测，结果：<strong>1 passed, 1 failed, 34 deselected in 12.36s</strong>。这次 x64 通过，x86 在相同清理阶段超时。原始日志：<a href="xcide/automation-evidence/standalone-validation/targeted-retry.txt">targeted-retry.txt</a>。</p>
-<h2 id="已知未解决问题">已知未解决问题</h2>
+<h2 id="搬迁时发现的问题已在后续修复">搬迁时发现的问题（已在后续修复）</h2>
 <ul><li>严重程度：中。</li><li>文件位置：<code>xcide/agent-harness/cli_anything/xcide/utils/win_debug.py</code>，<code>DebugProcess.close</code>；对应断言在 <code>tests/test_full_e2e.py</code> 的后台适配器模式测试。</li><li>问题描述：D2D 截图按设计被拒绝后，CLI 终止自己启动的进程并等待退出，清理阶段偶发超时，<code>cleanup_error</code> 非空。一次报告尚未收到进程退出事件；另一次已有终止退出码，但进程句柄的后续 1 秒等待仍超时。</li><li>触发条件：本机真实 XCGUI 程序使用 D2D，在截图步骤收到“不支持”的返回后走强制清理。两轮测试分别在 x64、x86 出现，不能认定由架构或目录位置导致。</li><li>影响范围：失败运行会保留主要错误并返回失败，同时附加清理错误；目前证据不足以保证这一路径在所有环境都能于既定期限内回收。检查时这两个已知进程均已退出，未发现持续遗留。正常 GDI 输入、点击和截图用例通过。</li><li>最小修复建议：补充终止请求、调试退出事件、进程句柄 signaled 状态的时间线，确认延迟发生位置后再调整有限等待或清理顺序；保留主错误及清理错误，不删除断言或无条件忽略超时。</li><li>不确定之处：是否涉及 D2D/图形驱动、输入法组件或系统调度尚未确认。输出中出现输入法组件日志，但没有证据证明它就是根因。</li></ul>
 <p>原始失败报告分别为 <a href="xcide/automation-evidence/standalone-validation/d2d-cleanup-x64.json">x64</a> 和 <a href="xcide/automation-evidence/standalone-validation/d2d-cleanup-x86.json">x86</a>。本次整理不改变运行逻辑；原开发目录中 191 项通过的历史结果与这里的复测结果分别保留。</p></main>
-<aside><b>本页目录</b><a class="depth-2" href="#整理范围">整理范围</a><a class="depth-2" href="#完成的检查">完成的检查</a><a class="depth-2" href="#全量安装命令测试">全量安装命令测试</a><a class="depth-2" href="#已知未解决问题">已知未解决问题</a></aside></div>
+<aside><b>本页目录</b><a class="depth-2" href="#整理范围">整理范围</a><a class="depth-2" href="#完成的检查">完成的检查</a><a class="depth-2" href="#全量安装命令测试">全量安装命令测试</a><a class="depth-2" href="#搬迁时发现的问题已在后续修复">搬迁时发现的问题（已在后续修复）</a></aside></div>
 <footer class="foot">源 Markdown：STANDALONE_VALIDATION.md · 独立 HTML 副本：STANDALONE_VALIDATION.html</footer></body></html>
