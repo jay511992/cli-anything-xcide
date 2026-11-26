@@ -211,7 +211,8 @@ def inspect_project(project_file: str | os.PathLike[str]) -> dict[str, Any]:
     active_config = None
     setting = vc.find("setting") if vc is not None else None
     if setting is not None:
-        active_config = setting.find(f'config[@name="{vc.get("config", "")}"]')
+        active_config = next((item for item in setting.findall("config")
+                              if item.get("name") == vc.get("config", "")), None)
     common = active_config.find(vc.get("platform", "x64")) if active_config is not None and vc is not None else None
     common = common.find("common") if common is not None else None
     return {

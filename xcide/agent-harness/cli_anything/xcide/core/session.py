@@ -22,6 +22,10 @@ def default_session_path() -> Path:
     return (Path(local) if local else Path.home()) / ".cli-anything" / "xcide" / "session.json"
 
 
+class SessionError(RuntimeError):
+    """A recognized session has invalid structure and must not be overwritten."""
+
+
 class Session:
     """持久保存本地 CLI 所选工程和 IDE 安装位置，支持撤销与重做。"""
 
@@ -37,6 +41,7 @@ class Session:
         except (OSError, ValueError):
             raw = {}
         self.state = raw if isinstance(raw, dict) and raw.get("schema_version") == self.VERSION else self._empty()
+        self._validate(self.state)
         self.state.setdefault("project", None)
         self.state.setdefault("ide_root", None)
         for obsolete in ("instance", "url", "instance_dir"):
@@ -60,6 +65,28 @@ class Session:
     def _empty() -> dict[str, Any]:
         return {"schema_version": Session.VERSION, "revision": 0, "project": None, "ide_root": None,
                 "history": [], "audit": [], "undo": [], "redo": []}
+
+    def _validate(self, state: dict[str, Any]) -> None:
+        def invalid(field: str) -> None:
+            raise SessionError(f"会话文件 {self.path} 的字段 {field} 类型或结构无效；原文件未覆盖。")
+
+        for field in ("project", "ide_root"):
+            if state.get(field) is not None and not isinstance(state[field], str):
+                invalid(field)
+        for field in ("history", "audit", "undo", "redo"):
+            entries = state.get(field, [])
+            if not isinstance(entries, list):
+                invalid(field)
+            for index, entry in enumerate(entries):
+                if field in {"history", "audit"}:
+                    if not isinstance(entry, dict):
+                        invalid(f"{field}[{index}]")
+                elif isinstance(entry, dict):
+                    if set(entry) - {"project", "ide_root"} or any(
+                            value is not None and not isinstance(value, str) for value in entry.values()):
+                        invalid(f"{field}[{index}]")
+                # Legacy null snapshots are no-ops; non-object stack entries
+                # continue to be filtered by the loader for compatibility.
 
     @property
     def project(self) -> str | None:
@@ -114,7 +141,9 @@ class Session:
         if not self._redo:
             raise ValueError("There is no IDE target selection to redo.")
         self._undo.append(self._snapshot())
-        self.state.update(self._redo.pop())
+        target = self._redo.pop()
+        if target is not None:
+            self.state.update(target)
         self.modified = True
         self.state["undo"] = copy.deepcopy(self._undo)
         self.state["redo"] = copy.deepcopy(self._redo)
@@ -139,6 +168,7 @@ class Session:
 
     def save(self) -> None:
         """Serialize under a cross-process lock and atomically replace the JSON file."""
+        self._validate(self.state)
         self.path.parent.mkdir(parents=True, exist_ok=True)
         with FileLock(str(self.path) + ".lock", timeout=15):
             existing: dict[str, Any] = {}
@@ -149,6 +179,7 @@ class Session:
                         existing = parsed
             except (OSError, ValueError):
                 pass
+            self._validate(existing)
             try:
                 existing_revision = max(0, int(existing.get("revision", 0)))
             except (TypeError, ValueError):

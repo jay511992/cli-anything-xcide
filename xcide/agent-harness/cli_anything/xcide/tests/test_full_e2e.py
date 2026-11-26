@@ -41,6 +41,47 @@ def _template_root(ide_root: Path) -> Path:
 class TestCLISubprocess:
     """Run the installed console command just as a script or agent would."""
 
+    @pytest.mark.parametrize("field,value", [("undo", None), ("audit", {}), ("project", []),
+                                             ("redo", [{"project": 7}])])
+    def test_installed_malformed_session_preserves_data_and_returns_json(self, tmp_path, field, value):
+        location = tmp_path / "damaged-session.json"
+        raw = json.dumps({**Session._empty(), field: value}).encode("utf-8")
+        location.write_bytes(raw)
+        result = _run(["--json", "--session-file", str(location), "session", "status"], check=False)
+        assert result.returncode == 1 and not result.stdout
+        assert field in json.loads(result.stderr)["error"]
+        assert location.read_bytes() == raw
+
+    def test_installed_preview_refreshes_after_source_changes(self, tmp_path):
+        info = create_project(tmp_path, "Preview Sources", Path(r"I:\xcide"))
+        args = ["--json", "--project", info["project_file"], "--session-file", str(tmp_path / "session.json"),
+                "preview", "capture", "--root", str(tmp_path / "previews")]
+        first = json.loads(_run(args).stdout)
+        extra = Path(info["directory"]) / "extra.xc"
+        extra.write_text("// extra source", encoding="utf-8")
+        second = json.loads(_run(args).stdout)
+        assert not second["cached"] and first["bundle_id"] != second["bundle_id"]
+        payload = json.loads((Path(second["_bundle_dir"]) / "artifacts/ide-state.json").read_text("utf-8"))
+        assert "extra.xc" in payload["project"]["entrypoints"]
+        extra.unlink()
+        third = json.loads(_run(args).stdout)
+        assert third["cached"] and third["bundle_id"] == first["bundle_id"]
+
+    def test_installed_interface_and_doctor_accept_native_object_template(self, tmp_path):
+        ide = Path(r"I:\xcide")
+        source = ide / "data/template/皮肤/template-关闭按钮/project/layout.xml"
+        original = source.read_bytes()
+        info = create_project(tmp_path, "Native Object", ide)
+        shutil.copyfile(source, Path(info["directory"]) / "layout.xml")
+        prefix = ["--json", "--ide", str(ide), "--project", info["project_file"],
+                  "--session-file", str(tmp_path / "session.json")]
+        result = json.loads(_run(prefix + ["interface", "check"]).stdout)
+        layout = next(item for item in result["layouts"] if item["path"] == "layout.xml")
+        assert layout["valid"] and layout["root"] == "xc_template_object"
+        health = json.loads(_run(prefix + ["project", "doctor"]).stdout)
+        assert health["ok"]
+        assert source.read_bytes() == original
+
     def test_editor_commit_survives_session_save_failure_and_preserves_utf16(self, tmp_path):
         info = create_project(tmp_path, "UTF16 Commit", Path(r"I:\xcide"))
         target = Path(info["project_file"]).parent / "main.xc"
@@ -240,6 +281,16 @@ class TestCLISubprocess:
         assert switched["after"] == {"configuration": "调试版", "platform": "x86"}
         checked = json.loads(_run(["--json", "project", "info", str(project_file)]).stdout)
         assert (checked["configuration"], checked["platform"]) == ("调试版", "x86")
+
+        quoted = 'Debug "QA" and \'team\''
+        tree = ET.parse(project_file)
+        tree.getroot().find("./vc/setting/config").set("name", quoted)
+        tree.write(project_file, encoding="utf-8", xml_declaration=True)
+        result = json.loads(_run(["--json", "--project", str(project_file), "project", "config", "set",
+                                 "--configuration", quoted, "--platform", "x64"]).stdout)
+        assert result["configuration"] == quoted
+        checked = json.loads(_run(["--json", "project", "info", str(project_file)]).stdout)
+        assert (checked["configuration"], checked["platform"]) == (quoted, "x64")
 
         invalid = _run(["--json", "--project", str(project_file), "project", "config", "set",
                         "--configuration", "不存在"], check=False)
@@ -614,6 +665,12 @@ int main(int argc,char**argv){
         return 0;
     }
     if(argc>1 && argv[1][0]=='q')return 0;
+    if(argc>1 && (argv[1][0]=='o' || argv[1][0]=='e')){
+        FILE* channel=argv[1][0]=='o'?stdout:stderr;
+        static char block[32768];memset(block,'a',sizeof(block));
+        for(int i=0;i<513;++i)if(fwrite(block,1,sizeof(block),channel)!=sizeof(block))return 9;
+        fflush(channel);return 0;
+    }
     OutputDebugStringW(L"中文输出\n");OutputDebugStringA("ansi message\n");
     puts("stdout-channel");fputs("stderr-channel",stderr);return 7;
 }
@@ -624,6 +681,17 @@ int main(int argc,char**argv){
 
 
 class TestRuntimeAutomation:
+    @pytest.mark.parametrize("channel,mode", [("stdout", "out"), ("stderr", "err")])
+    def test_runtime_output_overflow_fails_in_installed_command(self, debug_program, tmp_path, channel, mode):
+        completed = _run(["--json", "runtime", "run", "--exe", str(debug_program), "--arg", mode,
+                          "--output", str(tmp_path / "runs")], check=False)
+        result = json.loads(completed.stdout)
+        assert completed.returncode == 1 and not result["ok"]
+        assert "16 MiB" in result["error"] and result["cleanup_error"] is None
+        assert Path(result[channel]).stat().st_size > 16 * 1024 * 1024
+        assert not result["automation"]["foreground_input"]
+        assert json.loads(Path(result["report"]).read_text("utf-8")) == result
+
     def test_debug_unicode_ansi_channels_and_expected_exit(self, debug_program, tmp_path):
         completed = _run(["--json", "runtime", "run", "--exe", str(debug_program),
                           "--output", str(tmp_path / "reports"), "--expected-exit-code", "7"])
@@ -685,11 +753,13 @@ class TestRuntimeAutomation:
 #include "''' + sdk.as_posix() + '''"
 #include "''' + (package / "native/automation_bridge.h").as_posix() + '''"
 #pragma comment(lib,"''' + (library / "XCGUI.lib").as_posix() + '''")
-static HELE edit;
-int CALLBACK clicked(BOOL*){wchar_t text[256];XEdit_GetText(edit,text,256);OutputDebugStringW(L"CLICK:");OutputDebugStringW(text);return 0;}
+static HELE edit;static HWND exitWindow;static bool exitOnClick;
+int CALLBACK clicked(BOOL*){wchar_t text[256];XEdit_GetText(edit,text,256);OutputDebugStringW(L"CLICK:");OutputDebugStringW(text);
+ if(exitOnClick)PostMessageW(exitWindow,WM_CLOSE,0,0);return 0;}
 int main(int argc,char**argv){
  bool d2d=argc>1 && argv[1][0]=='d', noadapter=argc>1 && argv[1][0]=='n';
  XInitXCGUI(d2d);auto window=XWnd_Create(100,100,480,320,L"Background Fixture",0,window_style_default);
+ exitWindow=XWnd_GetHWND(window);exitOnClick=argc>1 && argv[1][0]=='e';
  edit=XEdit_Create(30,50,300,36,window);auto button=XBtn_Create(30,115,180,50,L"Count",window);
  XEle_RegEventC(button,XE_BNCLICK,(void*)clicked);XWnd_AdjustLayout(window);XWnd_ShowWindow(window,SW_SHOW);
  if(!noadapter)xc_cli_test::install(window);OutputDebugStringW(L"READY");XRunXCGUI();XExitXCGUI();return 0;
@@ -705,13 +775,17 @@ int main(int argc,char**argv){
                  {"action": "screenshot", "name": "changed"}, {"action": "close"}]
         scenario = tmp_path / "scenario.json"
         scenario.write_text(json.dumps({"version": 1, "steps": steps}), encoding="utf-8")
-        for mode in ("gdi", "d2d", "noadapter"):
+        for mode in ("gdi", "d2d", "noadapter", "exit"):
+            if mode == "exit":
+                exit_steps = [steps[0], steps[1], {"action": "click", "x": 110, "y": 140},
+                              {"action": "assert_debug", "contains": "CLICK:"}, {"action": "wait_exit"}]
+                scenario.write_text(json.dumps({"version": 1, "steps": exit_steps}), encoding="utf-8")
             completed = _run(["--json", "runtime", "test", str(scenario), "--exe", str(executable),
                               "--arg", mode, "--output", str(tmp_path / "runs")], check=False)
             result = json.loads(completed.stdout)
             assert result["automation"]["foreground_input"] is False
             assert result["cleanup_error"] is None
-            assert result["exit_code"] == (0 if mode == "gdi" else 0xE0000001)
+            assert result["exit_code"] == (0 if mode in {"gdi", "exit"} else 0xE0000001)
             from cli_anything.xcide.core.build import _windows_api
             _, api = _windows_api()
             handle = api.OpenProcess(0x00100000, False, result["pid"])
@@ -726,6 +800,9 @@ int main(int argc,char**argv){
                 from PIL import Image, ImageChops
                 shots = [Image.open(s["screenshot"]["path"]).convert("RGB") for s in result["steps"] if "screenshot" in s]
                 assert ImageChops.difference(shots[0].crop((30, 50, 330, 86)), shots[1].crop((30, 50, 330, 86))).getbbox()
+            elif mode == "exit":
+                assert completed.returncode == 0 and result["ok"] and not result["terminated"], result
+                assert all(step["ok"] for step in result["steps"])
             else:
                 assert completed.returncode == 1 and result["terminated"]
                 assert "适配器" in result["error"]

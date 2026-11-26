@@ -908,6 +908,86 @@ def test_example_list_reports_corrupt_native_projects(make_project):
     assert invalid["valid"] is False and "无法解析" in invalid["error"]
 
 
+@pytest.mark.skipif(os.name != "nt", reason="Windows junction API")
+def test_isolation_junction_preserves_special_characters(tmp_path, monkeypatch):
+    target = tmp_path / "SDK&Tools%PATH%!^()"
+    target.mkdir()
+    (target / "kept.txt").write_text("original", encoding="utf-8")
+    link = tmp_path / "copy&echo" / "data%PATH%"
+    monkeypatch.setattr(subprocess, "run", lambda *a, **k: pytest.fail("junction must not invoke a shell"))
+    build._make_junction(link, target)
+    try:
+        assert (link / "kept.txt").read_text("utf-8") == "original"
+        assert link.resolve() == target.resolve()
+        with pytest.raises(build.BuildError):
+            build._make_junction(link, target)
+    finally:
+        link.rmdir()
+    assert (target / "kept.txt").read_text("utf-8") == "original"
+
+
+def test_project_configuration_with_quotes_roundtrips(make_project):
+    path = Path(make_project("Quoted Config")["project_file"])
+    tree = project.ET.parse(path)
+    quoted = 'Debug "QA" and \'team\''
+    tree.getroot().find("./vc/setting/config").set("name", quoted)
+    tree.write(path, encoding="utf-8", xml_declaration=True)
+    result = project.set_configuration(path, configuration=quoted, platform="x86")
+    assert result["configuration"] == quoted and result["platform_toolset"] == "vs2022"
+    assert project.inspect_project(path)["configuration"] == quoted
+    assert project.list_configurations(path)["active_configuration"] == quoted
+    assert project.set_configuration(path, configuration=quoted)["changed"] is False
+
+
+@pytest.mark.parametrize("limit", ["member", "total", "entries", "compressed"])
+def test_interface_and_doctor_reject_zip_limits_before_decompression(make_project, monkeypatch, limit):
+    info = make_project("Bounded ZIP")
+    location = Path(info["directory"]) / "UI_ZIP.zip"
+    with zipfile.ZipFile(location, "w", compression=zipfile.ZIP_DEFLATED) as bundle:
+        bundle.writestr("resource.res", '<resources>' + " " * 200 + '</resources>')
+        bundle.writestr("main.xml", '<head/><windowUI/>' + " " * 200)
+    if limit == "member":
+        monkeypatch.setattr(archive, "MAX_MEMBER_BYTES", 128)
+    elif limit == "total":
+        assert location.stat().st_size < 400
+        monkeypatch.setattr(archive, "MAX_ARCHIVE_BYTES", 400)
+    elif limit == "entries":
+        monkeypatch.setattr(archive, "MAX_ENTRIES", 1)
+    else:
+        monkeypatch.setattr(archive, "MAX_ARCHIVE_BYTES", 64)
+    monkeypatch.setattr(zipfile.ZipFile, "open", lambda *a, **k: pytest.fail("must check limits before inflating"))
+    for result in (interface.inspect_interface(info["project_file"]),
+                   doctor.inspect_project_health(info["project_file"], ide_root=make_project.ide_root)):
+        assert not result["ok"]
+        assert any(d["code"] == "ui-zip" for d in result["diagnostics"])
+
+
+def test_interface_preserves_zip_member_identity_and_checks_asset_crc(make_project):
+    info = make_project("ZIP Member Identity")
+    location = Path(info["directory"]) / "UI_ZIP.zip"
+    with zipfile.ZipFile(location, "w") as bundle:
+        bundle.writestr("ui/main.xml", "<head/><windowUI/>")
+        bundle.writestr("asset.bin", b"unique-crc-payload")
+    location.write_bytes(location.read_bytes().replace(b"ui/main.xml", b"ui\\main.xml"))
+    assert interface.inspect_interface(info["project_file"])["ok"]
+    location.write_bytes(location.read_bytes().replace(b"unique-crc-payload", b"broken-crc-payload"))
+    result = interface.inspect_interface(info["project_file"])
+    assert not result["ok"]
+    assert any("CRC" in d["message"] for d in result["diagnostics"])
+
+
+def test_object_templates_are_discovered_and_validated_on_disk_and_zip(make_project):
+    info = make_project("Object Template")
+    directory = Path(info["directory"])
+    content = '<xc_template_object><buttonUI name="close"/></xc_template_object>'
+    (directory / "layout.xml").write_text(content, encoding="utf-8")
+    with zipfile.ZipFile(directory / "UI_ZIP.zip", "w") as bundle:
+        bundle.writestr("layout.xml", content)
+    result = interface.inspect_interface(info["project_file"])
+    assert result["ok"] and result["validLayoutCount"] == result["validUiZipCount"] == 1
+    assert result["layouts"][0]["root"] == "xc_template_object"
+
+
 def test_layout_inspector_supports_xcgui_multi_root_and_resource_references(make_project, tmp_path):
     info = make_project("Interface Inspection")
     project_dir = Path(info["directory"])
@@ -1018,6 +1098,44 @@ def test_session_limit_and_malformed_history_are_bounded(tmp_path):
     empty = Session(tmp_path / "empty-undo.json")
     with pytest.raises(ValueError, match="There is no"):
         empty.undo()
+
+
+@pytest.mark.parametrize("field,value", [
+    ("undo", None), ("redo", {}), ("history", None), ("audit", "broken"),
+    ("project", []), ("ide_root", 7), ("undo", [{"project": []}]),
+    ("redo", [{"history": None}]),
+])
+def test_malformed_session_returns_json_and_preserves_file(tmp_path, field, value):
+    location = tmp_path / "malformed.json"
+    raw = json.dumps({**Session._empty(), field: value}).encode("utf-8")
+    location.write_bytes(raw)
+    result = CliRunner().invoke(cli, ["--json", "--session-file", str(location), "session", "status"])
+    assert result.exit_code == 1
+    payload = json.loads(result.stderr)
+    assert payload["ok"] is False and field in payload["error"]
+    assert location.read_bytes() == raw
+
+
+def test_session_save_revalidates_concurrently_damaged_file(tmp_path):
+    location = tmp_path / "session.json"
+    session = Session(location)
+    session.select(project=tmp_path / "app.xcproj")
+    raw = json.dumps({**Session._empty(), "history": None}).encode("utf-8")
+    location.write_bytes(raw)
+    with pytest.raises(RuntimeError, match="history"):
+        session.save()
+    assert location.read_bytes() == raw
+    assert session.revision == 0 and session.modified
+
+
+def test_session_legacy_empty_redo_snapshot_is_safe(tmp_path):
+    location = tmp_path / "legacy.json"
+    location.write_text(json.dumps({**Session._empty(), "project": "retained.xcproj", "redo": [None]}),
+                        encoding="utf-8")
+    session = Session(location)
+    assert session.redo()["project"] == "retained.xcproj"
+    session.save()
+    assert not Session(location).summary()["redo_available"]
 
 
 def test_session_save_protects_json_from_simultaneous_readers(tmp_path):
@@ -1263,6 +1381,20 @@ def test_build_artifact_discovery_includes_native_release64_output(make_project,
     assert result["exe"]["architecture"] == "AMD64"
 
 
+def test_preview_cache_tracks_entrypoint_additions_and_removals(make_project, tmp_path):
+    info = make_project("Preview Entries")
+    options = {"recipe": "project", "project_path": info["project_file"], "root_dir": str(tmp_path / "previews")}
+    first = preview.capture(**options)
+    extra = Path(info["directory"]) / "extra.xc"
+    extra.write_text("// extra source", encoding="utf-8")
+    second = preview.capture(**options)
+    assert not second["cached"] and second["bundle_id"] != first["bundle_id"]
+    assert json.loads((Path(second["_bundle_dir"]) / "artifacts/ide-state.json").read_text("utf-8"))["project"]["entrypoints"] == ["extra.xc", "main.xc"]
+    extra.unlink()
+    third = preview.capture(**options)
+    assert third["cached"] and third["bundle_id"] == first["bundle_id"]
+
+
 def test_preview_read_only_latest_does_not_need_or_call_ide(make_project, tmp_path):
     info = make_project("Preview Project")
     bundle_root = tmp_path / "published"
@@ -1474,7 +1606,7 @@ def test_remove_stale_breakpoint_and_bookmark(make_project, deleted):
         project.set_project_debug_item(target, "bookmarks", "main.xc", line=2)
 
 
-@pytest.mark.parametrize("failure", ["conflict", "disk"])
+@pytest.mark.parametrize("failure", ["conflict", "disk", "structure"])
 def test_cli_completed_write_reports_session_warning_without_retry(make_project, tmp_path, monkeypatch, failure):
     info = make_project("Committed Operation")
     session_path = tmp_path / "session.json"
@@ -1483,6 +1615,9 @@ def test_cli_completed_write_reports_session_warning_without_retry(make_project,
     def fail_save(session):
         if failure == "disk":
             raise OSError("simulated full disk")
+        if failure == "structure":
+            session.path.write_text(json.dumps({**Session._empty(), "history": None}), encoding="utf-8")
+            return original_save(session)
         competing = Session(session.path)
         competing.select(project=tmp_path / "other.xcproj")
         original_save(competing)
@@ -1500,6 +1635,8 @@ def test_cli_completed_write_reports_session_warning_without_retry(make_project,
     assert project.list_project_debug_metadata(info["project_file"])["watches"] == [{"name": "committed"}]
     if failure == "conflict":
         assert Session(session_path).project == str(tmp_path / "other.xcproj")
+    elif failure == "structure":
+        assert json.loads(session_path.read_text("utf-8"))["history"] is None
 
 
 def test_cli_session_only_save_failure_does_not_report_success(make_project, tmp_path, monkeypatch):
@@ -1805,6 +1942,126 @@ def test_runtime_invalid_scenario_has_no_side_effects(tmp_path, monkeypatch):
     with pytest.raises(ValueError):
         runtime.execute(tmp_path / "missing.exe", output=target, scenario={"version": 1, "steps": []})
     assert not target.exists()
+
+
+@pytest.fixture
+def runtime_lifecycle(tmp_path, monkeypatch):
+    from types import SimpleNamespace
+    from cli_anything.xcide.core import runtime
+    from cli_anything.xcide.utils.win_debug import DebugProcess
+    clock = [100.0]
+    children = []
+    controls = SimpleNamespace(exit_code=0, auto_exit=False, overflow=None, overflow_at="poll", closed=False)
+    executable = tmp_path / "fixture.exe"
+    executable.write_bytes(b"fixture; PE inspection is isolated from lifecycle test")
+    monkeypatch.setattr(runtime.time, "monotonic", lambda: clock[0])
+    monkeypatch.setattr(runtime.time, "sleep", lambda delay: clock.__setitem__(0, clock[0] + delay))
+    monkeypatch.setattr(runtime, "inspect_pe", lambda path: {"path": str(path)})
+
+    class Child:
+        check_stream_limit = DebugProcess.check_stream_limit
+
+        def __init__(self, exe, args, cwd, directory, **kwargs):
+            self.directory, self.pid, self.exit_code = directory, 7, None
+            self.terminated = self.truncated = self.pending_exit = False
+            self.cleanup_error = None
+            self.messages, self.events, self.exceptions = ["READY"], [], []
+            self.polls = 0
+            for name in ("stdout.bin", "stderr.bin"):
+                (directory / name).touch()
+            children.append(self)
+
+        def overflow(self):
+            if controls.overflow:
+                with (self.directory / controls.overflow).open("r+b") as stream:
+                    stream.truncate(16 * 1024 * 1024 + 1)
+
+        def poll(self, milliseconds):
+            if not milliseconds:
+                return False
+            clock[0] += 0.02
+            self.polls += 1
+            if self.pending_exit or (controls.auto_exit and self.polls == 2):
+                self.exit_code = controls.exit_code
+                if controls.overflow_at == "poll":
+                    self.overflow()
+            return True
+
+        def close(self):
+            controls.closed = True
+            if controls.overflow_at == "close":
+                self.overflow()
+
+    class UI:
+        def __init__(self, *args):
+            pass
+
+        def windows(self, *args):
+            return [1]
+
+        def geometry(self, *args):
+            return {}
+
+        def verify(self, *args):
+            if children[0].exit_code is not None:
+                raise RuntimeError("window has exited")
+
+        def request(self, *args):
+            pass
+
+        def click(self, *args):
+            children[0].pending_exit = True
+
+        type_text = key = click
+
+        def close(self):
+            pass
+
+    monkeypatch.setattr(runtime, "DebugProcess", Child)
+    monkeypatch.setattr(runtime, "Desktop", UI)
+    monkeypatch.setattr(runtime, "PrivateDesktop", lambda: SimpleNamespace(
+        name="private-test", token="token", observation=lambda: {}, close=lambda: None))
+    return runtime, executable, tmp_path / "reports", controls
+
+
+@pytest.mark.parametrize("input_step", [
+    {"action": "click", "x": 1, "y": 1}, {"action": "key", "key": "ENTER"},
+    {"action": "text", "text": "exit"},
+])
+@pytest.mark.parametrize("outcome", ["success", "unexpected-exit", "missing-assertion"])
+def test_runtime_input_can_exit_without_skipping_validation(runtime_lifecycle, input_step, outcome):
+    runtime, exe, output, controls = runtime_lifecycle
+    controls.exit_code = 7 if outcome == "unexpected-exit" else 0
+    steps = [{"action": "wait_window"}, {"action": "assert_debug", "contains": "READY"}, input_step]
+    if outcome == "missing-assertion":
+        steps.append({"action": "assert_debug", "contains": "MISSING"})
+    steps.append({"action": "wait_exit"})
+    result = runtime.execute(exe, output=output, scenario={"version": 1, "steps": steps})
+    assert result["steps"][2]["ok"], result
+    assert result["ok"] is (outcome == "success")
+    if outcome == "missing-assertion":
+        assert not result["steps"][3]["ok"] and "调试输出断言" in result["error"]
+    assert controls.closed
+
+
+@pytest.mark.parametrize("channel", ["stdout.bin", "stderr.bin"])
+@pytest.mark.parametrize("write_at", ["poll", "close"])
+def test_runtime_checks_final_stream_limits_after_process_close(runtime_lifecycle, channel, write_at):
+    runtime, exe, output, controls = runtime_lifecycle
+    controls.auto_exit, controls.overflow, controls.overflow_at = True, channel, write_at
+    result = runtime.execute(exe, output=output)
+    assert not result["ok"] and "16 MiB" in result["error"]
+    assert result["exit_code"] == 0 and controls.closed
+    assert json.loads(Path(result["report"]).read_text("utf-8")) == result
+
+
+def test_runtime_preserves_exit_error_when_final_streams_overflow(runtime_lifecycle):
+    runtime, exe, output, controls = runtime_lifecycle
+    controls.auto_exit, controls.overflow, controls.overflow_at = True, "stderr.bin", "close"
+    controls.exit_code = 7
+    result = runtime.execute(exe, output=output)
+    assert not result["ok"] and "退出码" in result["error"] and "16 MiB" in result["error"]
+    assert controls.closed
 
 
 def test_runtime_background_input_bounds_identity_and_utf16(monkeypatch):

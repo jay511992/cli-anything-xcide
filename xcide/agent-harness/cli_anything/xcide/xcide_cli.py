@@ -29,7 +29,7 @@ from cli_anything.xcide.core import ui_templates as ui_templates_core
 from cli_anything.xcide.core import ui_data as ui_data_core
 from cli_anything.xcide.core.build import BuildError
 from cli_anything.xcide.core.project import ProjectError, create_project, inspect_project, list_projects
-from cli_anything.xcide.core.session import Session
+from cli_anything.xcide.core.session import Session, SessionError
 from cli_anything.xcide.utils.repl_skin import ReplSkin
 
 
@@ -81,7 +81,13 @@ def _emit(value: Any, use_json: bool = True) -> None:
                                          "operation_completed": True, "retry_operation": False}}
             # Reload persisted selection for subsequent REPL commands. The
             # failed audit/selection save must not overwrite a newer session.
-            obj["session"] = Session(session.path)
+            try:
+                obj["session"] = Session(session.path)
+            except SessionError:
+                # A concurrent invalid edit must not turn a completed operation
+                # into a retryable error, or trigger another automatic save.
+                session.modified = False
+                obj["session"] = session
             obj["project"] = obj["session"].project
             obj["ide_root"] = obj["session"].state.get("ide_root")
     if use_json:

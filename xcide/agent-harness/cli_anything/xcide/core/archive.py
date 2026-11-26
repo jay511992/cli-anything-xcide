@@ -121,15 +121,23 @@ def member_bytes(path, member: str, *, project=None, ide_root=None) -> tuple[byt
         info, item = matches[0]
         if not item["readable"]:
             raise ArchiveError(f"ZIP 成员不能读取：{member}，问题：{item['problems'] or ['directory']}")
-        try:
-            with bundle.open(info) as stream:
-                raw = stream.read(MAX_MEMBER_BYTES + 1)
-                if len(raw) > MAX_MEMBER_BYTES or len(raw) != info.file_size:
-                    raise ArchiveError(f"ZIP 成员解压大小异常：{member}")
-        except (zipfile.BadZipFile, RuntimeError, NotImplementedError, OSError, EOFError, zlib.error, lzma.LZMAError) as exc:
-            raise ArchiveError(f"无法解压或校验 ZIP 成员 {member}：{exc}") from exc
+        raw = _read_member(bundle, info)
     return raw, {"archive": source, "member": member, "original_name": info.orig_filename, "bytes": len(raw),
                  "sha256": hashlib.sha256(raw).hexdigest(), "crc_verified": True}
+
+
+def _read_member(bundle: zipfile.ZipFile, info: zipfile.ZipInfo) -> bytes:
+    """Bound decompression and verify CRC using the original member identity."""
+    if info.file_size > MAX_MEMBER_BYTES:
+        raise ArchiveError(f"ZIP 成员超过 {MAX_MEMBER_BYTES} 字节读取上限：{info.filename}")
+    try:
+        with bundle.open(info) as stream:
+            raw = stream.read(MAX_MEMBER_BYTES + 1)
+            if len(raw) > MAX_MEMBER_BYTES or len(raw) != info.file_size:
+                raise ArchiveError(f"ZIP 成员解压大小异常：{info.filename}")
+    except (zipfile.BadZipFile, RuntimeError, NotImplementedError, OSError, EOFError, zlib.error, lzma.LZMAError) as exc:
+        raise ArchiveError(f"无法解压或校验 ZIP 成员 {info.filename}：{exc}") from exc
+    return raw
 
 
 def text_content(raw: bytes) -> dict:

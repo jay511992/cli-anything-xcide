@@ -5,21 +5,24 @@ from __future__ import annotations
 import re
 import zipfile
 import xml.etree.ElementTree as ET
+from contextlib import contextmanager
+from io import BytesIO
 from pathlib import Path, PurePosixPath
 from typing import Any
 
 from cli_anything.xcide.core.project import inspect_project
 from cli_anything.xcide.core.files import _decode as _decode_text
+from cli_anything.xcide.core import archive as archive_core
 
 
 _LAYOUT_ROOTS = {"windowUI", "layoutPanel", "xc_template_list", "xc_template_listBox",
-                 "xc_template_listView", "xc_template_tree"}
+                 "xc_template_listView", "xc_template_tree", "xc_template_object"}
 _UI_TAGS = {"windowUI", "layoutPanel", "layoutEleUI", "layoutFrameUI", "elementUI", "scrollViewUI",
             "buttonUI", "textLinkUI", "editUI", "richTextBoxUI", "comboBoxUI", "listUI", "listBoxUI",
             "listViewUI", "treeUI", "scrollBarUI", "listHeaderUI", "progressBarUI", "sliderBarUI",
             "tabBarUI", "toolBarUI", "menuBarUI", "monthCalUI", "dateTimeUI", "paneUI", "propertyGridUI",
             "shapeText", "shapePicture", "shapeGif", "shapeRect", "shapeEllipse", "shapeGroupBox", "shapeLine",
-            "xc_template_list", "xc_template_listBox", "xc_template_listView", "xc_template_tree"}
+            "xc_template_list", "xc_template_listBox", "xc_template_listView", "xc_template_tree", "xc_template_object"}
 _REFERENCE_ATTRS = {"font", "bkInfoM", "id", "image", "icon"}
 _NAME_REF = re.compile(r"@([^@\s,;(){}]+)")
 _XML_DECL = re.compile(r"^\s*<\?xml[^>]*\?>", re.IGNORECASE)
@@ -29,6 +32,27 @@ _GENERATED_DIRS = {"debug", "debug64", "release", "release64", "obj", "x64", "x8
 
 class InterfaceError(ValueError):
     """布局/资源输入损坏或检查路径无效。"""
+
+
+@contextmanager
+def _checked_archive(path: Path):
+    """Apply shared ZIP limits to every interface/resource inspection path."""
+    try:
+        with path.open("rb") as stream:
+            raw = stream.read(archive_core.MAX_ARCHIVE_BYTES + 1)
+        if len(raw) > archive_core.MAX_ARCHIVE_BYTES:
+            raise InterfaceError(f"ZIP 文件超过 {archive_core.MAX_ARCHIVE_BYTES} 字节读取上限。")
+        with zipfile.ZipFile(BytesIO(raw)) as bundle:
+            records = archive_core._index(bundle)
+            for record in records:
+                if record["problems"]:
+                    label = "ZIP 条目越界路径" if "unsafe-path" in record["problems"] else "ZIP 条目不可读取"
+                    raise InterfaceError(f"{label}：{record['id']} ({', '.join(record['problems'])})")
+            if sum(record["bytes"] for record in records) > archive_core.MAX_ARCHIVE_BYTES:
+                raise InterfaceError(f"ZIP 总解压大小超过 {archive_core.MAX_ARCHIVE_BYTES} 字节上限。")
+            yield bundle
+    except (OSError, zipfile.BadZipFile, archive_core.ArchiveError) as exc:
+        raise InterfaceError(str(exc)) from exc
 
 
 def _decode(path: Path) -> str:
@@ -99,12 +123,13 @@ def _resource_names(project_dir: Path, *, include_generated: bool = False) -> tu
         if _ignored(archive, project_dir, include_generated):
             continue
         try:
-            with zipfile.ZipFile(archive) as bundle:
-                resource_members = [name for name in bundle.namelist()
-                                    if PurePosixPath(name.replace("\\", "/")).name.casefold() == "resource.res"]
-                for member in resource_members:
+            with _checked_archive(archive) as bundle:
+                resource_members = [info for info in bundle.infolist()
+                                    if PurePosixPath(info.filename.replace("\\", "/")).name.casefold() == "resource.res"]
+                for info in resource_members:
+                    member = info.filename
                     try:
-                        root = ET.fromstring(bundle.read(member).decode("utf-8-sig"))
+                        root = ET.fromstring(archive_core._read_member(bundle, info).decode("utf-8-sig"))
                     except (KeyError, UnicodeDecodeError, ET.ParseError) as exc:
                         problems.append({"severity": "warning", "code": "archive-resource-parse",
                                          "path": archive.relative_to(project_dir).as_posix(),
@@ -117,7 +142,7 @@ def _resource_names(project_dir: Path, *, include_generated: bool = False) -> tu
                         continue
                     bucket = names.setdefault(f"archive:{archive.relative_to(project_dir).as_posix()}:{member}", set())
                     bucket.update(element.get("name") for element in root.iter() if element.get("name"))
-        except (OSError, zipfile.BadZipFile):
+        except InterfaceError:
             continue
     return names, problems
 
@@ -160,13 +185,14 @@ def _resource_asset_diagnostics(project_dir: Path, *, include_generated: bool = 
         if _ignored(archive, project_dir, include_generated):
             continue
         try:
-            with zipfile.ZipFile(archive) as bundle:
+            with _checked_archive(archive) as bundle:
                 files = {name.replace("\\", "/").casefold() for name in bundle.namelist() if not name.endswith("/")}
-                for member in bundle.namelist():
+                for info in bundle.infolist():
+                    member = info.filename
                     if PurePosixPath(member.replace("\\", "/")).name.casefold() != "resource.res":
                         continue
                     try:
-                        root = ET.fromstring(bundle.read(member).decode("utf-8-sig"))
+                        root = ET.fromstring(archive_core._read_member(bundle, info).decode("utf-8-sig"))
                     except (KeyError, UnicodeDecodeError, ET.ParseError):
                         continue
                     parent = PurePosixPath(member.replace("\\", "/")).parent
@@ -178,7 +204,7 @@ def _resource_asset_diagnostics(project_dir: Path, *, include_generated: bool = 
                         return (parent / normalized).as_posix().casefold() in files
 
                     validate(root, f"{archive.relative_to(project_dir).as_posix()}::{member}", archive_exists)
-        except (OSError, zipfile.BadZipFile):
+        except InterfaceError:
             continue
     return diagnostics
 
@@ -254,23 +280,21 @@ def inspect_interface(project_file: str, *, include_generated: bool = False) -> 
         entry: dict[str, Any] = {"path": archive.relative_to(project_dir).as_posix(), "valid": False,
                                  "entryCount": 0, "layoutCount": 0, "resourceCount": 0, "errors": []}
         try:
-            with zipfile.ZipFile(archive) as bundle:
-                bad = bundle.testzip()
+            with _checked_archive(archive) as bundle:
                 names = [name.replace("\\", "/") for name in bundle.namelist()]
                 layouts_in_zip = [name for name in names if name.casefold().endswith(".xml")]
                 resources_in_zip = [name for name in names if PurePosixPath(name).name.casefold() == "resource.res"]
-                entry.update({"valid": bad is None, "entryCount": len(names),
+                entry.update({"entryCount": len(names),
                               "layoutCount": len(layouts_in_zip), "resourceCount": len(resources_in_zip),
                               "layoutMembers": layouts_in_zip, "resourceMembers": resources_in_zip})
-                if bad is not None:
-                    entry["errors"].append(f"ZIP CRC 验证失败：{bad}")
-                for name in names:
-                    member = PurePosixPath(name)
-                    if member.is_absolute() or ".." in member.parts or (member.parts and ":" in member.parts[0]):
-                        entry["errors"].append(f"ZIP 条目越界路径：{name}")
-                for member in layouts_in_zip:
+                for info in bundle.infolist():
+                    # Verify every member, including binary assets, without
+                    # unbounded testzip() or normalized-name lookups.
+                    raw = archive_core._read_member(bundle, info)
+                    member = info.filename.replace("\\", "/")
+                    if member not in layouts_in_zip:
+                        continue
                     try:
-                        raw = bundle.read(names[names.index(member)])
                         text = raw.decode("utf-8-sig")
                         body = _XML_DECL.sub("", text, count=1).strip()
                         fragment = ET.fromstring(f"<xcide_fragment>{body}</xcide_fragment>")
@@ -279,8 +303,8 @@ def inspect_interface(project_file: str, *, include_generated: bool = False) -> 
                             raise ValueError(f"无效的炫彩布局根节点：{roots}")
                     except (KeyError, UnicodeDecodeError, ET.ParseError, ValueError) as exc:
                         entry["errors"].append(f"布局 {member}：{exc}")
-                entry["valid"] = entry["valid"] and not entry["errors"]
-        except (OSError, zipfile.BadZipFile) as exc:
+                entry["valid"] = not entry["errors"]
+        except InterfaceError as exc:
             entry["errors"].append(str(exc))
         if entry["errors"]:
             diagnostics.append({"severity": "error", "code": "ui-zip", "path": entry["path"],

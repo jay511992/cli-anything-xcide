@@ -69,12 +69,12 @@ def _process_executable(kernel32: Any, pid: int) -> str | None:
 
 def _make_junction(link: Path, target: Path) -> None:
     """Create a data-directory junction without altering the IDE installation."""
+    import _winapi
     link.parent.mkdir(parents=True, exist_ok=True)
-    completed = subprocess.run(["cmd.exe", "/d", "/c", "mklink", "/J", str(link), str(target)],
-                              capture_output=True, text=True, encoding="utf-8", errors="replace",
-                              creationflags=subprocess.CREATE_NO_WINDOW)
-    if completed.returncode != 0:
-        raise BuildError(f"无法建立隔离 IDE 数据目录链接 {link} → {target}: {completed.stderr.strip()}")
+    try:
+        _winapi.CreateJunction(str(target), str(link))
+    except OSError as exc:
+        raise BuildError(f"无法建立隔离 IDE 数据目录链接 {link} → {target}: {exc}") from exc
 
 
 def _isolated_ide(root: Path, project: Path) -> tuple[Path, Path, Path]:

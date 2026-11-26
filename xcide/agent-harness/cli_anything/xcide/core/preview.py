@@ -62,7 +62,8 @@ def capture(
     project_file = Path(local["project_file"])
     manifest_bytes = project_file.read_bytes()
     source_fingerprint = {"project_sha256": hashlib.sha256(manifest_bytes).hexdigest(), "recipe": recipe,
-                          "project_path": os.path.normcase(str(project_file.resolve()))}
+                          "project_path": os.path.normcase(str(project_file.resolve())),
+                          "entrypoints": local["entrypoints"]}
     binary, binary_info = _read_executable(local) if recipe == "executable" else (None, {})
     if binary:
         source_fingerprint["executable_sha256"] = binary["sha256"]

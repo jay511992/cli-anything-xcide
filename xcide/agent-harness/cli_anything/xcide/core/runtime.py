@@ -196,7 +196,8 @@ def execute(executable: Path, *, arguments: list[str] | None = None, cwd: Path |
                         wait_for(lambda: child.exit_code is not None, limit, "正常退出", allow_exit=True)
                     if action in {"click", "text", "key"}:
                         settle = time.monotonic() + 0.15
-                        wait_for(lambda: time.monotonic() >= settle, limit, "输入消息处理")
+                        wait_for(lambda: child.exit_code is not None or time.monotonic() >= settle,
+                                 limit, "输入消息处理", allow_exit=True)
                 elif action == "assert_debug":
                     start = cursor if step.get("after_action", True) else 0
                     wait_for(lambda: step["contains"] in "".join(child.messages[start:]), limit, "调试输出断言")
@@ -222,6 +223,16 @@ def execute(executable: Path, *, arguments: list[str] | None = None, cwd: Path |
             desktop.close()
         if child is not None:
             child.close()
+            # The final write may occur between periodic checks, or while the
+            # process is exiting. Check after all owned output handles close.
+            try:
+                child.check_stream_limit()
+            except (OSError, RuntimeError) as exc:
+                report["ok"] = False
+                previous = report.get("error", "")
+                if str(exc) not in previous:
+                    report["error"] = f"{previous}; {exc}" if previous else str(exc)
+                report.setdefault("error_type", type(exc).__name__)
             report.update({"exit_code": child.exit_code, "terminated": child.terminated,
                            "debug_output": "".join(child.messages), "debug_events": child.events,
                            "exceptions": child.exceptions, "output_truncated": child.truncated,
