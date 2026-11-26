@@ -56,7 +56,25 @@ class PrivateDesktop:
         self.user.GetCursorPos.restype = W.BOOL
         point = W.POINT()
         ok = self.user.GetCursorPos(C.byref(point))
-        return {"foreground_hwnd": self.user.GetForegroundWindow(),
+        foreground = self.user.GetForegroundWindow()
+        owner = W.DWORD()
+        if foreground:
+            self.user.GetWindowThreadProcessId(foreground, C.byref(owner))
+        self.user.OpenInputDesktop.argtypes = [W.DWORD, W.BOOL, W.DWORD]
+        self.user.OpenInputDesktop.restype = W.HANDLE
+        self.user.GetUserObjectInformationW.argtypes = [W.HANDLE, C.c_int, C.c_void_p, W.DWORD, C.POINTER(W.DWORD)]
+        self.user.GetUserObjectInformationW.restype = W.BOOL
+        input_handle = self.user.OpenInputDesktop(0, False, 1)  # read objects only
+        input_name = None
+        if input_handle:
+            try:
+                name, size = C.create_unicode_buffer(256), W.DWORD()
+                if self.user.GetUserObjectInformationW(input_handle, 2, name, C.sizeof(name), C.byref(size)):
+                    input_name = name.value
+            finally:
+                self.user.CloseDesktop(input_handle)
+        return {"foreground_hwnd": foreground, "foreground_pid": owner.value or None,
+                "input_desktop": input_name,
                 "cursor": [point.x, point.y] if ok else None}
 
 

@@ -1,11 +1,15 @@
 ---
 name: cli-anything-xcide
-description: 无需 MCP 的 XCGUI 与炫语言 IDE 本地命令行工具，可查找和派生工程、读写源码、维护工程调试元数据、检查布局皮肤与主题、搜索模块并启动真实 IDE 构建。
+description: 无需 MCP 的 XCGUI 与炫语言 IDE 命令行工具，可管理工程、后台编译测试，并通过持久原生 IDE 会话调用 30 个 xc_* 工具。
 ---
 
 # 炫彩 IDE 本地命令行
 
 `cli-anything-xcide` 直接读写炫彩 IDE 安装目录和 `.xcproj` 文件，不需要 MCP。可创建、检查和派生工程，维护源码/调试元数据，搜索模块、检查界面素材，并在独立后台桌面编译和测试程序。可选编译输出桥接只安装在本次私有 IDE，不修改正式安装。
+
+实时能力使用 `ide start` 创建私有后台 IDE，`ide tools` 发现 30 个旧 `xc_*` 名称及参数 schema，`ide --instance DIR call TOOL --args-file UTF8_JSON` 调用，最后 `ide --instance DIR stop` 关闭。完整对应关系见仓库根目录或已安装包中的 `IDE_COMPAT.md`。不安装 XC-MCP-Next，也不接管前台 IDE；要求 64 位 Python、AMD64 ABI v3 IDE 和 MSVC。
+
+`xc_editor_get` 读取实时缓冲；`xc_editor_set` 和模块修改写磁盘，按 `reload_required/restartRequired` 重新加载。`xc_build/xc_menu_cmd/xc_save_all` 只确认投递，不能当作编译/保存完成证明；验收使用 `build --diagnostics`。`ide call` 的业务失败 JSON 可在 stdout，错误退出仍须保留结果；超时或部分完成先回读，勿盲重试。`xc_server` 不启动 MCP 服务，`xc_tree_probe select/clean` 不操作 GUI 树。
 
 编写炫语言业务代码时，可一并读取仓库的 `skills/xc-suite/SKILL.md`，按需查语法、模块、事件和布局资料。它随 Git 仓库单独提供，模块索引在目标机器重建；CLI wheel 自带本调用技能及两种原生桥接，不要求安装 XC-MCP-Next 或 `mcp-cli`。
 

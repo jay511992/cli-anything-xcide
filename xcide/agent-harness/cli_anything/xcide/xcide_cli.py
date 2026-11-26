@@ -18,6 +18,8 @@ from cli_anything.xcide.core import doctor as doctor_core
 from cli_anything.xcide.core import examples as examples_core
 from cli_anything.xcide.core import files as files_core
 from cli_anything.xcide.core import interface as interface_core
+from cli_anything.xcide.core import ide as ide_core
+from cli_anything.xcide.core import ide_tools
 from cli_anything.xcide.core import modules as modules_core
 from cli_anything.xcide.core import preview as preview_core
 from cli_anything.xcide.core import project as project_core
@@ -207,6 +209,7 @@ def repl(ctx: click.Context) -> None:
         "module dependencies FILE": "按本地头文件生成依赖顺序计划",
         "build [--diagnostics]": "后台独立桌面启动 IDE、定向 F7；可读取编译诊断",
         "runtime run | test": "后台运行输出/异常捕获，或 XCGUI 消息与截图验收",
+        "ide start | list | tools | call | stop": "持久后台 IDE 原生会话及 30 个 xc_* 兼容调用（无需 MCP）",
         "preview capture [project|executable]": "发布本地工程检查预览数据",
         "preview latest [recipe]": "读取本地已保存预览包",
         "session status | session history | session undo | session redo": "管理本地 CLI 工程会话",
@@ -1321,6 +1324,100 @@ def session_redo(ctx: click.Context) -> None:
         _emit({"ok": True, "dry_run": True, "action": "session.redo"}, obj["use_json"])
     else:
         _emit({"ok": True, **obj["session"].redo()}, obj["use_json"])
+
+
+@cli.group("ide")
+@click.option("--instance", type=click.Path(path_type=Path, file_okay=False), help="ide start 返回的会话目录。")
+@click.pass_context
+def ide_group(ctx: click.Context, instance: Path | None) -> None:
+    """持续运行的后台 IDE 会话；通过原生桥接调用 xc_* 工具，无需 MCP。"""
+    ctx.ensure_object(dict)
+    ctx.obj["ide_instance"] = instance
+
+
+def _ide_instance(ctx: click.Context) -> Path:
+    location = ctx.obj.get("ide_instance")
+    if location is None:
+        raise ValueError("请在 ide 后指定 --instance 会话目录；先用 ide start 创建。")
+    return location
+
+
+@ide_group.command("tools")
+@handle_error
+def ide_tools_command() -> None:
+    """列出全部兼容工具、参数 schema、写入属性与行为差异。"""
+    ctx = click.get_current_context()
+    _emit(ide_tools.catalog(), ctx.find_root().obj["use_json"])
+
+
+@ide_group.command("start")
+@click.option("--directory", type=click.Path(path_type=Path, file_okay=False), help="新建的会话目录；已有目录不会覆盖。")
+@click.option("--timeout", type=click.FloatRange(5, 180), default=120, show_default=True)
+@click.option("--idle-timeout", type=click.FloatRange(10, 86400), default=1800, show_default=True, help="空闲后自动关闭 IDE，单位秒。")
+@click.pass_context
+@handle_error
+def ide_start(ctx: click.Context, directory: Path | None, timeout: float, idle_timeout: float) -> None:
+    """创建独立 Windows 桌面和私有 IDE，保留到 stop 或空闲超时。"""
+    obj = ctx.find_root().obj
+    project_file = _project_path(ctx)
+    if _dry_plan(ctx, "ide.start", project=project_file, directory=directory, idle_timeout=idle_timeout):
+        return
+    result = ide_core.start(project_file, ide_root=obj["ide_root"], directory=directory,
+                            timeout=timeout, idle_timeout=idle_timeout)
+    _record(ctx, "ide.start", directory=result["directory"], pid=result["pid"])
+    _emit(result, obj["use_json"])
+
+
+@ide_group.command("list")
+@click.option("--root", type=click.Path(path_type=Path, file_okay=False), help="查找此目录下的会话；默认用户应用数据目录。")
+@click.pass_context
+@handle_error
+def ide_list(ctx: click.Context, root: Path | None) -> None:
+    """发现后台会话，并核对进程身份。"""
+    _emit(ide_core.instances(root), ctx.find_root().obj["use_json"])
+
+
+@ide_group.command("call")
+@click.argument("tool", type=click.Choice(list(ide_tools.TOOLS)))
+@click.option("--args-json", default=None, help="JSON 参数对象。Windows 下推荐 --args-file。")
+@click.option("--args-file", type=click.Path(exists=True, dir_okay=False, path_type=Path), help="UTF-8 JSON 参数文件。")
+@click.option("--timeout", type=click.FloatRange(.1, 180), default=15, show_default=True)
+@click.pass_context
+@handle_error
+def ide_call(ctx: click.Context, tool: str, args_json: str | None, args_file: Path | None, timeout: float) -> None:
+    """按旧 xc_* 工具名调用本地实现；不连接 MCP。"""
+    if args_json is not None and args_file is not None:
+        raise ValueError("--args-json 和 --args-file 只能选择一个。")
+    if args_file is not None:
+        if args_file.stat().st_size > ide_core.MAX_MESSAGE:
+            raise ValueError("参数文件超过大小上限。")
+        args_json = args_file.read_text(encoding="utf-8-sig")
+    args = ide_tools.validate(tool, json.loads(args_json or "{}"))
+    location = _ide_instance(ctx)
+    if _dry_plan(ctx, "ide.call", tool=tool, instance=location, arguments=args,
+                 mutates=ide_tools.TOOLS[tool]["mutates"]):
+        return
+    result = ide_tools.call(location, tool, args, timeout=timeout)
+    if ide_tools.TOOLS[tool]["mutates"]:
+        _record(ctx, "ide.call", tool=tool, instance=str(location), ok=result.get("ok"))
+    _emit(result, ctx.find_root().obj["use_json"])
+    if not result.get("ok"):
+        raise click.exceptions.Exit(1)
+
+
+@ide_group.command("stop")
+@click.pass_context
+@handle_error
+def ide_stop(ctx: click.Context) -> None:
+    """关闭本次私有 IDE 和子进程，清理临时 IDE 副本。"""
+    location = _ide_instance(ctx)
+    if _dry_plan(ctx, "ide.stop", instance=location):
+        return
+    result = ide_core.stop(location)
+    _record(ctx, "ide.stop", instance=str(location))
+    _emit(result, ctx.find_root().obj["use_json"])
+    if not result.get("ok"):
+        raise click.exceptions.Exit(1)
 
 
 def main() -> None:

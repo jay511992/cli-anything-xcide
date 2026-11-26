@@ -14,6 +14,15 @@ dependencies. This repository does not distribute the IDE installation or the
 XC-MCP-Next source tree. The native bridges use the locally installed XCGUI API
 and XCIDE v3 plugin ABI; those dependencies remain subject to their own terms.
 
+The native IDE compatibility bridge and tool dispatch were implemented using
+the installed official plugin ABI and XC-MCP-Next's tool inventory and observed
+behavior as references. The local reference revision is
+6581afba4fba5743844f702953adfe2f586a9f04. The parse-counter offset and guarded XMsg
+layout were also cross-checked against that reference. No MCP runtime or complete
+third-party plugin source tree is included. IDE_COMPAT.md documents the mapping,
+version gates and intentional differences; it is not a protocol compatibility
+or third-party licensing guarantee.
+
 The xcide/automation-evidence directory contains captured results from the
 included test application. Historical reports retain their original timestamps,
 absolute paths and hashes; they are not new runs performed on the reader's PC.

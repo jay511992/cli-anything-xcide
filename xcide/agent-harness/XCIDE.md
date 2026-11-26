@@ -10,6 +10,7 @@
 
 | 命令组 | 本地能力 | 副作用与边界 |
 | --- | --- | --- |
+| `ide tools/start/list/call/stop` | 持久后台 IDE；本地兼容 30 个 xc_* 工具名，包括缓冲、符号、导航、输出、弹窗、文件导入及模块生成。 | 原生桥接仅加载私有副本；无 MCP/HTTP；不能接管现有前台 IDE，投递不等于完成。 |
 | `project new/info/list/open/template/doctor` | 从 IDE 空白/官方/用户模板创建工程；检查工程配置、源码登记、模块引用和工程健康；递归查找 `.xcproj`；选择 CLI 会话工程。 | 模板 ID 来自本机安装目录；复制只会创建全新目录；`open` 是 CLI 选中工程，不控制 GUI 窗口。 |
 | `project config list/set` | 查看和切换本机项目中已有的调试/发布配置以及 x86/x64 架构。 | 只更改准确 `.xcproj` 的活动设置；只允许选择 XML 里已存在的项，不构建或控制 GUI。 |
 | `project sources list/add/remove` | 扫描工程中的 `.xc/.xcs` 文件，并维护 `<codeExpand>` 源码树登记。 | 添加需要真实工程内文件，移除仅取消登记且保留文件本身；不编译。 |
@@ -32,6 +33,8 @@
 | `session status/history/undo/redo` | 查看、撤销和重做 CLI 已选工程与 IDE 安装位置。 | 文件锁和修订号检查保护会话 JSON；不会撤销源码改动。 |
 
 ## 本地后端设计
+
+- **持久 IDE 会话：**`core/ide.py` 的后台工作进程拥有私有桌面、IDE 副本与进程 Job；`core/ide_tools.py` 校验工具 schema 并复用现有文件/模块处理。`native/ide_bridge.cpp` 在 IDE UI 线程读取令牌绑定、有截止时间的消息；串行执行，模态循环中仅允许有限诊断读取。固定偏移解析计数由精确 EXE 哈希限制；旧 MCP 工具的无操作/快捷键投递行为在 [迁移说明](cli_anything/xcide/IDE_COMPAT.md) 中逐项列出。空闲或 stop 后回收私有 IDE，保留会话记录。
 
 - **后台执行：**`utils/win_debug.py` 用 Win32 CreateProcess 的 `lpDesktop` 创建进程，暂停启动后加入独立 Job 再恢复；结束时清理本次进程树。IDE 使用非调试模式，被测程序使用 Windows 调试事件模式。`utils/win_desktop.py` 只枚举私有桌面并验证 PID/EXE，无切换前台、移动鼠标或全局输入。窗口前后观测只是证据，不覆盖用户正在进行的操作。
 - **编译诊断与原生交互：**`native/output_bridge.cpp` 根据官方插件 ABI 在 UI 线程读取 IDE 输出；`core/diagnostics.py` 同时核验完成、错误总数、原生失败和新产物。`native/automation_bridge.h` 供测试工程主动接入，用本轮 token 和桌面名限制启动，调用 `XC_SendMessage` 走控件消息路径；GDI 截图在 `XWM_PAINT_END` 复制真实绘制缓冲。

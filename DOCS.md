@@ -5,6 +5,7 @@
 | 文档 | HTML 预览 | Markdown 源文件 |
 | --- | --- | --- |
 | AI 自动化调用手册 | [打开 AI_CALLING.html](AI_CALLING.html) | [AI_CALLING.md](AI_CALLING.md) |
+| 原生 IDE 会话与 30 个 MCP 工具迁移 | [打开 IDE_COMPAT.html](IDE_COMPAT.html) | [IDE_COMPAT.md](IDE_COMPAT.md) |
 | D2D 清理超时原因与修复 | [打开 CLEANUP_FIX.html](CLEANUP_FIX.html) | [CLEANUP_FIX.md](CLEANUP_FIX.md) |
 | 技能、MCP 插件与运行依赖 | [打开 DEPENDENCIES.html](DEPENDENCIES.html) | [DEPENDENCIES.md](DEPENDENCIES.md) |
 | 独立仓库整理与验收 | [打开 STANDALONE_VALIDATION.html](STANDALONE_VALIDATION.html) | [STANDALONE_VALIDATION.md](STANDALONE_VALIDATION.md) |

@@ -12,6 +12,7 @@ setup(
     package_data={
         "cli_anything.xcide": ["skills/*.md", "skills/*.html", "README.md", "README.html",
                                "AI_CALLING.md", "AI_CALLING.html", "tests/TEST.md", "tests/TEST.html",
+                               "IDE_COMPAT.md", "IDE_COMPAT.html",
                                "native/*.cpp", "native/*.h", "examples/*"],
     },
     install_requires=["click>=8.1", "filelock>=3.12", "prompt-toolkit>=3.0"],

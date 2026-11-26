@@ -7,6 +7,7 @@ import hashlib
 import shutil
 import tempfile
 import uuid
+import time
 from pathlib import Path
 from xml.etree import ElementTree as ET
 
@@ -40,6 +41,244 @@ def _template_root(ide_root: Path) -> Path:
 
 class TestCLISubprocess:
     """Run the installed console command just as a script or agent would."""
+
+    def test_installed_ide_tool_catalog_and_dry_run(self, tmp_path):
+        prefix = ["--json", "--session-file", str(tmp_path / "audit.json")]
+        listing = json.loads(_run(prefix + ["ide", "tools"]).stdout)
+        assert listing["count"] == 30 and listing["mcp_required"] is False
+        assert len({entry["name"] for entry in listing["tools"]}) == 30
+        instance = tmp_path / "not-created"
+        dry = json.loads(_run(prefix + ["--dry-run", "ide", "--instance", str(instance),
+                                      "call", "xc_new_file", "--args-json", '{"name":"dry"}']).stdout)
+        assert dry["dry_run"] and not instance.exists()
+
+    def test_installed_persistent_ide_native_bridge(self, tmp_path):
+        install = Path(r"I:\xcide")
+        config = install / "data/config/config.config"
+        config_before = hashlib.sha256(config.read_bytes()).hexdigest()
+        info = create_project(tmp_path, "Persistent Native", install)
+        target = Path(info["project_file"])
+        session = tmp_path / "private-instance"
+        prefix = ["--json", "--session-file", str(tmp_path / "audit.json")]
+        args_file = tmp_path / "args.json"
+        seen = set()
+
+        def call(name, args=None, *, check=True):
+            seen.add(name)
+            args_file.write_text(json.dumps(args or {}, ensure_ascii=False), encoding="utf-8")
+            result = _run(prefix + ["ide", "--instance", str(session), "call", name,
+                                    "--args-file", str(args_file)], check=check)
+            value = json.loads(result.stdout or result.stderr)
+            if check:
+                assert value.get("ok"), (name, value)
+            return value
+
+        started = json.loads(_run(prefix + ["--ide", str(install), "--project", str(target),
+                                            "ide", "start", "--directory", str(session)]).stdout)
+        try:
+            assert started["native"]["mcp"] is False and not started["foreground_input"]
+            assert started["desktop"] and started["native"]["abi"] == 3
+            observation = started["observations"]["before"]
+            assert observation["input_desktop"] and observation["input_desktop"] != started["desktop"]
+            assert observation["foreground_pid"] != started["pid"]
+            assert call("xc_status")["pid"] == started["pid"]
+            assert Path(call("xc_get_project")["project_file"]) == target
+            assert call("xc_server")["running"]
+            assert call("xc_open_in_ide", {"path": "main.xc"})["imported"] == 1
+            buffer = call("xc_editor_get", {"path": "main.xc"})
+            assert "入口函数_窗口" in buffer["text"]
+            assert call("xc_read_file", {"path": "main.xc"})["content"]
+            for _ in range(100):
+                parse = call("xc_parse_status")
+                if not parse["parsing"]:
+                    break
+                time.sleep(.1)
+            assert not parse["parsing"]
+            assert call("xc_reset_parse_count")["count"] == 0
+            symbol = call("xc_symbol", {"name": "入口函数_窗口"})
+            assert Path(symbol["file"]) == target.parent / "main.xc"
+            assert symbol["lineno"] >= 0 and symbol["col1"] >= 0
+            assert call("xc_goto_function", {"name": "入口函数_窗口"})["moved"]
+            assert call("xc_list_functions")["count"] >= 1
+            assert call("xc_list_projects", {"root": str(tmp_path)})["count"] == 1
+            assert call("xc_tree_probe", {"action": "dump"})["count"] > 0
+            assert call("xc_module_list", {"projectOnly": True})["count"] > 0
+            assert call("xc_module_search", {"query": "module_base"})["count"] > 0
+            metadata = call("xc_module_info", {"name": "module_base.h"})
+            assert metadata["file"].lower() == "module_base.h"
+            call("xc_ide_log", {"text": "cli native bridge 中文输出"})
+            assert "cli native bridge 中文输出" in call("xc_get_output")["text"]
+            # A timed-out queued mutation must not run when the UI becomes free.
+            from cli_anything.xcide.core import ide as ide_core
+            from filelock import FileLock
+            state = ide_core.load_instance(session)[1]
+            expired_id = uuid.uuid4().hex
+            with FileLock(str(session / "request.lock")):
+                pending = session / "expired.tmp"
+                pending.write_bytes(ide_core._encode_request(state["token"], expired_id, "log",
+                                    {"text": "EXPIRED_MUST_NOT_LOG"}, ide_core._ticks() - 1))
+                os.replace(pending, session / "request.bin")
+                answer = session / f"response-{expired_id}.json"
+                end = time.monotonic() + 5
+                while not answer.exists() and time.monotonic() < end:
+                    time.sleep(.05)
+                expired = json.loads(answer.read_text("utf-8"))
+                assert not expired["result"]["ok"] and "过期" in expired["result"]["error"]
+                answer.unlink()
+            assert "EXPIRED_MUST_NOT_LOG" not in call("xc_get_output")["text"]
+            from concurrent.futures import ThreadPoolExecutor
+            def parallel_log(number):
+                params = tmp_path / f"parallel-{number}.json"
+                params.write_text(json.dumps({"text": f"SERIAL_IPC_{number}"}), encoding="utf-8")
+                return json.loads(_run(prefix + ["ide", "--instance", str(session), "call", "xc_ide_log",
+                                                "--args-file", str(params)]).stdout)
+            with ThreadPoolExecutor(max_workers=4) as pool:
+                assert all(result["ok"] for result in pool.map(parallel_log, range(4)))
+            output = call("xc_get_output")["text"]
+            assert all(f"SERIAL_IPC_{n}" in output for n in range(4))
+            assert call("xc_get_dialogs")["count"] == 0
+            assert not call("xc_probe_cmd", {"cmd_id": 8}, check=False)["ok"]
+            call("xc_probe_cmd", {"cmd_id": 20})
+            # Test dispatch plus a real fresh artifact, not only a posted key.
+            build_result = call("xc_build")
+            assert build_result["compiled"] is None
+            deadline = time.monotonic() + 60
+            artifacts = []
+            artifact_ready = False
+            from cli_anything.xcide.core.build import inspect_pe, BuildError
+            while time.monotonic() < deadline:
+                artifacts = list(target.parent.glob("**/Persistent Native.exe"))
+                if artifacts:
+                    try:
+                        artifact_ready = inspect_pe(artifacts[0])["architecture"] == "AMD64"
+                        if artifact_ready:
+                            break
+                    except (OSError, BuildError, ValueError):
+                        pass  # The linker may still hold the newly created file.
+                time.sleep(.2)
+            assert artifact_ready, call("xc_get_output")
+            assert call("xc_menu_cmd", {"command": "recompile"})["compiled"] is None
+            time.sleep(.5)
+            assert call("xc_save_all")["saved"] is None
+            time.sleep(.5)
+            # Disk edits are explicitly distinguished from an in-memory editor.
+            replacement = buffer["text"] + "\r\n// disk only\r\n"
+            written = call("xc_editor_set", {"path": "main.xc", "text": replacement, "bom": True})
+            assert written["reload_required"] and written["verified"]
+            new = call("xc_new_file", {"name": "extra"})
+            assert new["created"] and new["imported"]
+            assert call("xc_add_file", {"path": "extra.xc", "open": False})["imported"] == 1
+            assert call("xc_add_dir_files", {"ext": "xc", "open": False})["imported"] >= 2
+            module = call("xc_module_create", {"name": "sample", "alias": "样例", "addToProject": True})
+            relative = os.path.relpath(module["header"], target.parent)
+            assert module["addedToProject"]
+            assert call("xc_module_remove", {"file": relative})["removed"]
+            assert call("xc_module_add", {"file": relative, "name": "样例"})["added"]
+            modules_before_stop = [item.attrib for item in ET.parse(target).getroot().find("modules")]
+        finally:
+            stopped = json.loads(_run(prefix + ["ide", "--instance", str(session), "stop"]).stdout)
+            assert stopped["ok"] and stopped["status"] == "stopped"
+            assert not Path(started["isolated_root"]).exists()
+            assert hashlib.sha256(config.read_bytes()).hexdigest() == config_before
+        assert len(seen) == 30
+        assert [item.attrib for item in ET.parse(target).getroot().find("modules")] == modules_before_stop
+        assert "// disk only" in (target.parent / "main.xc").read_text("utf-8-sig")
+        (target.parent / "main.xc").write_text("函数 整型 入口函数_窗口()\n\t返回 样例_初始化()\n", encoding="utf-8-sig")
+        rebuilt = _run(prefix + ["--ide", str(install), "--project", str(target),
+                                 "build", "--diagnostics", "--timeout", "60"], check=False)
+        generated_module_build = json.loads(rebuilt.stdout or rebuilt.stderr)
+        assert rebuilt.returncode == 0 and generated_module_build["ok"], generated_module_build
+        assert generated_module_build["compiler"]["compiled"]
+        assert hashlib.sha256(config.read_bytes()).hexdigest() == config_before
+
+    def test_installed_ide_idle_recovery_and_stale_session(self, tmp_path):
+        info = create_project(tmp_path, "Idle Native", Path(r"I:\xcide"))
+        session = tmp_path / "instance"
+        prefix = ["--json", "--session-file", str(tmp_path / "audit.json")]
+        started = json.loads(_run(prefix + ["--ide", r"I:\xcide", "--project", info["project_file"],
+                            "ide", "start", "--directory", str(session), "--idle-timeout", "10"]).stdout)
+        try:
+            running = json.loads(_run(prefix + ["ide", "list", "--root", str(tmp_path)]).stdout)
+            assert running["count"] == 1 and running["instances"][0]["alive"]
+            deadline = time.monotonic() + 20
+            while time.monotonic() < deadline:
+                state = json.loads((session / "instance.json").read_text("utf-8"))
+                if state["status"] == "stopped":
+                    break
+                time.sleep(.1)
+            assert state["status"] == "stopped" and state["reason"] == "idle_timeout"
+            assert not state["cleanup_error"] and not Path(started["isolated_root"]).exists()
+            stale = _run(prefix + ["ide", "--instance", str(session), "call", "xc_status"], check=False)
+            assert stale.returncode == 1 and not json.loads(stale.stderr)["ok"]
+            repeat = _run(prefix + ["--project", info["project_file"], "ide", "start", "--directory", str(session)], check=False)
+            assert repeat.returncode == 1
+        finally:
+            assert json.loads(_run(prefix + ["ide", "--instance", str(session), "stop"]).stdout)["ok"]
+
+    def test_native_bridge_reads_real_modal_body_after_call_timeout(self, tmp_path):
+        """Real XCGUI modal loop in a small ABI test host, not the XC compiler."""
+        from cli_anything.xcide.core import ide as ide_core
+        from cli_anything.xcide.utils.native_build import compile_native
+        from cli_anything.xcide.utils.win_debug import BackgroundProcess
+        from cli_anything.xcide.utils.win_desktop import PrivateDesktop
+        package = Path(__file__).resolve().parents[1]
+        sdk = Path(r"I:\xcide\xc-plugin\炫彩IDE-插件开发\plug_test\xcgui.h")
+        library = Path(r"I:\xcide\data\XC-Module\核心[官方]\炫彩界面库\x64")
+        source, executable = tmp_path / "modal.cpp", tmp_path / "modal.exe"
+        source.write_text('#define WIN32_LEAN_AND_MEAN\n#define NOMINMAX\n#include <windows.h>\n#include "' + sdk.as_posix() + '"\n#include "' +
+            (package / "native/ide_bridge.cpp").as_posix() + '"\n#pragma comment(lib,"' +
+            (library / "XCGUI.lib").as_posix() + '")\n' + r'''
+static HELE output;
+static int fakeSetter(void* raw) {
+    auto d = (Data*)raw;
+    if(d->type==6){d->v[0]=output;return 1;}
+    if(d->type==8){d->v[1]=(void*)L"test-host.xcproj";return 1;}
+    if(d->type==12){
+        auto msg=XMsg_Create(L"模态读取测试",L"真实 XCGUI 弹窗正文",messageBox_flag_ok,window);
+        XModalWnd_DoModal(msg);return 1;
+    }
+    return 0;
+}
+int main(){
+    XInitXCGUI(FALSE);
+    auto frame=XWnd_Create(0,0,400,300,L"Test ABI host",0,window_style_default);
+    output=XEdit_Create(10,10,300,100,frame);XWnd_ShowWindow(frame,SW_SHOW);
+    if(!OnInitPlug(fakeSetter,frame,3))return 4;
+    XRunXCGUI();OnExitPlug();XExitXCGUI();return 0;
+}
+''', encoding="utf-8-sig")
+        compile_native(source, executable)
+        shutil.copyfile(library / "XCGUI.dll", tmp_path / "XCGUI.dll")
+        session = tmp_path / "ipc"
+        session.mkdir()
+        token = uuid.uuid4().hex
+        environment = {**os.environ, "CLI_ANYTHING_XCIDE_IPC": str(session),
+                       "CLI_ANYTHING_XCIDE_IPC_TOKEN": token, "CLI_ANYTHING_XCIDE_PARSE_VERIFIED": "0"}
+        desktop = PrivateDesktop()
+        process = None
+        try:
+            process = BackgroundProcess([str(executable)], tmp_path, environment, desktop.name)
+            ide_core._write_json(session / "instance.json", {"schema": "xcide-instance/v1", "directory": str(session),
+                                 "token": token, "pid": process.pid, "executable": str(executable), "status": "running"})
+            end = time.monotonic() + 10
+            while not (session / "bridge-ready.json").exists() and time.monotonic() < end:
+                time.sleep(.05)
+            assert (session / "bridge-ready.json").exists()
+            assert not ide_core.request(session, "parse")["ok"]
+            with pytest.raises(ide_core.IDEError, match="超时"):
+                ide_core.request(session, "import", {"path": "test"}, timeout=.8)
+            value = json.loads(_run(["--json", "--session-file", str(tmp_path / "audit.json"), "ide",
+                                     "--instance", str(session), "call", "xc_get_dialogs"]).stdout)
+            assert value["ok"] and value["count"] == 1
+            dialog = value["dialogs"][0]
+            assert dialog["body_available"] and "真实 XCGUI 弹窗正文" in dialog["text"]
+            assert ide_core.request(session, "status")["ok"]
+            assert not ide_core.request(session, "import", {"path": "again"})["ok"]
+        finally:
+            if process:
+                process.terminate_tree()
+                process.close()
+            desktop.close()
 
     @pytest.mark.parametrize("field,value", [("undo", None), ("audit", {}), ("project", []),
                                              ("redo", [{"project": 7}])])
@@ -826,7 +1065,11 @@ int main(int argc,char**argv){
         built = json.loads(build_process.stdout)
         assert built["ok"] and built["build_result"] == "compiled"
         assert built["automation"]["foreground_input"] is False
-        assert built["automation"]["observations"]["before"]["foreground_hwnd"] == built["automation"]["observations"]["after"]["foreground_hwnd"]
+        # Other applications/user input may change foreground during the build.
+        # Check ownership and desktop isolation, not an unrelated HWND equality.
+        for observation in built["automation"]["observations"].values():
+            assert observation["input_desktop"] and observation["input_desktop"] != built["automation"]["desktop"]
+            assert observation["foreground_pid"] != built["ide_pid"]
         assert built["compiler"]["compiled"] and built["compiler"]["errorCount"] == 0
         assert built["isolated_plugins"] == ["plug_cli_output.dll"]
         assert not Path(built["isolated_ide_root"]).exists()
@@ -836,7 +1079,10 @@ int main(int argc,char**argv){
         tested = json.loads(test_process.stdout)
         assert tested["ok"] and tested["exit_code"] == 0 and not tested["terminated"]
         assert tested["automation"]["foreground_input"] is False
-        assert tested["automation"]["before"]["foreground_hwnd"] == tested["automation"]["after"]["foreground_hwnd"]
+        for moment in ("before", "after"):
+            observation = tested["automation"][moment]
+            assert observation["input_desktop"] and observation["input_desktop"] != tested["automation"]["desktop"]
+            assert observation["foreground_pid"] != tested["pid"]
         assert "COUNT=, 1" in tested["debug_output"] and "TEXT=, 中文Automation" in tested["debug_output"]
         screenshots = [step["screenshot"] for step in tested["steps"] if "screenshot" in step]
         assert len(screenshots) == 2 and all(s["nonblank"] for s in screenshots)

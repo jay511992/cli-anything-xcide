@@ -20,8 +20,15 @@ aside{position:sticky;top:16px;max-height:calc(100vh - 32px);overflow:auto;paddi
 <div class="wrap"><main><div class="eyebrow">XCGUI / Xuan Language</div><h1>炫彩 IDE CLI 与后台自动化</h1><div class="meta">本页由本地 Markdown 生成；样式内嵌，无网络、MCP 或浏览器脚本依赖。</div><p class="doc-home"><a href="DOCS.html">← 返回文档总览</a></p><p><code>cli-anything-xcide</code> 让 AI Agent 和脚本通过命令行创建、编辑、检查、编译和测试炫语言工程。基于 CLI-Anything 工作流，直接使用本机炫彩 IDE 与原生工程文件，无需 MCP 服务。</p>
 <p>文档从 <a href="DOCS.html">文档总览</a> 进入。下载仓库后可用浏览器打开 <a href="DOCS.html">DOCS.html</a>，所有阅读版均为离线 HTML。完整操作步骤见 <a href="AI_CALLING.html">AI 自动化调用手册</a>，已有问题和修复依据见 <a href="AUTOMATION_REVIEW.html">后台自动化审查</a>。</p>
 <h2 id="可用能力">可用能力</h2>
-<ul><li>浏览本机工程模板、示例和模块依赖；创建或派生独立工程。</li><li>读写源码，维护工程配置、源码登记、断点、监视表达式和书签。</li><li>查询原生语法、控件、属性、事件、布局节点、命名资源与 UI ZIP。</li><li>用真实 IDE 在独立 Windows 后台桌面编译；<code>build --diagnostics</code> 返回编译输出和文件/行号诊断。</li><li>用 <code>runtime run</code> 捕获本次进程的标准输出、调试输出、异常和退出码。</li><li>用 <code>runtime test</code> 执行后台消息点击、文本/按键输入、断言与 GDI 截图，生成 JSON 测试报告。</li></ul>
+<ul><li>浏览本机工程模板、示例和模块依赖；创建或派生独立工程。</li><li>读写源码，维护工程配置、源码登记、断点、监视表达式和书签。</li><li>查询原生语法、控件、属性、事件、布局节点、命名资源与 UI ZIP。</li><li>用真实 IDE 在独立 Windows 后台桌面编译；<code>build --diagnostics</code> 返回编译输出和文件/行号诊断。</li><li>用 <code>runtime run</code> 捕获本次进程的标准输出、调试输出、异常和退出码。</li><li>用 <code>runtime test</code> 执行后台消息点击、文本/按键输入、断言与 GDI 截图，生成 JSON 测试报告。</li><li>用 <code>ide start/call/stop</code> 保持后台 IDE 会话；通过原生桥接调用 XC-MCP-Next 的 30 个工具名，读取编辑缓冲、符号、输出和弹窗，导入文件、导航并生成模块。</li></ul>
 <p>构建和运行不切换前台桌面、不移动鼠标。交互测试要求被测 XCGUI 程序主动接入随包提供的 <code>automation_bridge.h</code>；截图当前支持 GDI。完整支持范围和限制见调用手册。</p>
+<h2 id="迁移-mcp-工具到-cli">迁移 MCP 工具到 CLI</h2>
+<p>无需安装 XC-MCP-Next；<code>ide tools</code> 返回 30 项工具的参数 schema，<code>ide call</code> 通过本项目的 DLL 与 CLI 创建的后台 IDE 通信，不经过 MCP。完整对应关系、示例与差异见 <a href="IDE_COMPAT.html">IDE_COMPAT.md</a>（<a href="IDE_COMPAT.html">离线 HTML</a>）。</p>
+<pre><code class="language-powershell">cli-anything-xcide --json ide tools
+cli-anything-xcide --json --ide &#x27;I:\xcide&#x27; --project &#x27;E:\work\Demo\Demo.xcproj&#x27; ide start --directory &#x27;E:\work\Demo-session&#x27;
+cli-anything-xcide --json ide --instance &#x27;E:\work\Demo-session&#x27; call xc_get_output
+cli-anything-xcide --json ide --instance &#x27;E:\work\Demo-session&#x27; stop</code></pre>
+<p>实时操作只针对本 CLI 创建的私有 IDE，不能接管现有前台实例。旧 <code>xc_build</code>/<code>xc_save_all</code> 工具保留“投递快捷键”语义，不冒充编译完成或所有标签已保存；完整编译判定继续使用 <code>build --diagnostics</code>。</p>
 <h2 id="安装">安装</h2>
 <p>需要 Windows 10/11、Python 3.10+ 和已安装的炫彩 IDE。IDE 默认位置为 <code>I:\xcide</code>，可用 <code>--ide</code> 或 <code>XC_IDE_ROOT</code> 指定。后台自动化需要 64 位 Python 与可用的 Windows 桌面会话；编译输出桥接还需要 Visual Studio C++ 工具和 Windows SDK。</p>
 <p>在仓库根目录运行：</p>
@@ -46,10 +53,11 @@ cli-anything-xcide --json --ide &#x27;I:\xcide&#x27; example list &#x27;按钮&#
 <pre><code class="language-powershell">$env:CLI_ANYTHING_FORCE_INSTALLED = &#x27;1&#x27;
 python -X utf8 -B -m pytest xcide/agent-harness/cli_anything/xcide/tests -q --tb=short -p no:cacheprovider
 python -m pip wheel ./xcide/agent-harness --no-deps -w ./dist</code></pre>
+<p>2026-11-26 原生 IDE 工具迁移后完整回归 <strong>275 项通过</strong>；当前结果与覆盖范围见 <a href="xcide/agent-harness/cli_anything/xcide/tests/TEST.html">测试记录</a>。</p>
 <p>完整测试包含真实 IDE 构建、诊断和后台交互测试，要求上述本机依赖齐全；部分验收样本目前固定读取 <code>I:\xcide</code>。测试不会因为缺少真实后端而假装通过。</p>
 <p>2026-11-25 独立目录修复后完整测试为 <strong>195 项通过</strong>。此前 D2D 失败后的清理超时已定位到调试退出事件与进程句柄结束之间的等待预算；已改为共用 10 秒清理期限并保留多个清理错误。4 项确定性回归和 24 次真实 D2D 失败回收检查通过，D2D 截图仍按设计拒绝。详见 <a href="CLEANUP_FIX.html">原因、最小修复与证据</a>；此前 190 通过、1 失败的原始记录继续保留在搬迁验收报告中。</p>
 <p>Markdown 为文档源文件，修改后可使用渲染器更新对应 HTML：</p>
 <pre><code class="language-powershell">python xcide/agent-harness/tools/render_markdown.py AI_CALLING.md AI_CALLING.html</code></pre>
 <p>项目来源及依赖说明见 <a href="NOTICE">NOTICE</a>，保留的 CLI-Anything Apache 2.0 许可证见 <a href="LICENSE">LICENSE</a>。</p></main>
-<aside><b>本页目录</b><a class="depth-2" href="#可用能力">可用能力</a><a class="depth-2" href="#安装">安装</a><a class="depth-2" href="#让-agent-编写一个-xc-程序">让 Agent 编写一个 XC 程序</a><a class="depth-2" href="#文件组织">文件组织</a><a class="depth-2" href="#验证与打包">验证与打包</a></aside></div>
+<aside><b>本页目录</b><a class="depth-2" href="#可用能力">可用能力</a><a class="depth-2" href="#迁移-mcp-工具到-cli">迁移 MCP 工具到 CLI</a><a class="depth-2" href="#安装">安装</a><a class="depth-2" href="#让-agent-编写一个-xc-程序">让 Agent 编写一个 XC 程序</a><a class="depth-2" href="#文件组织">文件组织</a><a class="depth-2" href="#验证与打包">验证与打包</a></aside></div>
 <footer class="foot">源 Markdown：README.md · 独立 HTML 副本：README.html</footer></body></html>

@@ -12,8 +12,22 @@
 - 用真实 IDE 在独立 Windows 后台桌面编译；`build --diagnostics` 返回编译输出和文件/行号诊断。
 - 用 `runtime run` 捕获本次进程的标准输出、调试输出、异常和退出码。
 - 用 `runtime test` 执行后台消息点击、文本/按键输入、断言与 GDI 截图，生成 JSON 测试报告。
+- 用 `ide start/call/stop` 保持后台 IDE 会话；通过原生桥接调用 XC-MCP-Next 的 30 个工具名，读取编辑缓冲、符号、输出和弹窗，导入文件、导航并生成模块。
 
 构建和运行不切换前台桌面、不移动鼠标。交互测试要求被测 XCGUI 程序主动接入随包提供的 `automation_bridge.h`；截图当前支持 GDI。完整支持范围和限制见调用手册。
+
+## 迁移 MCP 工具到 CLI
+
+无需安装 XC-MCP-Next；`ide tools` 返回 30 项工具的参数 schema，`ide call` 通过本项目的 DLL 与 CLI 创建的后台 IDE 通信，不经过 MCP。完整对应关系、示例与差异见 [IDE_COMPAT.md](IDE_COMPAT.md)（[离线 HTML](IDE_COMPAT.html)）。
+
+```powershell
+cli-anything-xcide --json ide tools
+cli-anything-xcide --json --ide 'I:\xcide' --project 'E:\work\Demo\Demo.xcproj' ide start --directory 'E:\work\Demo-session'
+cli-anything-xcide --json ide --instance 'E:\work\Demo-session' call xc_get_output
+cli-anything-xcide --json ide --instance 'E:\work\Demo-session' stop
+```
+
+实时操作只针对本 CLI 创建的私有 IDE，不能接管现有前台实例。旧 `xc_build`/`xc_save_all` 工具保留“投递快捷键”语义，不冒充编译完成或所有标签已保存；完整编译判定继续使用 `build --diagnostics`。
 
 ## 安装
 
@@ -69,6 +83,8 @@ $env:CLI_ANYTHING_FORCE_INSTALLED = '1'
 python -X utf8 -B -m pytest xcide/agent-harness/cli_anything/xcide/tests -q --tb=short -p no:cacheprovider
 python -m pip wheel ./xcide/agent-harness --no-deps -w ./dist
 ```
+
+2026-11-26 原生 IDE 工具迁移后完整回归 **275 项通过**；当前结果与覆盖范围见 [测试记录](xcide/agent-harness/cli_anything/xcide/tests/TEST.md)。
 
 完整测试包含真实 IDE 构建、诊断和后台交互测试，要求上述本机依赖齐全；部分验收样本目前固定读取 `I:\xcide`。测试不会因为缺少真实后端而假装通过。
 

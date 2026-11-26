@@ -1,6 +1,6 @@
 # 炫彩 IDE CLI：AI 自动化调用手册
 
-本手册供 Codex、其他 AI 代理和脚本调用 `cli-anything-xcide`。CLI 直接读取和更新 Windows 本地文件，不使用 MCP。`build --diagnostics` 自动在本轮隔离 IDE 副本中编译并加载输出桥接，无需向正式 IDE 安装插件。
+本手册供 Codex、其他 AI 代理和脚本调用 `cli-anything-xcide`。CLI 读取和更新 Windows 本地文件，实时能力通过本项目原生桥接执行，不使用 MCP。`build --diagnostics` 和 `ide start` 自动在各自隔离 IDE 副本中编译并加载所需桥接，无需向正式 IDE 安装插件。
 
 独立 Git 仓库同时提供 `skills/cli-anything-xcide`（调用规则）和 `skills/xc-suite`（炫语言、模块及 UI 开发资料）。写业务程序时建议一并读取；XC 模块索引按当前安装重建。wheel 包含 CLI 技能及原生桥接，XC 开发资料随仓库单独提供。XC-MCP-Next 与 `mcp-cli` 为可选外部工具，当前编译、读错误及后台测试不依赖它们；迁移方法见仓库根目录 `DEPENDENCIES.md`。
 
@@ -57,6 +57,25 @@ example_ids = [item["id"] for item in data["examples"] if item["valid"]]
 ```
 
 ## 自动化工作流
+
+### 持久 IDE 与旧 MCP 工具名
+
+已将所参考 XC-MCP-Next 版本注册的 30 个工具名接到 `ide call`。`ide tools` 输出 schema 和行为备注；完整逐项说明见 [原生 IDE 与 MCP 迁移](IDE_COMPAT.md)。启动会话需要 64 位 Python、AMD64 ABI v3 IDE、MSVC 与 Windows SDK。
+
+```powershell
+cli-anything-xcide --json ide tools
+cli-anything-xcide --json --ide 'I:\xcide' --project 'E:\work\Demo\Demo.xcproj' ide start --directory 'E:\work\Demo-session'
+cli-anything-xcide --json ide --instance 'E:\work\Demo-session' call xc_get_project
+cli-anything-xcide --json ide --instance 'E:\work\Demo-session' call xc_get_output
+cli-anything-xcide --json ide --instance 'E:\work\Demo-session' call xc_get_dialogs
+cli-anything-xcide --json ide --instance 'E:\work\Demo-session' stop
+```
+
+会话目录须全新；省略时从返回 JSON 的 `directory` 获取。默认空闲 1800 秒自动关闭。使用 `--args-file` 传 UTF-8 JSON 参数，`--dry-run` 只返回计划。只控制本 CLI 创建的后台 IDE，不接管用户的前台实例。
+
+Agent 必须区分：`xc_editor_get` 读实际缓冲，`xc_read_file` 读磁盘；`xc_editor_set` 写磁盘并返回 `reload_required`。`xc_build`/`xc_menu_cmd` 和 `xc_save_all` 保留旧工具的投递语义，不能据此宣布编译成功或全部保存。完整验收继续使用 `build --diagnostics` 与 `runtime test`。
+
+`ide call` 业务失败可在 stdout 返回 `ok=false` 并以 1 退出；参数与传输错误在 stderr，两者均应保留。超时后已开始操作可能继续完成；已创建文件会有 `created=true` 等部分结果，先回读核实，禁止整批盲重试。`xc_server` 管理本地会话，不启动 MCP endpoint。
 
 ### 先查原生定义，再生成代码或布局
 

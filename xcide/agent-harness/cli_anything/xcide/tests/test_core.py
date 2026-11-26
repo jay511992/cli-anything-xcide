@@ -31,6 +31,184 @@ from cli_anything.xcide.core.modules import (
     search_modules,
 )
 from cli_anything.xcide.xcide_cli import cli
+from cli_anything.xcide.core import ide, ide_tools
+
+
+@pytest.mark.parametrize("name,args", [
+    ("missing", {}), ("xc_status", []), ("xc_ide_log", {}), ("xc_status", {"unknown": 1}),
+    ("xc_read_file", {"path": "x\0y"}), ("xc_module_list", {"limit": True}),
+    ("xc_module_list", {"limit": 0}), ("xc_get_output", {"tailLines": -1}),
+    ("xc_get_dialogs", {"maxChars": 65537}), ("xc_probe_cmd", {"cmd_id": 22}),
+    ("xc_editor_set", {"text": "ok", "bom": 1}), ("xc_symbol", {"lineno": -1}),
+])
+def test_ide_tool_schema_rejects_bad_requests(name, args):
+    with pytest.raises(ide.IDEError):
+        ide_tools.validate(name, args)
+
+
+def test_ide_frame_keeps_unicode_boundaries_and_identity():
+    token, identity = "a" * 32, "b" * 32
+    frame = ide._encode_request(token, identity, "log", {"text": "中文😀", "open": True}, 123456)
+    assert frame[:8] == b"XCIDE02\0"
+    expiry, count = struct.unpack_from("<QI", frame, 8)
+    at, fields = 20, []
+    for _ in range(count):
+        length = struct.unpack_from("<I", frame, at)[0]
+        at += 4
+        fields.append(frame[at:at + length].decode("utf-16-le"))
+        at += length
+    assert expiry == 123456 and at == len(frame)
+    assert fields == [token, identity, "log", "text", "中文😀", "open", "1"]
+    with pytest.raises(ide.IDEError):
+        ide._encode_request(token, identity, "log", {"text": "bad\0"}, 0)
+
+
+def test_ide_static_functions_ignores_comments_strings_and_generated_code(tmp_path):
+    source = '/*\n函数 整型 假函数()\n*/\n函数 整型 真函数()\n\t文本型 t = "函数 假2()"\n//函数 假3()\n函数 无返回()\n'
+    (tmp_path / "main.xc").write_text(source, encoding="utf-16")
+    (tmp_path / "Debug").mkdir()
+    (tmp_path / "Debug/generated.xc").write_text("函数 假4()", encoding="utf-8")
+    result = ide_tools.list_functions(tmp_path)
+    assert [(f["name"], f["line"]) for f in result["functions"]] == [("真函数", 4), ("无返回", 7)]
+    assert result["files_scanned"] == 1
+
+
+def test_ide_module_scaffold_preserves_files_and_records_relative_reference(make_project):
+    info = make_project()
+    target = Path(info["project_file"])
+    args = {"name": "demo", "alias": "示例", "libs": "lib/a.lib", "libs86": "lib32/a.lib",
+            "dlls": "bin/a.dll", "includes": "include", "addToProject": True}
+    result = ide_tools.create_module(args, target, make_project.ide_root)
+    header, source = Path(result["header"]), Path(result["source"])
+    before = header.read_bytes(), source.read_bytes(), target.read_bytes()
+    assert all(b.startswith(b"\xef\xbb\xbf") for b in before[:2])
+    assert '#ifdef _WIN64' in header.read_text("utf-8-sig")
+    assert '//@lib "lib32/a.lib"' in header.read_text("utf-8-sig")
+    assert result["addedToProject"] and result["restartRequired"]
+    assert any(m["path"] == os.path.relpath(header, target.parent) for m in project.inspect_project(target)["modules"])
+    with pytest.raises(ide.IDEError, match="已存在"):
+        ide_tools.create_module(args, target, make_project.ide_root)
+    assert before == (header.read_bytes(), source.read_bytes(), target.read_bytes())
+
+
+@pytest.mark.parametrize("extra", [{"name": "../escape"}, {"subdir": "../escape"},
+                                    {"alias": "x\n//@src y.cpp"}, {"libs": 'x"bad.lib'},
+                                    {"includes": "../outside"}, {"location": "unknown"}])
+def test_ide_module_scaffold_rejects_bad_paths_and_annotations(make_project, extra):
+    target = Path(make_project()["project_file"])
+    before = sorted(str(p) for p in target.parent.rglob("*"))
+    with pytest.raises(ide.IDEError):
+        ide_tools.create_module({"name": "good", **extra}, target, make_project.ide_root)
+    assert sorted(str(p) for p in target.parent.rglob("*")) == before
+
+
+def test_ide_path_resolution_is_relative_to_project_and_rejects_escapes(make_project):
+    target = Path(make_project()["project_file"])
+    assert ide_tools._path("main.xc", target) == target.parent / "main.xc"
+    with pytest.raises(ide.IDEError, match="之外"):
+        ide_tools._path("../outside.xc", target, must_exist=False)
+    assert ide_tools._path(str(target), target, outside=True) == target
+
+
+@pytest.mark.parametrize("original", [b"abc\r\n", b"\xff\xfe" + "abc\r\n".encode("utf-16-le")])
+def test_ide_forced_bom_is_atomic_and_retains_utf16(make_project, original):
+    target = Path(make_project()["project_file"]).parent / "main.xc"
+    target.write_bytes(original)
+    result = write_file(target, "内容\n", project=next(target.parent.glob("*.xcproj")), force_bom=True)
+    assert result["bom"] and result["verified"]
+    if original.startswith(b"\xff\xfe"):
+        assert target.read_bytes() == b"\xff\xfe" + "内容\r\n".encode("utf-16-le")
+    else:
+        assert target.read_bytes() == b"\xef\xbb\xbf" + "内容\r\n".encode("utf-8")
+
+
+def test_ide_dry_run_does_not_create_instance_or_audit(tmp_path):
+    location, audit = tmp_path / "instance", tmp_path / "audit.json"
+    result = CliRunner().invoke(cli, ["--json", "--dry-run", "--session-file", str(audit),
+                                      "ide", "--instance", str(location), "call", "xc_ide_log",
+                                      "--args-json", '{"text":"probe"}'])
+    assert result.exit_code == 0 and json.loads(result.output)["dry_run"]
+    assert not location.exists() and not audit.exists()
+
+
+def test_ide_response_identity_is_required(tmp_path, monkeypatch):
+    state = {"schema": "xcide-instance/v1", "directory": str(tmp_path.resolve()), "token": "a" * 32,
+             "pid": 123, "status": "running", "executable": "unused"}
+    ide._write_json(tmp_path / "instance.json", state)
+    monkeypatch.setattr(ide, "_alive", lambda state: True)
+    monkeypatch.setattr(ide, "_ticks", lambda: 100)
+    replace = os.replace
+    def respond(src, dest):
+        replace(src, dest)
+        if Path(dest).name == "request.bin":
+            identity = Path(src).stem.removeprefix("request-")
+            ide._write_json(tmp_path / f"response-{identity}.json",
+                            {"id": identity, "token": "b" * 32, "pid": 123, "result": {"ok": True}})
+    monkeypatch.setattr(ide.os, "replace", respond)
+    with pytest.raises(ide.IDEError, match="身份"):
+        ide.request(tmp_path, "status")
+
+
+def test_ide_module_pair_rolls_back_if_second_publish_fails(make_project, monkeypatch):
+    target = Path(make_project()["project_file"])
+    before = target.read_bytes()
+    original = os.link
+    def fail_source(src, dest):
+        if Path(dest).suffix == ".cpp":
+            raise PermissionError("source busy")
+        return original(src, dest)
+    monkeypatch.setattr(ide_tools.os, "link", fail_source)
+    with pytest.raises(PermissionError):
+        ide_tools.create_module({"name": "rollback"}, target, make_project.ide_root)
+    assert target.read_bytes() == before
+    assert not list((target.parent / "module_rollback").iterdir())
+
+
+def test_ide_partial_import_reports_created_file(make_project, monkeypatch, tmp_path):
+    target = Path(make_project()["project_file"])
+    def native(directory, method, arguments=None, **kwargs):
+        if method == "project":
+            return {"ok": True, "project_file": str(target)}
+        raise ide.IDEError("timed out")
+    monkeypatch.setattr(ide, "request", native)
+    state = {"ide_root": str(make_project.ide_root)}
+    result = ide_tools._call(tmp_path, state, "xc_new_file", {"name": "created"}, 1)
+    assert result["created"] and result["imported"] is None and not result["retry_safe"]
+    assert Path(result["file"]).is_file()
+    result = ide_tools._call(tmp_path, state, "xc_add_file", {"path": "main.xc;created.xc"}, 1)
+    assert result["total"] == 2 and result["attempted"] == 1 and not result["ok"]
+
+
+def test_ide_module_relative_reference_remove_preserves_header(make_project):
+    target = Path(make_project()["project_file"])
+    result = ide_tools.create_module({"name": "local"}, target, make_project.ide_root)
+    header = Path(result["header"])
+    assert result["addedToProject"]
+    removed = ide_tools._remove_reference(target, os.path.relpath(header, target.parent).replace("\\", "/"))
+    assert removed["removed"] and header.is_file()
+    assert not ide_tools._remove_reference(target, "does-not-exist.h")["removed"]
+
+
+@pytest.mark.parametrize("location,library", [("dev", "XC-Module-dev"), ("main", "XC-Module")])
+def test_ide_library_module_uses_catalog_reference_not_cross_drive_relative_path(make_project, location, library):
+    target = Path(make_project()["project_file"])
+    result = ide_tools.create_module({"name": "library_sample", "location": location}, target, make_project.ide_root)
+    assert result["ok"] and result["addedToProject"]
+    assert Path(result["header"]).is_relative_to(make_project.ide_root / "data" / library)
+    assert any(item["path"] == "module_library_sample.h" for item in project.inspect_project(target)["modules"])
+
+
+def test_ide_start_launch_failure_publishes_failed_state(make_project, monkeypatch, tmp_path):
+    target = Path(make_project()["project_file"])
+    monkeypatch.setattr(build, "inspect_pe", lambda p: {"architecture": "AMD64"})
+    def fail(*args, **kwargs):
+        raise OSError("cannot launch")
+    monkeypatch.setattr(ide.subprocess, "Popen", fail)
+    location = tmp_path / "failed-instance"
+    with pytest.raises(ide.IDEError, match="工作进程"):
+        ide.start(target, ide_root=make_project.ide_root, directory=location)
+    assert ide.load_instance(location)[1]["status"] == "failed"
+    assert not ide._alive({"status": "running", "pid": 123})
 
 
 @pytest.fixture

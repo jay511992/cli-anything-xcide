@@ -105,6 +105,7 @@ def write_file(
     ide_root: str | os.PathLike[str] | None = None,
     allow_outside: bool = False,
     no_bom: bool = False,
+    force_bom: bool = False,
 ) -> dict[str, Any]:
     """本地写入 UTF 文本，默认保留既有编码、BOM 与换行格式。"""
     target = validate_path(path, project=project, ide_root=ide_root, allow_outside=allow_outside)
@@ -118,6 +119,12 @@ def write_file(
         encoding, bom, crlf = "utf-8", source_ext and not no_bom, source_ext
     if no_bom:
         encoding, bom = "utf-8", False
+    if force_bom:
+        if no_bom:
+            raise FileOperationError("不能同时要求添加和移除 BOM。")
+        if encoding not in {"utf-16-le", "utf-16-be"}:
+            encoding = "utf-8"
+        bom = True
     normalized = text.replace("\r\n", "\n").replace("\r", "\n")
     if crlf:
         normalized = normalized.replace("\n", "\r\n")

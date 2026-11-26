@@ -7,8 +7,9 @@
 | `skills/cli-anything-xcide` | 告诉 Agent 如何调用 CLI、解析 JSON、编译和验收 | 已包含，pip wheel 另带兼容副本 |
 | `skills/xc-suite` | 炫语言语法、模块、事件、布局、资源和皮肤知识 | 本轮补齐入口、参考、检索脚本和来源清单；随 Git 仓库交付 |
 | `native/output_bridge.cpp` | 从本轮私有 IDE 读取真实编译输出 | 已随 CLI 源码和 wheel 包含，运行时在隔离副本编译加载 |
+| `native/ide_bridge.cpp` | 持续后台 IDE 的编辑缓冲、符号、输出、弹窗及原生操作 | 已包含；配合 `ide start/call/stop`，本地文件 IPC，无 MCP 传输 |
 | `native/automation_bridge.h` | 被测 XCGUI 程序主动接入的后台交互入口 | 已随 CLI 源码和 wheel 包含，Agent 按示例接入自己的程序 |
-| XC-MCP-Next | 可选的外部 IDE MCP 服务；此前用于理解原生接口 | 当前 CLI 不连接也不加载它；本仓库不需要复制整个插件工程 |
+| XC-MCP-Next | 原生接口和工具迁移的参考源码 | `ide call` 已覆盖该版本的 30 个工具名及对应能力；不连接/加载原插件，不提供 MCP endpoint；差异见 [迁移说明](IDE_COMPAT.md) |
 | `mcp-cli` 技能 | 调用本机配置的 MCP 服务 | 可选外部工具，不影响当前 CLI；不打包含其他服务端点和令牌的本机 `servers.json` |
 | CLI-Anything 构建技能 | 开发 harness 时采用的方法和共享辅助代码 | 来源保留在 NOTICE；运行本工具不要求安装生成工具 |
 | 炫彩 IDE、模块库、MSVC、Windows SDK | 原生格式、编译器、头文件与链接库 | 用户在目标机器安装，设置 `--ide`、`XC_IDE_ROOT` 或模块脚本的 `--root` |

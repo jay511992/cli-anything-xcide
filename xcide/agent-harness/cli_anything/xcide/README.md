@@ -1,6 +1,6 @@
 # XCGUI IDE 本地命令行
 
-`cli-anything-xcide` 是炫彩 IDE 与炫语言工程的本地命令行助手。它能浏览和派生 IDE 示例、使用工程模板创建 `.xcproj`、检查源码和界面资源、扫描本地模块库、维护工程模块引用、调用真实 IDE 构建，并发布本地检查预览。CLI 直接操作本机文件，不需要 MCP，也无需在 IDE 中安装插件。
+`cli-anything-xcide` 是炫彩 IDE 与炫语言工程的本地命令行助手。它能浏览和派生 IDE 示例、使用工程模板创建 `.xcproj`、检查源码和界面资源、扫描本地模块库、维护工程模块引用、调用真实 IDE 构建，并发布本地检查预览。文件操作直接读写本机；实时能力使用本项目的原生桥接，不需要 MCP，也无需在正式 IDE 安装中加入插件。
 
 真实构建使用 Windows 上已安装的炫彩 IDE 编译器。所有构建均在独立后台桌面启动临时 IDE 副本，向已核验的 XCGUI 主窗口发送 F7，并验证本轮新 EXE 及 PE 架构。普通 `build` 的插件目录为空，编译诊断返回 `null`；`build --diagnostics` 自动编译并加载仅供本轮使用的输出桥接，读取真实错误/警告和原始输出。正式 IDE 安装不加载新插件。IDE、编译器和运行测试都不会切换前台桌面或使用前台鼠标输入。
 
@@ -23,6 +23,17 @@ cli-anything-xcide --help
 若路径不在默认位置，设置 `XC_IDE_ROOT` 或为命令提供 `--ide`。全局参数（例如 `--json`、`--project` 和 `--dry-run`）必须写在子命令之前。
 
 ## 常用工作流
+
+使用持久后台 IDE 和旧 `xc_*` 工具名：
+
+```powershell
+cli-anything-xcide --json ide tools
+cli-anything-xcide --json --ide 'I:\xcide' --project 'E:\work\Demo\Demo.xcproj' ide start --directory 'E:\work\Demo-session'
+cli-anything-xcide --json ide --instance 'E:\work\Demo-session' call xc_editor_get
+cli-anything-xcide --json ide --instance 'E:\work\Demo-session' stop
+```
+
+30 项工具对应关系、参数、部分完成与版本边界见 [IDE_COMPAT.md](IDE_COMPAT.md)。实时会话需要 64 位 Python、AMD64 ABI v3 IDE 和 MSVC；使用独立 Windows 桌面，不能接管现有前台 IDE。
 
 浏览 IDE 自带工程模板，并复制任一模板创建独立工程：
 
