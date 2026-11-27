@@ -2,7 +2,7 @@
 
 本手册供 Codex、其他 AI 代理和脚本调用 `cli-anything-xcide`。CLI 读取和更新 Windows 本地文件，实时能力通过本项目原生桥接执行，不使用 MCP。`build --diagnostics` 和 `ide start` 自动在各自隔离 IDE 副本中编译并加载所需桥接，无需向正式 IDE 安装插件。
 
-独立 Git 仓库同时提供 `skills/cli-anything-xcide`（调用规则）和 `skills/xc-suite`（炫语言、模块及 UI 开发资料）。写业务程序时建议一并读取；XC 模块索引按当前安装重建。wheel 包含 CLI 技能及原生桥接，XC 开发资料随仓库单独提供。XC-MCP-Next 与 `mcp-cli` 为可选外部工具，当前编译、读错误及后台测试不依赖它们；迁移方法见仓库根目录 `DEPENDENCIES.md`。
+让 Agent 使用 `cli-anything-xcide` 一个技能即可。仓库入口是 `skills/cli-anything-xcide/SKILL.md`，wheel 入口是 `cli_anything/xcide/skills/SKILL.md`。两者都包含炫语言/XCGUI 开发指南及模块检索脚本；写 XC 时按入口读取相应参考，仅编译已有工程时直接调用 CLI。不需要单独启用 `xc-suite`、`mcp-cli` 或 XC-MCP-Next。
 
 文档的离线预览版是 [AI_CALLING.html](AI_CALLING.html)。前两批各 20 轮安装包功能挖掘见工作区根目录的 `AI_MINING_REPORT.md`、`AI_MINING_REPORT_02.md`；第三批 50 轮见 `AI_MINING_REPORT_03.md`。均有同名 HTML 阅读版，不依赖网络或脚本。
 

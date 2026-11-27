@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src data: file:; font-src 'none'; script-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="color-scheme" content="light dark"><title>interface-xml — 布局 XML 骨架 / 标签 / layout.* / 控件 / 窗口属性 / 窗壳 / 工具窗令牌｜炫彩 IDE</title>
+<meta name="description" content="离线阅读版：interface-xml — 布局 XML 骨架 / 标签 / layout.* / 控件 / 窗口属性 / 窗壳 / 工具窗令牌">
+<style>
+:root{color-scheme:light dark;--bg:#f3f5f9;--panel:#fff;--ink:#1f2937;--soft:#617086;--line:#e4e9f0;--accent:#145bce;--code:#eef2f8;--shadow:0 16px 46px #25385814;font:16px/1.76 "Microsoft YaHei UI","Microsoft YaHei",system-ui,sans-serif}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 85% -12%,#dbeafe 0,transparent 34rem),var(--bg);color:var(--ink)}
+.top{max-width:1380px;margin:auto;padding:30px 34px 12px;display:flex;align-items:center;justify-content:space-between;color:var(--soft);font-size:13px;letter-spacing:.04em}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;color:var(--accent)}.mark{display:grid;place-items:center;width:28px;height:28px;border-radius:8px;background:linear-gradient(140deg,#4e91ff,#1758c9);color:white;font-size:15px}
+.wrap{max-width:1380px;margin:0 auto 72px;padding:14px 28px;display:grid;grid-template-columns:minmax(0,1fr) 245px;gap:26px;align-items:start}
+main{min-width:0;background:var(--panel);border:1px solid var(--line);box-shadow:var(--shadow);border-radius:18px;padding:54px clamp(24px,6vw,86px) 66px}.eyebrow{color:var(--accent);font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:12px}h1{font-size:clamp(32px,5vw,47px);line-height:1.2;letter-spacing:-.04em;margin:12px 0 32px}h2{font-size:25px;line-height:1.35;letter-spacing:-.025em;margin:52px 0 18px;padding-bottom:10px;border-bottom:1px solid var(--line)}h3{font-size:20px;margin:34px 0 10px;line-height:1.4}h4,h5,h6{margin:28px 0 8px}p{margin:14px 0}a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}strong{font-weight:750}ul,ol{padding-left:1.55em;margin:12px 0 20px}li{padding-left:.18em;margin:6px 0}code{font-family:Consolas,"Cascadia Code","Microsoft YaHei",monospace;font-size:.91em;background:var(--code);border-radius:5px;padding:.13em .42em;overflow-wrap:anywhere}pre{margin:20px 0;padding:19px 22px;background:#111827;color:#e2e8f0;border:1px solid #334155;border-radius:11px;overflow:auto;line-height:1.65;white-space:pre}pre code{padding:0;background:none;border-radius:0;color:inherit;font-size:13px;overflow-wrap:normal}.table-wrap{overflow:auto;margin:19px 0 24px;border:1px solid var(--line);border-radius:10px}table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.55}th,td{padding:10px 13px;border-bottom:1px solid var(--line);vertical-align:top}th{background:var(--code);font-weight:700;white-space:nowrap}tr:last-child td{border-bottom:0}blockquote{margin:20px 0;padding:2px 20px;border-left:4px solid #86aaf1;background:var(--code);border-radius:0 8px 8px 0;color:var(--soft)}hr{border:0;border-top:1px solid var(--line);margin:32px 0}.meta{color:var(--soft);font-size:13px;margin-top:-20px;margin-bottom:36px}
+aside{position:sticky;top:16px;max-height:calc(100vh - 32px);overflow:auto;padding:20px 16px;background:color-mix(in srgb,var(--panel) 84%,transparent);border:1px solid var(--line);border-radius:14px}aside b{display:block;margin:0 8px 9px;font-size:13px}aside a{display:block;padding:4px 8px;color:var(--soft);font-size:12px;line-height:1.5;border-radius:5px}aside a:hover{background:var(--code);color:var(--accent);text-decoration:none}aside .depth-3{padding-left:18px}aside .depth-4{padding-left:29px}.foot{max-width:1380px;margin:-48px auto 30px;padding:0 34px;color:var(--soft);font-size:12px}
+@media(prefers-color-scheme:dark){:root{--bg:#12151c;--panel:#1b2029;--ink:#e3e9f2;--soft:#a6b1c2;--line:#303948;--accent:#7eaeff;--code:#252e3a;--shadow:0 20px 50px #0004}body{background:radial-gradient(ellipse at 85% -12%,#172b46 0,transparent 36rem),var(--bg)}aside{background:color-mix(in srgb,var(--panel) 87%,transparent)}}
+@media(max-width:940px){.wrap{grid-template-columns:minmax(0,1fr);padding:10px 16px}aside{position:relative;top:0;max-height:240px;order:-1;columns:2}main{padding:38px clamp(18px,5vw,48px) 48px}.top{padding:23px 20px 10px}}
+@media(max-width:560px){.wrap{padding:8px}main{border-radius:12px;padding:30px 20px 42px}aside{columns:1}.top{padding:18px 14px 8px}h2{font-size:22px}}
+@media print{:root{color-scheme:light;--bg:#fff;--panel:#fff;--ink:#171717;--soft:#444;--line:#ccc;--accent:#164f98;--code:#f1f1f1}body{background:#fff}.top,aside,.foot{display:none}.wrap{display:block;max-width:none;margin:0;padding:0}main{border:0;box-shadow:none;padding:0}h2{break-after:avoid}pre,table{break-inside:avoid}a{color:inherit;text-decoration:underline}}
+</style></head><body>
+<header class="top"><div class="brand"><span class="mark">炫</span><span>炫彩 IDE · 本地自动化文档</span></div><span>离线 HTML · 可直接浏览器打开 / 打印为 PDF</span></header>
+<div class="wrap"><main><div class="eyebrow">XCGUI / Xuan Language</div><h1>interface-xml — 布局 XML 骨架 / 标签 / layout.* / 控件 / 窗口属性 / 窗壳 / 工具窗令牌</h1><div class="meta">本页由本地 Markdown 生成；样式内嵌，无网络、MCP 或浏览器脚本依赖。</div><blockquote><p>来源：<code>xc-代码\界面md\00-xc-xml-schema.md</code> §1/§3–§20/§23–§25、<code>07-pitfalls-and-checklist.md</code> §1/§2/§6、<code>08-window-shell-transparency.md</code>、<code>09-tool-window-tokens.md</code>、<code>xcgui-humbox\references\layout-widgets.md</code> §1–§5。</p></blockquote>
+<blockquote><p>本文件是<strong>窗口与布局属性的唯一权威表</strong>。平台差异（humbox / hum 导航、配色、页面结构）见 <code>skin-platforms.md</code>；bkInfoM 与 resource.res 见 <code>bkinfom-res.md</code>。</p></blockquote>
+<blockquote><p>剔除：<code>xc-代码\sessions\</code>、<code>xc-代码\.codegraph\</code>（源 <code>xc-代码/skill.md</code> 第 35 行原文：「<code>sessions/</code> 与 <code>.codegraph/</code> 不是技能材料。」）；<code>Test.xml</code> 等设计器草稿。</p></blockquote>
+<h2 id="1-文件骨架与标签">1. 文件骨架与标签</h2>
+<p><strong>不是单根 XML</strong>。<code>&lt;head /&gt;</code> 与真正根节点<strong>并列</strong>；注释决定类型，必须写对：</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!--炫彩界面库-窗口布局文件--&gt;
+&lt;head /&gt;
+&lt;windowUI ...&gt;</code></pre>
+<div class="table-wrap"><table><tr><th style="text-align:left">注释</th><th style="text-align:left">根节点</th><th style="text-align:left">用途</th></tr><tr><td style="text-align:left">窗口布局文件</td><td style="text-align:left"><code>windowUI</code></td><td style="text-align:left">独立窗口（主窗、模态弹窗）</td></tr><tr><td style="text-align:left">布局面板文件</td><td style="text-align:left"><code>layoutPanel</code></td><td style="text-align:left">嵌入父元素的面板</td></tr><tr><td style="text-align:left">列表元素项模板文件</td><td style="text-align:left"><code>xc_template_list</code></td><td style="text-align:left"><code>listUI</code> 表头+行</td></tr><tr><td style="text-align:left">列表框元素项模板文件</td><td style="text-align:left"><code>xc_template_listBox</code></td><td style="text-align:left"><code>listBoxUI</code> / 组合框下拉项</td></tr><tr><td style="text-align:left">列表视元素项模板文件</td><td style="text-align:left"><code>xc_template_listView</code></td><td style="text-align:left"><code>listViewUI</code> 分组+格子</td></tr><tr><td style="text-align:left">树元素项模板文件</td><td style="text-align:left"><code>xc_template_tree</code></td><td style="text-align:left"><code>treeUI</code> 行</td></tr></table></div>
+<p><code>&lt;head&gt;</code> 里可有 <code>&lt;bindJsFile value=&quot;&quot; /&gt;</code>；本仓库工具窗一般写 <code>&lt;head /&gt;</code>，不用 JS。新建文件必须照抄固定开头三行。全部 <strong>UTF-8 无 BOM</strong>，简体中文内容。</p>
+<p><strong>标准 XML 单根校验会误判</strong>：炫彩文件常见 <code>&lt;head /&gt;</code> + <code>&lt;windowUI&gt;</code>，不要用「必须单根」判定整文件废掉——<strong>以炫彩 IDE 为准</strong>。改完先在 IDE 打开布局，能开再跑 exe。</p>
+<p><strong>humbox <code>布局文件/</code> 共 57 个 XML</strong> = <strong>17 个正式窗口</strong>（<code>windowUI</code>）+ <strong>1 个设计器草稿 <code>Test.xml</code></strong>（1936×1226，非风格参考）+ <strong>18 个面板</strong>（<code>layoutPanel</code>）+ <strong>21 个列表项模板</strong>（6 <code>xc_template_listView</code> + 14 <code>xc_template_list</code> + 1 <code>xc_template_listBox</code>）。</p>
+<blockquote><p>源冲突注记：<code>architecture.md</code> 的「18 个窗口」把 <code>Test.xml</code> 计入了窗口；<code>file-map.md</code>/<code>skill.md</code> 的「57 = 17+18+21」是加法笔误（实为 56，漏 <code>Test.xml</code>）。<strong>按上式为最终口径。</strong></p></blockquote>
+<p><strong>标签全集（源文件出现顺序枚举）</strong></p>
+<ul><li>窗口/容器：<code>windowUI</code> <code>layoutPanel</code> <code>layoutEleUI</code> <code>layoutFrameUI</code> <code>elementUI</code> <code>scrollViewUI</code></li></ul>
+<ul><li>控件：<code>buttonUI</code> <code>textLinkUI</code> <code>editUI</code> <code>richTextBoxUI</code> <code>comboBoxUI</code> <code>listUI</code> <code>listBoxUI</code> <code>listViewUI</code> <code>treeUI</code> <code>scrollBarUI</code> <code>listHeaderUI</code> <code>progressBarUI</code> <code>sliderBarUI</code> <code>tabBarUI</code> <code>toolBarUI</code> <code>menuBarUI</code> <code>monthCalUI</code> <code>dateTimeUI</code> <code>paneUI</code> <code>propertyGridUI</code></li></ul>
+<ul><li>形状：<code>shapeText</code> <code>shapePicture</code> <code>shapeGif</code> <code>shapeRect</code> <code>shapeEllipse</code> <code>shapeGroupBox</code> <code>shapeLine</code></li></ul>
+<ul><li>模板根：<code>xc_template_list</code> <code>xc_template_listBox</code> <code>xc_template_listView</code> <code>xc_template_tree</code></li></ul>
+<ul><li>模板内子节点：<code>listHeader_item</code>、<code>list_Item</code>（00 拼写）/ <code>list_item</code>（architecture 拼写）、<code>listView_Group</code>、<code>listView_item</code></li></ul>
+<ul><li>滚动子声明：<code>&lt;child&gt;</code> 内的 <code>scrollBarUI</code> / <code>buttonUI</code> / <code>listHeaderUI</code></li></ul>
+<blockquote><p>⚠ 两来源差异：00 §20 写 <code>&lt;list_Item heightT=&quot;30&quot; widthT=&quot;1200&quot;&gt;</code>，architecture §3.3 写 <code>&lt;list_item&gt;</code>；大小写不一致，抄目标工程现成模板。</p></blockquote>
+<p><strong>设计器属性 vs 运行时属性</strong>（只服务设计器，<strong>不要当运行时逻辑用</strong>）：</p>
+<div class="table-wrap"><table><tr><th style="text-align:left">属性</th><th style="text-align:left">含义</th><th style="text-align:left">注意</th></tr><tr><td style="text-align:left"><code>rect=&quot;l,t,w,h&quot;</code></td><td style="text-align:left">设计器画布占位</td><td style="text-align:left">真正尺寸看 <code>layout.*</code></td></tr><tr><td style="text-align:left"><code>showT</code></td><td style="text-align:left">设计器里显隐</td><td style="text-align:left"><code>showT=&quot;false&quot;</code> 设计器隐藏，<strong>运行时仍加载</strong></td></tr><tr><td style="text-align:left"><code>expandT</code></td><td style="text-align:left">设计器树节点展开</td><td style="text-align:left">与运行时无关</td></tr><tr><td style="text-align:left"><code>widthT</code> / <code>heightT</code></td><td style="text-align:left">模板项设计器预览宽高</td><td style="text-align:left">运行时看 <code>layout.width/height</code></td></tr><tr><td style="text-align:left"><code>bkInfoM_nameT</code> / <code>bkInfoM_state</code></td><td style="text-align:left">背景备注 / 预览态</td><td style="text-align:left">可删</td></tr></table></div>
+<p>运行时显隐用 <code>show</code>（XML 初值）或代码显示 API。页签切换<strong>禁止</strong>靠 <code>showT</code>。<code>layout.align=&quot;statr&quot;</code>、<code>layout.alignBaseline=&quot;statr&quot;</code> 是设计器拼写错误，<strong>不要学</strong>。</p>
+<p><strong>谁是布局盒子</strong>：只有 <code>windowUI</code>（必须 <code>enableLayout=&quot;true&quot;</code>）、<code>layoutEleUI</code>、<code>layoutFrameUI</code>（可滚动布局盒子）能排布子项；<code>layoutPanel</code> 本身不是盒子，里面要再放 <code>layoutEleUI</code>。</p>
+<p><strong>不是盒子</strong>：<code>elementUI</code>、普通 <code>buttonUI</code>、<code>shapeText</code>。父不是盒子时，子元素的 <code>layout.width/height</code> <strong>无效</strong>（<code>shapeText</code> 的布局宽高仍有效）。不要把一排表单塞进 <code>elementUI</code> 还指望自动排。</p>
+<p><code>layoutControl=&quot;false&quot;</code>：该对象不受父盒子控制，改走 <code>rect</code>/<code>left/top</code>（layout-widgets 实例：login.xml 密码眼睛按钮）。默认受控，不要乱关。</p>
+<pre><code class="language-xml">&lt;layoutPanel heightT=&quot;800&quot; widthT=&quot;1500&quot;&gt;
+  &lt;layoutEleUI layout.height=&quot;fill&quot; layout.width=&quot;fill&quot; ...&gt;
+&lt;/layoutPanel&gt;</code></pre>
+<p><code>heightT</code>/<code>widthT</code> 仅设计器画布。运行时由父撑满，根子项必须 <code>fill</code>。</p>
+<h2 id="2-layout-属性全集">2. <code>layout.*</code> 属性全集</h2>
+<p><strong>默认水平</strong>。上下排必须 <code>layout.horizon=&quot;false&quot;</code>。（旧文档曾写「默认纵向」——<strong>以本条为准</strong>。）</p>
+<div class="table-wrap"><table><tr><th style="text-align:left">属性</th><th style="text-align:left">值</th><th style="text-align:left">用法</th></tr><tr><td style="text-align:left"><code>layout.horizon</code></td><td style="text-align:left"><code>true</code> 水平 / <code>false</code> 垂直</td><td style="text-align:left">漏写就是横排，窗口一拉就乱；模板文件里常见</td></tr><tr><td style="text-align:left"><code>layout.alignH</code></td><td style="text-align:left"><code>left</code> <code>right</code> <code>center</code> <code>equidistant</code></td><td style="text-align:left">水平方向对齐/均分</td></tr><tr><td style="text-align:left"><code>layout.alignV</code></td><td style="text-align:left"><code>top</code> <code>bottom</code> <code>center</code> <code>equidistant</code></td><td style="text-align:left">垂直方向</td></tr><tr><td style="text-align:left"><code>layout.alignBaseline</code></td><td style="text-align:left"><code>auto</code> <code>center</code> <code>end</code>（勿写 <code>statr</code>）</td><td style="text-align:left">同一排里齐顶/居中/齐底</td></tr><tr><td style="text-align:left"><code>layout.space</code></td><td style="text-align:left">像素</td><td style="text-align:left"><strong>列距</strong>（水平子项间距）</td></tr><tr><td style="text-align:left"><code>layout.spaceRow</code></td><td style="text-align:left">像素</td><td style="text-align:left"><strong>行距</strong>。垂直堆叠用它</td></tr><tr><td style="text-align:left"><code>layout.autoWrap</code></td><td style="text-align:left">bool</td><td style="text-align:left">超出则换行。换行后不支持子项 <code>layout.align</code></td></tr><tr><td style="text-align:left"><code>layout.overflowHide</code></td><td style="text-align:left">bool</td><td style="text-align:left">超出裁剪，不换行</td></tr></table></div>
+<blockquote><p>⚠ 两来源差异：<code>layout.alignH</code>/<code>layout.alignV</code> —— 00 额外给 <code>equidistant</code>，layout-widgets 只给 <code>left/center/right</code>、<code>top/center/bottom</code>；<code>layout.alignBaseline</code> —— 00 给 <code>auto center end</code>，layout-widgets 只给 <code>auto / center</code>；<code>layout.autoWrap</code> —— 00 归入「盒子属性（写在父上）」，layout-widgets 描述为「子元素换行开关」未指明父/子；<code>layout.wrap</code> —— 00 归入「项自身」意为「强制该项换到下一行」，layout-widgets 归入 layoutEleUI 表意为「允许自身换行」。<strong>00 更全，采用 00。</strong></p></blockquote>
+<p><strong>项尺寸（写在子上）</strong> <code>layout.width</code> / <code>layout.height</code>：</p>
+<div class="table-wrap"><table><tr><th style="text-align:left">XML 值</th><th style="text-align:left">含义</th><th style="text-align:left">坑</th></tr><tr><td style="text-align:left"><code>fill</code></td><td style="text-align:left">撑满父</td><td style="text-align:left">同一方向多个 <code>fill</code> 会抢；用 <code>:n</code> 分权重</td></tr><tr><td style="text-align:left"><code>auto</code></td><td style="text-align:left">按内容</td><td style="text-align:left">标题列不要 <code>auto</code>，勾选/文字会不齐</td></tr><tr><td style="text-align:left"><code>180</code></td><td style="text-align:left">固定像素</td><td style="text-align:left">父 <code>fill</code>、子全固定/<code>auto</code> → 底部留空</td></tr><tr><td style="text-align:left"><code>:7</code></td><td style="text-align:left">剩余空间权重</td><td style="text-align:left"><code>:</code> 后是<strong>比例</strong>不是像素。<code>:7</code> 与 <code>:4</code> = 7:4</td></tr><tr><td style="text-align:left"><code>%30</code></td><td style="text-align:left">占父百分比</td><td style="text-align:left">少用</td></tr></table></div>
+<p>括号里的中文是设计器备注，运行只看数字：<code>:5(占用剩余空间)</code> / <code>:2(占用剩余空间)</code> / <code>%30(百分比)</code>。</p>
+<p><code>layout.minSize=&quot;w,h&quot;</code>：限制缩放类尺寸下限，对固定像素无效；单值只约束宽。</p>
+<div class="table-wrap"><table><tr><th style="text-align:left">项自身属性</th><th style="text-align:left">含义</th><th style="text-align:left">坑</th></tr><tr><td style="text-align:left"><code>layout.align</code></td><td style="text-align:left">该项在交叉轴上独立对齐</td><td style="text-align:left"><code>autoWrap</code> 时无效</td></tr><tr><td style="text-align:left"><code>layout.wrap</code></td><td style="text-align:left">强制该项换到下一行</td><td style="text-align:left">不是「文字换行」</td></tr><tr><td style="text-align:left"><code>layout.float</code></td><td style="text-align:left">反方向靠齐</td><td style="text-align:left">标题栏关闭钮靠右常用；脱离流式排布，配合 <code>layout.margin</code> 定位</td></tr><tr><td style="text-align:left"><code>layout.swap</code></td><td style="text-align:left">换向时交换宽高</td><td style="text-align:left">一般不用</td></tr><tr><td style="text-align:left"><code>layout.margin</code></td><td style="text-align:left">该项外围空隙，可为负</td><td style="text-align:left">实例 <code>layout.margin=&quot;-52,0,0,0&quot;</code> 让元素向左突出</td></tr><tr><td style="text-align:left"><code>layout.position</code></td><td style="text-align:left">相对盒子贴边，可负</td><td style="text-align:left"></td></tr><tr><td style="text-align:left"><code>layout.minSize</code></td><td style="text-align:left"><code>w,h</code> 最小尺寸</td><td style="text-align:left"></td></tr><tr><td style="text-align:left"><code>layoutControl</code></td><td style="text-align:left"><code>false</code> 关闭布局接管</td><td style="text-align:left">改走绝对 <code>rect</code></td></tr></table></div>
+<p><strong>四元组：padding / border / margin / position</strong> —— 一律 <strong>左,上,右,下</strong>。1 个数=四边相同；2 个数常见为 <code>水平,垂直</code>。不要写 3 个。</p>
+<div class="table-wrap"><table><tr><th style="text-align:left">属性</th><th style="text-align:left">写在</th><th style="text-align:left">含义</th></tr><tr><td style="text-align:left"><code>padding</code></td><td style="text-align:left">盒子</td><td style="text-align:left">内边距</td></tr><tr><td style="text-align:left"><code>border</code></td><td style="text-align:left">盒子/窗口</td><td style="text-align:left">边占位。窗口顶边可含标题栏；editUI 上是文字与边框内距</td></tr><tr><td style="text-align:left"><code>layout.margin</code> / <code>layout.position</code></td><td style="text-align:left">项</td><td style="text-align:left">该项外围空隙 / 相对盒子贴边（可负）；两者在「项自身属性」表已列，此处仅标作用域</td></tr></table></div>
+<p><code>overlayBorder=&quot;true&quot;</code> 后布局会盖住系统标题栏，必须自己做标题栏。本仓库工具窗（含 RCP）都这样。</p>
+<p><strong>吃满高度：铁律</strong> —— 父是 <code>fill</code>、要吃满窗口时，子项必须用 <code>:n</code>（或合理 <code>fill</code>）把剩余空间分完。<strong>禁止</strong>：上面列表 <code>height=&quot;180&quot;</code>，下面设置 <code>auto</code>。</p>
+<p><strong>列表必须再包一层</strong>，不要把 <code>listUI</code> 和表单做成同一父的兄弟：</p>
+<pre><code class="language-xml">&lt;layoutEleUI layout.horizon=&quot;false&quot; layout.height=&quot;fill&quot; layout.width=&quot;fill&quot; layout.spaceRow=&quot;10&quot;&gt;
+  &lt;layoutEleUI layout.height=&quot;:7&quot; layout.width=&quot;fill&quot;&gt;
+    &lt;listUI name=&quot;列表_主机&quot; layout.height=&quot;fill&quot; layout.width=&quot;fill&quot; /&gt;
+  &lt;/layoutEleUI&gt;
+  &lt;layoutEleUI layout.height=&quot;:3&quot; layout.width=&quot;fill&quot; layout.horizon=&quot;false&quot; layout.spaceRow=&quot;8&quot;&gt;
+    &lt;!-- 固定高的操作行 / 状态行 --&gt;
+  &lt;/layoutEleUI&gt;
+&lt;/layoutEleUI&gt;</code></pre>
+<p>加载 XML 后，代码<strong>不要</strong>用固定像素 <code>SetItemSize</code> 把 XML 里的 <code>:n</code> 盖掉。页签叠在同一父里：各页都 <code>fill</code>，同时只显示一页。</p>
+<p><strong>首次布局坑</strong>：面板若 <code>show=&quot;false&quot;</code> 或 radio <code>bindEle</code> 在首次布局前隐藏，<code>:1</code>/<code>fill</code> 可能算成 <strong>0×0</strong>，事后 <code>显示(真)</code> 也不重算。做法：先全部可见 → <code>显示(真)</code> → 再切页；或启动后强制 <code>窗口_调整布局</code>。</p>
+<pre><code class="language-xml">&lt;!-- layoutEleUI 完整属性拼写样例（属性名必须逐字符精确，写错一个字母布局就静默失效） --&gt;
+&lt;layoutEleUI expandT=&quot;true&quot; layout.height=&quot;fill&quot; layout.width=&quot;fill&quot;
+  layout.space=&quot;24&quot; layout.spaceRow=&quot;20&quot; padding=&quot;24,0,20,0&quot;
+  layout.alignH=&quot;left&quot; layout.alignV=&quot;center&quot; layout.alignBaseline=&quot;center&quot;
+  layout.overflowHide=&quot;true&quot; layout.minSize=&quot;200,10&quot; layout.float=&quot;true&quot;
+  layout.autoWrap=&quot;false&quot; layout.wrap=&quot;true&quot; mouseThrough=&quot;false&quot;
+  transparent=&quot;true&quot; name=&quot;main&quot; rect=&quot;0,0,0,0&quot; showT=&quot;true&quot; /&gt;
+&lt;!-- 垂直页 / 水平工具栏标准写法 --&gt;
+&lt;layoutEleUI layout.horizon=&quot;false&quot; layout.spaceRow=&quot;10&quot; layout.height=&quot;fill&quot; layout.width=&quot;fill&quot;&gt;
+&lt;layoutEleUI layout.alignV=&quot;center&quot; layout.height=&quot;36&quot; layout.space=&quot;8&quot; layout.width=&quot;fill&quot;&gt;</code></pre>
+<p>不要用「水平 + 每个子项 <code>layout.wrap=&quot;true&quot;</code>」冒充垂直；本仓库工具窗一律 <code>horizon=&quot;false&quot;</code> 做竖排。</p>
+<p><strong>layoutFrameUI（可滚动框架）</strong>：长文档用；内容高度靠子项累加，不要把所有子项都 <code>fill</code>。<code>enableCanvas</code> 在此类容器可为 <code>true</code>。</p>
+<pre><code class="language-xml">&lt;layoutFrameUI enableCanvas=&quot;true&quot; name=&quot;home_01&quot;
+  layout.height=&quot;:1&quot; layout.width=&quot;fill&quot; layout.space=&quot;28&quot; layout.spaceRow=&quot;24&quot;
+  layout.minSize=&quot;500,292&quot; layout.autoWrap=&quot;false&quot;
+  scrollBarAuto=&quot;true&quot; scrollBarShowH=&quot;true&quot; scrollBarShowV=&quot;false&quot;
+  scrollView.scrollBarSize=&quot;4&quot; transparent=&quot;true&quot;&gt;
+  &lt;child&gt;
+    &lt;scrollBarUI layout.height=&quot;64&quot; scrollBar.sliderMinLength=&quot;120&quot; scrollBar.sliderSpace=&quot;0&quot; showButton=&quot;false&quot; childType=&quot;scrollBarH&quot; /&gt;
+    &lt;buttonUI bkInfoM=&quot;{sizeT:100,6;99:1.9.9;98:16(0)32(0)64(0);5:2(15)20(1)21(4)26(1)24(2,0.00,1694498815,0,100663295,100)9(2,2,2,2);}&quot;
+      layout.height=&quot;4&quot; transparent=&quot;true&quot; childType=&quot;scrollBarH.button&quot; /&gt;
+    &lt;scrollBarUI scrollBar.sliderSpace=&quot;0&quot; showButton=&quot;false&quot; childType=&quot;scrollBarV&quot; /&gt;
+  &lt;/child&gt;
+&lt;/layoutFrameUI&gt;</code></pre>
+<h2 id="3-控件清单与专有属性">3. 控件清单与专有属性</h2>
+<p><strong>通用元素属性（几乎所有 HELE）</strong></p>
+<div class="table-wrap"><table><tr><th style="text-align:left">属性</th><th style="text-align:left">含义</th><th style="text-align:left">坑</th></tr><tr><td style="text-align:left"><code>enable</code> / <code>show</code></td><td style="text-align:left">启用 / 运行时初值显隐</td><td style="text-align:left">叠页用代码切</td></tr><tr><td style="text-align:left"><code>alpha</code></td><td style="text-align:left">0–255</td><td style="text-align:left">整控件透明度</td></tr><tr><td style="text-align:left"><code>transparent</code></td><td style="text-align:left">背景透明</td><td style="text-align:left">自绘/CSS 背景时常 true；几乎所有带 bkInfoM 的控件都要 <code>transparent=&quot;true&quot;</code>，否则出现系统默认底色</td></tr><tr><td style="text-align:left"><code>drawBorder</code> / <code>drawFocus</code></td><td style="text-align:left">默认边框 / 焦点框</td><td style="text-align:left">模板里边框一律 <code>false</code></td></tr><tr><td style="text-align:left"><code>enableCanvas</code></td><td style="text-align:left">独立画布</td><td style="text-align:left"><strong>默认开</strong>；<code>layoutEleUI</code> <strong>默认关</strong>。模板里必须 <code>false</code></td></tr><tr><td style="text-align:left"><code>mouseThrough</code></td><td style="text-align:left">鼠标穿透</td><td style="text-align:left">自己不收、<strong>子仍收</strong>。模板根必须 <code>true</code>；标题栏不要开穿透</td></tr><tr><td style="text-align:left"><code>cursor</code></td><td style="text-align:left"><code>IDC_HAND</code> / <code>IDC_ARROW</code></td><td style="text-align:left">可点按钮给手型</td></tr><tr><td style="text-align:left"><code>toolTip</code></td><td style="text-align:left">悬停提示</td><td style="text-align:left">格式常带快捷键 <code>[N]</code></td></tr><tr><td style="text-align:left"><code>css.name</code> / <code>css.enable</code></td><td style="text-align:left">套 CSS</td><td style="text-align:left">手写 <code>font</code>/<code>textColor</code> 时可 <code>css.enable=&quot;false&quot;</code></td></tr><tr><td style="text-align:left"><code>bkInfoM</code></td><td style="text-align:left">背景资源编码</td><td style="text-align:left">能用命名样式/<code>css.name</code> 就别贴长串（语法见 <code>bkinfom-res.md</code>）</td></tr><tr><td style="text-align:left"><code>font</code> / <code>textColor</code></td><td style="text-align:left"><code>@yahei_9</code> / <code>#AARRGGBB</code> / <code>@资源</code></td><td style="text-align:left"></td></tr><tr><td style="text-align:left"><code>offsetXY</code></td><td style="text-align:left">偏移修正</td><td style="text-align:left">复选框 <code>offsetXY=&quot;22,0&quot;</code>（00/07）/ <code>offsetXY=&quot;18&quot;</code>（layout-widgets），不同工程实例并存</td></tr></table></div>
+<p><code>shapeText</code> <strong>不是 HELE</strong>，点不中、不能当按钮用。要点击，点外层 <code>layoutEleUI</code> / <code>buttonUI</code>。</p>
+<p><strong>容器语义</strong>：<code>layoutEleUI</code> = 90% 的容器，默认 <code>enableCanvas=false</code>，不要擅自打开；<code>elementUI</code> = 不是布局盒子，用途 1px 分割线、图标底、纯背景块（纯靠 bkInfoM 画样式）；<code>layoutFrameUI</code> = 带滚动的布局盒子。</p>
+<p><strong>滚动子对象 <code>&lt;child&gt;</code></strong></p>
+<pre><code class="language-xml">&lt;listUI ...&gt;
+  &lt;child&gt;
+    &lt;scrollBarUI showButton=&quot;false&quot; childType=&quot;scrollBarV&quot; /&gt;
+    &lt;listHeaderUI transparent=&quot;true&quot; childType=&quot;listHeader&quot; /&gt;
+  &lt;/child&gt;
+&lt;/listUI&gt;</code></pre>
+<p><code>childType</code> 只允许：<code>scrollBarV</code> <code>scrollBarH</code> <code>scrollBarV.button</code> <code>scrollBarH.button</code> <code>listHeader</code>。多数列表可省略 <code>&lt;child&gt;</code>。</p>
+<p><code>scrollBarUI</code> 属性：<code>scrollBar.sliderMinLength</code>（滑块最短长度）、<code>scrollBar.sliderSpace</code>（滑块与轨道间隙）、<code>showButton</code>（两端箭头按钮，项目里恒 <code>false</code>）。<code>scrollView.scrollBarSize</code> = 滚动条宽度像素。</p>
+<p>editUI / richTextBoxUI 的滚动条子声明：</p>
+<pre><code class="language-xml">&lt;editUI multiLine=&quot;true&quot; edit.autoWrap=&quot;true&quot; edit.readOnly=&quot;true&quot;
+  scrollBarAuto=&quot;true&quot; scrollBarShowH=&quot;false&quot; scrollView.scrollBarSize=&quot;6&quot; ...&gt;
+  &lt;child&gt;
+    &lt;scrollBarUI scrollBar.sliderSpace=&quot;0&quot; showButton=&quot;false&quot; childType=&quot;scrollBarV&quot; /&gt;
+    &lt;buttonUI bkInfoM=&quot;@滚动条&quot; transparent=&quot;true&quot; childType=&quot;scrollBarV.button&quot; /&gt;   &lt;!-- 同上文 listUI 的 child 写法 --&gt;
+  &lt;/child&gt;
+&lt;/editUI&gt;</code></pre>
+<blockquote><p>⚠ 两来源差异（非冲突）：编辑框滚动属性名 —— 00 §14 用 <code>scrollBarShowV</code> / <code>scrollBarAuto</code>，layout-widgets §1 用 <code>scrollBarAuto</code> / <code>scrollBarShowH</code> / <code>scrollView.scrollBarSize</code>；H/V 并存，逐字抄源。</p></blockquote>
+<p><strong><code>buttonUI</code></strong></p>
+<pre><code class="language-xml">&lt;buttonUI bkInfoM=&quot;...&quot; buttonType=&quot;radio&quot; check=&quot;true&quot; groupID=&quot;0&quot;
+  bindEle=&quot;@ID_皮肤_一键加载&quot; content=&quot;选择&quot; font=&quot;@10b&quot; textColor=&quot;#FDFFFFFF&quot;
+  cursor=&quot;IDC_HAND&quot; toolTip=&quot;刷新皮肤列表&quot; imageIcon=&quot;@res_sel_icon.svg&quot;
+  enable=&quot;false&quot; layout.height=&quot;32&quot; layout.width=&quot;32&quot; transparent=&quot;true&quot; /&gt;</code></pre>
+<div class="table-wrap"><table><tr><th style="text-align:left">属性</th><th style="text-align:left">值</th><th style="text-align:left">说明</th></tr><tr><td style="text-align:left"><code>content</code></td><td style="text-align:left">文本；模板可 <code>{binding ...}</code></td><td style="text-align:left"></td></tr><tr><td style="text-align:left"><code>textAlign</code></td><td style="text-align:left"><code>left,vcenter</code> 或 <code>DT_LEFT,DT_VCENTER</code>（<code>DT_SINGLELINE</code>）</td><td style="text-align:left">DrawText 标志</td></tr><tr><td style="text-align:left"><code>buttonType</code></td><td style="text-align:left">空 / <code>radio</code> / <code>check</code> / <code>min</code> / <code>max</code> / <code>close</code></td><td style="text-align:left"><strong>功能</strong></td></tr><tr><td style="text-align:left"><code>style</code></td><td style="text-align:left">空 / <code>radio</code> / <code>check</code> / <code>min</code> / <code>max</code> / <code>close</code> / <code>icon</code></td><td style="text-align:left"><strong>外观</strong>。系统勾选常配 <code>style=&quot;check&quot;</code></td></tr><tr><td style="text-align:left"><code>check</code></td><td style="text-align:left">是否选中</td><td style="text-align:left">默认页 <code>check=&quot;true&quot;</code></td></tr><tr><td style="text-align:left"><code>groupID</code></td><td style="text-align:left">单选分组</td><td style="text-align:left"><strong>同组互斥</strong>。0=主导航，2=资源页，3=皮肤页，4=交互页</td></tr><tr><td style="text-align:left"><code>bindEle</code></td><td style="text-align:left">选中则显示绑定元素</td><td style="text-align:left">hum/humbox 导航常用；工具窗可改用代码切页（同组代码同步先全部 <code>置选中(假)</code>，最后只对目标 <code>置选中(真)</code>；不要在混排循环中先真后假）</td></tr><tr><td style="text-align:left"><code>imageIcon</code></td><td style="text-align:left"><code>@资源.svg</code></td><td style="text-align:left">图标（走资源注册名）</td></tr><tr><td style="text-align:left"><code>offsetXY</code></td><td style="text-align:left">文本偏移</td><td style="text-align:left">自定义复选框文字让开勾选区：<code>offsetXY=&quot;22,0&quot;</code></td></tr></table></div>
+<p><strong>复选框</strong>：<code>buttonType=&quot;check&quot;</code> + <code>transparent=&quot;true&quot;</code> + <code>@复选框</code>（或等价 bkInfoM），<strong>不要</strong>只写 <code>style=&quot;check&quot;</code> 吃系统灰底。</p>
+<p><code>textLinkUI</code>：协议链接用这个，不要用按钮假装。</p>
+<pre><code class="language-xml">&lt;textLinkUI content=&quot;《用户协议》&quot; font=&quot;@10b&quot; alpha=&quot;240&quot;
+  textColor=&quot;#FFFFFFFF&quot; textColorStay=&quot;#FFc5f35f&quot;
+  underlineLeave=&quot;false&quot; underlineStay=&quot;true&quot; cursor=&quot;IDC_HAND&quot; /&gt;
+&lt;shapeText content=&quot;出现任何问题，请随时与我们联系反馈&quot; font=&quot;@10&quot;
+  textColor=&quot;#FFE9EAEA&quot; textAlign=&quot;DT_LEFT,DT_VCENTER,DT_SINGLELINE&quot; /&gt;
+&lt;shapePicture image=&quot;@LOGO.svg&quot; layout.height=&quot;40&quot; layout.width=&quot;40&quot; /&gt;</code></pre>
+<p><code>textColorStay</code> = 悬停色（项目品牌绿 <code>#FFc5f35f</code>），<code>underlineStay</code> = 悬停显示下划线。<code>image</code> 走资源注册名；模板里可绑数据 <code>image=&quot;{binding field=缩略图}&quot;</code>。</p>
+<p><strong><code>editUI</code></strong></p>
+<pre><code class="language-xml">&lt;editUI contentTips=&quot;输入你的账号&quot; contentTipsColor=&quot;#BBFFFFFF&quot; caretColor=&quot;#FFBBF327&quot;
+  edit.password=&quot;true&quot; multiLine=&quot;true&quot; edit.autoWrap=&quot;true&quot; edit.readOnly=&quot;true&quot;
+  enableFocus=&quot;false&quot; font=&quot;@10b&quot; textColor=&quot;#FFFFFFFF&quot; border=&quot;12,0,12,0&quot;
+  layout.height=&quot;40&quot; layout.width=&quot;fill&quot; name=&quot;皮肤_自定义加载_对接程序_编辑框&quot; /&gt;</code></pre>
+<p>属性：<code>content</code>/<code>contentTips</code>/<code>contentTipsColor</code>（初值/占位）；<code>multiLine</code>/<code>edit.autoWrap</code>；<code>edit.readOnly</code>；<code>edit.password</code>；<code>scrollBarShowV</code>/<code>scrollBarShowH</code>/<code>scrollBarAuto</code>；<code>caretColor</code>（光标色，品牌黄绿 <code>#FFBBF327</code>）；<code>enableFocus=&quot;false&quot;</code>（禁止聚焦，说明文本用）；<code>border</code>（<code>l,t,r,b</code> 文字与边框内距）。</p>
+<p><strong><code>comboBoxUI</code></strong>：<code>comboBox.enableEdit</code>（false=只能选）、<code>comboBox.itemTemplate</code>（项模板；留空常靠代码建适配器）、<code>comboBox.dropHeight</code>（下拉高度）、<code>comboBox.drawButton</code>（关掉内置按钮，自绘箭头时 <code>false</code>）。</p>
+<pre><code class="language-xml">&lt;comboBoxUI comboBox.enableEdit=&quot;false&quot; comboBox.drawButton=&quot;false&quot;
+  contentTips=&quot;请选择授权皮肤&quot; border=&quot;140,0,56,0&quot; font=&quot;@10b&quot;
+  name=&quot;皮肤_自定义加载_授权皮肤_组合框&quot; /&gt;</code></pre>
+<p>下拉项外观由绑定模板（<code>combobox_template.xml</code>，<code>xc_template_listBox</code> 根）决定。<strong>美化与坑见 <code>skin-platforms.md</code> 组合框一节</strong>：触发器样式 ≠ 弹出层；启动前 <code>创建数据适配器()</code>；弹出回调禁止乱改弹窗坐标/圆角壳。</p>
+<p><strong>列表家族</strong>：<code>listUI</code> 报表 <code>list.itemTemplate</code> = <code>文件名,最大延伸列数</code>（如 <code>list_agent_item.xml,8</code>）；<code>list.rowHeight</code> / <code>list.headerHeight</code>；<code>list.multiSel</code>；<code>list.dragChangeColumnWidth</code>。</p>
+<p><strong>列宽铁律</strong>：<code>添加列文本(宽,…)</code> 的宽度必须与项模板里每列 <code>layout.width</code> <strong>一致</strong>，否则表头与单元格错位截断。</p>
+<p><code>listBoxUI</code> / <code>listViewUI</code> / <code>treeUI</code>：见官方属性表；树模板左侧固定宽放 <code>expandButton=&quot;true&quot;</code> 的展开钮。</p>
+<p><strong>其它控件（少用也要写对）</strong>：<code>progressBarUI</code> <code>sliderBarUI</code> <code>tabBarUI</code> <code>toolBarUI</code> <code>menuBarUI</code> <code>monthCalUI</code> <code>dateTimeUI</code> <code>paneUI</code> <code>propertyGridUI</code> <code>scrollViewUI</code> —— 能用 <code>layoutFrameUI</code> 就别用裸 <code>scrollViewUI</code>。本仓库页签多用 <strong>radio 分段按钮</strong>，不用 <code>tabBarUI</code>。</p>
+<div class="table-wrap"><table><tr><th style="text-align:left">形状节点</th><th style="text-align:left">用途</th><th style="text-align:left">关键属性</th></tr><tr><td style="text-align:left"><code>shapeText</code></td><td style="text-align:left">标签</td><td style="text-align:left"><code>content</code> <code>font</code> <code>textColor</code> <code>textAlign</code> <code>offsetXY</code>；模板里 <code>itemID</code> + binding</td></tr><tr><td style="text-align:left"><code>shapePicture</code></td><td style="text-align:left">图</td><td style="text-align:left"><code>image=&quot;@x.svg&quot;</code>；模板可绑 <code>image=&quot;{binding field=缩略图}&quot;</code></td></tr><tr><td style="text-align:left"><code>shapeGif</code></td><td style="text-align:left">GIF</td><td style="text-align:left"><code>image</code></td></tr><tr><td style="text-align:left"><code>shapeRect</code> / <code>shapeEllipse</code></td><td style="text-align:left">几何</td><td style="text-align:left"><code>fill</code> <code>fillColor</code> <code>roundAngle</code> …</td></tr><tr><td style="text-align:left"><code>shapeGroupBox</code></td><td style="text-align:left">分组框</td><td style="text-align:left"><code>content</code> <code>borderColor</code></td></tr><tr><td style="text-align:left"><code>shapeLine</code></td><td style="text-align:left">线</td><td style="text-align:left"><code>pointX1/Y1/X2/Y2</code> <code>color</code></td></tr></table></div>
+<p><code>textAlign</code>：水平 <code>DT_LEFT|CENTER|RIGHT</code>，垂直 <code>DT_TOP|VCENTER|BOTTOM</code>，常加 <code>DT_SINGLELINE</code> / <code>DT_END_ELLIPSIS</code>。也可写 <code>left,vcenter</code>（视工程解析器）。</p>
+<p><strong>项模板</strong> —— 根必须是对应 <code>xc_template_*</code>。模板内根布局：</p>
+<pre><code class="language-xml">&lt;layoutEleUI drawBorder=&quot;false&quot; enableCanvas=&quot;false&quot; mouseThrough=&quot;true&quot;
+  layout.height=&quot;fill&quot; layout.width=&quot;fill&quot; layout.alignV=&quot;center&quot;&gt;
+  &lt;shapeText itemID=&quot;0&quot; content=&quot;{binding field=c0}&quot;
+    layout.height=&quot;fill&quot; layout.width=&quot;fill&quot; /&gt;
+&lt;/layoutEleUI&gt;</code></pre>
+<p><strong>三条死命令</strong>：<code>enableCanvas=&quot;false&quot;</code>、<code>mouseThrough=&quot;true&quot;</code>、<code>drawBorder=&quot;false&quot;</code>。</p>
+<p><strong>绑定语法</strong>：<code>{binding field=字段名 source=data bSync=false}</code>，也可简写 <code>{binding field=c0}</code>（本仓库列表常用 <code>c0</code>…<code>c7</code>）。任何属性值里都能写。模板里还会写 <code>itemID=&quot;N&quot;</code> 给项内元素编号。</p>
+<p><strong><code>list</code> 模板结构</strong>：</p>
+<pre><code class="language-xml">&lt;xc_template_list&gt;
+  &lt;listHeader_item heightT=&quot;30&quot; widthT=&quot;1200&quot;&gt;  &lt;!-- 每列一个 layoutEleUI --&gt;
+  &lt;list_Item heightT=&quot;30&quot; widthT=&quot;1200&quot;&gt;       &lt;!-- 列数与表头一致 --&gt;
+&lt;/xc_template_list&gt;</code></pre>
+<p><code>itemID</code> 按列递增且头/行一致。</p>
+<p><strong>模板背景绑定 BUG</strong>：若背景绑了字段，最外层若不展示该字段，尺寸可能被算成 0×0；须先在外部建同类型元素绑同一字段。<code>GetTemplateObject(..., 0)</code> 常拿到布局不是文本，改颜色找里面的 <code>SHAPE_TEXT</code>。</p>
+<p><strong>常见布局模式速查</strong></p>
+<ul><li>表单行：<code>&lt;layoutEleUI layout.height=&quot;40&quot; layout.space=&quot;12&quot; layout.width=&quot;fill&quot; padding=&quot;140,0,12,0&quot;&gt;</code> + <code>&lt;editUI layout.width=&quot;:1&quot; layout.height=&quot;fill&quot; /&gt;</code> + <code>&lt;buttonUI layout.height=&quot;24&quot; layout.width=&quot;24&quot; toolTip=&quot;粘贴&quot; /&gt;</code> + <code>&lt;buttonUI content=&quot;选择&quot; layout.height=&quot;28&quot; layout.width=&quot;40&quot; /&gt;</code>。标签文字由容器自身的 bkInfoM 文字段绘制，不是独立元素。</li></ul>
+<ul><li>左内容右说明双栏（5:2 权重）：<code>layout.width=&quot;:5(占用剩余空间)&quot;</code> 表单 + <code>layout.width=&quot;:2(占用剩余空间)&quot; layout.minSize=&quot;340&quot;</code> 说明框。</li></ul>
+<ul><li>标题条带容器：<code>&lt;layoutEleUI bkInfoM=&quot;{...;5:2(7)3(0,0,0,32)...标题底;7:...标题文字;5:2(15)3(0,32,0,0)...内容底;}&quot; padding=&quot;12,46,12,12&quot;&gt;</code>。</li></ul>
+<ul><li>浮动工具按钮（标题栏右侧）：<code>&lt;buttonUI layout.float=&quot;true&quot; layout.height=&quot;32&quot; layout.width=&quot;32&quot; layout.margin=&quot;0,0,-4,0&quot; ... /&gt;</code>。</li></ul>
+<h2 id="4-窗口属性与窗壳">4. 窗口属性与窗壳</h2>
+<pre><code class="language-xml">&lt;!-- 工具窗推荐 · 产品 hum 主窗示例 --&gt;
+&lt;windowUI center=&quot;true&quot; dragBorder=&quot;false&quot; dragWindow=&quot;true&quot; enableLayout=&quot;true&quot;
+  overlayBorder=&quot;true&quot; padding=&quot;24,24,24,24&quot; rect=&quot;20,20,1180,720&quot;
+  windowStyle=&quot;0&quot; transparentFlag=&quot;shaped&quot; transparentAlpha=&quot;255&quot;
+  bkInfoM=&quot;@面板_窗壳&quot;&gt;
+&lt;!-- humbox 主窗 --&gt;
+&lt;windowUI center=&quot;true&quot; className=&quot;humbox&quot; content=&quot;未闻花名UI平台&quot;
+  rect=&quot;20,20,1168,670&quot; dragWindow=&quot;true&quot; dragBorder=&quot;true&quot; overlayBorder=&quot;true&quot;
+  shadowColor=&quot;#FF000000&quot; shadowSize=&quot;8&quot; shadowDepth=&quot;75&quot;
+  transparentFlag=&quot;shadow&quot; transparentAlpha=&quot;255&quot; windowStyle=&quot;0&quot; showT=&quot;true&quot; /&gt;</code></pre>
+<div class="table-wrap"><table><tr><th style="text-align:left">属性</th><th style="text-align:left">约定</th></tr><tr><td style="text-align:left"><code>className</code></td><td style="text-align:left"><strong>宿主程序按此名查找加载窗口</strong>，新增窗口必须注册且唯一（humbox、MdMsg、MdNotf、mineCard、vipAc…）</td></tr><tr><td style="text-align:left"><code>content</code></td><td style="text-align:left">窗口标题文本</td></tr><tr><td style="text-align:left"><code>center</code></td><td style="text-align:left">弹出时居中</td></tr><tr><td style="text-align:left"><code>windowType</code></td><td style="text-align:left">省略=普通；<code>modalWindow</code> 模态</td></tr><tr><td style="text-align:left"><code>windowStyle</code></td><td style="text-align:left">工具窗 <strong><code>0</code></strong>（自绘窗控）；项目里恒 <code>0</code>，Test.xml 用过 <code>2031</code></td></tr><tr><td style="text-align:left"><code>enableLayout</code></td><td style="text-align:left"><strong>必须 true</strong></td></tr><tr><td style="text-align:left"><code>overlayBorder</code></td><td style="text-align:left">自定义标题时常 <strong>true</strong></td></tr><tr><td style="text-align:left"><code>dragBorder</code></td><td style="text-align:left">主窗可 true；小模态常 false</td></tr><tr><td style="text-align:left"><code>dragWindow</code></td><td style="text-align:left"><strong>有列表时优先 false</strong>（点列表会拖走整窗）</td></tr><tr><td style="text-align:left"><code>transparentFlag</code></td><td style="text-align:left">工具窗/多数模态 <code>shaped</code>；<strong>humbox 主窗 <code>shadow</code></strong></td></tr><tr><td style="text-align:left"><code>transparentAlpha</code></td><td style="text-align:left">0–255 窗口透明度</td></tr><tr><td style="text-align:left"><code>bkInfoM</code></td><td style="text-align:left"><strong><code>shaped</code> 必有窗口级不透明底</strong>：工具窗 <code>@面板_窗壳</code>；hum 产品 <code>@wnd_bg.png</code>。子控件色不能代替</td></tr><tr><td style="text-align:left"><code>padding</code></td><td style="text-align:left">工具窗常 <code>10,8,10,10</code>；hum 主窗常 <code>24,24,24,24</code></td></tr><tr><td style="text-align:left"><code>minSize</code> / <code>rect</code></td><td style="text-align:left">最小 <code>w,h</code> / <code>x,y,w,h</code> 设计器坐标（运行时由布局覆盖，但保留以兼容设计器）</td></tr><tr><td style="text-align:left"><code>topmost</code></td><td style="text-align:left">置顶</td></tr><tr><td style="text-align:left"><code>shadowColor</code> / <code>shadowSize</code> / <code>shadowDepth</code></td><td style="text-align:left">阴影颜色/扩散/浓度</td></tr></table></div>
+<p>标题栏用 <code>buttonType=&quot;min|close&quot;</code> + SVG；完整抄法见 §6。</p>
+<blockquote><p>⚠ 两来源差异（非冲突）：<code>dragBorder</code> 00 说主窗可 true、小模态常 false，layout-widgets 的 humbox 主窗实例给 <code>true</code>，而 §6 工具窗开标签给 <code>false</code> —— 针对不同窗型，勿混抄。</p></blockquote>
+<p><strong>铁律（三档透明模式）</strong></p>
+<div class="table-wrap"><table><tr><th style="text-align:left">透明模式</th><th style="text-align:left">必须同时具备</th><th style="text-align:left">否则</th></tr><tr><td style="text-align:left"><strong><code>shaped</code></strong></td><td style="text-align:left">窗口 <code>bkInfoM</code> 有不透明底：工具窗用 <strong><code>@面板_窗壳</code>（§6）</strong>；产品用壳图 / 实心 <code>22</code></td><td style="text-align:left">透桌面</td></tr><tr><td style="text-align:left"><strong><code>shadow</code></strong></td><td style="text-align:left">humbox <strong>主窗</strong>专用；勿与 shaped 混抄</td><td style="text-align:left">气质全错</td></tr><tr><td style="text-align:left">无 flag</td><td style="text-align:left">普通 HWND</td><td style="text-align:left">无圆角异形</td></tr></table></div>
+<p>子控件 <code>bkColor</code> <strong>不能</strong>代替窗口级底。二维码「中间一块白、四周透」= 无窗壳的典型症状。</p>
+<p><strong>原理</strong>：<code>shaped</code> 按绘制结果生成透明区；窗口自身几乎无不透明像素 → Alpha≈0。</p>
+<p><strong><code>shaped</code> 还会影响命中区域，不只是视觉透明。</strong> 实测普通矩形、数据密集窗口在 <code>transparentFlag=&quot;shaped&quot;</code> 下可能出现控件可见但鼠标点不中：逐像素区域把透明像素也排除在命中之外。若产品不需要异形窗，应使用无 <code>transparentFlag</code> 的普通窗口，自定义标题栏与边框仍可保留；不要为此改动 humbox 既定的 <code>shadow</code> 规则。排障时用 <code>WindowFromPoint</code> 核对目标 HWND，并做一次真实鼠标按下／抬起，不能只凭截图或控件 <code>visible=true</code> 判定可交互。</p>
+<div class="table-wrap"><table><tr><th style="text-align:left">窗壳方案</th><th style="text-align:left">何时用</th></tr><tr><td style="text-align:left"><strong><code>@面板_窗壳</code></strong></td><td style="text-align:left"><strong>新工具窗（§6）</strong> — 白底圆角描边，不必拷 <code>wnd_bg.png</code></td></tr><tr><td style="text-align:left"><code>@wnd_bg.png</code></td><td style="text-align:left">仅复刻 hum 产品主窗</td></tr><tr><td style="text-align:left"><code>shadow</code></td><td style="text-align:left">仅复刻 humbox 主窗</td></tr><tr><td style="text-align:left">全窗 <code>22(-1)23(255)</code></td><td style="text-align:left">无令牌时的纯色兜底</td></tr><tr><td style="text-align:left">现象</td><td style="text-align:left">处理</td></tr><tr><td style="text-align:left">------</td><td style="text-align:left">------</td></tr><tr><td style="text-align:left">透桌面 / 整窗透桌面</td><td style="text-align:left">补窗口级不透明底（补 <code>@面板_窗壳</code>）；查资源是否加载</td></tr><tr><td style="text-align:left">仅二维码一块白、四周透</td><td style="text-align:left">同上（图自带白底掩盖了无壳）</td></tr><tr><td style="text-align:left">XML 改了仍旧 / 仍透</td><td style="text-align:left"><code>ui_loadType=1</code>：更新 zip 并重编；或改 <code>0</code> 读旁路文件</td></tr><tr><td style="text-align:left">壳变白板 / 圆角壳变「系统白板」</td><td style="text-align:left">去掉多余代码 <code>添加背景填充</code></td></tr><tr><td style="text-align:left">主窗 shaped 却该是 shadow</td><td style="text-align:left">humbox 主窗改回 <code>shadow</code></td></tr><tr><td style="text-align:left"><code>windowStyle=2031</code></td><td style="text-align:left">系统标题栏在浅色窗上易看不见</td></tr></table></div>
+<p>代码兜底（<strong>仅壳未生效时</strong>）：<code>启用绘制背景</code> + <code>添加背景填充(..., RGBA(...,255))</code>。</p>
+<p>窗壳摘要对照：<code>shaped</code> 无窗口级不透明底 → <strong>透桌面</strong>；<code>shaped</code> + <strong><code>@面板_窗壳</code></strong> → 工具窗正解；<code>shaped</code> + <code>@wnd_bg.png</code> → 仅 hum <strong>产品</strong>主窗；humbox 主窗用 <code>shaped</code> → 错，应 <strong><code>shadow</code></strong>。</p>
+<h2 id="5-xml-合法性与布局实战坑">5. XML 合法性与布局实战坑</h2>
+<p><strong>先避这些坑</strong>：① 窗壳 / 令牌 / 顶栏按 §6 ② <strong>会禁用的按钮</strong> 必须有 <code>98:…2(n)</code> 禁用层（见 <code>bkinfom-res.md</code>）③ SVG 进 <code>resource.res</code> 并部署到 exe 旁 <code>svg\</code> ④ 属性禁止写在自闭合 <code>/</code> 后面，IDE 解析失败 ⑤ <strong>组合框</strong>：触发器 ≠ 弹出层；启动即 <code>创建数据适配器()</code>；弹出回调禁止改弹窗坐标/圆角壳 ⑥ 列表 <code>添加列文本</code> 列宽 = 项模板列宽。</p>
+<p><strong>XML 合法性（IDE「解析不了」）</strong></p>
+<p>致命：属性写在 <code>/</code> 后面。错误 <code>&lt;layoutEleUI ... bkInfoM=&quot;...&quot; / layout.space=&quot;6&quot;&gt;</code>；正确：</p>
+<pre><code class="language-xml">&lt;layoutEleUI ... layout.space=&quot;6&quot; bkInfoM=&quot;...&quot;&gt;
+  &lt;layoutEleUI ... bkInfoM=&quot;...&quot; /&gt;
+&lt;/layoutEleUI&gt;</code></pre>
+<p>脚本批量改父节点 <code>layout.space</code> 时，<strong>禁止</strong>拼到子节点自闭合标签尾部。</p>
+<p>程序改 XML 注意：<code>content=&quot;添加 / 续期&quot;</code> 里的 <code>/</code> 会让「匹配到下一个 <code>/</code>」的正则截断标签，应用 <code>[^&gt;]*&gt;</code> 匹配整标签。</p>
+<p>控件 <code>name</code> 与代码绑定：<code>main.xc</code> / <code>index.xc</code> 里 <code>&quot;按钮_xxx&quot;</code> 必须与 XML <code>name</code> <strong>逐字一致</strong>；美化时只改 <code>bkInfoM</code> / <code>imageIcon</code> / 文案展示，<strong>不要改绑定用 name</strong>（除非同步改 xc）。</p>
+<p><strong>布局实战坑</strong></p>
+<ul><li>顶栏状态文案 vs 窗控：长状态若用 <code>layout.width=&quot;auto&quot;</code> 与最小化/关闭同排，会 <strong>顶满并叠到关闭钮</strong>。推荐：</li></ul>
+<pre><code class="language-xml">&lt;shapeText name=&quot;形状文本_刷新状态&quot; layout.width=&quot;:1&quot; textAlign=&quot;right,vcenter&quot; ... /&gt;
+&lt;layoutEleUI layout.width=&quot;68&quot; layout.height=&quot;28&quot; layout.horizon=&quot;true&quot;&gt;
+  &lt;buttonUI buttonType=&quot;min&quot; ... /&gt;
+  &lt;buttonUI buttonType=&quot;close&quot; ... /&gt;
+&lt;/layoutEleUI&gt;</code></pre>
+<p>窗控样式对齐 hum：leave 仅 SVG；hover 浅灰底；关闭 hover 粉（右侧圆角 <code>9(0,8,0,0)</code>）。</p>
+<ul><li>右侧面板内容过高 → 底部按钮「消失」：单独一行的「发送弹幕」会被裁到面板外（看起来像没做）。<strong>经验</strong>：工具侧栏优先 <strong>并排压缩</strong>，不要假设用户会把窗拉高；改完在默认主窗高度下目视底部一行。</li></ul>
+<ul><li>多选框系统灰底：<code>style=&quot;check&quot;</code> 默认带浅灰矩形底。要 <code>buttonType=&quot;check&quot;</code> + <code>transparent=&quot;true&quot;</code> + <code>@复选框</code>、<code>offsetXY=&quot;22,0&quot;</code>。</li></ul>
+<ul><li>分段 radio：未选态是 <code>272/288/320</code>，已选是 <code>128/144/160/192</code>。若误写成普通按钮的 <code>16/32/64</code>，选中后 <strong>不会高亮</strong>。</li></ul>
+<ul><li>列表表头错位 / 单元格截断：<code>添加列文本(宽, …)</code> 与模板里每列 <code>layout.width</code> <strong>必须一致</strong>。</li></ul>
+<ul><li>隐藏面板首次布局 0×0：先全部可见 → 窗口显示 → 再切页；或 <code>窗口_调整布局</code>。</li></ul>
+<p><strong>组合框（comboBox）美化与坑</strong> —— 触发器好看 ≠ 下拉列表好看。两者是 <strong>两套对象</strong>：组合框本体 + 弹出窗内的列表框。</p>
+<div class="table-wrap"><table><tr><th style="text-align:left">层</th><th style="text-align:left">对象</th><th style="text-align:left">怎么美化</th></tr><tr><td style="text-align:left">关闭态触发器</td><td style="text-align:left"><code>comboBoxUI</code></td><td style="text-align:left">XML：<code>bkInfoM=&quot;@组合框_圆角&quot;</code>、<code>comboBox.drawButton=&quot;false&quot;</code>、<code>border=&quot;10,0,22,0&quot;</code>、箭头 SVG</td></tr><tr><td style="text-align:left">展开后的列表</td><td style="text-align:left">弹出 <code>HWINDOW</code> + <code>listBox</code></td><td style="text-align:left">代码：绑定 <strong><code>元素事件_组合框弹出列表</code></strong>，在回调里改列表背景 / 项高 / 滚动条</td></tr></table></div>
+<p>项模板用 <code>xc_template_listBox</code>（不是 <code>xc_template_list</code>）：</p>
+<pre><code class="language-xml">&lt;!-- 布局文件/combobox_item.xml --&gt;
+&lt;xc_template_listBox&gt;
+  &lt;layoutEleUI heightT=&quot;32&quot; ... padding=&quot;10,0,10,0&quot;&gt;
+    &lt;shapeText content=&quot;{binding field=name1}&quot; itemID=&quot;0&quot; ... /&gt;
+  &lt;/layoutEleUI&gt;
+&lt;/xc_template_listBox&gt;</code></pre>
+<p>代码侧（在 <code>创建数据适配器()</code> <strong>之前</strong>）：</p>
+<pre><code class="language-text">组合框.置项模板文件(&quot;布局文件\\combobox_item.xml&quot;)
+组合框.创建数据适配器()
+组合框.添加项文本(&quot;...&quot;)</code></pre>
+<div class="table-wrap"><table><tr><th style="text-align:left">现象</th><th style="text-align:left">原因</th><th style="text-align:left">修法</th></tr><tr><td style="text-align:left">调试输出 <code>XAdTable_GetCountRow() 输入句柄可能无效[0x0]</code> 后退出</td><td style="text-align:left">「等数据回来再建适配器」，用户先点开 → 取项数踩空句柄</td><td style="text-align:left"><strong>启动时就 <code>创建数据适配器()</code></strong>；无数据时放占位项</td></tr><tr><td style="text-align:left">弹出回调里 <code>列表框_取项数量AD</code> 崩</td><td style="text-align:left">弹出列表框同样依赖适配器</td><td style="text-align:left">先 <code>组合框_取数据适配器(ele) != 空</code> 再取项数</td></tr><tr><td style="text-align:left">列表底边左右 <strong>黑三角</strong>、像双层框叠在一起</td><td style="text-align:left">弹出后再 <code>窗口_置坐标</code> 改高度，并给弹窗上圆角 <code>9(...)</code> 壳，与系统已算好的弹出尺寸打架</td><td style="text-align:left"><strong>不要</strong>在弹出回调里改弹窗矩形；弹窗背景用直角细边</td></tr><tr><td style="text-align:left">列表特别高、只有系统滚动条</td><td style="text-align:left">默认下拉高度过大</td><td style="text-align:left"><code>组合框_启用下拉列表高度固定大小(真)</code> + <code>置下拉列表高度(项数×项高+余量)</code>；项少时 <code>滚动视_显示垂直滚动条(假)</code></td></tr><tr><td style="text-align:left">项与项「贴死」</td><td style="text-align:left">行距 0 或项高过小</td><td style="text-align:left"><code>列表框_置项默认高度(h,h)</code> + 适当 <code>置行间距</code></td></tr></table></div>
+<p>弹出回调推荐只做这些：</p>
+<pre><code class="language-text">1. 按项数计算 dropH → 组合框_置下拉列表高度
+2. 列表框_置项默认高度 / 置行间距
+3. 元素_置背景(列表框) 做 leave / hover / select
+4. 滚动视_显示垂直滚动条（项少则隐藏） 5. 窗口_置背景(弹窗) 白底 + 细边，不要圆角壳，不要置坐标</code></pre>
+<p>API 别名别写错（IDE 检查失败）：<code>列表框_置默认项高度</code> → <strong><code>列表框_置项默认高度</code></strong>（对应 <code>XListBox_SetItemHeightDefault</code>）；<code>窗口_取矩形</code> / <code>窗口_置矩形</code> → <strong><code>窗口_取坐标</code> / <code>窗口_置坐标</code></strong>；矩形字段 <code>.bottom</code> / <code>.top</code> → 炫语言 <strong><code>下边</code> / <code>上边</code> / <code>左边</code> / <code>右边</code></strong>。</p>
+<p>资源与字体：组合框箭头 SVG 必须进 <code>resource.res</code> 并部署到运行目录 <code>svg\</code>；项模板里尽量少依赖命名字体，列表弹出上下文偶发解析不到时可用普通字号。</p>
+<h2 id="6-工具窗令牌主控端金标准">6. 工具窗令牌（主控端金标准）</h2>
+<p><strong>一句话</strong>：<code>windowStyle=0</code> + <code>shaped</code> + <code>bkInfoM=&quot;@面板_窗壳&quot;</code> + <code>resource.res</code> 令牌（字体/色/面板/四态按钮） + 粉方标品牌 SVG + 自定义 min/close。</p>
+<p><strong>不要</strong>：系统标题栏 · humbox 黄绿/顶栏 Tab · 白 <code>logo1</code> 贴浅底 · 白卡叠白底无描边 · 壳已生效后再代码 <code>添加背景填充</code>。</p>
+<p>复刻 hum / humbox <strong>产品</strong>主窗 → 改读 <code>skin-platforms.md</code>，不要用本节令牌硬套产品壳。</p>
+<pre><code class="language-xml">&lt;windowUI
+  windowStyle=&quot;0&quot; transparentFlag=&quot;shaped&quot; transparentAlpha=&quot;255&quot; dragWindow=&quot;true&quot;
+  dragBorder=&quot;false&quot; overlayBorder=&quot;true&quot; enableLayout=&quot;true&quot; center=&quot;true&quot;
+  padding=&quot;10,8,10,10&quot; bkInfoM=&quot;@面板_窗壳&quot;&gt;
+  &lt;layoutEleUI name=&quot;布局_壳内&quot; layout.width=&quot;fill&quot; layout.height=&quot;fill&quot;
+    layout.horizon=&quot;false&quot; layout.spaceRow=&quot;0&quot; padding=&quot;1,1,1,1&quot; bkInfoM=&quot;@面板_内容&quot;&gt;</code></pre>
+<p><strong><code>@面板_窗壳</code>（写入 <code>resource.res</code>）</strong></p>
+<pre><code class="language-text">{sizeT:80,80;99:1.9.9;98:1(0);
+ 5:2(15)20(1)21(3)26(1)22(-1)23(255)
+   10(1)7(1)11(3)16(1)12(-1185048)13(255)
+   40(1)9(12,12,12,12);}</code></pre>
+<p>样式必须在本工程 <code>resource.res</code> 真实存在并部署到 exe 旁。</p>
+<p><strong>布局骨架</strong></p>
+<ul><li>顶栏（高 42）：水平 · padding <code>12,4,8,4</code> → <code>26×26</code> 粉方标 SVG（logo<em>rcp / logo</em>wg，浅底可见）→ 标题 <code>@yahei_12_b</code> <code>@文本_标题</code> → 副标 <code>@yahei_9</code> <code>@文本_弱</code> → <code>1×16</code> <code>@面板_分隔</code> → 工具钮（可选）→ <code>:1</code> → min / close（深色 SVG；关闭 hover 粉）。</li></ul>
+<ul><li>内容：分区 <code>@面板_分组</code>（白 + <strong>可见描边</strong>）；二维码空态 <code>@面板_二维码</code>；大工具台常见 左扫码/表单 ~200–300 · 右列表/日志 <code>:1</code>；小扫码窗 左二维码卡 · 右 Cookie 卡即可。</li></ul>
+<ul><li>大窗示意（可选）：<code>windowUI shaped @面板_窗壳</code> → <code>@面板_内容</code> → 顶栏 + 水平（左：品牌区 / 扫码·表单 / 主次按钮；右：分组卡 + 列表 + 日志）。</li></ul>
+<p><strong>对照样例</strong>：主控端 <code>main.xml</code> — 1200×720，分段 radio、列表、生成页、日志。扫码登陆 = 760×520 <code>@面板_窗壳</code> → <code>@面板_内容</code> → 顶栏（logo_wg + WeGame + 扫码登陆 | min/close）+ 水平（左 <code>@面板_分组</code>：二维码槽 + 状态条 + 获取二维码；右 <code>@面板_分组</code>：Cookie + 编辑框）。</p>
+<div class="table-wrap"><table><tr><th style="text-align:left">工程</th><th style="text-align:left">备注</th></tr><tr><td style="text-align:left">主控端</td><td style="text-align:left">09 数据源；分段 <code>@按钮_分段</code>；子窗 desktop/files/hostinfo</td></tr><tr><td style="text-align:left">扫码登陆</td><td style="text-align:left">09 小窗样例</td></tr><tr><td style="text-align:left">斗鱼协议</td><td style="text-align:left">左扫码；右栏活动挂机｜礼物扩展用分段 radio（状态位 272/128，勿写成 16/32/64）</td></tr><tr><td style="text-align:left">虎牙挂机</td><td style="text-align:left">左扫码+Cookie；右配置/批量/列表/日志；保留原 <code>name</code></td></tr></table></div>
+<p>气质：<strong>浅色壳 + 黑主按钮 + Pro 粉点缀</strong>；禁止 humbox 黄绿顶栏。浅底勿用白 <code>logo1</code>；白卡须有描边。</p>
+<p>resource.res 令牌全集（字体 / 颜色 / 面板 / 按钮 / 编辑框）见 <code>bkinfom-res.md</code> §6.7。</p>
+<h2 id="7-禁止清单与自检">7. 禁止清单与自检</h2>
+<p><strong>禁止清单（写 XML 前过一遍）</strong></p>
+<ol><li>垂直堆叠漏写 <code>layout.horizon=&quot;false&quot;</code>（默认是<strong>水平</strong>）。</li></ol>
+<ol><li>列表与表单做兄弟，或列表没有外层 <code>layoutEleUI</code>。</li></ol>
+<ol><li>父 <code>fill</code>、子全是固定高/<code>auto</code>，放大后底部空一截。</li></ol>
+<ol><li>用 <code>rect</code> / <code>showT</code> / <code>expandT</code> 当运行时逻辑。</li></ol>
+<ol><li>抄 <code>statr</code>。</li></ol>
+<ol><li>有列表的窗口随意 <code>dragWindow=&quot;true&quot;</code>。</li></ol>
+<ol><li>窗控只写一半功能/外观配置却期望系统行为。</li></ol>
+<ol><li>勾选控件只设外观 <code>style=&quot;check&quot;</code>、未设功能 <code>buttonType=&quot;check&quot;</code> 或透明背景，导致系统灰底；工具窗应用 <code>@复选框</code> 样式。</li></ol>
+<ol><li>把表单塞进 <code>elementUI</code> 还设 <code>layout.width</code>。</li></ol>
+<ol><li>模板里 <code>enableCanvas=&quot;true&quot;</code> 或根布局不 <code>mouseThrough</code>。</li></ol>
+<ol><li>隐藏页去取列表文本；叠页数据放成员变量。</li></ol>
+<ol><li>改了 XML 不重新编译 / 不更新嵌入的 UI zip。</li></ol>
+<ol><li><code>name</code> 重复或该绑代码的控件没 <code>name</code>。</li></ol>
+<ol><li>手写超长 <code>bkInfoM</code>；能命名样式就命名样式。</li></ol>
+<ol><li>同组页签在循环中混写真/假会清掉目标选态；代码同步先全部 <code>置选中(假)</code>，最后只对目标 <code>置选中(真)</code>，再核对实际唯一高亮。</li></ol>
+<ol><li>给 <code>layoutEleUI</code> 乱开 <code>enableCanvas</code>。</li></ol>
+<ol><li><code>nameTable</code>、把 <code>bindEle</code> 当唯一切页方案却又不懂首次布局。</li></ol>
+<ol><li><code>layout.space</code> 与 <code>layout.spaceRow</code> 用反。</li></ol>
+<ol><li><code>添加列文本</code> 列宽与模板列宽不一致。</li></ol>
+<ol><li>属性写到自闭合 <code>/</code> 后面（IDE 直接解析失败）。</li></ol>
+<ol><li><strong><code>shaped</code> 无窗口级不透明底</strong>（透桌面；工具窗见 §6，产品壳见 §4）。</li></ol>
+<ol><li>把 humbox 主窗 <code>shadow</code> 与 hum/工具窗 <code>shaped</code> 混抄。</li></ol>
+<p><strong>AI 读 XML 时的优先级</strong>：① <code>windowUI</code>：<strong>宽高、padding、transparentFlag、windowStyle、bkInfoM 是否有不透明底</strong> ② 顶层 <code>layoutEleUI</code>：<strong>权重、horizon、space/spaceRow、padding</strong> ③ <code>name</code> / <code>content</code> / <code>toolTip</code> ④ 命名样式 / 圆角 / 图资源 ⑤ 忽略设计器垃圾 <code>rect</code> / <code>showT</code> 与超长色值精度。</p>
+<p><strong>提交前自检清单</strong></p>
+<ul><li>壳：工具窗 <code>shaped</code> + <code>@面板_窗壳</code>；或 hum 产品 <code>@wnd_bg</code>；或 humbox 主窗 <code>shadow</code> ｜ 自定义 min/close，品牌标浅底可见 ｜ <code>bkInfoM=&quot;@面板_窗壳&quot;</code> 且在本工程 <code>resource.res</code> ｜ 未误用 humbox <code>shadow</code> / 未空 shaped ｜ 未代码整窗实心填充盖壳 ｜ 分组/二维码有描边</li></ul>
+<ul><li>样式：主 / 次 / 危险按钮圆角观感一致 ｜ 会禁用的按钮 <code>98</code> 含 <code>2(n)</code>，禁用仍圆角 ｜ 未混用 humbox 黄绿 / 顶栏结构 ｜ 侧栏默认高度下底部操作钮仍可见 ｜ 主钮用浅色图标</li></ul>
+<ul><li>组合框：触发器已套 <code>@组合框_圆角</code>（或等价）+ 箭头 SVG ｜ 有 <code>combobox_item.xml</code>（<code>xc_template_listBox</code>）且已部署 ｜ <strong>每个</strong>可点击组合框启动时已 <code>创建数据适配器()</code> ｜ 已绑 <code>元素事件_组合框弹出列表</code>；回调 <strong>未</strong> <code>窗口_置坐标</code> / 未给弹窗加圆角壳 ｜ 项少时无系统大方块滚动条；API 用 <code>列表框_置项默认高度</code></li></ul>
+<ul><li>SVG：<code>resource.res</code> 已登记全部用到的 svg（含 <code>combobox_x*.svg</code>）｜ <code>Release64\svg\</code>（或 exe 旁）文件齐全 ｜ 黑底用浅色图标、浅底用深色/粉色图标 ｜ <code>svg\</code> + <code>resource.res</code>（+ 模板）已同步到 Debug/Debug64</li></ul>
+<ul><li>XML / 绑定：IDE 能打开主布局（无 <code> / attr</code> 类语法错误）｜ 所有 <code>name</code> 与 <code>.xc</code> 绑定一致 ｜ 列表 / 组合框 <code>itemTemplate</code> 文件名存在且已部署 ｜ 竖排容器已写 <code>layout.horizon=&quot;false&quot;</code> + <code>layout.spaceRow</code> ｜ 吃满高度用了 <code>:n</code> / 外层包列表 ｜ 列宽一致 ｜ 项模板根 <code>enableCanvas=&quot;false&quot;</code> + <code>mouseThrough=&quot;true&quot;</code> + <code>drawBorder=&quot;false&quot;</code> ｜ 复选框 <code>buttonType=&quot;check&quot;</code> + <code>@复选框</code> ｜ 未用 <code>showT</code> / <code>rect</code> 当运行时显隐与尺寸 ｜ 同组切页先全部 <code>置选中(假)</code>、最后目标 <code>置选中(真)</code>并检查唯一高亮；首次布局注意隐藏面板 0×0</li></ul>
+<ul><li>部署：同步 布局 XML、<code>resource.res</code>、<code>svg\</code>、列表与组合框模板 → 运行目录 ｜ 改了 <code>.xc</code> 必须重新编译；只拷 XML 不够</li></ul>
+<p><strong>标识属性</strong></p>
+<div class="table-wrap"><table><tr><th style="text-align:left">属性</th><th style="text-align:left">作用域</th><th style="text-align:left">规则</th></tr><tr><td style="text-align:left"><code>name</code></td><td style="text-align:left">全局唯一</td><td style="text-align:left">主通道。中文+下划线：<code>列表_主机</code>、<code>按钮_监听</code>。重复会抢句柄</td></tr><tr><td style="text-align:left"><code>id</code></td><td style="text-align:left">窗口内</td><td style="text-align:left"><code>0</code> 忽略。可写数字或 <code>@ID_xxx</code></td></tr><tr><td style="text-align:left"><code>uid</code></td><td style="text-align:left">全局</td><td style="text-align:left">一般不用</td></tr><tr><td style="text-align:left"><code>itemID</code></td><td style="text-align:left">仅项模板</td><td style="text-align:left">模板实例化后才能取</td></tr><tr><td style="text-align:left"><code>nameTable</code></td><td style="text-align:left">已废弃</td><td style="text-align:left">不要写</td></tr><tr><td style="text-align:left"><code>properties</code></td><td style="text-align:left">自定义 <code>名=值</code></td><td style="text-align:left">不能与内置属性重名</td></tr><tr><td style="text-align:left"><code>userData</code></td><td style="text-align:left">整型附加数据</td><td style="text-align:left"></td></tr></table></div>
+<p>面板根不必强行 <code>name</code>；窗口/按钮/列表/编辑框凡是代码要找的必须有 <code>name</code>。炫语言工程在类的 <code>[绑定信息]</code> 里绑 <code>name</code>。<code>id</code> = 数字 id（窗口内唯一）或 <code>@ID_符号名</code>（跨文件符号 ID）；<code>show</code> = 运行时显示 / <code>showT</code> = 设计时显示。</p></main>
+<aside><b>本页目录</b><a class="depth-2" href="#1-文件骨架与标签">1. 文件骨架与标签</a><a class="depth-2" href="#2-layout-属性全集">2. `layout.*` 属性全集</a><a class="depth-2" href="#3-控件清单与专有属性">3. 控件清单与专有属性</a><a class="depth-2" href="#4-窗口属性与窗壳">4. 窗口属性与窗壳</a><a class="depth-2" href="#5-xml-合法性与布局实战坑">5. XML 合法性与布局实战坑</a><a class="depth-2" href="#6-工具窗令牌主控端金标准">6. 工具窗令牌（主控端金标准）</a><a class="depth-2" href="#7-禁止清单与自检">7. 禁止清单与自检</a></aside></div>
+<footer class="foot">源 Markdown：interface-xml.md · 独立 HTML 副本：interface-xml.html</footer></body></html>

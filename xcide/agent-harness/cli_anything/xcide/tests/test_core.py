@@ -2021,6 +2021,47 @@ def test_build_rejects_unresolvable_output_before_launch(make_project, monkeypat
         build.build_project(target, ide_root=make_project.ide_root)
 
 
+def test_standalone_skill_can_reach_guides_and_query_modules(tmp_path):
+    bundle = tmp_path / "imported" / "cli-anything-xcide"
+    shutil.copytree(Path(__file__).resolve().parents[1] / "skills", bundle)
+    assert list(bundle.rglob("SKILL.md")) == [bundle / "SKILL.md"]
+
+    class GuideLinks(HTMLParser):
+        def __init__(self):
+            super().__init__()
+            self.targets = []
+
+        def handle_starttag(self, tag, attrs):
+            if tag == "a" and (href := dict(attrs).get("href")):
+                self.targets.append(href)
+
+    guide = bundle / "references/xc-suite/GUIDE.html"
+    script = guide.parent / "scripts/xc_modules.py"
+    for page, required in ((bundle / "SKILL.html", guide), (guide, script)):
+        parser = GuideLinks()
+        parser.feed(page.read_text(encoding="utf-8"))
+        targets = [(page.parent / unquote(urlsplit(link).path)).resolve()
+                   for link in parser.targets if urlsplit(link).path and not urlsplit(link).scheme]
+        assert required in targets
+        assert all(target.is_relative_to(bundle) and target.is_file() for target in targets)
+
+    module_root = tmp_path / "modules"
+    header = module_root / "01_Example/计数/module_counter.h"
+    header.parent.mkdir(parents=True)
+    header.write_text("//@模块名称 计数\n//@别名 计数求和\nint CounterSum(int value);\n", encoding="utf-8-sig")
+    cache = tmp_path / "writable cache"
+    env = {**os.environ, "XC_MODULE_INDEX_DIR": str(cache), "XC_MODULE_ROOT": str(module_root)}
+
+    def invoke(*args):
+        result = subprocess.run([sys.executable, "-I", "-B", str(script), *args], cwd=tmp_path,
+                                env=env, capture_output=True, encoding="utf-8", check=True, timeout=20)
+        return json.loads(result.stdout)
+
+    assert Path(invoke("rebuild")["output"]) == cache
+    assert invoke("search", "计数求和")["matches"][0]["file"] == header.relative_to(module_root).as_posix()
+    assert not list(bundle.rglob("catalog.json"))
+
+
 def test_rendered_html_links_survive_relocation(tmp_path):
     renderer_path = Path(__file__).resolve().parents[3] / "tools" / "render_markdown.py"
     spec = importlib.util.spec_from_file_location("xcide_renderer", renderer_path)

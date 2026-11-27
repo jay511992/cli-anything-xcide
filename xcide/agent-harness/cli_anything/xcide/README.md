@@ -156,6 +156,10 @@ cli-anything-xcide --json --dry-run --ide 'I:\xcide' interface nodes $zip --memb
 
 `archive export FILE MEMBER OUTPUT` 将单个成员原样导出到显式新文件；先加全局 `--dry-run` 核验，再执行。父目录必须存在且支持硬链接；拒绝覆盖及安装目录目标。ZIP 目录查询不验证 CRC，读取和导出会校验选中成员。路径歧义、加密或超限成员会失败；资源资产的 `present` 仅是存在性，不能证明运行时可用。限制和 JSON 调用链详见 [AI_CALLING.md](AI_CALLING.md)。
 
+## XC 开发资料
+
+编写炫语言/XCGUI 代码时，Agent 从单个 `cli-anything-xcide` 合并技能中按需读取开发资料，无需另行启用 `xc-suite`。Git 仓库在 `skills/cli-anything-xcide/references/xc-suite/` 中保留完整手册和模块检索脚本；打包后的 skill 目录将其放在 `references/xc-suite/`。目标机器的模块声明索引从本地 IDE 模块树重建，不随包发布。
+
 ## 命令参考
 
 | 命令 | 功能与数据来源 |

@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src data: file:; font-src 'none'; script-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="color-scheme" content="light dark"><title>humbox 架构：文件角色、资源注册、面板注入与命名约定｜炫彩 IDE</title>
+<meta name="description" content="离线阅读版：humbox 架构：文件角色、资源注册、面板注入与命名约定">
+<style>
+:root{color-scheme:light dark;--bg:#f3f5f9;--panel:#fff;--ink:#1f2937;--soft:#617086;--line:#e4e9f0;--accent:#145bce;--code:#eef2f8;--shadow:0 16px 46px #25385814;font:16px/1.76 "Microsoft YaHei UI","Microsoft YaHei",system-ui,sans-serif}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 85% -12%,#dbeafe 0,transparent 34rem),var(--bg);color:var(--ink)}
+.top{max-width:1380px;margin:auto;padding:30px 34px 12px;display:flex;align-items:center;justify-content:space-between;color:var(--soft);font-size:13px;letter-spacing:.04em}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;color:var(--accent)}.mark{display:grid;place-items:center;width:28px;height:28px;border-radius:8px;background:linear-gradient(140deg,#4e91ff,#1758c9);color:white;font-size:15px}
+.wrap{max-width:1380px;margin:0 auto 72px;padding:14px 28px;display:grid;grid-template-columns:minmax(0,1fr) 245px;gap:26px;align-items:start}
+main{min-width:0;background:var(--panel);border:1px solid var(--line);box-shadow:var(--shadow);border-radius:18px;padding:54px clamp(24px,6vw,86px) 66px}.eyebrow{color:var(--accent);font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:12px}h1{font-size:clamp(32px,5vw,47px);line-height:1.2;letter-spacing:-.04em;margin:12px 0 32px}h2{font-size:25px;line-height:1.35;letter-spacing:-.025em;margin:52px 0 18px;padding-bottom:10px;border-bottom:1px solid var(--line)}h3{font-size:20px;margin:34px 0 10px;line-height:1.4}h4,h5,h6{margin:28px 0 8px}p{margin:14px 0}a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}strong{font-weight:750}ul,ol{padding-left:1.55em;margin:12px 0 20px}li{padding-left:.18em;margin:6px 0}code{font-family:Consolas,"Cascadia Code","Microsoft YaHei",monospace;font-size:.91em;background:var(--code);border-radius:5px;padding:.13em .42em;overflow-wrap:anywhere}pre{margin:20px 0;padding:19px 22px;background:#111827;color:#e2e8f0;border:1px solid #334155;border-radius:11px;overflow:auto;line-height:1.65;white-space:pre}pre code{padding:0;background:none;border-radius:0;color:inherit;font-size:13px;overflow-wrap:normal}.table-wrap{overflow:auto;margin:19px 0 24px;border:1px solid var(--line);border-radius:10px}table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.55}th,td{padding:10px 13px;border-bottom:1px solid var(--line);vertical-align:top}th{background:var(--code);font-weight:700;white-space:nowrap}tr:last-child td{border-bottom:0}blockquote{margin:20px 0;padding:2px 20px;border-left:4px solid #86aaf1;background:var(--code);border-radius:0 8px 8px 0;color:var(--soft)}hr{border:0;border-top:1px solid var(--line);margin:32px 0}.meta{color:var(--soft);font-size:13px;margin-top:-20px;margin-bottom:36px}
+aside{position:sticky;top:16px;max-height:calc(100vh - 32px);overflow:auto;padding:20px 16px;background:color-mix(in srgb,var(--panel) 84%,transparent);border:1px solid var(--line);border-radius:14px}aside b{display:block;margin:0 8px 9px;font-size:13px}aside a{display:block;padding:4px 8px;color:var(--soft);font-size:12px;line-height:1.5;border-radius:5px}aside a:hover{background:var(--code);color:var(--accent);text-decoration:none}aside .depth-3{padding-left:18px}aside .depth-4{padding-left:29px}.foot{max-width:1380px;margin:-48px auto 30px;padding:0 34px;color:var(--soft);font-size:12px}
+@media(prefers-color-scheme:dark){:root{--bg:#12151c;--panel:#1b2029;--ink:#e3e9f2;--soft:#a6b1c2;--line:#303948;--accent:#7eaeff;--code:#252e3a;--shadow:0 20px 50px #0004}body{background:radial-gradient(ellipse at 85% -12%,#172b46 0,transparent 36rem),var(--bg)}aside{background:color-mix(in srgb,var(--panel) 87%,transparent)}}
+@media(max-width:940px){.wrap{grid-template-columns:minmax(0,1fr);padding:10px 16px}aside{position:relative;top:0;max-height:240px;order:-1;columns:2}main{padding:38px clamp(18px,5vw,48px) 48px}.top{padding:23px 20px 10px}}
+@media(max-width:560px){.wrap{padding:8px}main{border-radius:12px;padding:30px 20px 42px}aside{columns:1}.top{padding:18px 14px 8px}h2{font-size:22px}}
+@media print{:root{color-scheme:light;--bg:#fff;--panel:#fff;--ink:#171717;--soft:#444;--line:#ccc;--accent:#164f98;--code:#f1f1f1}body{background:#fff}.top,aside,.foot{display:none}.wrap{display:block;max-width:none;margin:0;padding:0}main{border:0;box-shadow:none;padding:0}h2{break-after:avoid}pre,table{break-inside:avoid}a{color:inherit;text-decoration:underline}}
+</style></head><body>
+<header class="top"><div class="brand"><span class="mark">炫</span><span>炫彩 IDE · 本地自动化文档</span></div><span>离线 HTML · 可直接浏览器打开 / 打印为 PDF</span></header>
+<div class="wrap"><main><div class="eyebrow">XCGUI / Xuan Language</div><h1>humbox 架构：文件角色、资源注册、面板注入与命名约定</h1><div class="meta">本页由本地 Markdown 生成；样式内嵌，无网络、MCP 或浏览器脚本依赖。</div><p>本文解释 humbox（未闻花名UI平台皮肤包）的运行机制：XML 文件分几种角色、宿主程序如何组装它们、以及所有命名约定。理解这个架构才能正确新增页面/窗口/资源。</p>
+<h2 id="1-项目总体结构">1. 项目总体结构</h2>
+<pre><code>humbox/
+├── Test.xml          设计器草稿（独立实验窗口，与正式布局无关联）
+├── 布局文件/          全部 XML 布局（57 个文件）
+│   ├── 18 个窗口布局（根 &lt;windowUI&gt;，首行注释：炫彩界面库-窗口布局文件）
+│   ├── 18 个布局面板（根 &lt;layoutPanel&gt;，首行注释：炫彩界面库-布局面板文件）
+│   ├── 14 个列表模板（根 &lt;xc_template_list&gt;）
+│   ├── 6 个列表视模板（根 &lt;xc_template_listView&gt;，首行注释：炫彩界面库-列表视元素项模板文件）
+│   └── 1 个列表框模板（根 &lt;xc_template_listBox&gt;，首行注释：炫彩界面库-列表框元素项模板文件）
+└── 资源文件/          resource.res（资源清单，XML 格式但扩展名 .res）+ 230 个图片 + font/ 6 字体</code></pre>
+<p>每个 XML 文件的固定开头（<strong>新建文件必须照抄</strong>）：</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!--炫彩界面库-窗口布局文件--&gt;   ← 按文件类型选：窗口布局/布局面板/列表元素项模板/列表视元素项模板/列表框元素项模板/资源文件
+&lt;head /&gt;</code></pre>
+<p>全部 UTF-8 无 BOM，简体中文内容。</p>
+<h2 id="2-resourceres-资源注册清单">2. resource.res —— 资源注册清单</h2>
+<p><code>资源文件/resource.res</code> 是 XML（不是二进制），根元素 <code>&lt;resources&gt;</code>，六个子节。<strong>所有图片、字体、符号 ID、可复用样式都必须先在这里注册</strong>，布局文件再以 <code>@名称</code> 引用——未注册的名字运行时静默失效。</p>
+<h3 id="21-type_image-图片注册">2.1 type_image — 图片注册</h3>
+<pre><code class="language-xml">&lt;image name=&quot;login_sd.png&quot; value=&quot;login_sd.png&quot; loadType=&quot;file&quot; style=&quot;image9&quot; rect9=&quot;30,28,30,32&quot; /&gt;
+&lt;image name=&quot;close1.svg&quot;   value=&quot;close1.svg&quot;   loadType=&quot;file&quot; style=&quot;default&quot; svgAlpha=&quot;255&quot; svgRotateCenter=&quot;1&quot; /&gt;
+&lt;image name=&quot;mine_vip_bg.png&quot; value=&quot;mine_vip_bg.png&quot; loadType=&quot;file&quot; style=&quot;fixedRatio&quot; /&gt;</code></pre>
+<div class="table-wrap"><table><tr><th style="text-align:left">属性</th><th style="text-align:left">说明</th></tr><tr><td style="text-align:left"><code>name</code></td><td style="text-align:left">引用名（布局里 <code>@name</code>）</td></tr><tr><td style="text-align:left"><code>value</code></td><td style="text-align:left">资源文件/ 下实际文件名</td></tr><tr><td style="text-align:left"><code>loadType</code></td><td style="text-align:left">项目恒 <code>file</code></td></tr><tr><td style="text-align:left"><code>style</code></td><td style="text-align:left"><code>default</code>=原样 / <code>image9</code>=九宫格拉伸 / <code>stretch</code>=整体拉伸 / <code>fixedRatio</code>=锁定宽高比</td></tr><tr><td style="text-align:left"><code>rect9</code></td><td style="text-align:left">九宫格四边距 <code>l,t,r,b</code>（仅 image9）</td></tr><tr><td style="text-align:left"><code>svgAlpha</code></td><td style="text-align:left">SVG 透明度（仅 SVG）</td></tr><tr><td style="text-align:left"><code>svgRotateCenter</code></td><td style="text-align:left">SVG 旋转中心标记（项目恒 <code>1</code>）</td></tr><tr><td style="text-align:left"><code>center</code></td><td style="text-align:left">是否中心锚定（fixedRatio 时出现，<code>&quot;false&quot;</code>）</td></tr></table></div>
+<p><strong>新增图片流程</strong>：① 文件放进 <code>资源文件/</code> ② 在 type_image 加一行注册（照同类图抄属性）③ 布局里 <code>4(@名)</code> 或 <code>image=&quot;@名&quot;</code> 引用。<strong>删除图片时反向执行</strong>，并全文搜索确认无引用。</p>
+<h3 id="22-type_id-符号-id">2.2 type_id — 符号 ID</h3>
+<pre><code class="language-xml">&lt;item name=&quot;ID_皮肤_一键加载&quot; value=&quot;110&quot; /&gt;
+&lt;item name=&quot;ID_更新器交互_程序配置_配置详细&quot; value=&quot;124&quot; /&gt;</code></pre>
+<p>布局里写 <code>id=&quot;@ID_皮肤_一键加载&quot;</code>。用途：跨文件的面板显示切换（见第 4 节）。<strong>value 是裸数字，全表唯一（110–124 区间已占用），新增顺延编号，不要复用</strong>。</p>
+<h3 id="23-type_font-字体注册">2.3 type_font — 字体注册</h3>
+<pre><code class="language-xml">&lt;font name=&quot;13b&quot;  size=&quot;13&quot; fontFile=&quot;font\Semibold.ttf&quot; /&gt;
+&lt;font name=&quot;13_yh&quot; size=&quot;13&quot; fontName=&quot;微软雅黑&quot; /&gt;
+&lt;font name=&quot;13_vv&quot; size=&quot;13&quot; fontFile=&quot;font\HUMUINUM2.ttf&quot; /&gt;</code></pre>
+<p>命名规则：<code>字号 + b(粗体/Semibold) + _后缀</code>。后缀含义：无后缀=Regular.ttf、<code>b</code>=Semibold.ttf、<code>_yh</code>=系统微软雅黑、<code>_vv</code>/<code>_num</code>=自定义数字展示字体(HUMUINUM.ttf/HUMUINUM2.ttf)。布局引用 <code>font=&quot;@13b&quot;</code>。已注册 23 个（<code>9/9b/9_yh/9_num/10/10b/10_yh/10b_yh/11/11b/12/12_vv/12b/13/13_num/13_vv/13_yh/13b/15b/16b/18b/26b/8_yh</code>）。</p>
+<h3 id="24-type_bkinfo-命名样式等价-css-class">2.4 type_bkInfo — 命名样式（等价 CSS class）</h3>
+<pre><code class="language-xml">&lt;item name=&quot;滚动条&quot; type=&quot;22&quot; bkInfoM=&quot;{...}&quot; bkInfoM_nameT=&quot;&quot; description=&quot;&quot; /&gt;</code></pre>
+<p>布局里 <code>bkInfoM=&quot;@滚动条&quot;</code> 引用。<strong>新样式若会在 3 处以上复用（如滚动条、头像框），注册到这里再引用</strong>，否则内联。</p>
+<h3 id="25-type_string-type_color-type_nametable">2.5 type<em>string / type</em>color / type_nameTable</h3>
+<p>项目里均为空占位节，保持存在即可。</p>
+<h2 id="3-三种布局文件的角色">3. 三种布局文件的角色</h2>
+<h3 id="31-窗口布局windowui-独立弹出的窗口">3.1 窗口布局（windowUI）— 独立弹出的窗口</h3>
+<p>每文件一个窗口，靠 <code>className</code> 供宿主加载。两类：</p>
+<ul><li><strong>主窗口</strong> main.xml（<code>className=&quot;humbox&quot;</code>）：标题栏导航 + <code>name=&quot;main_body&quot;</code> 的空槽（第 4 节）</li><li><strong>功能弹窗</strong>：login(登录)、msg(消息框,modalWindow)、VIP、mine(用户卡片)、preview(资源预览)、input(输入框)、settingWnd(设置)、sdk(SDK日志)、updater(更新器)、helpWnd(帮助菜单)、sponsor(赞助)、flowing(桌面悬浮球,42x40) 等，每个一个 className（见 file-map.md）</li></ul>
+<h3 id="32-布局面板layoutpanel-注入主窗口的页面">3.2 布局面板（layoutPanel）— 注入主窗口的页面</h3>
+<pre><code class="language-xml">&lt;layoutPanel heightT=&quot;580&quot; showT=&quot;true&quot; widthT=&quot;1024&quot;&gt;
+  &lt;layoutEleUI layout.height=&quot;fill&quot; layout.width=&quot;fill&quot;&gt;页面内容&lt;/layoutEleUI&gt;
+&lt;/layoutPanel&gt;</code></pre>
+<p><code>widthT/heightT</code> 是设计器参考尺寸，实际随 <code>main_body</code> 槽位伸缩。主页面板（home/res/skin/Interaction）由宿主在用户点导航时注入 main_body；子面板（Vv/myinfo/avatar/progress/dropfile 等）由宿主按 <code>name</code> 查找并动态挂载。</p>
+<h3 id="33-列表模板-数据绑定的项外观">3.3 列表模板 — 数据绑定的项外观</h3>
+<p>三种根标签对应三种列表控件：</p>
+<pre><code class="language-xml">&lt;!-- 列表视模板（listViewUI 用，资源卡片）--&gt;
+&lt;xc_template_listView&gt;
+  &lt;listView_Group&gt;分组头外观（字段 {binding field=name1}）&lt;/listView_Group&gt;
+  &lt;listView_item&gt;数据项外观（字段 {binding field=缩略图} 等）&lt;/listView_item&gt;
+&lt;/xc_template_listView&gt;
+
+&lt;!-- 列表模板（listUI 用，排行榜/日志行）--&gt;
+&lt;xc_template_list&gt;
+  &lt;listHeader_item&gt;表头列&lt;/listHeader_item&gt;
+  &lt;list_item&gt;数据行&lt;/list_item&gt;
+&lt;/xc_template_list&gt;
+
+&lt;!-- 列表框模板（comboBoxUI 下拉项用）--&gt;
+&lt;xc_template_listBox&gt;
+  &lt;layoutEleUI&gt;&lt;shapeText content=&quot;{binding field=name1}&quot; /&gt;&lt;/layoutEleUI&gt;
+&lt;/xc_template_listBox&gt;</code></pre>
+<p><strong>数据绑定语法</strong>：任何属性值里写 <code>{binding field=字段名}</code>（如 <code>image=&quot;{binding field=缩略图}&quot;</code>、<code>content=&quot;{binding field=name1}&quot;</code>），运行时由宿主填真实数据。模板里还会写 <code>itemID=&quot;N&quot;</code> 给项内元素编号。</p>
+<h2 id="4-主窗口面板注入架构">4. 主窗口面板注入架构</h2>
+<p>main.xml 的骨架（简化）：</p>
+<pre><code class="language-xml">&lt;windowUI className=&quot;humbox&quot;&gt;
+  &lt;layoutEleUI name=&quot;main&quot;&gt;                      ← 根容器
+    &lt;layoutEleUI ...&gt;标题栏：LOGO + 4个导航单选按钮(groupID=0) + 用户/菜单/帮助 + min/max/close&lt;/layoutEleUI&gt;
+    &lt;layoutEleUI name=&quot;main_body&quot; layout.height=&quot;:1&quot; layout.width=&quot;fill&quot; /&gt;   ← 页面槽位（空）
+  &lt;/layoutEleUI&gt;
+&lt;/windowUI&gt;</code></pre>
+<p><strong>页面切换机制</strong>（宿主运行时完成，布局文件只负责声明）：</p>
+<ol><li>四个导航按钮 <code>首页/资源/皮肤/交互</code> 是 <code>buttonType=&quot;radio&quot; groupID=&quot;0&quot;</code>，各带快捷键 tooltip（快捷键[1]~[4]）</li><li>宿主监听单选切换，把对应面板（home.xml/res.xml/skin.xml/Interaction.xml）注入 <code>main_body</code></li><li>页面内部的二级导航（如 skin.xml 的 自定义加载/一键加载）用 <code>groupID=&quot;3&quot;</code> 单选 + <code>bindEle</code> 机制</li></ol>
+<p><strong>bindEle 显示切换</strong>（布局内声明式切换，无需宿主代码）：</p>
+<pre><code class="language-xml">&lt;buttonUI bindEle=&quot;@ID_皮肤_自定义加载&quot; buttonType=&quot;radio&quot; groupID=&quot;3&quot; ... /&gt;   ← 导航单选
+...
+&lt;layoutEleUI id=&quot;@ID_皮肤_自定义加载&quot; showT=&quot;true&quot;&gt;内容A&lt;/layoutEleUI&gt;           ← 被控面板A
+&lt;layoutEleUI id=&quot;@ID_皮肤_一键加载&quot;   showT=&quot;false&quot;&gt;内容B&lt;/layoutEleUI&gt;          ← 被控面板B</code></pre>
+<p>选中带 <code>bindEle=&quot;@ID_X&quot;</code> 的按钮 → 显示 <code>id=&quot;@ID_X&quot;</code> 的面板、隐藏同组其他。符号 ID 在 resource.res type_id 注册（第 2.2 节）。嵌套版本（Interaction.xml）：子面板自身又是新单选组的 bindEle 容器，形成 <code>@ID_更新器交互</code> → <code>@ID_更新器交互_程序配置</code> → <code>@ID_更新器交互_程序配置_配置详细</code> 三层。</p>
+<h2 id="5-命名约定全集">5. 命名约定全集</h2>
+<h3 id="51-元素-name宿主代码按-name-查找元素改错即断功能">5.1 元素 name（宿主代码按 name 查找元素，改错即断功能）</h3>
+<div class="table-wrap"><table><tr><th style="text-align:left">模式</th><th style="text-align:left">示例</th><th style="text-align:left">用途</th></tr><tr><td style="text-align:left"><code>{页面}_NN</code></td><td style="text-align:left"><code>home_01</code>..<code>home_12</code>、<code>myinfo_00</code>..<code>16</code>、<code>vv_01..03</code></td><td style="text-align:left">设计器自动生成的结构名</td></tr><tr><td style="text-align:left"><code>{页}_{区块}_{控件}_{类型}</code></td><td style="text-align:left"><code>皮肤_自定义加载_对接程序_编辑框</code>、<code>皮肤_一键加载_算法类型_组合框</code>、<code>交互_更新器_确认生成更新器_按钮</code></td><td style="text-align:left">代码驱动的功能元素（下划线层级点分语义）</td></tr><tr><td style="text-align:left"><code>{页}_nav_{项}</code></td><td style="text-align:left"><code>皮肤_nav_自定义加载</code>、<code>皮肤_nav_一键加载</code></td><td style="text-align:left">页内导航</td></tr><tr><td style="text-align:left">槽位前缀 <code>_up_</code></td><td style="text-align:left"><code>_up_title</code>、<code>_up_time</code>、<code>_up_content</code>、<code>_up_update</code>、<code>_up_prog</code>、<code>_up_task_text</code>、<code>_up_task_prec</code></td><td style="text-align:left">layoutFrame.xml 的通用更新帧槽位（宿主填充）</td></tr><tr><td style="text-align:left"><code>main</code> / <code>main_body</code></td><td style="text-align:left">—</td><td style="text-align:left">主窗口根容器与页面槽（<strong>保留名</strong>）</td></tr></table></div>
+<h3 id="52-资源文件名">5.2 资源文件名</h3>
+<ul><li>图标多态三份：<code>_01</code>=正常、<code>_02</code>=悬停、<code>_03</code>=按下（如 <code>navbtn_icon_skin_01/02/03.svg</code>、<code>close1/2/3.svg</code>）</li><li>头像框：<code>头像框{1,2,3}_{尺寸}x{尺寸}_{状态序号}.{png|svg}</code>，尺寸 32/80/120/160</li><li>拼音/英文小写下划线命名为主</li></ul>
+<h3 id="53-符号-idtype_id">5.3 符号 ID（type_id）</h3>
+<p><code>ID_{模块}_{功能}[_{子级}]</code>：模块∈{皮肤,更新器交互,验证交互,安装器交互}。层级用下划线延伸：<code>ID_更新器交互_程序配置_配置详细</code>。</p>
+<h3 id="54-groupid-分配">5.4 groupID 分配</h3>
+<div class="table-wrap"><table><tr><th style="text-align:left">groupID</th><th style="text-align:left">作用域</th></tr><tr><td style="text-align:left">0</td><td style="text-align:left">主窗口导航（首页/资源/皮肤/交互）</td></tr><tr><td style="text-align:left">2</td><td style="text-align:left">资源页内导航</td></tr><tr><td style="text-align:left">3</td><td style="text-align:left">皮肤页内导航</td></tr><tr><td style="text-align:left">4</td><td style="text-align:left">交互页内导航</td></tr></table></div>
+<p>新增页面内导航顺延新号，不与现有冲突。</p>
+<h2 id="6-已知问题清单修改时留意">6. 已知问题清单（修改时留意）</h2>
+<ol><li><code>flow_ic1.svg</code>、<code>home_btn3_icon_01.svg</code>：布局中引用但<strong>文件不存在</strong>（悬空引用，运行时不显示）</li><li>resource.res 注册了 <code>pv_vip.jpg</code> 但实际文件是 <code>pv_vip.png</code>（jpg 条目失效）；<code>banner.jpg</code> 注册但未随包分发</li><li><code>lgbg.png</code> 被 login.xml 的 bkInfoM 引用但<strong>未在 resource.res 注册</strong>（login 能显示说明宿主可能宽松解析，但按规范应补注册）</li><li><code>11.png</code>、<code>22.png</code>、<code>en.ttf</code> 为未引用的孤儿文件（可清理，但先与用户确认）</li><li>Test.xml 是设计器草稿，其中元素与资源（Vv_* 资产）是实验性的——<strong>不要把 Test.xml 当作规范参考</strong>，正式风格以 布局文件/ 内其他文件为准</li></ol>
+<h2 id="7-视觉风格基线未闻花名皮肤">7. 视觉风格基线（未闻花名皮肤）</h2>
+<p>新增界面必须延续以下风格（从现有文件提炼）：</p>
+<ul><li>暗色玻璃质感：深色半透明窗口（transparentFlag shaped/shadow、9-patch login_sd.png 类边框）</li><li>主色：暗底 <code>#270F0F0F</code>~<code>#654311423</code> 半透明白/黑、强调黄绿 <code>#FFBBF327</code>（光标/链接悬停 <code>#FFc5f35f</code>）、VIP 金紫</li><li>圆角 2~12px（小件 2、卡片 6、弹窗 8）</li><li>文字层级：正文 <code>@10</code>/<code>@13</code> 常规灰白（<code>#B3FFFFFF</code>），强调 <code>@10b</code>/<code>@13b</code>，标题 <code>@15b</code>/<code>@18b</code>，选中纯白 <code>-1</code></li><li>悬停态规律：文字变亮（<code>23(178)</code>→<code>23(200)</code>）、底色提亮 5~10%、cursor=IDC_HAND</li><li>按下态：再提亮或压暗一档 + 透明度微降</li><li>图标三态换图（<em>01/</em>02/_03），不使用单张图变色</li></ul></main>
+<aside><b>本页目录</b><a class="depth-2" href="#1-项目总体结构">1. 项目总体结构</a><a class="depth-2" href="#2-resourceres-资源注册清单">2. resource.res —— 资源注册清单</a><a class="depth-3" href="#21-type_image-图片注册">2.1 type_image — 图片注册</a><a class="depth-3" href="#22-type_id-符号-id">2.2 type_id — 符号 ID</a><a class="depth-3" href="#23-type_font-字体注册">2.3 type_font — 字体注册</a><a class="depth-3" href="#24-type_bkinfo-命名样式等价-css-class">2.4 type_bkInfo — 命名样式（等价 CSS class）</a><a class="depth-3" href="#25-type_string-type_color-type_nametable">2.5 type_string / type_color / type_nameTable</a><a class="depth-2" href="#3-三种布局文件的角色">3. 三种布局文件的角色</a><a class="depth-3" href="#31-窗口布局windowui-独立弹出的窗口">3.1 窗口布局（windowUI）— 独立弹出的窗口</a><a class="depth-3" href="#32-布局面板layoutpanel-注入主窗口的页面">3.2 布局面板（layoutPanel）— 注入主窗口的页面</a><a class="depth-3" href="#33-列表模板-数据绑定的项外观">3.3 列表模板 — 数据绑定的项外观</a><a class="depth-2" href="#4-主窗口面板注入架构">4. 主窗口面板注入架构</a><a class="depth-2" href="#5-命名约定全集">5. 命名约定全集</a><a class="depth-3" href="#51-元素-name宿主代码按-name-查找元素改错即断功能">5.1 元素 name（宿主代码按 name 查找元素，改错即断功能）</a><a class="depth-3" href="#52-资源文件名">5.2 资源文件名</a><a class="depth-3" href="#53-符号-idtype_id">5.3 符号 ID（type_id）</a><a class="depth-3" href="#54-groupid-分配">5.4 groupID 分配</a><a class="depth-2" href="#6-已知问题清单修改时留意">6. 已知问题清单（修改时留意）</a><a class="depth-2" href="#7-视觉风格基线未闻花名皮肤">7. 视觉风格基线（未闻花名皮肤）</a></aside></div>
+<footer class="foot">源 Markdown：architecture.md · 独立 HTML 副本：architecture.html</footer></body></html>

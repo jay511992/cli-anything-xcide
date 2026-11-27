@@ -54,7 +54,7 @@ cli-anything-xcide --json --ide 'I:\xcide' example list '按钮'
 
 ## 让 Agent 编写一个 XC 程序
 
-把 [CLI 调用技能](skills/cli-anything-xcide/SKILL.md)、[XC 开发技能](skills/xc-suite/SKILL.md) 和 [调用手册](AI_CALLING.md) 提供给 Agent，并给出工程目标目录、IDE 路径、功能要求及验收标准。两套技能的迁移方法及可选 MCP 工具的区别见 [依赖说明](DEPENDENCIES.md)。例如：
+把 [CLI 与 XC 开发合并技能](skills/cli-anything-xcide/SKILL.md) 和 [调用手册](AI_CALLING.md) 提供给 Agent，并给出工程目标目录、IDE 路径、功能要求及验收标准。合并技能内含按需加载的炫语言/XCGUI 开发资料；依赖与可选 MCP 工具说明见 [依赖说明](DEPENDENCIES.md)。例如：
 
 > 在指定新目录创建 x64 调试版计数器。先查本机模板、模块依赖和事件签名，再写炫语言源码；接入 automation_bridge.h 并使用 GDI 渲染。用 build --diagnostics 后台编译，依据真实错误修复。编写 runtime test JSON 场景，验证中文输入、按钮点击、业务日志、截图和正常退出。全程不得抢占前台或移动鼠标。交付源码、构建 JSON、测试报告和截图。
 
@@ -65,8 +65,8 @@ cli-anything-xcide --json --ide 'I:\xcide' example list '按钮'
 | 路径 | 内容 |
 | --- | --- |
 | `xcide/agent-harness/` | 可安装的 Python harness、测试、原生桥接、示例及辅助工具 |
-| `skills/cli-anything-xcide/` | AI Agent 技能说明及离线阅读版 |
-| `skills/xc-suite/` | 炫语言开发资料、模块检索脚本及来源清单；索引在目标机器重建 |
+| `skills/cli-anything-xcide/` | CLI 调用与炫语言/XCGUI 开发合并技能、按需参考资料及离线阅读版 |
+| `skills/cli-anything-xcide/references/xc-suite/` | 合并的开发手册、模块检索脚本及来源清单；模块索引在目标机器重建 |
 | `xcide/automation-evidence/` | 编译成功/失败、后台交互及截图的历史验收证据 |
 | `AI_CALLING.md`、`DOCS.md` | AI 调用手册和文档导航 |
 | `AI_MINING_REPORT*.md`、`AI_MINING_EVIDENCE_*.json` | 三批 20/20/50 轮探索记录和原始取证 |
@@ -95,5 +95,7 @@ Markdown 为文档源文件，修改后可使用渲染器更新对应 HTML：
 ```powershell
 python xcide/agent-harness/tools/render_markdown.py AI_CALLING.md AI_CALLING.html
 ```
+
+开发时以 `skills/cli-anything-xcide/` 为技能源目录。更新技能正文和对应 HTML 后，用 `python xcide/agent-harness/tools/sync_skill.py` 刷新打包副本；加 `--check` 可只检查差异。
 
 项目来源及依赖说明见 [NOTICE](NOTICE)，保留的 CLI-Anything Apache 2.0 许可证见 [LICENSE](LICENSE)。

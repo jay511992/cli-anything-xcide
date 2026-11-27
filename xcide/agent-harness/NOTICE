@@ -27,9 +27,9 @@ The xcide/automation-evidence directory contains captured results from the
 included test application. Historical reports retain their original timestamps,
 absolute paths and hashes; they are not new runs performed on the reader's PC.
 
-The skills/xc-suite development references and module search script were supplied
+The bundled xc-suite development references and module search script were supplied
 from the user's local skill collection. Their source snapshot and input hashes
-are recorded in skills/xc-suite/SOURCE.json. Local portability edits make the
+are recorded in references/xc-suite/SOURCE.json inside the merged skill. Local portability edits make the
 current CLI workflow explicit; generated module indexes and historical external
 project files are not distributed. This attribution does not relicense external
 SDKs, modules, skins or other materials referenced by those documents.

@@ -1,6 +1,6 @@
 ---
 name: cli-anything-xcide
-description: 无需 MCP 的 XCGUI 与炫语言 IDE 命令行工具，可管理工程、后台编译测试，并通过持久原生 IDE 会话调用 30 个 xc_* 工具。
+description: 编写炫语言/XCGUI 程序并通过本地 CLI 创建、编译、测试和维护工程；附带按需语法、模块、事件、布局与资源开发资料，无需 MCP。
 ---
 
 # 炫彩 IDE 本地命令行
@@ -11,7 +11,7 @@ description: 无需 MCP 的 XCGUI 与炫语言 IDE 命令行工具，可管理�
 
 `xc_editor_get` 读取实时缓冲；`xc_editor_set` 和模块修改写磁盘，按 `reload_required/restartRequired` 重新加载。`xc_build/xc_menu_cmd/xc_save_all` 只确认投递，不能当作编译/保存完成证明；验收使用 `build --diagnostics`。`ide call` 的业务失败 JSON 可在 stdout，错误退出仍须保留结果；超时或部分完成先回读，勿盲重试。`xc_server` 不启动 MCP 服务，`xc_tree_probe select/clean` 不操作 GUI 树。
 
-编写炫语言业务代码时，可一并读取仓库的 `skills/xc-suite/SKILL.md`，按需查语法、模块、事件和布局资料。它随 Git 仓库单独提供，模块索引在目标机器重建；CLI wheel 自带本调用技能及两种原生桥接，不要求安装 XC-MCP-Next 或 `mcp-cli`。
+编写或修改炫语言源码、选择模块、处理 XCGUI 事件或布局前，先读取[炫语言与 XCGUI 开发指南](references/xc-suite/GUIDE.md)，再按任务查对应章节。只编译、运行已有工程或管理文件时，可直接使用下列 CLI 命令。文档和脚本路径均相对于本 `SKILL.md` 所在目录，与工程工作目录无关。单独导入本技能目录或使用 wheel 时均无需另装 `xc-suite`。
 
 ## 环境和安装
 

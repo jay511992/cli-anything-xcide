@@ -18,7 +18,7 @@ aside{position:sticky;top:16px;max-height:calc(100vh - 32px);overflow:auto;paddi
 </style></head><body>
 <header class="top"><div class="brand"><span class="mark">炫</span><span>炫彩 IDE · 本地自动化文档</span></div><span>离线 HTML · 可直接浏览器打开 / 打印为 PDF</span></header>
 <div class="wrap"><main><div class="eyebrow">XCGUI / Xuan Language</div><h1>炫彩 IDE CLI：AI 自动化调用手册</h1><div class="meta">本页由本地 Markdown 生成；样式内嵌，无网络、MCP 或浏览器脚本依赖。</div><p>本手册供 Codex、其他 AI 代理和脚本调用 <code>cli-anything-xcide</code>。CLI 读取和更新 Windows 本地文件，实时能力通过本项目原生桥接执行，不使用 MCP。<code>build --diagnostics</code> 和 <code>ide start</code> 自动在各自隔离 IDE 副本中编译并加载所需桥接，无需向正式 IDE 安装插件。</p>
-<p>独立 Git 仓库同时提供 <code>skills/cli-anything-xcide</code>（调用规则）和 <code>skills/xc-suite</code>（炫语言、模块及 UI 开发资料）。写业务程序时建议一并读取；XC 模块索引按当前安装重建。wheel 包含 CLI 技能及原生桥接，XC 开发资料随仓库单独提供。XC-MCP-Next 与 <code>mcp-cli</code> 为可选外部工具，当前编译、读错误及后台测试不依赖它们；迁移方法见仓库根目录 <code>DEPENDENCIES.md</code>。</p>
+<p>让 Agent 使用 <code>cli-anything-xcide</code> 一个技能即可。仓库入口是 <code>skills/cli-anything-xcide/SKILL.md</code>，wheel 入口是 <code>cli_anything/xcide/skills/SKILL.md</code>。两者都包含炫语言/XCGUI 开发指南及模块检索脚本；写 XC 时按入口读取相应参考，仅编译已有工程时直接调用 CLI。不需要单独启用 <code>xc-suite</code>、<code>mcp-cli</code> 或 XC-MCP-Next。</p>
 <p>文档的离线预览版是 <a href="AI_CALLING.html">AI_CALLING.html</a>。前两批各 20 轮安装包功能挖掘见工作区根目录的 <code>AI_MINING_REPORT.md</code>、<code>AI_MINING_REPORT_02.md</code>；第三批 50 轮见 <code>AI_MINING_REPORT_03.md</code>。均有同名 HTML 阅读版，不依赖网络或脚本。</p>
 <h2 id="安装和调用原则">安装和调用原则</h2>
 <p>在 harness 目录安装：</p>
@@ -51,7 +51,7 @@ if not data[&quot;ok&quot;]:
 example_ids = [item[&quot;id&quot;] for item in data[&quot;examples&quot;] if item[&quot;valid&quot;]]</code></pre>
 <h2 id="自动化工作流">自动化工作流</h2>
 <h3 id="持久-ide-与旧-mcp-工具名">持久 IDE 与旧 MCP 工具名</h3>
-<p>已将所参考 XC-MCP-Next 版本注册的 30 个工具名接到 <code>ide call</code>。<code>ide tools</code> 输出 schema 和行为备注；完整逐项说明见 <a href="IDE_COMPAT.md">原生 IDE 与 MCP 迁移</a>。启动会话需要 64 位 Python、AMD64 ABI v3 IDE、MSVC 与 Windows SDK。</p>
+<p>已将所参考 XC-MCP-Next 版本注册的 30 个工具名接到 <code>ide call</code>。<code>ide tools</code> 输出 schema 和行为备注；完整逐项说明见 <a href="IDE_COMPAT.html">原生 IDE 与 MCP 迁移</a>。启动会话需要 64 位 Python、AMD64 ABI v3 IDE、MSVC 与 Windows SDK。</p>
 <pre><code class="language-powershell">cli-anything-xcide --json ide tools
 cli-anything-xcide --json --ide &#x27;I:\xcide&#x27; --project &#x27;E:\work\Demo\Demo.xcproj&#x27; ide start --directory &#x27;E:\work\Demo-session&#x27;
 cli-anything-xcide --json ide --instance &#x27;E:\work\Demo-session&#x27; call xc_get_project

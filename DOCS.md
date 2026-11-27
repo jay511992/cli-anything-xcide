@@ -17,5 +17,5 @@
 | 命令架构说明 | [打开 XCIDE.html](xcide/agent-harness/XCIDE.html) | [XCIDE.md](xcide/agent-harness/XCIDE.md) |
 | 测试计划与结果 | [打开 TEST.html](xcide/agent-harness/cli_anything/xcide/tests/TEST.html) | [TEST.md](xcide/agent-harness/cli_anything/xcide/tests/TEST.md) |
 | CLI-Anything 技能说明 | [打开 SKILL.html](skills/cli-anything-xcide/SKILL.html) | [SKILL.md](skills/cli-anything-xcide/SKILL.md) |
-| XC 语法、模块与 UI 开发技能 | [打开 XC 技能](skills/xc-suite/SKILL.html) | [SKILL.md](skills/xc-suite/SKILL.md) |
+| 炫语言与 XCGUI 开发参考 | [打开开发指南](skills/cli-anything-xcide/references/xc-suite/GUIDE.html) | [GUIDE.md](skills/cli-anything-xcide/references/xc-suite/GUIDE.md) |
 

@@ -40,6 +40,6 @@ Thumbs.db
 Desktop.ini
 
 # XC development skill indexes are generated from the current local IDE.
-/skills/xc-suite/references/xc-modules/api.jsonl
-/skills/xc-suite/references/xc-modules/catalog.json
-/skills/xc-suite/references/xc-modules/catalog.md
+/skills/cli-anything-xcide/references/xc-suite/references/xc-modules/api.jsonl
+/skills/cli-anything-xcide/references/xc-suite/references/xc-modules/catalog.json
+/skills/cli-anything-xcide/references/xc-suite/references/xc-modules/catalog.md

@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src data: file:; font-src 'none'; script-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="color-scheme" content="light dark"><title>xcgui-code — 句柄 / CXWindow / 事件 / 列表适配器 / 弹窗 / 拖放 / 系统API 前缀索引 / 线程池｜炫彩 IDE</title>
+<meta name="description" content="离线阅读版：xcgui-code — 句柄 / CXWindow / 事件 / 列表适配器 / 弹窗 / 拖放 / 系统API 前缀索引 / 线程池">
+<style>
+:root{color-scheme:light dark;--bg:#f3f5f9;--panel:#fff;--ink:#1f2937;--soft:#617086;--line:#e4e9f0;--accent:#145bce;--code:#eef2f8;--shadow:0 16px 46px #25385814;font:16px/1.76 "Microsoft YaHei UI","Microsoft YaHei",system-ui,sans-serif}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 85% -12%,#dbeafe 0,transparent 34rem),var(--bg);color:var(--ink)}
+.top{max-width:1380px;margin:auto;padding:30px 34px 12px;display:flex;align-items:center;justify-content:space-between;color:var(--soft);font-size:13px;letter-spacing:.04em}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;color:var(--accent)}.mark{display:grid;place-items:center;width:28px;height:28px;border-radius:8px;background:linear-gradient(140deg,#4e91ff,#1758c9);color:white;font-size:15px}
+.wrap{max-width:1380px;margin:0 auto 72px;padding:14px 28px;display:grid;grid-template-columns:minmax(0,1fr) 245px;gap:26px;align-items:start}
+main{min-width:0;background:var(--panel);border:1px solid var(--line);box-shadow:var(--shadow);border-radius:18px;padding:54px clamp(24px,6vw,86px) 66px}.eyebrow{color:var(--accent);font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:12px}h1{font-size:clamp(32px,5vw,47px);line-height:1.2;letter-spacing:-.04em;margin:12px 0 32px}h2{font-size:25px;line-height:1.35;letter-spacing:-.025em;margin:52px 0 18px;padding-bottom:10px;border-bottom:1px solid var(--line)}h3{font-size:20px;margin:34px 0 10px;line-height:1.4}h4,h5,h6{margin:28px 0 8px}p{margin:14px 0}a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}strong{font-weight:750}ul,ol{padding-left:1.55em;margin:12px 0 20px}li{padding-left:.18em;margin:6px 0}code{font-family:Consolas,"Cascadia Code","Microsoft YaHei",monospace;font-size:.91em;background:var(--code);border-radius:5px;padding:.13em .42em;overflow-wrap:anywhere}pre{margin:20px 0;padding:19px 22px;background:#111827;color:#e2e8f0;border:1px solid #334155;border-radius:11px;overflow:auto;line-height:1.65;white-space:pre}pre code{padding:0;background:none;border-radius:0;color:inherit;font-size:13px;overflow-wrap:normal}.table-wrap{overflow:auto;margin:19px 0 24px;border:1px solid var(--line);border-radius:10px}table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.55}th,td{padding:10px 13px;border-bottom:1px solid var(--line);vertical-align:top}th{background:var(--code);font-weight:700;white-space:nowrap}tr:last-child td{border-bottom:0}blockquote{margin:20px 0;padding:2px 20px;border-left:4px solid #86aaf1;background:var(--code);border-radius:0 8px 8px 0;color:var(--soft)}hr{border:0;border-top:1px solid var(--line);margin:32px 0}.meta{color:var(--soft);font-size:13px;margin-top:-20px;margin-bottom:36px}
+aside{position:sticky;top:16px;max-height:calc(100vh - 32px);overflow:auto;padding:20px 16px;background:color-mix(in srgb,var(--panel) 84%,transparent);border:1px solid var(--line);border-radius:14px}aside b{display:block;margin:0 8px 9px;font-size:13px}aside a{display:block;padding:4px 8px;color:var(--soft);font-size:12px;line-height:1.5;border-radius:5px}aside a:hover{background:var(--code);color:var(--accent);text-decoration:none}aside .depth-3{padding-left:18px}aside .depth-4{padding-left:29px}.foot{max-width:1380px;margin:-48px auto 30px;padding:0 34px;color:var(--soft);font-size:12px}
+@media(prefers-color-scheme:dark){:root{--bg:#12151c;--panel:#1b2029;--ink:#e3e9f2;--soft:#a6b1c2;--line:#303948;--accent:#7eaeff;--code:#252e3a;--shadow:0 20px 50px #0004}body{background:radial-gradient(ellipse at 85% -12%,#172b46 0,transparent 36rem),var(--bg)}aside{background:color-mix(in srgb,var(--panel) 87%,transparent)}}
+@media(max-width:940px){.wrap{grid-template-columns:minmax(0,1fr);padding:10px 16px}aside{position:relative;top:0;max-height:240px;order:-1;columns:2}main{padding:38px clamp(18px,5vw,48px) 48px}.top{padding:23px 20px 10px}}
+@media(max-width:560px){.wrap{padding:8px}main{border-radius:12px;padding:30px 20px 42px}aside{columns:1}.top{padding:18px 14px 8px}h2{font-size:22px}}
+@media print{:root{color-scheme:light;--bg:#fff;--panel:#fff;--ink:#171717;--soft:#444;--line:#ccc;--accent:#164f98;--code:#f1f1f1}body{background:#fff}.top,aside,.foot{display:none}.wrap{display:block;max-width:none;margin:0;padding:0}main{border:0;box-shadow:none;padding:0}h2{break-after:avoid}pre,table{break-inside:avoid}a{color:inherit;text-decoration:underline}}
+</style></head><body>
+<header class="top"><div class="brand"><span class="mark">炫</span><span>炫彩 IDE · 本地自动化文档</span></div><span>离线 HTML · 可直接浏览器打开 / 打印为 PDF</span></header>
+<div class="wrap"><main><div class="eyebrow">XCGUI / Xuan Language</div><h1>xcgui-code — 句柄 / CXWindow / 事件 / 列表适配器 / 弹窗 / 拖放 / 系统API 前缀索引 / 线程池</h1><div class="meta">本页由本地 Markdown 生成；样式内嵌，无网络、MCP 或浏览器脚本依赖。</div><blockquote><p>来源：<code>xc-代码\炫彩界面库.mdc</code>（Part 1 §1–§7、§10–§13；附录 §1–§12）、<code>xc-代码\系统API(前缀分类法).mdc</code>（全文）、<code>xc-代码\线程池.mdc</code>（全文）。</p></blockquote>
+<blockquote><p>类型名/枚举名/事件名/函数名逐字保留。布局 XML 侧的 CSS 属性与选择器见 <code>interface-xml.md</code> / <code>bkinfom-res.md</code>；本文件只保留代码侧调用入口。语言语法与基础模块见 <code>xuanlang-lang.md</code>。</p></blockquote>
+<h2 id="1-模块概览与核心文件">1. 模块概览与核心文件</h2>
+<p>炫彩界面库（C 接口 <code>module_xcgui.h</code> + C++ 封装 <code>module_xcgui_class.h</code>），当前版本 4.0.0，更新时间 2026-03-15。定位为 Windows 平台下的原生 GUI 封装库，基于 Win32 与自研渲染内核，提供窗口、元素控件、布局、样式（CSS）、动画、数据适配器等完整 UI 能力。依赖模块 <code>module_base.h</code>。</p>
+<ul><li><code>module_xcgui.h</code>：C API 主头文件；含模块元信息注释（版本、日期、变更日志）、库链接指令（<code>//@lib</code>）、运行时 DLL 复制标记（<code>//@复制文件</code>）；引入 <code>xcgui_event.h</code> 以统一窗口和元素事件枚举与说明；定义 GUI 句柄类型、对象类型枚举、对象扩展类型枚举等基础类型</li></ul>
+<ul><li><code>module_xcgui_class.h</code>：C++ 面向对象封装，在 C API 基础上提供 <code>CXWindow</code>、<code>CXButton</code> 等强类型类封装；所有类以 <code>CXBase</code> 为根类，通过 <code>GetHXCGUI()</code> 统一获取底层 <code>HXCGUI</code> 资源句柄</li></ul>
+<ul><li><code>xcgui_event.h</code>：事件常量与说明，含窗口事件（<code>WM_*</code>、<code>XWM_*</code>）与元素事件（<code>XE_*</code>）的详细中文注释、原型说明、参数说明</li></ul>
+<ul><li><code>md5.txt</code>：模块文件的 MD5 信息，通常用于版本或完整性校验</li></ul>
+<h2 id="2-句柄与基础类型">2. 句柄与基础类型</h2>
+<pre><code class="language-text">通用句柄:
+HXCGUI   炫彩资源总句柄（标识任意资源：窗口、元素、图片等）
+HWINDOW  炫彩窗口句柄（与系统 HWND 区分）
+HELE     元素（控件）句柄
+HMENUX   炫彩菜单句柄
+HDRAW    绘图/渲染句柄
+HIMAGE   图片资源句柄
+HFONTX   炫彩字体句柄
+HBKM     背景内容管理器句柄
+HTEMP    模板句柄（用于列表、列表树、列表视图等项模板机制）
+HSVG     SVG 矢量图形句柄</code></pre>
+<p>颜色与辅助宏：<code>RGBA(r, g, b, a)</code> 为统一的 32 位 RGBA 颜色宏（高 8 位为 Alpha）；另有内部颜色宏（如 <code>COLORREF_MAKE2</code>、<code>COLORREF_SET_A</code> 等）用于在 <code>COLORREF</code> 与 RGBA 之间转换、设置透明度。</p>
+<h2 id="3-对象类型体系xc_object_type">3. 对象类型体系（<code>XC_OBJECT_TYPE</code>）</h2>
+<p>对象类型用于区分资源的功能角色，典型用于运行时类型判断、调试与通用接口（如 <code>XObj_*</code>）上的分发。</p>
+<ul><li><strong>窗口与容器</strong>：<code>XC_WINDOW</code>（普通窗口）、<code>XC_MODALWINDOW</code>（模态窗口）、<code>XC_FRAMEWND</code>（带停靠/浮动窗格能力的框架窗口）、<code>XC_FLOATWND</code>（浮动窗口）、<code>XC_COMBOBOXWINDOW</code>（组合框下拉窗口）、<code>XC_POPUPMENUWINDOW</code> / <code>XC_POPUPMENUCHILDWINDOW</code>（菜单主窗口 / 菜单子窗口）</li></ul>
+<ul><li><strong>基础元素与常用控件</strong>：<code>XC_ELE</code>、<code>XC_BUTTON</code>、<code>XC_COMBOBOX</code>、<code>XC_SCROLLBAR</code>、<code>XC_SCROLLVIEW</code>、<code>XC_LIST</code> / <code>XC_LISTBOX</code> / <code>XC_LISTVIEW</code> / <code>XC_TREE</code>、<code>XC_MENUBAR</code>、<code>XC_SLIDERBAR</code>、<code>XC_PROGRESSBAR</code>、<code>XC_TOOLBAR</code>、<code>XC_MONTHCAL</code>、<code>XC_DATETIME</code>、<code>XC_PROPERTYGRID</code>、<code>XC_EDIT</code> / <code>XC_EDITOR</code>、<code>XC_TABBAR</code>、<code>XC_TEXTLINK</code>、文件/文件夹选择编辑框、布局元素（<code>XC_ELE_LAYOUT</code> / <code>XC_LAYOUT_FRAME</code>）等</li></ul>
+<ul><li><strong>形状与绘图对象</strong>：<code>XC_SHAPE</code> 及其子类型 <code>XC_SHAPE_TEXT</code> / <code>XC_SHAPE_PICTURE</code> / <code>XC_SHAPE_RECT</code> / <code>XC_SHAPE_ELLIPSE</code> / <code>XC_SHAPE_LINE</code> / <code>XC_SHAPE_GROUPBOX</code> / <code>XC_SHAPE_GIF</code> / <code>XC_SHAPE_TABLE</code>；绘图与图片 <code>XC_HDRAW</code>（绘图操作对象）、<code>XC_IMAGE_TEXTURE</code>（图片源/纹理）、<code>XC_IMAGE_FRAME</code>（图片帧/渲染属性封装）、<code>XC_SVG</code>（SVG 对象）</li></ul>
+<ul><li><strong>数据与布局</strong>：适配器系列 <code>XC_ADAPTER</code> / <code>XC_ADAPTER_TABLE</code> / <code>XC_ADAPTER_TREE</code> / <code>XC_ADAPTER_LISTVIEW</code> / <code>XC_ADAPTER_MAP</code>；布局相关 <code>XC_LAYOUT_BOX</code> / <code>XC_LAYOUT_FRAME</code> 及若干内部布局类型；其它 <code>XC_BKINFOM</code>（背景管理器）、<code>XC_ANIMATION_SEQUENCE</code> / <code>XC_ANIMATION_GROUP</code> / <code>XC_ANIMATION_ITEM</code>（动画序列、组、项）</li></ul>
+<ul><li><strong>对象扩展类型（<code>XC_OBJECT_TYPE_EX</code>）</strong>：按钮扩展类型 <code>button_type_default</code> / <code>button_type_radio</code> / <code>button_type_check</code> / <code>button_type_close</code> / <code>button_type_min</code> / <code>button_type_max</code> 等；布局扩展类型 <code>element_type_layout</code> 等，用于标记启用布局能力的元素</li></ul>
+<h2 id="4-事件系统xcgui_eventh">4. 事件系统（<code>xcgui_event.h</code>）</h2>
+<h3 id="41-窗口事件wm_-xwm_">4.1 窗口事件（<code>WM_*</code> / <code>XWM_*</code>）</h3>
+<ul><li>绘制与生命周期：<code>WM_PAINT</code>（窗口绘制事件，可拦截炫彩默认绘制进行自绘）、<code>WM_CLOSE</code> / <code>WM_DESTROY</code> / <code>WM_NCDESTROY</code>（即将关闭、即将销毁、非客户区销毁）</li></ul>
+<ul><li>鼠标：<code>WM_LBUTTONDOWN</code> / <code>WM_LBUTTONUP</code> / <code>WM_LBUTTONDBLCLK</code>；<code>WM_RBUTTONDOWN</code> / <code>WM_RBUTTONUP</code> / <code>WM_RBUTTONDBLCLK</code>；<code>WM_MOUSEMOVE</code> / <code>WM_MOUSEHOVER</code> / <code>WM_MOUSELEAVE</code> / <code>WM_MOUSEWHEEL</code> / <code>WM_SETCURSOR</code></li></ul>
+<ul><li>键盘：<code>WM_KEYDOWN</code> / <code>WM_KEYUP</code> / <code>WM_CHAR</code></li></ul>
+<ul><li>尺寸与布局：<code>WM_SIZE</code> / <code>WM_EXITSIZEMOVE</code>（改变大小/退出改变大小或移动）</li></ul>
+<ul><li>定时器与焦点：<code>WM_TIMER</code>（系统定时器）、<code>WM_SETFOCUS</code> / <code>WM_KILLFOCUS</code>（窗口获得/失去焦点）</li></ul>
+<ul><li>其它：<code>WM_DROPFILES</code>（文件拖入，需启用 <code>XWnd_EnableDragFiles</code>）、<code>WM_OTHER</code>（未被炫彩预定义的其他 <code>WM_</code> 消息）、<code>XWM_WINDPROC</code>（窗口消息过程事件，可统一过滤所有消息）、<code>XWM_XC_TIMER</code>（炫彩自有定时器，区别于系统定时器），以及与托盘图标、菜单弹出与绘制、框架窗口浮动窗格、窗格显示等相关的 <code>XWM_*</code> 自定义消息</li></ul>
+<h3 id="42-元素事件xe_">4.2 元素事件（<code>XE_*</code>）</h3>
+<ul><li>通用与绘制：<code>XE_ELEPROCE</code>（元素事件过滤，统一拦截除 <code>XE_</code> 以外的所有事件）、<code>XE_PAINT</code> / <code>XE_PAINT_END</code> / <code>XE_PAINT_SCROLLVIEW</code>（元素绘制、绘制完成、滚动视图绘制）</li></ul>
+<ul><li>鼠标：<code>XE_MOUSEMOVE</code> / <code>XE_MOUSESTAY</code> / <code>XE_MOUSEHOVER</code> / <code>XE_MOUSELEAVE</code>；<code>XE_MOUSEWHEEL</code>；<code>XE_LBUTTONDOWN</code> / <code>XE_LBUTTONUP</code> / <code>XE_LBUTTONDBCLICK</code>；<code>XE_RBUTTONDOWN</code> / <code>XE_RBUTTONUP</code>；鼠标捕获 <code>XE_SETCAPTURE</code> / <code>XE_KILLCAPTURE</code>；设置光标 <code>XE_SETCURSOR</code></li></ul>
+<ul><li>焦点与显示：<code>XE_SETFOCUS</code> / <code>XE_KILLFOCUS</code>；<code>XE_SIZE</code>（大小改变）；<code>XE_SHOW</code>（显示/隐藏）；字体变更 <code>XE_SETFONT</code></li></ul>
+<ul><li>键盘：<code>XE_KEYDOWN</code> / <code>XE_KEYUP</code> / <code>XE_CHAR</code>；系统键 <code>XE_SYSKEYDOWN</code> / <code>XE_SYSKEYUP</code></li></ul>
+<ul><li>列表/列表框/列表树/列表视图：</li></ul>
+<ul><li>模板生命周期 <code>XE_LISTBOX_TEMP_CREATE</code> / <code>XE_LISTBOX_TEMP_CREATE_END</code> / <code>XE_LISTBOX_TEMP_DESTROY</code>，<code>XE_LIST_TEMP_CREATE</code> / <code>XE_LIST_TEMP_CREATE_END</code> / <code>XE_LIST_TEMP_DESTROY</code>，<code>XE_TREE_TEMP_CREATE</code> / <code>XE_TREE_TEMP_CREATE_END</code> / <code>XE_TREE_TEMP_DESTROY</code>，<code>XE_LISTVIEW_TEMP_CREATE</code> / <code>XE_LISTVIEW_TEMP_CREATE_END</code> / <code>XE_LISTVIEW_TEMP_DESTROY</code></li></ul>
+<ul><li>绘制 <code>XE_LISTBOX_DRAWITEM</code> / <code>XE_LIST_DRAWITEM</code> / <code>XE_TREE_DRAWITEM</code> / <code>XE_LISTVIEW_DRAWITEM</code></li></ul>
+<ul><li>选择 <code>XE_LISTBOX_SELECT</code> / <code>XE_LIST_SELECT</code> / <code>XE_TREE_SELECT</code> / <code>XE_LISTVIEW_SELECT</code></li></ul>
+<ul><li>展开/折叠 <code>XE_TREE_EXPAND</code> / <code>XE_LISTVIEW_EXPAND</code></li></ul>
+<ul><li>滚动与进度：<code>XE_SCROLLVIEW_SCROLL_H</code> / <code>XE_SCROLLVIEW_SCROLL_V</code>；<code>XE_SBAR_SCROLL</code>（滚动条滚动）；<code>XE_SLIDERBAR_CHANGE</code>（滑动条改变）；<code>XE_PROGRESSBAR_CHANGE</code>（进度条改变）</li></ul>
+<ul><li>菜单：<code>XE_MENU_POPUP</code> / <code>XE_MENU_POPUP_WND</code> / <code>XE_MENU_SELECT</code> / <code>XE_MENU_EXIT</code>；菜单绘制 <code>XE_MENU_DRAW_BACKGROUND</code> / <code>XE_MENU_DRAWITEM</code></li></ul>
+<ul><li>编辑框与代码编辑器：<code>XE_EDIT_SET</code> / <code>XE_EDIT_CHANGED</code> / <code>XE_EDIT_POS_CHANGED</code> / <code>XE_EDIT_STYLE_CHANGED</code>；<code>XE_EDIT_ENTER_GET_TABALIGN</code>（回车 TAB 对齐）；<code>XE_EDITOR_MODIFY_ROWS</code>（多行编辑内容修改）</li></ul>
+<ul><li>其它：<code>XE_BNCLICK</code> / <code>XE_BUTTON_CHECK</code>（按钮点击与选中）；<code>XE_TABBAR_SELECT</code> / <code>XE_TABBAR_DELETE</code>；<code>XE_MONTHCAL_CHANGE</code>；<code>XE_DATETIME_CHANGE</code> / <code>XE_DATETIME_POPUP_MONTHCAL</code> / <code>XE_DATETIME_EXIT_MONTHCAL</code>；属性网格 <code>XE_PGRID_VALUE_CHANGE</code> / <code>XE_PGRID_ITEM_SET</code> / <code>XE_PGRID_ITEM_SELECT</code> / <code>XE_PGRID_ITEM_ADJUST_COORDINATE</code> / <code>XE_PGRID_ITEM_DESTROY</code> / <code>XE_PGRID_ITEM_EXPAND</code>；文件拖入 <code>XE_DROPFILES</code></li></ul>
+<h2 id="5-c-封装类module_xcgui_classh">5. C++ 封装类（<code>module_xcgui_class.h</code>）</h2>
+<ul><li><strong><code>CXBase</code></strong>：所有 C++ 封装类的基类，定义虚函数 <code>GetHXCGUI()</code>；类型查询接口 <code>GetType()</code>（对象最终类型 <code>XC_OBJECT_TYPE</code>）、<code>GetTypeBase()</code>（基础类型，如 <code>XC_WINDOW</code> / <code>XC_ELE</code> / <code>XC_SHAPE</code> / <code>XC_ADAPTER</code>）、<code>GetTypeEx()</code> / <code>SetTypeEx()</code>（获取/设置扩展类型，如按钮类型）</li></ul>
+<ul><li><strong><code>CXObjectUI</code></strong>：继承 <code>CXBase</code>，面向一切可视对象（窗口、元素）的公共操作</li></ul>
+<ul><li>样式与 CSS：<code>SetStyle</code> / <code>GetStyle</code>（设置/获取 <code>XC_OBJECT_STYLE</code>）；<code>EnableCSS</code> / <code>EnableCssEx</code>（启用/禁用 CSS 样式，含或不含内嵌子元素）；<code>SetCssName</code> / <code>GetCssName</code>（设置/获取 CSS 套用样式名称）</li></ul>
+<ul><li><strong><code>CXWindow</code></strong>：继承 <code>CXObjectUI</code>，封装窗口全部操作（创建/事件/布局/重绘/交互/拖放/DPI/子对象访问等）</li></ul>
+<ul><li>其余元素、控件、适配器等 C++ 类封装，通常遵循：持有句柄 + 提供一一对应成员函数 + 通过类型系统减少句柄传错</li></ul>
+<h2 id="6-使用建议与最佳实践代码侧含-css-主题加载">6. 使用建议与最佳实践（代码侧，含 CSS 主题加载）</h2>
+<ul><li><strong>统一事件模型</strong>：窗口事件与元素事件均通过 <code>xcgui_event.h</code> 中的 <code>WM_*</code> / <code>XWM_*</code> / <code>XE_*</code> 统一描述</li></ul>
+<ul><li><strong>优先使用 C++ 封装</strong>：C++ 工程优先用 <code>module_xcgui_class.h</code> 的封装类；仅在兼容/性能有特殊需求时使用 C API</li></ul>
+<ul><li><strong>样式与 CSS 一致化</strong>：用 <code>EnableCSS</code> / <code>EnableCssEx</code> 与 <code>SetCssName</code> 统一主题管理</li></ul>
+<ul><li><strong>模板与适配器机制</strong>：列表/树/列表视图等在 <code>XE_*_TEMP_CREATE(_END)</code> 做绑定与填充</li></ul>
+<ul><li><strong>DPI 与多显示器适配</strong>：<code>SetDPI</code> / <code>GetDPI</code> 配合 CSS 与 <code>HSVG</code> 做高 DPI 适配</li></ul>
+<ul><li><strong>与基础模块协同</strong>：文本/文件/时间/路径等交给 <code>module_base</code>，GUI 只负责渲染与交互</li></ul>
+<h3 id="61-典型使用场景思路级">6.1 典型使用场景（思路级）</h3>
+<ul><li>创建主窗口并启用布局：<code>Create(...)</code> → <code>EnableLayout(TRUE)</code> → 添加子控件 → 注册事件处理交互</li></ul>
+<ul><li>列表/树/列表视图 + 模板展示业务数据：适配器准备 → 模板创建/绘制事件填充 → 状态驱动颜色/图标</li></ul>
+<ul><li>复杂 IDE 场景：<code>XC_PROPERTYGRID</code> + <code>XC_EDITOR</code> + <code>XC_TABBAR</code> + 布局元素组合</li></ul>
+<ul><li><strong>@斗鱼55：拖文件导入列表（工程级闭环示例）</strong>：<code>listUI</code> + <code>list.itemTemplate=&quot;List1.xml,8&quot;</code>，列 <code>name1..name8</code>，拖放事件导入并填充</li></ul>
+<h3 id="62-事件回调推荐组织方式">6.2 事件回调（推荐组织方式）</h3>
+<ul><li><strong>UI事件函数</strong>：处理设计器控件事件（按钮点击、绘制、弹出列表、弹出月历等）</li></ul>
+<ul><li><strong>「事件类继承主窗口类」</strong>：示例工程用 <code>类 列表框事件 继承 主窗口类</code> 复用主窗口的成员与句柄，写回调更方便（能直接访问 <code>_列表框1</code> 等对象）</li></ul>
+<ul><li><strong>拦截参数</strong>：很多 UI 事件提供 <code>逻辑型* 是否拦截</code>，需要阻止默认行为时才改它</li></ul>
+<h3 id="63-易错点">6.3 易错点</h3>
+<ul><li><strong>资源加载顺序</strong>：先 Base（字体/共用色）再主题（Light/Dark），否则可能出现字体/颜色引用缺失</li></ul>
+<ul><li><strong>主题切换后要重绘</strong>：切换 <code>.res/.css</code> 后调用 <code>重绘()</code>，否则部分控件不会立刻刷新</li></ul>
+<ul><li><strong>列表模板事件</strong>：想操作模板内部子控件，必须等「模板创建完成事件」触发后再取对象/绑定事件</li></ul>
+<ul><li><strong>少用指针</strong>：文本/内存优先用 <code>文本型</code>、<code>字节集</code></li></ul>
+<h3 id="64-css-样式文件加载与加载样式文件失败排查">6.4 CSS 样式文件加载与「加载样式文件失败」排查</h3>
+<blockquote><p>来源：<code>炫彩界面库.mdc</code> §9.4–§9.6。</p></blockquote>
+<p><strong>执行顺序（源 §9.4 示例代码原形）</strong>：主题资源按 Base → 主题 <code>.res</code> → 主题 <code>.css</code> 顺序加载，全部在 <code>显示(真)</code> <strong>之前</strong>。</p>
+<pre><code class="language-xc">正整型 资源大小
+常量 空类型  *局_UIzip = RC资源查找文件从ID(IDR_UI_ZIP, &amp;资源大小)
+炫彩_加载资源文件内存ZIP(局_UIzip, 资源大小, &quot;WmUi\\WmUi_Base.res&quot;)
+炫彩_加载资源文件内存ZIP(局_UIzip, 资源大小, &quot;WmUi\\Dark\\WmUi.res&quot;)
+炫彩_加载样式文件从资源ZIP(IDR_UI_ZIP, &quot;WmUi\\Dark\\WmUi.css&quot;)
+
+显示(真)</code></pre>
+<ul><li>已在控件绘制完成后再加载/切换主题时，额外调用 <code>重绘()</code> 确保立即刷新；<code>炫彩_启用自动重绘UI(真)</code> 可在改 UI 后自动触发。</li><li><strong>成对切换</strong>：Light ↔ Dark 不要只换 <code>.css</code> 或只换 <code>.res</code>，两者都换再 <code>重绘()</code>。</li><li>两种加载入口：<code>炫彩_加载样式文件(&quot;xxx.css&quot;)</code>（磁盘文件，路径<strong>相对运行目录</strong>）与 <code>炫彩_加载样式文件从资源ZIP(IDR_UI_ZIP, &quot;WmUi\\Dark\\WmUi.css&quot;)</code>（内嵌 ZIP 资源）。</li><li>按需加载布局文件：<code>炫彩_加载布局文件(&quot;布局文件\\msg.xml&quot;, 父窗口句柄)</code>（适合弹窗/子窗口快速复用）。</li></ul>
+<p><strong>「加载样式文件失败：xxx.css(行号)」排查顺序</strong>（源 §9.5，<code>斗鱼55</code> 实战）：</p>
+<ol><li><strong>编码</strong>：CSS 建议 <strong>UTF-8 无 BOM</strong>；工程含中文路径/中文注释时更要统一编码，否则解析器可能直接报行号。</li><li><strong>不要用 <code>/* ... */</code> 块注释</strong>：某些版本的解析器把块注释当语法错误，报错行号落在注释行或附近。<strong>CSS 内不写注释</strong>，备注写到 <code>.mdc</code> 或外部文档。</li><li><strong>只用示例工程出现过的属性</strong>：<code>WmUi.css</code> 里稳定出现的只有 <code>bkInfoM</code>、<code>transparent</code>、<code>padding</code>、<code>border</code>、<code>textColor</code>、<code>caretColor</code>。写没见过的字段（如 <code>bkColor</code>、<code>borderColor</code>、<code>radius</code>）可能触发解析失败（取决于当前炫彩版本的 CSS 语法支持）。<strong>结论：高质量皮肤（背景色/圆角/边框/渐变）优先走 <code>bkInfoM</code> + <code>resource.res</code> 的 <code>type_bkInfo</code>/<code>type_color</code>。</strong></li><li><strong>路径与工作目录</strong>：<code>炫彩_加载样式文件(&quot;xxx.css&quot;)</code> 的路径是<strong>相对运行目录</strong>（不是相对工程目录）。CSS 放在工程子目录时要拼出子目录，例如 <code>炫彩_加载样式文件(&quot;斗鱼55\\douyu55.css&quot;)</code>。</li><li><strong>最小化复现</strong>：先建一个只有 1 条规则的 css（例如只写 <code>transparent:true;</code>），确认能加载后再逐步加规则，快速定位是哪条规则/哪行失败。</li></ol>
+<h3 id="65-句柄事件签名与复选框状态当前-xcgui-实战">6.5 句柄、事件签名与复选框状态（当前 XCGUI 实战）</h3>
+<p><strong>先区分三种对象</strong>：<code>HWINDOW</code> 是 XCGUI 窗口句柄，<code>HWND</code> 是系统窗口句柄（用 <code>XWnd_GetHWND</code> 取得），<code>HELE</code> 是元素／按钮句柄。即使某 API 的形参写成通用 <code>HXCGUI</code>，也不要未经当前头文件和运行验证就假定 <code>HWINDOW</code> 能安全传入 <code>XWidget_IsShow</code>。本项目实测该混用会导致界面自检卡住；窗口可见性统一经系统 HWND 判断，元素／形状仍使用其对应 XCGUI API。</p>
+<ul><li>元素显示：<code>XWidget_Show(hEle, ...)</code>；窗口显示：<code>XWnd_Show(hWindow, ...)</code>；窗口可见：系统 <code>IsWindowVisible(hwnd)</code>。可封装只接受本进程窗口的辅助函数，先 <code>IsWindow</code>、<code>GetWindowThreadProcessId</code> 校验 PID，再查询可见性；辅助函数名保持英文、<code>//@别名</code> 写中文，模块源文件继续 UTF-8-BOM。</li><li><code>XWnd_CloseWindow</code> 发送 <code>WM_CLOSE</code>；<code>XWnd_DestroyWindow</code> 是立即销毁。两者不是同一条生命周期路径。需要验证关闭事件和重开时，走前者并注册 <code>XWnd_RegEventC1(..., WM_CLOSE, ...)</code>，回调清空对应缓存句柄；重新打开必须重建列表适配器、模板和事件绑定。</li><li>设置辅助窗 owner 时使用 <code>SetWindowLongPtrW(hwnd, GWLP_HWNDPARENT, owner)</code>，先校验两个 HWND 均属于当前进程且不同。关闭主窗顺序：停轮询定时器 → 停止工作线程／监听并释放状态 → 断开／恢复外部状态 → 销毁辅助窗和主窗 → <code>炫彩_退出()</code>；关闭回调与消息循环结束后的清理应能幂等执行。</li><li><strong>C 与 C1 不是可互换别名</strong>：当前 <code>module_xcgui.h</code> 明示 <code>XEle_RegEventC</code> 省略自身元素句柄，<code>XEle_RegEventC1</code> 包含自身句柄。以当前事件头文件原型补参数，不要一律给回调强加 <code>hEle</code>。例如 C1 点击为 <code>(HELE hEle, BOOL *pbHandled)</code>；C1 选中为 <code>(HELE hEle, BOOL bCheck, BOOL *pbHandled)</code>，均加 <code>UI事件</code>／匹配的调用约定。</li></ul>
+<pre><code class="language-xc">函数 UI事件 整型 状态按钮_点击(元素句柄 来源句柄, 逻辑型 *是否拦截)
+	如果 (是否拦截 != 空)
+		*是否拦截 = 真
+	运行状态_切换()       // 可能失败，必须读取真实结果
+	按钮_置选中(来源句柄, 运行状态_实际已启用())
+	返回 0</code></pre>
+<p><strong><code>XE_BNCLICK</code> 回调返回后，check 按钮仍可能发生默认翻转。</strong> 已实测：业务层正确拒绝了操作并置回未选中，默认行为又把复选框翻回去。若状态由业务／运行层持有，只对这些复选按钮设 <code>*是否拦截 = 真</code>，并在每条成功、失败、停止路径同步真实状态；不要全局拦截普通配置复选框，也不要只测布尔业务变量而漏查 <code>XBtn_IsCheck</code>。</p>
+<h3 id="66-用真实事件做界面回归不以绑定存在代替行为正确">6.6 用真实事件做界面回归，不以“绑定存在”代替“行为正确”</h3>
+<ol><li>启动时检查实际 <code>XWnd_SetTimer</code> 返回值；未创建轮询定时器就明确失败，不把“已初始化”写成固定真。</li><li>用 <code>XEle_SendEvent(hEle, XE_BUTTON_CHECK, 真, 0)</code> 或 <code>XE_BNCLICK</code> 驱动实际注册路径；这不是物理键鼠输入。逐一断言页面互斥显示、尺寸大于零、适配器／模板存在、保存与取消结果、按钮状态和错误路径。</li><li>页面和辅助窗均用实际可见性判断；分别测加载／显示、关闭事件清句柄、从真实动作路径重开。多个辅助窗的 owner 可核对，主窗关闭须验证进程退出及残留窗口为零。</li><li>日志放在事件前、事件返回后和每组断言后，便于定位“注册失败、事件没进、事件中阻塞、断言失败”。保存每次唯一报告目录，记录通过、失败及 <code>not_run</code>；未测试项不能计为通过。</li><li>定向测试仅枚举本次新启动进程的线程窗口，并只向该进程主 HWND 投递 <code>WM_CLOSE</code>；不要向用户桌面制造全局输入、枚举或读写无关进程。进程退出后无窗口不等于系统里无 hook，工作线程／hook 清理要由实际生命周期断言分别证明。</li></ol>
+<p>若“创建窗口成功”却没有 UI 消息循环，只同步触发控件事件和检查可见性不足以证明交互正确；正常窗口模式应由独立持有进程句柄的关闭测试覆盖真实消息循环。静态核对控件 <code>name</code>／动作 ID 很有用，但不能替代本节动态检查。</p>
+<h3 id="67-原生鼠标延迟模板与公共文件对话框回归2026-11-07-实战">6.7 原生鼠标、延迟模板与公共文件对话框回归（2026-11-07 实战）</h3>
+<p><code>XEle_SendEvent</code> 适合验证业务路由，真实鼠标适合验证命中、焦点、布局和消息循环；两者互补，不能互相冒充。一次大型原生 UI 回归中，以下流程解决了首击丢失、列表“有数据但未呈现”、文件路径不回填和模态时序误判。</p>
+<ol><li><strong>真实点击先做所有权与坐标守护</strong>：</li></ol>
+<ul><li>仅驱动本次启动且持有进程对象的程序；点击前确认前台窗口属于该 PID。<code>GetForegroundWindow()</code> 在焦点切换瞬间可能返回空句柄，应短轮询重试，不能当成点击失败或直接把空值传给字符串／整数转换。</li><li>等后台 <code>busy=0</code> 且窗口矩形连续两次稳定，再读取控件的实际 DPI 客户区矩形；经 <code>ClientToScreen</code> 换算后用 <code>WindowFromPoint</code> 核对屏幕落点仍属于目标 PID，再执行鼠标按下／抬起。窗口仍在布局动画或首次显示时直接点击，会出现偶发首击无效。</li><li>Python <code>ctypes</code> 必须声明 64 位 <code>HWND</code> 等参数的 <code>argtypes/restype</code>，避免句柄截断；文本读取使用 Unicode 缓冲区。不得为了自动化向其他进程窗口发送输入，也不按进程名全局清理。</li></ul>
+<ol><li><strong>后台表、适配器和可见单元格分开断言</strong>。适配器行／列数正确，只证明数据已进入控件模型；模板可能延迟创建，实际可见单元格仍暂时为零。分别记录适配器行列数、可见单元格样本和前后台文本一致性，并短轮询模板完成，不把首次可见样本为空直接当产品缺陷，也不把最终截图当作适配器正确的证据。筛选／排序后还要检查选中行的真实对象地址没有跟着视觉行号错位。</li><li><strong>模态文件对话框必须等“关闭 + 业务回填”</strong>。<code>GetOpenFileNameW</code> 等模态调用返回前，应用通常尚未执行路径赋值和加载逻辑。测试顺序是：触发按钮 → 找到同 PID 的 <code>#32770</code> → 提交文件名 → 等对话框 <code>IsWindow/IsWindowVisible</code> 消失 → 等应用空闲 → 用“输入路径等于预期、目标表已加载、导出内容正确”等条件等待。仅调用一个无条件的 <code>wait()</code> 会立即读到旧的空路径，造成“对话框成功但未回填”的假判断；对话框关闭本身也不等于文件加载成功。</li><li><strong>新版 Windows 公共文件对话框不要只写内部 Edit</strong>。当前实测对话框含 <code>ComboBoxEx32</code>、<code>ComboBox</code> 和 <code>Edit</code>，文件名状态可能仍保存在组合框；只 <code>SetWindowTextW</code> 内层编辑框，文字虽可读回，点“打开”却不提交。优先用真实键盘粘贴／UI Automation；若使用 Win32 测试助手，可在同 PID 守护下采用本次验证的组合：定位 <code>ComboBoxEx32</code> 下的文件名组合框 → 写组合框文本 → 对编辑框 <code>EM_SETSEL</code> 并发送 <code>WM_CHAR</code> 产生修改通知 → 对实际“打开”按钮 <code>BM_CLICK</code>。这是当前环境的测试助手经验，不是所有 Windows 版本的固定协议；最终仍以路径回读、对话框关闭和应用加载结果为准。按钮尽量用控件 ID／类与父子关系定位，不依赖可能乱码的中文标题。</li><li><strong>快捷键与元素／窗口双层事件避免重复路由</strong>。同一动作同时绑定元素和窗口时，只保留一个执行入口，或在元素回调将 <code>pbHandled</code> 设为真；否则一次按键可能执行两次。回归应断言动作计数或业务结果只变化一次，而不只看回调“进过”。</li><li><strong>证据要足以复盘失败</strong>。每一步保存状态 JSON、适配器计数／样本、实际窗口矩形和截图；异常时另存 traceback、前台窗口与同 PID 对话框子控件树。最后走正常关闭路径并记录真实退出码，恢复测试占用的剪贴板等状态。失败目录不删除，成功结果也不覆盖先前失败证据。</li></ol>
+<h2 id="7-列表适配器与弹窗-拖放">7. 列表适配器与弹窗 / 拖放</h2>
+<h3 id="71-列表类控件模板-适配器-生命周期事件">7.1 列表类控件：模板 + 适配器 + 生命周期事件</h3>
+<ul><li><strong>列表框（listBox）</strong>：模板 <code>置项模板从资源ZIP(IDR_UI_ZIP, &quot;列表框项模板.xml&quot;)</code>；适配器 <code>创建数据适配器()</code> 然后 <code>添加项文本(...)</code>；模板创建完成事件用于拿到模板内子控件句柄并注册事件，典型用法为 取模板对象 → 置文本 → <code>元素_注册事件CPP1(...)</code></li></ul>
+<ul><li><strong>列表（list）</strong>：模板 <code>置项模板从资源ZIP(...)</code>；列与行 <code>列表头创建数据适配器()</code> + <code>添加列文本(width, name, title)</code>，<code>添加行文本扩展(colName, text)</code> + <code>置项文本扩展(row, colName, text)</code>；模板创建完成事件常用于「编辑/删除按钮」的点击事件绑定</li></ul>
+<ul><li><strong>列表树（tree）</strong>：模板 <code>置项模板从资源ZIP(...)</code>；数据 <code>创建数据适配器()</code> + <code>插入项文本(text, parentId?)</code></li></ul>
+<ul><li><strong>列表视图（listView）</strong>：模板 <code>置项模板从资源ZIP(..., &quot;列表视图项模板.xml&quot;, 空, 空)</code>；分组与项 <code>组添加项文本(...)</code>、<code>项添加文本扩展(group, colName, text, ...)</code>、<code>项置图片扩展(...)</code></li></ul>
+<h3 id="72-代码补样式何时用怎么用">7.2 代码补样式（何时用、怎么用）</h3>
+<ul><li><strong>滑动条滑块</strong>：<code>取滑块()</code> 得到子对象句柄，直接 <code>可视对象_置CSS名称(...)</code> 套按钮样式即可</li></ul>
+<ul><li><strong>菜单条</strong>：放在容器里只解决布局，按钮样式通常要代码补——<code>可视对象_启用CSS(句柄, 真)</code> + <code>可视对象_置CSS名称(...)</code>；弹出菜单可开启用户绘制 <code>启用用户绘制项/背景(真)</code>，并在事件回调中绘制背景/项</li></ul>
+<ul><li><strong>日期时间/月历卡片</strong>：常见需要 <code>Wm_日期时间_置样式(...)</code>、<code>Wm_月历卡片_置样式(...)</code> 这类封装函数处理内部子对象样式</li></ul>
+<ul><li>滑块/菜单/日期时间/月历等内部子对象：必要时用代码补 <code>CSS 名称</code> 或封装统一置样式函数</li></ul>
+<h3 id="73-弹窗与通知">7.3 弹窗与通知</h3>
+<ul><li><code>msg.xml</code> 复用 + 模态返回值（用户数据 → <code>模态窗口_结束</code>）；轻提示用窗口内通知；阻塞选择用模态框</li></ul>
+<ul><li><strong>「模态消息框」封装成静态类</strong>（例子2 封装为 <code>静态 类 弹出消息框类</code>）：布局复用（弹窗布局独立成 <code>布局文件\msg.xml</code>）；创建方式 <code>炫彩_加载布局文件(&quot;布局文件\\msg.xml&quot;, 父窗口句柄)</code>；图标策略通过 <code>XRes_GetImage(picName)</code> 从资源取图，「资源加载的图标不用释放」（按示例写法）；按钮返回值给按钮写 <code>元素_置用户数据(hEle, 1)</code>，点击回调里 <code>模态窗口_结束(_hWnd, 元素_取用户数据(来源句柄))</code> 把选择结果带出去；自动关闭与交互 <code>模态窗口_启用自动关闭(_hWnd, 自动关闭)</code></li></ul>
+<ul><li><strong>「窗口中弹出通知消息」（轻提示）</strong>：例子2 的登录校验失败用 <code>通知消息_窗口中弹出扩展(_句柄, 位置标识_中心, &quot;提示&quot;, &quot;请输入账号&quot;, 资源_取图片(&quot;warning.png&quot;), 通知消息外观_错误, 假)</code>；适合「不打断流程」的提示，需要阻塞用户时再用模态消息框</li></ul>
+<h3 id="74-文件拖放导入闭环范式">7.4 文件拖放导入（闭环范式）</h3>
+<p>允许拖放 → 绑定 <code>元素事件_文件拖入</code> → 限长 + 分隔符优先级 + 列数稳定。</p>
+<p><strong>@斗鱼55：拖文件导入到 <code>listUI</code>（两窗口 + 拖放 + 文本解析）</strong>，参考工程目录 <code>斗鱼55/</code>：</p>
+<ul><li>窗口与布局：启动窗口 <code>斗鱼55/main.xc</code> + <code>斗鱼55/main.xml</code>（点击按钮进入主界面：<code>按钮1</code> 点击事件中调用 <code>indx.运行()</code>，然后关闭自身）；主界面 <code>斗鱼55/index.xc</code> + <code>斗鱼55/index.xml</code>，<code>listUI</code> 使用项模板 <code>list.itemTemplate=&quot;List1.xml,8&quot;</code>（8 列字段绑定），列表容器 <code>布局元素1</code> + 列表 <code>列表1</code></li></ul>
+<ul><li>列表列定义（代码侧）：在 <code>Cindex.运行()</code> 中先初始化列再显示窗口——<code>添加列文本(width, field, title)</code> 依次定义 <code>name1..name8</code>；模板绑定（XML 侧）<code>List1.xml</code> 通过 <code>{binding field=nameX}</code> 把列字段映射到 <code>shapeText</code></li></ul>
+<ul><li>拖放导入关键点：让列表控件接收拖放 <code>A文件拖放_允许(_列表1.取窗口句柄系统(), 真)</code>；绑定拖放事件 <code>[元素事件_文件拖入, 列表1_文件拖放, 1]</code>；读取路径 <code>A文件拖放_取拖放文件(hDropInfo, 0, 路径, 1000)</code>；刷新数据先 <code>_列表1.删除行全部()</code> 再导入</li></ul>
+<ul><li>文本/CSV/TAB 解析策略（可直接复用）：限长读取最大 10MB（避免异常大文件导致内存占用过高）；按行拆分——读取为 <code>文本型A</code>，用 <code>文本分割A(内容, A&quot;\n&quot;)</code> 并去掉 <code>\r</code>；分隔符优先级 <code>\t</code> → <code>,</code> → <code>|</code> → 空格；字段不足补空（不足的列保持空字符串）；字段超出合并到 Ret（name8），把多余字段用空格拼接到最后一列，保证表格列数稳定</li></ul>
+<ul><li>该工程是「拖放文件 → 文本解析 → 列表列字段 → XML 模板绑定」的最小闭环范例，适合当成「数据导入页面」的模板</li></ul>
+<h3 id="75-易错点">7.5 易错点</h3>
+<ul><li>想操作模板内部子控件，必须等「模板创建完成事件」触发后再取对象/绑定事件</li></ul>
+<ul><li>拖放导入前需先 <code>删除行全部()</code> 再导入，否则旧数据残留</li></ul>
+<h2 id="8-系统api-前缀分组索引">8. 系统API 前缀分组索引</h2>
+<blockquote><p>来源：<code>系统API(前缀分类法).mdc</code>（全文）。<strong>本节只保留分组索引与「去哪里查签名」的指引，不补任何函数原型。</strong> 源材料本身只有分组、无逐函数正文；所有签名请查 <code>module_windowsApi.h</code>。</p></blockquote>
+<p>模块头信息：<code>//@模块名称 系统API(前缀分类法)</code>、<code>//@版本 1.0</code>、<code>//@日期 2025-01-21</code>、<code>//@作者 XCGUI</code>、<code>//@模块备注 windows-API（前缀分类命名法封装）</code>、<code>//@依赖 module_base.h</code>。</p>
+<p><strong>简介</strong>：本模块把常用 Windows API 以「前缀分类命名法」重新命名，避免与其他模块/项目符号冲突。统一前缀 <strong><code>A</code></strong> 代表「系统API模块」；命名示例 <code>A线程_创建()</code>、<code>A目录_创建()</code>。Windows API 参考文档：&lt;https://learn.microsoft.com/zh-cn/windows/win32/api/&gt;。</p>
+<p><strong>文档结构约定（如何从 <code>module_windowsApi.h</code> 读懂所有接口）</strong></p>
+<ul><li><strong>分组</strong>：使用 <code>//@分组{ ... }</code> 与 <code>//@分组}</code> 包住一段相关 API</li></ul>
+<ul><li><strong>别名</strong>：每个 API/常量前都会有一行 <code>//@别名 ...</code>，其后的函数原型/宏定义即为「原始声明」</li></ul>
+<ul><li><strong>参数/返回/备注</strong>：同一段中会紧邻 <code>//@参数</code>、<code>//@返回</code>、<code>//@备注</code> 对应 WinAPI 的中文说明</li></ul>
+<p><strong>分组索引（来自 <code>module_windowsApi.h</code>）</strong></p>
+<p>路径、窗口、窗口消息、对话框、文件拖放、坐标、HOOK、文件管理、内存管理、资源管理、插入符-光标-图标、临界区、互斥对象、等待操作、信号量功能、事件对象、通信管道、线程、进程、外壳程序、GDI绘图、菜单、结构体、其他。</p>
+<p><strong>快速定位技巧</strong></p>
+<ul><li><strong>按分组跳转</strong>：在 <code>module_windowsApi.h</code> 内搜索 <code>//@分组{ 线程</code>、<code>//@分组{ 窗口</code> 等</li></ul>
+<ul><li><strong>按别名搜索</strong>：直接搜 <code>A线程_</code> / <code>A窗口_</code> / <code>A文件_</code> / <code>A路径_</code> 等前缀</li></ul>
+<ul><li><strong>按 WinAPI 名称反查</strong>：搜 <code>CreateFile</code>、<code>CreateThread</code>、<code>SendMessage</code> 等原始 API 名称，可对照其上方的 <code>//@别名</code> 获取「前缀分类名」</li></ul>
+<p><strong>@斗鱼55 关联点（文件拖放）</strong>：<code>斗鱼55/index.xc</code> 用「文件拖放」分组下的接口把文件拖入列表控件完成导入：<code>A文件拖放_允许(HWND, 真)</code>（让目标窗口句柄允许接收拖放）、<code>A文件拖放_取拖放文件(HDROP, index, outPath, cch)</code>（从拖放信息读取文件路径）。定位方式：在 <code>module_windowsApi.h</code> 搜索 <code>//@分组{ 文件拖放</code> 或直接搜 <code>A文件拖放_</code>。</p>
+<p><strong>备注（源材料遗留说明）</strong>：源材料注明：本 <code>.mdc</code> 先提供分组与使用规则索引，便于快速理解模块组织方式；若要「每个分组下：别名 → 原始声明/定义」的完整清单，可按分组分批抽取并写入多个 <code>.mdc</code>（例如 <code>系统API-窗口.mdc</code>、<code>系统API-线程.mdc</code> 等），避免单文件过大。<strong>本文件不生成这些原型清单。</strong></p>
+<h2 id="9-线程池">9. 线程池</h2>
+<blockquote><p>来源：<code>线程池.mdc</code>（全文）</p></blockquote>
+<p>模块头信息：<code>//@模块名称 线程池</code>、<code>//@基于文件 module_threadpool.h, threadpool.cpp</code>、<code>//@版本信息 头文件标注 v1.1 (2023-08-27)</code>、<code>//@依赖 module_base.h（以及 Windows API）</code>、<code>//@备注 示例见：示例\模块示例\xc-线程池</code>。</p>
+<h3 id="91-模块概述与文件结构">9.1 模块概述与文件结构</h3>
+<p>轻量的「任务线程池」，把耗时任务投递到后台线程并发执行，避免阻塞主线程/UI 线程。实现上使用 Windows 的 IOCP（完成端口）作为任务队列，工作线程阻塞在 <code>GetQueuedCompletionStatus()</code> 上等待任务到来；每个任务以 <code>std::function&lt;void()&gt;</code> 的形式入队，在工作线程中执行。</p>
+<ul><li><code>module_threadpool.h</code>：对外接口（<code>ThreadPoolPro</code> 类、状态枚举、任务投递模板等）</li></ul>
+<ul><li><code>threadpool.cpp</code>：线程池实现（创建/销毁、线程循环、清空任务、状态处理、计数维护）</li></ul>
+<ul><li><code>示例\模块示例\xc-线程池\main.xc</code>：XC语言示例（创建、投递任务、等待完成、销毁）</li></ul>
+<h3 id="92-线程模型核心机制">9.2 线程模型（核心机制）</h3>
+<ul><li><strong>任务队列</strong>：<code>PostQueuedCompletionStatus()</code> 把任务指针投递到 IOCP</li></ul>
+<ul><li><strong>工作线程</strong>：<code>ThreadPoolWorkerThread()</code> 循环调用 <code>GetQueuedCompletionStatus()</code> 获取任务并执行</li></ul>
+<ul><li><strong>暂停/继续</strong>：暂停时工作线程在 <code>hResumeSemaphore</code> 上等待；继续时释放信号量唤醒</li></ul>
+<ul><li><strong>退出</strong>：销毁时向 IOCP 投递特殊状态码 <code>10086</code> 让线程跳出循环，同时释放 <code>hExitSemaphore</code> 让 <code>IsNeedExit()</code> 可检测退出信号</li></ul>
+<blockquote><p>注意：任务对象由 <code>new std::function&lt;void()&gt;</code> 创建，工作线程使用 <code>std::unique_ptr&lt;std::function&lt;void()&gt;&gt;</code> 接管，确保正常/异常路径都会释放内存。</p></blockquote>
+<h3 id="93-状态枚举threadpoolstate-线程池状态">9.3 状态枚举（<code>ThreadPoolState</code> / 线程池状态）</h3>
+<p><code>ThreadPoolState_Closed</code>（已关闭）、<code>ThreadPoolState_Closing</code>（正在关闭）、<code>ThreadPoolState_Starting</code>（正在创建）、<code>ThreadPoolState_Normal</code>（正常工作，可投递任务）、<code>ThreadPoolState_Adjust</code>（正在调整容量）、<code>ThreadPoolState_Suspend</code>（暂停）、<code>ThreadPoolState_Clear</code>（正在清空任务）。多数对外操作会检查 <code>state</code>，只有在 <code>Normal</code>（或「&gt;= Normal」）时才允许投递/调整。</p>
+<h3 id="94-对外类与-apithreadpoolpro-线程池类">9.4 对外类与 API（<code>ThreadPoolPro</code> / 线程池类）</h3>
+<p><strong>生命周期</strong></p>
+<ul><li><strong>创建(线程数量)</strong> <code>CreateThreadPool(int32_t Capacity = 0) -&gt; BOOL</code>：<code>Capacity &lt;= 0</code> 时默认使用 <code>CPU核心数 + 1</code>；会创建 <code>Capacity</code> 个工作线程并 detach；成功后状态变为 <code>ThreadPoolState_Normal</code></li></ul>
+<ul><li><strong>销毁(是否强制销毁, 最长等待时间)</strong> <code>DestroyThreadPool(BOOL ForceDestroy = TRUE, int32_t WaitTime = -1) -&gt; BOOL</code>：<code>ForceDestroy=TRUE</code> 更快退出（会投递退出信号并清理队列任务）；<code>ForceDestroy=FALSE</code> 最多等待 <code>WaitTime</code> 毫秒（<code>-1</code> 表示不限时）让线程自然收尾，内部会间隔 <code>Sleep(50)</code> 并调用 <code>ProcessMessage()</code> 防止 UI 卡死；如果线程池处于暂停状态，会强制销毁（避免等待卡住）</li></ul>
+<blockquote><p>建议：若希望「任务全部做完再退出」，在销毁前先等待队列/执行计数归零（见示例）。</p></blockquote>
+<p><strong>任务投递</strong>（只有在线程池存在且状态 <code>&gt;= ThreadPoolState_Normal</code> 时投递才会成功）</p>
+<ul><li><strong>投递任务()</strong> <code>PostTask(Fun&amp;&amp; fun, Args&amp;&amp;... args) -&gt; BOOL</code>：支持任意可调用对象与参数（内部 <code>std::bind</code> 绑定后入队）。投递成功时队列计数 <code>QueueTask++</code>；工作线程取到任务后 <code>QueueTask--</code>，执行时 <code>WorkerTask++</code>，完成时 <code>ComplateTask++</code> 并 <code>WorkerTask--</code>。投递失败会回滚 <code>QueueTask--</code> 并释放任务对象，避免内存泄漏与计数异常</li></ul>
+<ul><li><strong>投递任务2(执行函数)</strong> <code>PostTask2(Fun&amp; fun) -&gt; BOOL</code>：适用于「无参数任务函数」</li></ul>
+<p><strong>控制与维护</strong></p>
+<ul><li><strong>暂停()</strong> <code>SuspendThreadPool() -&gt; BOOL</code>；<strong>继续()</strong> <code>ResumeThreadPool() -&gt; BOOL</code></li></ul>
+<ul><li><strong>清空任务()</strong> <code>ClearTask() -&gt; BOOL</code>：若线程池处于暂停，会直接启动清空线程并等待清空完成；若处于正常，将状态置为 <code>Clear</code>，工作线程收到任务时会丢弃任务对象并递减队列计数，直到队列清空后自动回到 <code>Normal</code></li></ul>
+<ul><li><strong>调整线程池(新线程数)</strong> <code>SetThreadPoolCapacity(int32_t nNewThreadNum) -&gt; BOOL</code>：扩容时创建新线程并维护 <code>ThreadsCount</code> 计数；缩容时状态置为 <code>Adjust</code>，投递若干「空任务」触发部分线程自我终结，直到 <code>ThreadsCount == Capacity</code></li></ul>
+<p><strong>查询接口（计数/状态）</strong></p>
+<pre><code class="language-text">GetProcessorsCount() -&gt; int32_t            取CPU核心数()
+GetThreadsCount() const -&gt; int32_t         取现行线程数()
+GetThreadsCapacity() const -&gt; int32_t      取线程池容量()
+GetWorkerTaskCount() const -&gt; int32_t      取执行任务数()
+GetQueueTaskCount() const -&gt; int64_t       取队列任务数()
+GetComplateTaskCount() const -&gt; int64_t    取已完成任务数()
+GetFreeThreadsCount() const -&gt; int32_t     取空闲线程数()
+GetThreadPoolState() const -&gt; int32_t      取工作状态()
+ThreadPoolIsFree() const -&gt; BOOL           是否空闲()，条件 QueueTask == 0 &amp;&amp; WorkerTask == 0
+IsNeedExit(int32_t nMillseconds = 0) -&gt; BOOL  是否需要退出(最大检查等待时间)，通过等待 hExitSemaphore 判断是否收到退出信号</code></pre>
+<h3 id="95-xc-语言用法示例来自示例工程">9.5 XC 语言用法示例（来自示例工程）</h3>
+<p>典型流程：1) 创建线程池 → 2) 投递任务 → 3) 主线程等待所有任务完成（队列数与执行数都为 0） → 4) 优雅销毁线程池。</p>
+<p>示例（节选思路，完整代码见 <code>示例\模块示例\xc-线程池\main.xc</code>）：全局声明线程池对象，保证生命周期足够长，避免局部变量提前析构触发销毁；用 <code>取队列任务数()</code> + <code>取执行任务数()</code> 等待任务完成后再退出。</p>
+<h3 id="96-易错点与最佳实践">9.6 易错点与最佳实践</h3>
+<ul><li><strong>线程池对象生命周期</strong>：若在函数局部创建 <code>ThreadPoolPro</code>，函数结束会调用析构，从而触发 <code>DestroyThreadPool(FALSE, 2000)</code>；若仍有后台任务在跑，可能导致任务被清理/线程退出。建议把线程池对象放到更长生命周期（全局/成员变量）</li></ul>
+<ul><li><strong>任务函数异常</strong>：工作线程执行任务时会捕获所有异常并吞掉，避免线程崩溃；因此建议在任务内部自行记录错误信息</li></ul>
+<ul><li><strong>UI 程序销毁</strong>：若在 UI 线程调用「非强制销毁并等待」，内部会 <code>ProcessMessage()</code> 防止窗口假死，但仍建议在退出流程里明确等待条件与超时策略</li></ul>
+<ul><li><strong>清空任务的语义</strong>：<code>ClearTask()</code> 会丢弃队列中尚未执行的任务（释放任务对象），不保证这些任务会执行</li></ul></main>
+<aside><b>本页目录</b><a class="depth-2" href="#1-模块概览与核心文件">1. 模块概览与核心文件</a><a class="depth-2" href="#2-句柄与基础类型">2. 句柄与基础类型</a><a class="depth-2" href="#3-对象类型体系xc_object_type">3. 对象类型体系（`XC_OBJECT_TYPE`）</a><a class="depth-2" href="#4-事件系统xcgui_eventh">4. 事件系统（`xcgui_event.h`）</a><a class="depth-3" href="#41-窗口事件wm_-xwm_">4.1 窗口事件（`WM_*` / `XWM_*`）</a><a class="depth-3" href="#42-元素事件xe_">4.2 元素事件（`XE_*`）</a><a class="depth-2" href="#5-c-封装类module_xcgui_classh">5. C++ 封装类（`module_xcgui_class.h`）</a><a class="depth-2" href="#6-使用建议与最佳实践代码侧含-css-主题加载">6. 使用建议与最佳实践（代码侧，含 CSS 主题加载）</a><a class="depth-3" href="#61-典型使用场景思路级">6.1 典型使用场景（思路级）</a><a class="depth-3" href="#62-事件回调推荐组织方式">6.2 事件回调（推荐组织方式）</a><a class="depth-3" href="#63-易错点">6.3 易错点</a><a class="depth-3" href="#64-css-样式文件加载与加载样式文件失败排查">6.4 CSS 样式文件加载与「加载样式文件失败」排查</a><a class="depth-3" href="#65-句柄事件签名与复选框状态当前-xcgui-实战">6.5 句柄、事件签名与复选框状态（当前 XCGUI 实战）</a><a class="depth-3" href="#66-用真实事件做界面回归不以绑定存在代替行为正确">6.6 用真实事件做界面回归，不以“绑定存在”代替“行为正确”</a><a class="depth-3" href="#67-原生鼠标延迟模板与公共文件对话框回归2026-11-07-实战">6.7 原生鼠标、延迟模板与公共文件对话框回归（2026-11-07 实战）</a><a class="depth-2" href="#7-列表适配器与弹窗-拖放">7. 列表适配器与弹窗 / 拖放</a><a class="depth-3" href="#71-列表类控件模板-适配器-生命周期事件">7.1 列表类控件：模板 + 适配器 + 生命周期事件</a><a class="depth-3" href="#72-代码补样式何时用怎么用">7.2 代码补样式（何时用、怎么用）</a><a class="depth-3" href="#73-弹窗与通知">7.3 弹窗与通知</a><a class="depth-3" href="#74-文件拖放导入闭环范式">7.4 文件拖放导入（闭环范式）</a><a class="depth-3" href="#75-易错点">7.5 易错点</a><a class="depth-2" href="#8-系统api-前缀分组索引">8. 系统API 前缀分组索引</a><a class="depth-2" href="#9-线程池">9. 线程池</a><a class="depth-3" href="#91-模块概述与文件结构">9.1 模块概述与文件结构</a><a class="depth-3" href="#92-线程模型核心机制">9.2 线程模型（核心机制）</a><a class="depth-3" href="#93-状态枚举threadpoolstate-线程池状态">9.3 状态枚举（`ThreadPoolState` / 线程池状态）</a><a class="depth-3" href="#94-对外类与-apithreadpoolpro-线程池类">9.4 对外类与 API（`ThreadPoolPro` / 线程池类）</a><a class="depth-3" href="#95-xc-语言用法示例来自示例工程">9.5 XC 语言用法示例（来自示例工程）</a><a class="depth-3" href="#96-易错点与最佳实践">9.6 易错点与最佳实践</a></aside></div>
+<footer class="foot">源 Markdown：xcgui-code.md · 独立 HTML 副本：xcgui-code.html</footer></body></html>
